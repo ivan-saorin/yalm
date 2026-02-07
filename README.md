@@ -59,13 +59,13 @@ YALM is structured as a Rust workspace with five crates that form a clean pipeli
 Dictionary (markdown)
     │
     ▼
-┌──────────┐     ┌─────────────────────┐     ┌─────────────┐
-│  Parser  │────▶│ Connector Discovery │────▶│ Force Field │
-│          │     │                     │     │  (N-D space) │
-└──────────┘     └─────────────────────┘     └──────┬──────┘
+┌──────────┐      ┌─────────────────────┐     ┌──────────────┐
+│  Parser  │────▶│ Connector Discovery │────▶│ Force Field  │
+│          │      │                     │     │  (N-D space) │
+└──────────┘      └─────────────────────┘     └──────┬───────┘
                                                      │
                  ┌─────────────────────┐             │
-                 │      Resolver       │◀────────────┘
+                 │      Resolver       │◀───────────┘
                  │  (answer questions) │
                  └─────────────────────┘
 ```
