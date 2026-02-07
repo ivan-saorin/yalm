@@ -1,4 +1,5 @@
 pub mod connector_discovery;
+pub mod equilibrium;
 pub mod force_field;
 pub mod resolver;
 pub mod strategy;
@@ -7,9 +8,31 @@ use std::collections::HashSet;
 use yalm_core::*;
 
 use connector_discovery::{classify_word_roles, discover_connectors, extract_all_sentences, extract_relations};
+use equilibrium::{build_space_equilibrium, EquilibriumParams};
 use force_field::build_space;
 use resolver::resolve_question;
 use strategy::StrategyConfig;
+
+// ─── Build Mode ─────────────────────────────────────────────────
+
+/// Controls how the geometric space is constructed.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BuildMode {
+    /// Batch force field: all positions initialized at once, forces applied
+    /// iteratively over learning_passes with decaying magnitude. (Default)
+    ForceField,
+    /// Sequential equilibrium: words placed one at a time from definitions,
+    /// with local relaxation after each placement. Fixed parameters, no GA.
+    Equilibrium,
+}
+
+impl Default for BuildMode {
+    fn default() -> Self {
+        BuildMode::ForceField
+    }
+}
+
+// ─── Engine ─────────────────────────────────────────────────────
 
 pub struct Engine {
     params: EngineParams,
@@ -19,6 +42,7 @@ pub struct Engine {
     content: HashSet<String>,
     dictionary: Option<Dictionary>,
     quiet: bool,
+    mode: BuildMode,
 }
 
 impl Engine {
@@ -40,11 +64,16 @@ impl Engine {
             content: HashSet::new(),
             dictionary: None,
             quiet: false,
+            mode: BuildMode::ForceField,
         }
     }
 
     pub fn set_quiet(&mut self, quiet: bool) {
         self.quiet = quiet;
+    }
+
+    pub fn set_mode(&mut self, mode: BuildMode) {
+        self.mode = mode;
     }
 
     pub fn strategy(&self) -> &StrategyConfig {
@@ -82,7 +111,25 @@ impl Comprehend for Engine {
             );
         }
 
-        let space = build_space(dictionary, &connectors, &relations, &self.params, &self.strategy);
+        let space = match self.mode {
+            BuildMode::ForceField => {
+                build_space(dictionary, &connectors, &relations, &self.params, &self.strategy)
+            }
+            BuildMode::Equilibrium => {
+                let eq_params = EquilibriumParams::default();
+                build_space_equilibrium(
+                    dictionary,
+                    &connectors,
+                    &relations,
+                    &[],
+                    &self.params,
+                    &self.strategy,
+                    &eq_params,
+                    self.quiet,
+                )
+            }
+        };
+
         if !self.quiet {
             let stats = space.get_distance_stats();
             println!("  Distance stats: mean={:.4}, std_dev={:.4} ({} words)", stats.mean, stats.std_dev, space.words.len());
@@ -98,7 +145,7 @@ impl Comprehend for Engine {
         self.content = content;
 
         // PASS 1: Discover connectors and relations from dictionary
-        let (connectors, mut relations) = discover_connectors(dictionary, &self.params, &self.strategy);
+        let (connectors, relations) = discover_connectors(dictionary, &self.params, &self.strategy);
 
         if !self.quiet {
             println!("=== Discovered {} connectors ===", connectors.len());
@@ -113,13 +160,12 @@ impl Comprehend for Engine {
         }
 
         // PASS 2: Extract additional relations from grammar text
-        // Grammar sentences are processed with dict's vocabulary (entry_set + topic words)
         let grammar_sentences = extract_all_sentences(grammar);
         let mut grammar_relations = extract_relations(
             &grammar_sentences, dictionary, &self.structural, &self.content, &self.params
         );
 
-        // Scale grammar relations by grammar_weight to prevent overwhelming dict signal
+        // Scale grammar relations by grammar_weight
         let gw = self.params.grammar_weight;
         for r in &mut grammar_relations {
             r.weight = gw;
@@ -134,19 +180,45 @@ impl Comprehend for Engine {
             );
         }
 
-        // Merge: grammar relations reinforce connector patterns
-        relations.extend(grammar_relations);
+        let space = match self.mode {
+            BuildMode::ForceField => {
+                // Merge relations and build space (existing behavior)
+                let mut all_relations = relations;
+                all_relations.extend(grammar_relations);
 
-        if !self.quiet {
-            println!(
-                "=== Total relations: {} ({} negated) ===",
-                relations.len(),
-                relations.iter().filter(|r| r.negated).count()
-            );
-        }
+                if !self.quiet {
+                    println!(
+                        "=== Total relations: {} ({} negated) ===",
+                        all_relations.len(),
+                        all_relations.iter().filter(|r| r.negated).count()
+                    );
+                }
 
-        // Build space with combined relations
-        let space = build_space(dictionary, &connectors, &relations, &self.params, &self.strategy);
+                build_space(dictionary, &connectors, &all_relations, &self.params, &self.strategy)
+            }
+            BuildMode::Equilibrium => {
+                if !self.quiet {
+                    println!(
+                        "=== Total relations: {} dict + {} grammar ===",
+                        relations.len(),
+                        grammar_relations.len()
+                    );
+                }
+
+                let eq_params = EquilibriumParams::default();
+                build_space_equilibrium(
+                    dictionary,
+                    &connectors,
+                    &relations,
+                    &grammar_relations,
+                    &self.params,
+                    &self.strategy,
+                    &eq_params,
+                    self.quiet,
+                )
+            }
+        };
+
         if !self.quiet {
             let stats = space.get_distance_stats();
             println!("  Distance stats: mean={:.4}, std_dev={:.4} ({} words)", stats.mean, stats.std_dev, space.words.len());

@@ -22,6 +22,9 @@ struct Cli {
     /// Path to genome JSON file (optional, loads evolved parameters + strategy)
     #[arg(long)]
     genome: Option<PathBuf>,
+    /// Build mode: "forcefield" (default) or "equilibrium"
+    #[arg(long, default_value = "forcefield")]
+    mode: String,
 }
 
 /// Genome structure matching what yalm-evolve produces.
@@ -136,6 +139,14 @@ fn main() {
 
     // ── Step 5: Train ─────────────────────────────────────────────
     let mut engine = Engine::with_strategy(params.clone(), strategy.clone());
+
+    let build_mode = match cli.mode.as_str() {
+        "equilibrium" | "eq" => yalm_engine::BuildMode::Equilibrium,
+        _ => yalm_engine::BuildMode::ForceField,
+    };
+    engine.set_mode(build_mode);
+    println!("Build mode: {:?}", build_mode);
+
     if let Some(ref grammar) = grammar {
         engine.train_with_grammar(&dictionary, grammar);
     } else {

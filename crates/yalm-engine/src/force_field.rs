@@ -292,7 +292,7 @@ fn initialize_positions(
 /// connector's axis. This means words connected by the same connector pattern
 /// are pulled together along that specific dimension.
 /// If negated, the behavior depends on the NegationModel strategy.
-fn apply_force(
+pub fn apply_force(
     words: &mut HashMap<String, WordPoint>,
     left_word: &str,
     right_word: &str,
