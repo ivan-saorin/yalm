@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "crates/yalm-core",
+    "crates/yalm-parser",
+    "crates/yalm-engine",
+    "crates/yalm-eval",
+    "crates/yalm-evolve",
+]
+resolver = "2"

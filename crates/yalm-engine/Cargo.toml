@@ -1,0 +1,9 @@
+[package]
+name = "yalm-engine"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+yalm-core = { path = "../yalm-core" }
+yalm-parser = { path = "../yalm-parser" }
+serde = { version = "1", features = ["derive"] }

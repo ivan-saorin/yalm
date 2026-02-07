@@ -1,0 +1,7 @@
+[package]
+name = "yalm-parser"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+yalm-core = { path = "../yalm-core" }
