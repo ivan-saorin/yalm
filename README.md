@@ -1,5 +1,9 @@
 # YALM — Yet Another Language Model
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+> O(n log n) learning · O(1) inference · Zero GPU · Zero training corpus
+
 **A geometric comprehension engine that understands language through physics, not statistics.**
 
 YALM reads a closed dictionary, places every word as a point in N-dimensional space, and lets sentences act as physical forces that push related words together. After the force field reaches equilibrium, the geometry *is* the knowledge — questions become distance measurements, reasoning becomes chain traversal, and "I don't know" falls out naturally when nothing is close enough.
@@ -204,6 +208,8 @@ YALM demonstrates that **geometric structure alone** can produce meaningful comp
 - **Scales sublinearly** — doubling vocabulary from 1005 to 2008 words costs only 1 additional error
 - Produces **honest uncertainty** — it says "I don't know" when the geometry has no answer, rather than hallucinating
 - **Self-improves** through evolutionary search over its own algorithmic choices
+
+Inference is O(1) — answering a question in a 2008-word space takes the same time as in a 51-word space. Learning is O(n log n) — essentially sorting-tier complexity.
 
 The remaining failures at scale are engineering challenges (threshold tuning, parser improvements), not fundamental architectural limits. The geometry works.
 
