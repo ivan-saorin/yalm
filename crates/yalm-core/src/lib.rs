@@ -52,6 +52,10 @@ pub struct DictionaryEntry {
     pub definition: String,
     pub examples: Vec<String>,
     pub section: String,
+    /// True if this entry comes from an entity definition file.
+    /// Entity definitions are hand-crafted and should bypass
+    /// filter heuristics in definition_category().
+    pub is_entity: bool,
 }
 
 #[derive(Debug, Clone)]

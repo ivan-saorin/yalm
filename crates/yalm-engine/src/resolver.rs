@@ -146,7 +146,6 @@ fn definition_category(
     let first_sentence = entry.definition.split('.').next().unwrap_or(&entry.definition);
     let words = tokenize(first_sentence);
 
-
     for word in &words {
         let stemmed = match stem_to_entry(word, &dictionary.entry_set) {
             Some(s) => s,
@@ -156,6 +155,25 @@ fn definition_category(
         if stemmed == subject {
             continue;
         }
+
+        // ENTITY FAST PATH: entity definitions are hand-crafted in
+        // ELI5 format ("a person", "a dog", "a river"). The first
+        // non-subject, non-article content word IS the category.
+        // Skip all heuristic filters that were designed for messy
+        // auto-generated definitions.
+        if entry.is_entity {
+            let articles: std::collections::HashSet<&str> = ["a", "an", "the"].iter().copied().collect();
+            if articles.contains(stemmed.as_str()) {
+                continue;
+            }
+            // First non-article word is the category
+            if dictionary.entry_set.contains(&stemmed) {
+                return Some(stemmed);
+            }
+            continue;
+        }
+
+        // STANDARD PATH: apply all filters for auto-generated definitions
         // Skip structural/function words
         if structural.contains(&stemmed) {
             continue;
@@ -525,7 +543,7 @@ fn find_negation_connector(space: &GeometricSpace) -> Option<&Connector> {
 
 // ─── Question Type Detection ───────────────────────────────────
 
-/// Detect whether the question is a Yes/No question or a "What is X?" question.
+/// Detect whether the question is a Yes/No, What-Is, Who-Is, or Where-Is question.
 fn detect_question_type(
     tokens: &[String],
     dictionary: &Dictionary,
@@ -536,13 +554,38 @@ fn detect_question_type(
         return None;
     }
 
-    // Check if the question starts with "what"
-    if tokens[0] == "what" {
-        return detect_what_question(tokens, dictionary, content, structural);
+    match tokens[0].as_str() {
+        "what" => detect_what_question(tokens, dictionary, content, structural),
+        "who" => detect_who_question(tokens, dictionary, content, structural),
+        "where" => detect_where_question(tokens, dictionary, content, structural),
+        _ => detect_yes_no_question(tokens, dictionary, content, structural),
     }
+}
 
-    // Yes/No question: "Is X a Y?", "Can X do Y?"
-    detect_yes_no_question(tokens, dictionary, content, structural)
+/// Detect "Who is X?" questions.
+/// Semantically identical to "What is X?" — the resolver doesn't
+/// enforce person-category constraints. The question word is just routing.
+fn detect_who_question(
+    tokens: &[String],
+    dictionary: &Dictionary,
+    content: &HashSet<String>,
+    structural: &HashSet<String>,
+) -> Option<QuestionType> {
+    // Reuse what-question detection: "who" behaves like "what" for resolution.
+    // The geometric space and definition-category extraction handle the rest.
+    detect_what_question(tokens, dictionary, content, structural)
+}
+
+/// Detect "Where is X?" questions.
+/// Currently uses same resolution as "What is X?" (definition-category extraction).
+/// Future: dedicated location-relation extraction from definitions.
+fn detect_where_question(
+    tokens: &[String],
+    dictionary: &Dictionary,
+    content: &HashSet<String>,
+    structural: &HashSet<String>,
+) -> Option<QuestionType> {
+    detect_what_question(tokens, dictionary, content, structural)
 }
 
 /// Detect "What is X?" questions.
@@ -768,7 +811,7 @@ fn resolve_yes_no(
     // - None + not both in dict → trust geometry
     // For negated questions, the geometric pipeline handles via threshold inversion.
     if !negated {
-        let max_hops = 2; // traversal depth
+        let max_hops = 3; // traversal depth (was 2; increased for Level 1 ontological chains)
 
         // Forward check: subject → object
         let mut visited = HashSet::new();

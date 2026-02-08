@@ -26,6 +26,7 @@ pub fn parse_dictionary(content: &str) -> Dictionary {
                     definition: current_definition.clone(),
                     examples: current_examples.clone(),
                     section: current_section.clone(),
+                    is_entity: false,
                 });
                 current_definition.clear();
                 current_examples.clear();
@@ -42,6 +43,7 @@ pub fn parse_dictionary(content: &str) -> Dictionary {
                     definition: current_definition.clone(),
                     examples: current_examples.clone(),
                     section: current_section.clone(),
+                    is_entity: false,
                 });
                 current_definition.clear();
                 current_examples.clear();
@@ -59,6 +61,7 @@ pub fn parse_dictionary(content: &str) -> Dictionary {
                     definition: current_definition.clone(),
                     examples: current_examples.clone(),
                     section: current_section.clone(),
+                    is_entity: false,
                 });
                 current_definition.clear();
                 current_examples.clear();
@@ -82,6 +85,7 @@ pub fn parse_dictionary(content: &str) -> Dictionary {
             definition: current_definition,
             examples: current_examples,
             section: current_section,
+            is_entity: false,
         });
     }
 
@@ -255,6 +259,7 @@ fn finalize_grammar_section(
         definition,
         examples,
         section: "grammar".to_string(),
+        is_entity: false,
     });
 }
 

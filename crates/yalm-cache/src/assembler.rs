@@ -226,6 +226,7 @@ impl<'a> DictionaryAssembler<'a> {
                     definition,
                     examples,
                     section: "assembled".to_string(),
+                    is_entity: false,
                 }
             })
             .collect();

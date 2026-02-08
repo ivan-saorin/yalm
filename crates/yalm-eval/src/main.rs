@@ -223,7 +223,8 @@ fn main() {
             let mut entry_map: std::collections::HashMap<String, DictionaryEntry> =
                 dictionary.entries.into_iter().map(|e| (e.word.clone(), e)).collect();
 
-            for entity_entry in entities_dict.entries {
+            for mut entity_entry in entities_dict.entries {
+                entity_entry.is_entity = true; // tag as entity for definition_category() fast path
                 entry_map.insert(entity_entry.word.clone(), entity_entry);
             }
 
