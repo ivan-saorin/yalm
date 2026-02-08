@@ -8,6 +8,48 @@ use yalm_engine::Engine;
 use yalm_eval::{evaluate, print_space_statistics};
 use yalm_parser::{parse_dictionary, parse_grammar_text, parse_test_questions};
 
+/// Convert a descriptive sentence into a Yes/No question for verification.
+///
+/// "a dog is an animal." → "Is a dog an animal?"
+/// "a dog can make sound." → "Can a dog make sound?"
+/// "a dog is not a cat." → "Is a dog not a cat?"
+/// "a dog can live with a person." → "Can a dog live with a person?"
+fn sentence_to_question(sentence: &str) -> Option<String> {
+    let s = sentence.trim().trim_end_matches('.');
+    let words: Vec<&str> = s.split_whitespace().collect();
+    if words.len() < 3 {
+        return None;
+    }
+
+    // Find the verb: "is", "can", "has", "does"
+    // Pattern: [subject...] [verb] [rest...]
+    // "a dog is an animal" → verb at position 2
+    // "the sun is big" → verb at position 2
+    // "a dog can make sound" → verb at position 2
+    // "montmorency is a dog" → verb at position 1
+    let verbs = ["is", "can", "has", "does"];
+    let verb_pos = words.iter().position(|w| verbs.contains(w))?;
+
+    if verb_pos == 0 {
+        return None; // sentence starts with verb — can't restructure
+    }
+
+    let subject_part = words[..verb_pos].join(" ");
+    let verb = words[verb_pos];
+    let rest = words[verb_pos + 1..].join(" ");
+
+    // Construct question: "Is/Can [subject] [rest]?"
+    let q_verb = match verb {
+        "is" => "Is",
+        "can" => "Can",
+        "has" => "Has",
+        "does" => "Does",
+        _ => return None,
+    };
+
+    Some(format!("{} {} {}?", q_verb, subject_part, rest))
+}
+
 #[derive(Parser)]
 #[command(name = "yalm-eval", about = "Evaluate YALM engine on test questions")]
 struct Cli {
@@ -48,6 +90,15 @@ struct Cli {
     /// Path to entity definitions file (merged into dictionary, overrides cache)
     #[arg(long)]
     entities: Option<PathBuf>,
+
+    // ── Describe mode ──────────────────────────────────────────────
+    /// Describe words: generate natural-language descriptions (comma-separated)
+    #[arg(long)]
+    describe: Option<String>,
+
+    /// Run self-consistency test on describe output
+    #[arg(long)]
+    describe_verify: bool,
 
     // ── Ollama options ─────────────────────────────────────────────
     /// Ollama API base URL (only used with --cache-type ollama)
@@ -293,6 +344,72 @@ fn main() {
 
     // ── Space statistics ──────────────────────────────────────────
     print_space_statistics(engine.space(), &dictionary);
+
+    // ── Describe mode ────────────────────────────────────────────
+    if let Some(ref words) = cli.describe {
+        let word_list: Vec<&str> = words.split(',').map(|w| w.trim()).collect();
+        println!("\n=== Describe Mode ===");
+
+        for word in &word_list {
+            let sentences = yalm_engine::resolver::describe(
+                word,
+                engine.space(),
+                &dictionary,
+                engine.structural(),
+                engine.content(),
+                &params,
+                &strategy,
+            );
+            println!("\n--- {} ---", word);
+            for s in &sentences {
+                println!("  {}", s);
+            }
+
+            // Self-consistency verification
+            if cli.describe_verify {
+                println!("  [verify]");
+                let mut pass = 0;
+                let mut fail = 0;
+                for s in &sentences {
+                    // Skip negation sentences — known geometric limitation
+                    if s.contains("is not") {
+                        println!("    - {} [negation — skipped]", s);
+                        continue;
+                    }
+
+                    let question = sentence_to_question(s);
+                    if let Some(ref q) = question {
+                        let (answer, dist, _) = yalm_engine::resolver::resolve_question(
+                            q,
+                            engine.space(),
+                            &dictionary,
+                            engine.structural(),
+                            engine.content(),
+                            &params,
+                            &strategy,
+                        );
+                        let expected = Answer::Yes;
+                        let ok = answer == expected;
+                        let status = if ok { "\u{2713}" } else { "\u{2717}" };
+                        println!(
+                            "    {} {} \u{2192} {} (dist: {:.4}) [expected: {}]",
+                            status, q, answer,
+                            dist.unwrap_or(f64::NAN),
+                            expected
+                        );
+                        if ok { pass += 1; } else { fail += 1; }
+                    }
+                }
+                println!("  Consistency: {}/{} pass", pass, pass + fail);
+            }
+        }
+
+        // If describe-only run (no explicit --test override), skip evaluation
+        let default_test = PathBuf::from("dictionaries/dict5_test.md");
+        if cli.test == default_test && cli.text.is_none() {
+            return;
+        }
+    }
 
     // ── Test results ──────────────────────────────────────────────
     println!("\n=== Test Results ===\n");

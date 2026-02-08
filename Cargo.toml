@@ -7,5 +7,6 @@ members = [
     "crates/yalm-eval",
     "crates/yalm-evolve",
     "crates/yalm-wikt-build",
+    "crates/yalm-demo",
 ]
 resolver = "2"

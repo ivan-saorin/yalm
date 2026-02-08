@@ -4,6 +4,15 @@ use yalm_parser::{stem_to_entry, tokenize};
 
 use crate::strategy::{NegationModel, StrategyConfig};
 
+// ─── Boolean Operators ────────────────────────────────────────
+
+/// Boolean operator for compound queries.
+#[derive(Debug, Clone, Copy, PartialEq)]
+enum BoolOp {
+    And,
+    Or,
+}
+
 // ─── Definition-Chain Negation (Fix 1) ────────────────────────
 
 /// Check if `subject` is definitionally linked to `object` by traversing dictionary definitions.
@@ -285,7 +294,141 @@ enum QuestionType {
         /// >0 = property query like "What color is X?" (should NOT use definition fallback)
         extra_content_words: usize,
     },
+    WhyIs {
+        subject: String,
+        object: String,
+        connector: Vec<String>,
+    },
+    WhenIs {
+        subject: String,
+        action: String,
+    },
 }
+
+// ─── Compound Query Detection (AND/OR) ───────────────────────
+
+/// Detect AND/OR compound queries and split into sub-question strings.
+///
+/// For "Is a dog an animal and a thing?":
+///   → prefix = "is a dog" (question verb + articles + subject)
+///   → left  = "is a dog an animal?"
+///   → right = "is a dog a thing?"
+///
+/// Only fires for Yes/No questions (starting with is/can/does/do/has).
+/// Returns None for What/Who/Where questions and single-predicate questions.
+fn detect_compound(
+    tokens: &[String],
+    dictionary: &Dictionary,
+    _content: &HashSet<String>,
+) -> Option<(BoolOp, String, String)> {
+    // Only split Yes/No questions (question-verb-first).
+    // What/Who/Where compound ("What is a dog and what is a cat?") is
+    // two separate questions, not a boolean compound.
+    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"]
+        .iter().copied().collect();
+    if tokens.is_empty() || !question_verbs.contains(tokens[0].as_str()) {
+        return None;
+    }
+
+    // Find boolean operator (first occurrence only).
+    // Using first occurrence handles single-operator compounds.
+    // Multi-operator ("A and B and C") resolves left-to-right:
+    // the right sub-question still contains "and", which triggers
+    // recursive compound detection.
+    let (op, op_idx) = tokens.iter().enumerate()
+        .find_map(|(i, t)| match t.as_str() {
+            "and" => Some((BoolOp::And, i)),
+            "or" => Some((BoolOp::Or, i)),
+            _ => None,
+        })?;
+
+    // Boolean operator must be AFTER the subject (at least position 2)
+    // to avoid false positives on compound-noun subjects like
+    // "bread and butter". The subject is at minimum position 1
+    // (position 0 is the question verb).
+    if op_idx < 3 {
+        return None;
+    }
+
+    // Extract question prefix: everything up to and including the subject.
+    // Pattern: [question_verb] [articles...] [subject]
+    // Subject = first content word after the question verb.
+    let articles: HashSet<&str> = ["a", "an", "the"].iter().copied().collect();
+    let mut prefix_end = 0; // exclusive index past the subject
+    for (i, token) in tokens.iter().enumerate().skip(1) {
+        // Skip articles
+        if articles.contains(token.as_str()) {
+            continue;
+        }
+        // First non-article token after question verb = subject
+        if let Some(stemmed) = stem_to_entry(token, &dictionary.entry_set) {
+            if dictionary.entry_set.contains(&stemmed) {
+                prefix_end = i + 1;
+                break;
+            }
+        }
+        // If token isn't in dictionary, it might still be the subject
+        // (e.g., a proper noun not in the entry set). Include it.
+        prefix_end = i + 1;
+        break;
+    }
+
+    if prefix_end == 0 || prefix_end >= op_idx {
+        return None; // no subject found or subject is past the operator
+    }
+
+    let prefix: Vec<&str> = tokens[..prefix_end].iter().map(|s| s.as_str()).collect();
+    let left_pred: Vec<&str> = tokens[prefix_end..op_idx].iter().map(|s| s.as_str()).collect();
+    let right_pred: Vec<&str> = tokens[op_idx + 1..].iter().map(|s| s.as_str()).collect();
+
+    if left_pred.is_empty() || right_pred.is_empty() {
+        return None; // malformed: nothing on one side of the operator
+    }
+
+    let left_question = format!("{} {}?", prefix.join(" "), left_pred.join(" "));
+    let right_question = format!("{} {}?", prefix.join(" "), right_pred.join(" "));
+
+    Some((op, left_question, right_question))
+}
+
+/// Combine two Yes/No/IDK answers with boolean AND or OR.
+///
+/// Truth tables:
+///   AND: Yes∧Yes=Yes, Yes∧No=No, Yes∧IDK=IDK, No∧anything=No, IDK∧IDK=IDK
+///   OR:  Yes∨anything=Yes, No∨No=No, No∨IDK=IDK, IDK∨IDK=IDK
+///
+/// Word answers in boolean context are treated as IDK (compounds are
+/// for Yes/No questions only).
+fn combine_boolean(
+    op: BoolOp,
+    left: &Answer,
+    right: &Answer,
+) -> Answer {
+    // Normalize Word answers to IDK for boolean context
+    let l = match left {
+        Answer::Yes | Answer::No | Answer::IDontKnow => left.clone(),
+        Answer::Word(_) => Answer::IDontKnow,
+    };
+    let r = match right {
+        Answer::Yes | Answer::No | Answer::IDontKnow => right.clone(),
+        Answer::Word(_) => Answer::IDontKnow,
+    };
+
+    match op {
+        BoolOp::And => match (&l, &r) {
+            (Answer::No, _) | (_, Answer::No) => Answer::No,
+            (Answer::Yes, Answer::Yes) => Answer::Yes,
+            _ => Answer::IDontKnow,
+        },
+        BoolOp::Or => match (&l, &r) {
+            (Answer::Yes, _) | (_, Answer::Yes) => Answer::Yes,
+            (Answer::No, Answer::No) => Answer::No,
+            _ => Answer::IDontKnow,
+        },
+    }
+}
+
+// ─── Question Resolution ──────────────────────────────────────
 
 /// Resolve a question against the geometric space.
 /// Returns (answer, projection_distance, connector_pattern_used).
@@ -304,6 +447,50 @@ pub fn resolve_question(
 ) -> (Answer, Option<f64>, Option<String>) {
     let tokens = tokenize(question);
 
+    // ── Compound query detection (AND/OR) ──────────────────────
+    if let Some((op, left_q, right_q)) = detect_compound(&tokens, dictionary, content) {
+        let (left_ans, left_dist, left_conn) =
+            resolve_question(&left_q, space, dictionary, structural, content, params, strategy);
+        let (right_ans, right_dist, right_conn) =
+            resolve_question(&right_q, space, dictionary, structural, content, params, strategy);
+
+        let combined = combine_boolean(op, &left_ans, &right_ans);
+
+        // Distance: use the sub-query that determined the result.
+        // AND→Yes: max distance (both had to pass).
+        // OR→Yes: min distance (the winner).
+        // No: max distance (the bottleneck/both failed).
+        // IDK: average.
+        let dist = match (&combined, &op) {
+            (Answer::Yes, BoolOp::And) => match (left_dist, right_dist) {
+                (Some(a), Some(b)) => Some(a.max(b)),
+                (d, None) | (None, d) => d,
+            },
+            (Answer::Yes, BoolOp::Or) => match (left_dist, right_dist) {
+                (Some(a), Some(b)) => Some(a.min(b)),
+                (d, None) | (None, d) => d,
+            },
+            (Answer::No, _) => match (left_dist, right_dist) {
+                (Some(a), Some(b)) => Some(a.max(b)),
+                (d, None) | (None, d) => d,
+            },
+            _ => match (left_dist, right_dist) {
+                (Some(a), Some(b)) => Some((a + b) / 2.0),
+                (d, None) | (None, d) => d,
+            },
+        };
+
+        let op_str = match op { BoolOp::And => "AND", BoolOp::Or => "OR" };
+        let conn = match (left_conn, right_conn) {
+            (Some(l), Some(r)) => Some(format!("{} [{}] {}", l, op_str, r)),
+            (Some(c), None) | (None, Some(c)) => Some(c),
+            _ => None,
+        };
+
+        return (combined, dist, conn);
+    }
+
+    // ── Single-question path (unchanged) ──────────────────────
     let question_type = detect_question_type(&tokens, dictionary, content, structural);
 
     match question_type {
@@ -330,6 +517,19 @@ pub fn resolve_question(
                                 dictionary, structural, params, strategy,
                                 extra_content_words);
             (answer, Some(distance), Some(connector_str))
+        }
+        Some(QuestionType::WhyIs { subject, object, connector }) => {
+            let connector_str = connector.join(" ");
+            let (answer, distance) = resolve_why(
+                &subject, &object, dictionary, structural, space,
+            );
+            (answer, Some(distance), Some(connector_str))
+        }
+        Some(QuestionType::WhenIs { subject, action }) => {
+            let (answer, distance) = resolve_when(
+                &subject, &action, dictionary, structural, space,
+            );
+            (answer, Some(distance), Some(format!("when {} {}", subject, action)))
         }
         None => (Answer::IDontKnow, None, None),
     }
@@ -558,6 +758,8 @@ fn detect_question_type(
         "what" => detect_what_question(tokens, dictionary, content, structural),
         "who" => detect_who_question(tokens, dictionary, content, structural),
         "where" => detect_where_question(tokens, dictionary, content, structural),
+        "why" => detect_why_question(tokens, dictionary, content, structural),
+        "when" => detect_when_question(tokens, dictionary, content, structural),
         _ => detect_yes_no_question(tokens, dictionary, content, structural),
     }
 }
@@ -586,6 +788,144 @@ fn detect_where_question(
     structural: &HashSet<String>,
 ) -> Option<QuestionType> {
     detect_what_question(tokens, dictionary, content, structural)
+}
+
+/// Detect "Why is X Y?" or "Why can X Y?" questions.
+///
+/// Pattern: why [verb] [articles...] [subject] [articles...] [object]
+/// Examples:
+///   "Why is a dog an animal?" → subject=dog, object=animal
+///   "Why can a dog eat?" → subject=dog, object=eat
+///   "Why is the sun hot?" → subject=sun, object=hot
+fn detect_why_question(
+    tokens: &[String],
+    dictionary: &Dictionary,
+    content: &HashSet<String>,
+    _structural: &HashSet<String>,
+) -> Option<QuestionType> {
+    // "why" is at position 0. Skip it and the question verb.
+    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"]
+        .iter().copied().collect();
+    let skip_start = if tokens.len() > 1 && question_verbs.contains(tokens[1].as_str()) {
+        2  // skip "why" + verb
+    } else {
+        1  // skip "why" only
+    };
+
+    let mut content_entries: Vec<(usize, String)> = tokens
+        .iter()
+        .enumerate()
+        .skip(skip_start)
+        .filter_map(|(i, t)| {
+            stem_to_entry(t, &dictionary.entry_set).and_then(|e| {
+                if content.contains(&e) {
+                    Some((i, e))
+                } else {
+                    None
+                }
+            })
+        })
+        .collect();
+
+    // Fallback: include non-structural entry words if < 2 content words
+    if content_entries.len() < 2 {
+        let skip_words: HashSet<&str> = ["is", "a", "the", "it", "not"].iter().copied().collect();
+        content_entries = tokens
+            .iter()
+            .enumerate()
+            .skip(skip_start)
+            .filter_map(|(i, t)| {
+                stem_to_entry(t, &dictionary.entry_set).and_then(|e| {
+                    if !skip_words.contains(e.as_str()) {
+                        Some((i, e))
+                    } else {
+                        None
+                    }
+                })
+            })
+            .collect();
+    }
+
+    if content_entries.len() < 2 {
+        return None;
+    }
+
+    let subject = content_entries[0].1.clone();
+    let object = content_entries[content_entries.len() - 1].1.clone();
+
+    // Extract connector from structural words between subject and object
+    let left_pos = content_entries[0].0;
+    let right_pos = content_entries[content_entries.len() - 1].0;
+    let connector: Vec<String> = if right_pos > left_pos + 1 {
+        (left_pos + 1..right_pos)
+            .filter_map(|i| {
+                stem_to_entry(&tokens[i], &dictionary.entry_set)
+                    .filter(|e| _structural.contains(e))
+            })
+            .collect()
+    } else {
+        Vec::new()
+    };
+
+    let connector = if connector.is_empty() {
+        vec!["is".to_string()]
+    } else {
+        connector
+    };
+
+    Some(QuestionType::WhyIs {
+        subject,
+        object,
+        connector,
+    })
+}
+
+/// Detect "When does X Y?" questions.
+///
+/// Pattern: when [verb] [articles...] [subject] [action...]
+/// Examples:
+///   "When does a person eat?" → subject=person, action=eat
+///   "When does a dog move?" → subject=dog, action=move
+fn detect_when_question(
+    tokens: &[String],
+    dictionary: &Dictionary,
+    content: &HashSet<String>,
+    _structural: &HashSet<String>,
+) -> Option<QuestionType> {
+    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"]
+        .iter().copied().collect();
+    let skip_start = if tokens.len() > 1 && question_verbs.contains(tokens[1].as_str()) {
+        2
+    } else {
+        1
+    };
+
+    let content_entries: Vec<(usize, String)> = tokens
+        .iter()
+        .enumerate()
+        .skip(skip_start)
+        .filter_map(|(i, t)| {
+            stem_to_entry(t, &dictionary.entry_set).and_then(|e| {
+                if content.contains(&e) {
+                    Some((i, e))
+                } else {
+                    None
+                }
+            })
+        })
+        .collect();
+
+    if content_entries.len() < 2 {
+        return None;
+    }
+
+    let subject = content_entries[0].1.clone();
+    let action = content_entries[content_entries.len() - 1].1.clone();
+
+    Some(QuestionType::WhenIs {
+        subject,
+        action,
+    })
 }
 
 /// Detect "What is X?" questions.
@@ -1146,6 +1486,498 @@ fn resolve_what_is(
         // Geometric nearest neighbor is too far — definition fallback already tried above
         (Answer::IDontKnow, best_distance)
     }
+}
+
+// ─── Why/When Resolution ───────────────────────────────────────
+
+/// Resolve "Why is X Y?" by tracing the definition chain from X to Y
+/// and presenting each hop as a "because" explanation.
+///
+/// Returns:
+/// - Word("because X is Z, and Z is Y") → chain found
+/// - IDontKnow → no chain connects X to Y
+fn resolve_why(
+    subject: &str,
+    object: &str,
+    dictionary: &Dictionary,
+    structural: &HashSet<String>,
+    space: &GeometricSpace,
+) -> (Answer, f64) {
+    let max_hops = 3;
+    let mut path: Vec<String> = Vec::new();
+    path.push(subject.to_string());
+
+    let found = trace_chain_path(
+        subject, object, dictionary, structural, max_hops,
+        &mut HashSet::new(), &mut path, space,
+    );
+
+    if !found {
+        return (Answer::IDontKnow, f64::MAX);
+    }
+
+    let explanation = build_chain_explanation(&path, dictionary);
+    (Answer::Word(explanation), 0.0)
+}
+
+/// Trace the definition chain from `current` to `target`, recording
+/// the path of words visited. Returns true if target is reached.
+///
+/// Uses the same traversal logic as definition_chain_check() but
+/// records the path instead of just returning bool.
+fn trace_chain_path(
+    current: &str,
+    target: &str,
+    dictionary: &Dictionary,
+    structural: &HashSet<String>,
+    max_hops: usize,
+    visited: &mut HashSet<String>,
+    path: &mut Vec<String>,
+    space: &GeometricSpace,
+) -> bool {
+    if visited.contains(current) {
+        return false;
+    }
+    visited.insert(current.to_string());
+
+    let entry = match dictionary.entries.iter().find(|e| e.word == current) {
+        Some(e) => e,
+        None => return false,
+    };
+
+    let def_text: String = entry.definition
+        .split('.')
+        .filter(|s| !s.contains('"') && !s.contains('\u{201C}') && !s.contains('\u{201D}'))
+        .collect::<Vec<_>>()
+        .join(".");
+    let def_words = tokenize(&def_text);
+
+    // Direct check: does target appear in current's definition?
+    if def_words.iter().any(|w| {
+        stem_to_entry(w, &dictionary.entry_set)
+            .map_or(false, |stemmed| stemmed == target)
+    }) {
+        if !preceded_by_not(&def_words, target, &dictionary.entry_set) {
+            path.push(target.to_string());
+            return true;
+        }
+    }
+
+    // Hop: follow first-sentence content words
+    const MAX_FOLLOW_PER_HOP: usize = 3;
+    if max_hops > 0 {
+        let first_sentence = def_text.split('.').next().unwrap_or(&def_text);
+        let first_words = tokenize(first_sentence);
+        let mut followed = 0;
+        for word in &first_words {
+            if followed >= MAX_FOLLOW_PER_HOP {
+                break;
+            }
+            let stemmed = match stem_to_entry(word, &dictionary.entry_set) {
+                Some(s) => s,
+                None => continue,
+            };
+            if structural.contains(&stemmed) || stemmed == current {
+                continue;
+            }
+            if !dictionary.entry_set.contains(&stemmed) {
+                continue;
+            }
+            followed += 1;
+
+            path.push(stemmed.clone());
+            if trace_chain_path(
+                &stemmed, target, dictionary, structural,
+                max_hops - 1, visited, path, space,
+            ) {
+                return true;
+            }
+            path.pop(); // backtrack
+        }
+    }
+
+    false
+}
+
+/// Build a natural-language explanation from a chain path.
+///
+/// path = ["dog", "animal"] → "because a dog is an animal"
+/// path = ["dog", "animal", "thing"] → "because a dog is an animal, and an animal is a thing"
+fn build_chain_explanation(
+    path: &[String],
+    dictionary: &Dictionary,
+) -> String {
+    if path.len() < 2 {
+        return "I don't know".to_string();
+    }
+
+    let mut parts: Vec<String> = Vec::new();
+    for window in path.windows(2) {
+        let from = &window[0];
+        let to = &window[1];
+        let from_art = make_article(from, dictionary);
+        let to_art = if to.starts_with(|c: char| "aeiou".contains(c)) {
+            format!("an {}", to)
+        } else {
+            format!("a {}", to)
+        };
+
+        // Determine the linking verb from the definition.
+        // If `to` appears after "can" in `from`'s definition → "can {to}"
+        // Otherwise → "is {to}"
+        let entry = dictionary.entries.iter().find(|e| e.word == *from);
+        let uses_can = entry.map_or(false, |e| {
+            let words = tokenize(&e.definition);
+            words.windows(2).any(|w| w[0] == "can" && {
+                stem_to_entry(&w[1], &dictionary.entry_set)
+                    .map_or(false, |s| s == *to)
+            })
+        });
+
+        if uses_can {
+            parts.push(format!("{} can {}", from_art, to));
+        } else {
+            parts.push(format!("{} is {}", from_art, to_art));
+        }
+    }
+
+    format!("because {}", parts.join(", and "))
+}
+
+/// Resolve "When does X Y?" by extracting conditional/purpose
+/// clauses from definitions of X and Y.
+///
+/// Returns:
+/// - Word("to feel good") → purpose clause found
+/// - Word("when it is hungry") → condition clause found
+/// - IDontKnow → no temporal/conditional info in definitions
+fn resolve_when(
+    subject: &str,
+    action: &str,
+    dictionary: &Dictionary,
+    structural: &HashSet<String>,
+    space: &GeometricSpace,
+) -> (Answer, f64) {
+    // Strategy 1: Look in action's definition for condition/purpose clauses.
+    // "eat" def: "you eat food. the food moves in you. you eat to feel good."
+    // → extract "to feel good" as purpose.
+    if let Some(clause) = extract_condition_clause(action, dictionary) {
+        return (Answer::Word(clause), 0.0);
+    }
+
+    // Strategy 2: Look in subject's definition for condition about the action.
+    if let Some(clause) = extract_condition_from_subject(subject, action, dictionary) {
+        return (Answer::Word(clause), 0.0);
+    }
+
+    // Strategy 3: Follow chain from subject to action, check intermediate defs.
+    let max_hops = 3;
+    let mut visited = HashSet::new();
+    if let Some(clause) = extract_condition_via_chain(
+        subject, action, dictionary, structural, max_hops, &mut visited, space,
+    ) {
+        return (Answer::Word(clause), 0.0);
+    }
+
+    (Answer::IDontKnow, f64::MAX)
+}
+
+/// Extract a condition/purpose clause from a word's definition.
+///
+/// Looks for:
+/// - "X to Y" patterns (purpose: "you eat to feel good" → "to feel good")
+/// - "when Y" patterns (condition)
+/// - "if Y" patterns (condition)
+fn extract_condition_clause(
+    word: &str,
+    dictionary: &Dictionary,
+) -> Option<String> {
+    let entry = dictionary.entries.iter().find(|e| e.word == word)?;
+
+    for sentence in entry.definition.split('.') {
+        let trimmed = sentence.trim();
+        if trimmed.is_empty() {
+            continue;
+        }
+        let lower = trimmed.to_lowercase();
+
+        // Pattern 1: "to [verb]" purpose clause at end of sentence
+        // "you eat to feel good" → extract "to feel good"
+        if let Some(to_pos) = lower.rfind(" to ") {
+            let clause = &trimmed[to_pos + 1..];
+            let clause_words: Vec<&str> = clause.split_whitespace().collect();
+            if clause_words.len() >= 2 {
+                return Some(clause.to_lowercase());
+            }
+        }
+
+        // Pattern 2: "when [condition]" clause
+        if let Some(when_pos) = lower.find("when ") {
+            let clause = &trimmed[when_pos..];
+            return Some(clause.to_lowercase());
+        }
+
+        // Pattern 3: "if [condition]" clause
+        if let Some(if_pos) = lower.find("if ") {
+            let clause = &trimmed[if_pos..];
+            return Some(clause.to_lowercase());
+        }
+    }
+
+    None
+}
+
+/// Extract a condition from the subject's definition about a specific action.
+fn extract_condition_from_subject(
+    subject: &str,
+    action: &str,
+    dictionary: &Dictionary,
+) -> Option<String> {
+    let entry = dictionary.entries.iter().find(|e| e.word == subject)?;
+
+    for sentence in entry.definition.split('.') {
+        let trimmed = sentence.trim();
+        let lower = trimmed.to_lowercase();
+
+        // Does this sentence mention the action?
+        if !lower.contains(action) {
+            continue;
+        }
+
+        // Look for purpose/condition around the action
+        if let Some(to_pos) = lower.rfind(" to ") {
+            let clause = &trimmed[to_pos + 1..];
+            let clause_words: Vec<&str> = clause.split_whitespace().collect();
+            if clause_words.len() >= 2 {
+                return Some(clause.to_lowercase());
+            }
+        }
+        if let Some(when_pos) = lower.find("when ") {
+            return Some(trimmed[when_pos..].to_lowercase());
+        }
+    }
+
+    None
+}
+
+/// Follow definition chain from subject toward action,
+/// checking each intermediate definition for condition clauses.
+fn extract_condition_via_chain(
+    current: &str,
+    action: &str,
+    dictionary: &Dictionary,
+    structural: &HashSet<String>,
+    max_hops: usize,
+    visited: &mut HashSet<String>,
+    _space: &GeometricSpace,
+) -> Option<String> {
+    if visited.contains(current) || max_hops == 0 {
+        return None;
+    }
+    visited.insert(current.to_string());
+
+    // Check current word's definition for the action + condition
+    if let Some(clause) = extract_condition_from_subject(current, action, dictionary) {
+        return Some(clause);
+    }
+
+    // Follow first-sentence content words
+    let entry = dictionary.entries.iter().find(|e| e.word == current)?;
+    let first_sentence = entry.definition.split('.').next().unwrap_or(&entry.definition);
+    let first_words = tokenize(first_sentence);
+    let mut followed = 0;
+    const MAX_FOLLOW: usize = 3;
+
+    for word in &first_words {
+        if followed >= MAX_FOLLOW {
+            break;
+        }
+        let stemmed = match stem_to_entry(word, &dictionary.entry_set) {
+            Some(s) => s,
+            None => continue,
+        };
+        if structural.contains(&stemmed) || stemmed == current {
+            continue;
+        }
+        followed += 1;
+
+        if let Some(clause) = extract_condition_via_chain(
+            &stemmed, action, dictionary, structural,
+            max_hops - 1, visited, _space,
+        ) {
+            return Some(clause);
+        }
+    }
+
+    None
+}
+
+// ─── Describe (Generation) ─────────────────────────────────────
+
+/// Generate a natural-language description of a word by reading its
+/// definition and inferring negations from definition-chain failures.
+///
+/// Returns a Vec of simple sentences describing the word.
+pub fn describe(
+    subject: &str,
+    space: &GeometricSpace,
+    dictionary: &Dictionary,
+    structural: &HashSet<String>,
+    _content: &HashSet<String>,
+    _params: &EngineParams,
+    _strategy: &StrategyConfig,
+) -> Vec<String> {
+    let entry = match dictionary.entries.iter().find(|e| e.word == subject) {
+        Some(e) => e,
+        None => return vec![format!("I don't know what {} is.", subject)],
+    };
+
+    let mut sentences: Vec<String> = Vec::new();
+
+    // ── 1. Category sentence ──────────────────────────────────
+    // Extract the category from the first sentence of the definition.
+    // Reuse definition_category() logic but construct a full sentence.
+    let category = definition_category(subject, dictionary, space, structural);
+    if let Some(ref cat) = category {
+        let article_subject = make_article(subject, dictionary);
+        let article_cat = if cat.starts_with(|c: char| "aeiou".contains(c)) { "an" } else { "a" };
+        sentences.push(format!("{} is {} {}.", article_subject, article_cat, cat));
+    }
+
+    // ── 2. Definition sentence rewriting ──────────────────────
+    // Split definition into sentences. Skip the first sentence
+    // (already captured as category). Rewrite remaining sentences
+    // by replacing pronoun subjects ("it", "you") with the word.
+    let def_sentences: Vec<&str> = entry.definition
+        .split('.')
+        .map(|s| s.trim())
+        .filter(|s| !s.is_empty())
+        .collect();
+
+    let article_subject = make_article(subject, dictionary);
+
+    for (i, sentence) in def_sentences.iter().enumerate() {
+        if i == 0 {
+            continue; // category already extracted
+        }
+
+        let lower = sentence.to_lowercase();
+        let tokens = tokenize(&lower);
+        if tokens.is_empty() {
+            continue;
+        }
+
+        // Skip sentences that start with "you" — these describe
+        // the observer, not the subject ("you can see it").
+        if tokens[0] == "you" {
+            continue;
+        }
+
+        // Rewrite: replace leading "it" with the article+subject.
+        // "it can make sound" → "a dog can make sound"
+        let rewritten = if tokens[0] == "it" {
+            format!("{} {}", article_subject, tokens[1..].join(" "))
+        } else {
+            // Sentence doesn't start with a pronoun — prepend subject.
+            // "not a plant" → skip (fragment)
+            // "an animal eats" → skip (doesn't describe subject)
+            // Generally, non-pronoun sentences in ELI5 defs are rare.
+            // Skip them rather than risk incorrect attribution.
+            continue;
+        };
+
+        // Clean up: ensure sentence ends with period
+        let cleaned = format!("{}.", rewritten.trim_end_matches('.'));
+        sentences.push(cleaned);
+    }
+
+    // ── 3. Negation inference ─────────────────────────────────
+    // Find sibling words: words with the same category as the subject.
+    // For each sibling, check if the definition chain connects them.
+    // If not → "X is not Y."
+    if let Some(ref cat) = category {
+        let siblings = find_siblings(subject, cat, dictionary, space, structural);
+        for sibling in &siblings {
+            let mut visited = HashSet::new();
+            let chain = definition_chain_check(
+                subject, sibling, dictionary, structural, 3, &mut visited, space,
+            );
+            match chain {
+                Some(true) => {} // linked — don't negate
+                _ => {
+                    // Not linked or explicitly negated → "X is not Y"
+                    let article_sib = if sibling.starts_with(|c: char| "aeiou".contains(c)) {
+                        "an"
+                    } else {
+                        "a"
+                    };
+                    sentences.push(format!(
+                        "{} is not {} {}.",
+                        article_subject, article_sib, sibling
+                    ));
+                }
+            }
+        }
+    }
+
+    sentences
+}
+
+/// Find words that share the same definition category as the subject.
+/// Returns content words whose definition_category matches `category`,
+/// excluding the subject itself. Limited to 5 siblings to keep output concise.
+fn find_siblings(
+    subject: &str,
+    category: &str,
+    dictionary: &Dictionary,
+    space: &GeometricSpace,
+    structural: &HashSet<String>,
+) -> Vec<String> {
+    let mut siblings = Vec::new();
+    for entry in &dictionary.entries {
+        if entry.word == subject || entry.word == category {
+            continue;
+        }
+        if let Some(cat) = definition_category(&entry.word, dictionary, space, structural) {
+            if cat == category {
+                siblings.push(entry.word.clone());
+            }
+        }
+        if siblings.len() >= 5 {
+            break;
+        }
+    }
+    siblings
+}
+
+/// Generate the appropriate article + word for sentence construction.
+/// Entities get bare names: "montmorency", "harris".
+/// Regular nouns get articles: "a dog", "the sun".
+///
+/// Heuristic for "a" vs "the":
+/// - Unique/singular nouns defined with "the" → use "the" (sun, thames)
+/// - General nouns → use "a"/"an"
+fn make_article(word: &str, dictionary: &Dictionary) -> String {
+    let entry = dictionary.entries.iter().find(|e| e.word == word);
+
+    // Entity entries get bare names
+    if let Some(e) = entry {
+        if e.is_entity {
+            return word.to_string();
+        }
+    }
+
+    // Check if definition starts with "the" → unique noun
+    if let Some(e) = entry {
+        let first_word = tokenize(&e.definition).into_iter().next().unwrap_or_default();
+        if first_word == "the" {
+            return format!("the {}", word);
+        }
+    }
+
+    // Default: "a"/"an" + word
+    let article = if word.starts_with(|c: char| "aeiou".contains(c)) { "an" } else { "a" };
+    format!("{} {}", article, word)
 }
 
 // ─── Helpers ───────────────────────────────────────────────────
