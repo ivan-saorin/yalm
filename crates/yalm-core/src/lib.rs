@@ -110,6 +110,15 @@ pub struct Connector {
     pub force_direction: Vec<f64>,
     pub magnitude: f64,
     pub frequency: usize,
+    /// How uniformly distributed across the dictionary (0.0-1.0).
+    /// 1.0 = perfectly uniform (true structural connector).
+    /// Lower values indicate topically clustered content words.
+    #[serde(default = "default_uniformity")]
+    pub uniformity: f64,
+}
+
+fn default_uniformity() -> f64 {
+    1.0
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]

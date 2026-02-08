@@ -1,0 +1,744 @@
+{
+  "warm": {
+    "word": "warm",
+    "definitions": [
+      "not cold. it has a little heat. it can make things feel good."
+    ],
+    "examples": []
+  },
+  "wild": {
+    "word": "wild",
+    "definitions": [
+      "not tame. it is a thing that is not controlled. it can be found in nature."
+    ],
+    "examples": []
+  },
+  "wheels": {
+    "word": "wheels",
+    "definitions": [
+      "a part of a vehicle. it can move and it is round. it makes a sound when it moves."
+    ],
+    "examples": []
+  },
+  "wrist": {
+    "word": "wrist",
+    "definitions": [
+      "a part of the body. it is where the hand connects to the arm. it can move and bend."
+    ],
+    "examples": []
+  },
+  "worth": {
+    "word": "worth",
+    "definitions": [
+      "a quality. it can make something valuable. it is not the same as money."
+    ],
+    "examples": []
+  },
+  "wan": {
+    "word": "wan",
+    "definitions": [
+      "not strong. it is a color that is pale and not bright. it can describe a person who is tired."
+    ],
+    "examples": []
+  },
+  "walk": {
+    "word": "walk",
+    "definitions": [
+      "to move on feet. uses legs to go from place to place. not run."
+    ],
+    "examples": []
+  },
+  "wide": {
+    "word": "wide",
+    "definitions": [
+      "not narrow. it is a big space from one side to another. it can describe a thing that has a large size."
+    ],
+    "examples": []
+  },
+  "wet": {
+    "word": "wet",
+    "definitions": [
+      "not dry. it has water on its surface. it can make things slippery."
+    ],
+    "examples": []
+  },
+  "waited": {
+    "word": "waited",
+    "definitions": [
+      "to stay in one place for a time. it is the opposite of moved. it can happen after waiting."
+    ],
+    "examples": []
+  },
+  "whole": {
+    "word": "whole",
+    "definitions": [
+      "a complete thing. it has all parts. it is not broken."
+    ],
+    "examples": []
+  },
+  "while": {
+    "word": "while",
+    "definitions": [
+      "to stay quiet. to not speak. to be still."
+    ],
+    "examples": []
+  },
+  "well": {
+    "word": "well",
+    "definitions": [
+      "a thing that is not bad. it can be used to make things better. it is a good quality."
+    ],
+    "examples": []
+  },
+  "wandered": {
+    "word": "wandered",
+    "definitions": [
+      "to walk without a clear direction. it is a way of moving slowly. it can happen when someone is not sure where to go."
+    ],
+    "examples": []
+  },
+  "wall": {
+    "word": "wall",
+    "definitions": [
+      "a thing that is not open. it can be made of brick or stone. it is part of a building."
+    ],
+    "examples": []
+  },
+  "wanting": {
+    "word": "wanting",
+    "definitions": [
+      "a feeling. it is not having enough. it makes a person look for something."
+    ],
+    "examples": []
+  },
+  "walls": {
+    "word": "walls",
+    "definitions": [
+      "a thing that is not open. it can hold things inside. it is part of a building."
+    ],
+    "examples": []
+  },
+  "worried": {
+    "word": "worried",
+    "definitions": [
+      "a feeling. when a person is not calm. it has fear."
+    ],
+    "examples": []
+  },
+  "wood": {
+    "word": "wood",
+    "definitions": [
+      "a thing that comes from trees. it is not hard. it can burn."
+    ],
+    "examples": []
+  },
+  "wise": {
+    "word": "wise",
+    "definitions": [
+      "a good quality. a person has knowledge and makes good choices. it is not foolish."
+    ],
+    "examples": []
+  },
+  "wants": {
+    "word": "wants",
+    "definitions": [
+      "to want is to need something. it is a feeling. it makes a person try to get it."
+    ],
+    "examples": []
+  },
+  "wounds": {
+    "word": "wounds",
+    "definitions": [
+      "a bad thing that happens to skin. it can be from a cut or a hit. it makes a person feel pain."
+    ],
+    "examples": []
+  },
+  "words": {
+    "word": "words",
+    "definitions": [
+      "word: a thing that is used to write. it has letters. it can make sound."
+    ],
+    "examples": []
+  },
+  "wave": {
+    "word": "wave",
+    "definitions": [
+      "a movement. it can be in water or air. it makes a pattern."
+    ],
+    "examples": []
+  },
+  "winning": {
+    "word": "winning",
+    "definitions": [
+      "wining: a good feeling. when a person gets what they want. it is not losing."
+    ],
+    "examples": []
+  },
+  "waist": {
+    "word": "waist",
+    "definitions": [
+      "a part of the body. it is between the chest and the legs. it can be round."
+    ],
+    "examples": []
+  },
+  "withheld": {
+    "word": "withheld",
+    "definitions": [
+      "not given. it is when something is kept from someone. it is the opposite of given."
+    ],
+    "examples": []
+  },
+  "wings": {
+    "word": "wings",
+    "definitions": [
+      "a part of some animals. it can help them fly. it is not hard."
+    ],
+    "examples": []
+  },
+  "work": {
+    "word": "work",
+    "definitions": [
+      "to do something with effort. it can make things happen. it is not always easy."
+    ],
+    "examples": []
+  },
+  "within": {
+    "word": "within",
+    "definitions": [
+      "a place that is not outside. it means inside something. it can describe where something is."
+    ],
+    "examples": []
+  },
+  "walked": {
+    "word": "walked",
+    "definitions": [
+      "to move on feet. it is past tense of walk. it shows someone moved from one place to another."
+    ],
+    "examples": []
+  },
+  "whether": {
+    "word": "whether",
+    "definitions": [
+      "a word. it is used to ask about a choice. it can show if something is true or not."
+    ],
+    "examples": []
+  },
+  "waves": {
+    "word": "waves",
+    "definitions": [
+      "a movement of water. it can be big or small. it is caused by wind."
+    ],
+    "examples": []
+  },
+  "willingness": {
+    "word": "willingness",
+    "definitions": [
+      "a feeling. a person has it when they want to do something. it makes them try hard."
+    ],
+    "examples": []
+  },
+  "working": {
+    "word": "working",
+    "definitions": [
+      "to do something with effort. it makes progress. it is not resting."
+    ],
+    "examples": []
+  },
+  "women": {
+    "word": "women",
+    "definitions": [
+      "a person. a woman is not a man. it has a body and can speak."
+    ],
+    "examples": []
+  },
+  "won't": {
+    "word": "won't",
+    "definitions": [
+      "will not. it is a way to say something is not going to happen. it is a form of will."
+    ],
+    "examples": []
+  },
+  "wider": {
+    "word": "wider",
+    "definitions": [
+      "not narrow. it has more space from side to side."
+    ],
+    "examples": []
+  },
+  "works": {
+    "word": "works",
+    "definitions": [
+      "a place where people make things. it has machines and workers. it makes products."
+    ],
+    "examples": []
+  },
+  "whip": {
+    "word": "whip",
+    "definitions": [
+      "a tool. it can make a sound. it is made of leather."
+    ],
+    "examples": []
+  },
+  "weapon": {
+    "word": "weapon",
+    "definitions": [
+      "a tool. it can hurt or kill. it is made to fight."
+    ],
+    "examples": []
+  },
+  "wind": {
+    "word": "wind",
+    "definitions": [
+      "a thing that moves air. it can make leaves move. it is not solid."
+    ],
+    "examples": []
+  },
+  "warning": {
+    "word": "warning",
+    "definitions": [
+      "a sound. it can tell you something bad is coming. it is not happy."
+    ],
+    "examples": []
+  },
+  "water": {
+    "word": "water",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it is used to drink."
+    ],
+    "examples": []
+  },
+  "west": {
+    "word": "west",
+    "definitions": [
+      "a direction. it is the opposite of east. it is one of the four main directions."
+    ],
+    "examples": []
+  },
+  "wasn't": {
+    "word": "wasn't",
+    "definitions": [
+      "not was. it is used to say something did not happen."
+    ],
+    "examples": []
+  },
+  "wait": {
+    "word": "wait",
+    "definitions": [
+      "to stop doing something. to pause. not move forward."
+    ],
+    "examples": []
+  },
+  "whence": {
+    "word": "whence",
+    "definitions": [
+      "a word that asks from where. it is used to show the origin. it is not a common word."
+    ],
+    "examples": []
+  },
+  "window": {
+    "word": "window",
+    "definitions": [
+      "a thing in a wall. it can let light and air in. it has glass."
+    ],
+    "examples": []
+  },
+  "walks": {
+    "word": "walks",
+    "definitions": [
+      "to move on feet. it is a way people move. it can be slow or fast."
+    ],
+    "examples": []
+  },
+  "worry": {
+    "word": "worry",
+    "definitions": [
+      "a feeling. it is not happy. it can make a person think about bad things."
+    ],
+    "examples": []
+  },
+  "wanted": {
+    "word": "wanted",
+    "definitions": [
+      "a feeling. it is when a person needs something. it is not happy."
+    ],
+    "examples": []
+  },
+  "wreck": {
+    "word": "wreck",
+    "definitions": [
+      "a broken thing. it has damage and is not working. it can be made from a ship or a car."
+    ],
+    "examples": []
+  },
+  "woman": {
+    "word": "woman",
+    "definitions": [
+      "a person. a woman is not a man. she can have babies."
+    ],
+    "examples": []
+  },
+  "wrecked": {
+    "word": "wrecked",
+    "definitions": [
+      "not good. it is a broken thing. it can be from a crash."
+    ],
+    "examples": []
+  },
+  "wheat": {
+    "word": "wheat",
+    "definitions": [
+      "a plant. it has hard seeds. it is used to make bread."
+    ],
+    "examples": []
+  },
+  "world": {
+    "word": "world",
+    "definitions": [
+      "a big place. it has many people and things. it is not a single thing."
+    ],
+    "examples": []
+  },
+  "write": {
+    "word": "write",
+    "definitions": [
+      "apple: a fruit. it is red or green. it can be eaten."
+    ],
+    "examples": []
+  },
+  "whatever": {
+    "word": "whatever",
+    "definitions": [
+      "a word. it is used to mean anything. it is not specific."
+    ],
+    "examples": []
+  },
+  "ways": {
+    "word": "ways",
+    "definitions": [
+      "a method. it can show how to do something. it is a way of thinking."
+    ],
+    "examples": []
+  },
+  "washing": {
+    "word": "washing",
+    "definitions": [
+      "a thing that is not clean. it can make clothes clean. it uses water and soap."
+    ],
+    "examples": []
+  },
+  "worse": {
+    "word": "worse",
+    "definitions": [
+      "not good. when something is more bad. it can make people feel unhappy."
+    ],
+    "examples": []
+  },
+  "weak": {
+    "word": "weak",
+    "definitions": [
+      "not strong. it can make a person unable to do hard things. it has little power."
+    ],
+    "examples": []
+  },
+  "wife": {
+    "word": "wife",
+    "definitions": [
+      "a woman. she is married to a man. she is part of a family."
+    ],
+    "examples": []
+  },
+  "wash": {
+    "word": "wash",
+    "definitions": [
+      "to clean with water. it can make things clean. it is a way to remove dirt."
+    ],
+    "examples": []
+  },
+  "wool": {
+    "word": "wool",
+    "definitions": [
+      "a thing that comes from a sheep. it is soft and can be made into clothes. it is not hard."
+    ],
+    "examples": []
+  },
+  "wires": {
+    "word": "wires",
+    "definitions": [
+      "things that carry electricity. they are made of metal. they can connect devices."
+    ],
+    "examples": []
+  },
+  "wish": {
+    "word": "wish",
+    "definitions": [
+      "to want something that is not possible. it is a feeling in the mind. it can make a person feel sad."
+    ],
+    "examples": []
+  },
+  "without": {
+    "word": "without",
+    "definitions": [
+      "not having. it means there is no something. it can show lack or absence."
+    ],
+    "examples": []
+  },
+  "worn": {
+    "word": "worn",
+    "definitions": [
+      "not new. it has been used a lot. it looks old."
+    ],
+    "examples": []
+  },
+  "wished": {
+    "word": "wished",
+    "definitions": [
+      "to wish is to want something. it is a feeling in the heart. it can make a person happy or sad."
+    ],
+    "examples": []
+  },
+  "william": {
+    "word": "william",
+    "definitions": [
+      "a person. a man that has a name william. he is not a woman."
+    ],
+    "examples": []
+  },
+  "wear": {
+    "word": "wear",
+    "definitions": [
+      "to put something on the body. it can cover or protect. it makes the body look different."
+    ],
+    "examples": []
+  },
+  "what's": {
+    "word": "what's",
+    "definitions": [
+      "a word that asks for a definition. it is used to get information about something. it is not a thing."
+    ],
+    "examples": []
+  },
+  "week": {
+    "word": "week",
+    "definitions": [
+      "a time period. it has seven days. it is not a month."
+    ],
+    "examples": []
+  },
+  "wednesday": {
+    "word": "wednesday",
+    "definitions": [
+      "a day. it comes after tuesday. it is part of a week."
+    ],
+    "examples": []
+  },
+  "watch": {
+    "word": "watch",
+    "definitions": [
+      "a thing to see time. it has numbers and hands. it can show when to go to bed."
+    ],
+    "examples": []
+  },
+  "walking": {
+    "word": "walking",
+    "definitions": [
+      "to move on feet. uses legs to go from place to place. is a way to travel."
+    ],
+    "examples": []
+  },
+  "western": {
+    "word": "western",
+    "definitions": [
+      "a direction. it is the opposite of eastern. it is a place where people live in big cities."
+    ],
+    "examples": []
+  },
+  "wondered": {
+    "word": "wondered",
+    "definitions": [
+      "to think about something with curiosity. it is a way to ask questions. it can happen when someone sees something new."
+    ],
+    "examples": []
+  },
+  "weight": {
+    "word": "weight",
+    "definitions": [
+      "a thing that is not light. it is a measure of how heavy something is. it can pull things down."
+    ],
+    "examples": []
+  },
+  "writer": {
+    "word": "writer",
+    "definitions": [
+      "a person. can write words on paper. has a pen or pencil."
+    ],
+    "examples": []
+  },
+  "windward": {
+    "word": "windward",
+    "definitions": [
+      "a direction. it is the side that faces the wind. it is the opposite of leeward."
+    ],
+    "examples": []
+  },
+  "win": {
+    "word": "win",
+    "definitions": [
+      "to win is to get something by beating others. it is a good feeling. it can happen in games or competitions."
+    ],
+    "examples": []
+  },
+  "wicked": {
+    "word": "wicked",
+    "definitions": [
+      "not good. it is a word for bad things. it can mean very bad."
+    ],
+    "examples": []
+  },
+  "week's": {
+    "word": "week's",
+    "definitions": [
+      "a time period. it has seven days. it is part of a year."
+    ],
+    "examples": []
+  },
+  "writing": {
+    "word": "writing",
+    "definitions": [
+      "a skill. it can make words on paper. it is part of learning."
+    ],
+    "examples": []
+  },
+  "weather": {
+    "word": "weather",
+    "definitions": [
+      "a condition of the air. it can be hot, cold, wet, or dry. it changes often."
+    ],
+    "examples": []
+  },
+  "way": {
+    "word": "way",
+    "definitions": [
+      "a way. it is a path or method to do something. it can be a direction or a method."
+    ],
+    "examples": []
+  },
+  "worked": {
+    "word": "worked",
+    "definitions": [
+      "to work. it means to do something with effort. it can make things happen."
+    ],
+    "examples": []
+  },
+  "workers": {
+    "word": "workers",
+    "definitions": [
+      "people. they do jobs to make things happen. they are part of a team."
+    ],
+    "examples": []
+  },
+  "won": {
+    "word": "won",
+    "definitions": [
+      "to get something by using force. not fair. a bad way to take things."
+    ],
+    "examples": []
+  },
+  "weeks": {
+    "word": "weeks",
+    "definitions": [
+      "a time period. it has seven days. it is part of a year."
+    ],
+    "examples": []
+  },
+  "word": {
+    "word": "word",
+    "definitions": [
+      "a thing that is written or spoken. it can be used to share ideas. it is not a picture."
+    ],
+    "examples": []
+  },
+  "white": {
+    "word": "white",
+    "definitions": [
+      "a color. it is not black. it can be seen in snow."
+    ],
+    "examples": []
+  },
+  "wining": {
+    "word": "wining",
+    "definitions": [
+      "a sound. it is made when someone sings or cries. it can be soft or loud."
+    ],
+    "examples": []
+  },
+  "wrong": {
+    "word": "wrong",
+    "definitions": [
+      "not right. when something is not correct. it is the opposite of right."
+    ],
+    "examples": []
+  },
+  "welcome": {
+    "word": "welcome",
+    "definitions": [
+      "a word. it is used to start a conversation. it shows that someone is friendly."
+    ],
+    "examples": []
+  },
+  "written": {
+    "word": "written",
+    "definitions": [
+      "a word that is not spoken. it is made with letters. it is part of a book or a letter."
+    ],
+    "examples": []
+  },
+  "waiting": {
+    "word": "waiting",
+    "definitions": [
+      "to be ready for something. it is a state of being. it can make a person feel bored."
+    ],
+    "examples": []
+  },
+  "weren't": {
+    "word": "weren't",
+    "definitions": [
+      "were not. is the past form of are. used to show something was not."
+    ],
+    "examples": []
+  },
+  "wake": {
+    "word": "wake",
+    "definitions": [
+      "to open eyes and start being awake. it is the opposite of sleep. a person can wake up in the morning."
+    ],
+    "examples": []
+  },
+  "winter": {
+    "word": "winter",
+    "definitions": [
+      "a season. it is cold and has snow. it is not hot."
+    ],
+    "examples": []
+  },
+  "willing": {
+    "word": "willing",
+    "definitions": [
+      "a feeling. a person is not afraid to do something. it has a good mood."
+    ],
+    "examples": []
+  },
+  "wrote": {
+    "word": "wrote",
+    "definitions": [
+      "to write something using a pen or pencil. it makes a mark on paper. it is a way to share ideas."
+    ],
+    "examples": []
+  },
+  "want": {
+    "word": "want",
+    "definitions": [
+      "to desire something. it is a feeling. it makes a person try to get something."
+    ],
+    "examples": []
+  }
+}

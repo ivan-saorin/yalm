@@ -1,0 +1,1556 @@
+{
+  "coast": {
+    "word": "coast",
+    "definitions": [
+      "a place. it is where land meets water. it has sand or rocks."
+    ],
+    "examples": []
+  },
+  "character": {
+    "word": "character",
+    "definitions": [
+      "a person. has a name and a role. can act and speak."
+    ],
+    "examples": []
+  },
+  "crawled": {
+    "word": "crawled",
+    "definitions": [
+      "to move slowly on hands and knees. it is a way some animals move. not walking."
+    ],
+    "examples": []
+  },
+  "cries": {
+    "word": "cries",
+    "definitions": [
+      "a sound. it is made when someone is sad. it can show feelings."
+    ],
+    "examples": []
+  },
+  "connected": {
+    "word": "connected",
+    "definitions": [
+      "a thing that is not separate. it has parts that are joined. it can be made by joining things."
+    ],
+    "examples": []
+  },
+  "coins": {
+    "word": "coins",
+    "definitions": [
+      "a thing. it is made of metal. it can be used to buy things."
+    ],
+    "examples": []
+  },
+  "curious": {
+    "word": "curious",
+    "definitions": [
+      "a feeling. a person wants to know more. it is not bored."
+    ],
+    "examples": []
+  },
+  "century": {
+    "word": "century",
+    "definitions": [
+      "a long time period. it has 100 years. it is part of history."
+    ],
+    "examples": []
+  },
+  "cloth": {
+    "word": "cloth",
+    "definitions": [
+      "a thing that is not hard. it can cover and it is soft. it is part of a dress."
+    ],
+    "examples": []
+  },
+  "changed": {
+    "word": "changed",
+    "definitions": [
+      "to become different. it is a past form of change. it shows something is not the same."
+    ],
+    "examples": []
+  },
+  "curved": {
+    "word": "curved",
+    "definitions": [
+      "not straight. it has a round or bent shape. it can be seen in a spoon or a hill."
+    ],
+    "examples": []
+  },
+  "comes": {
+    "word": "comes",
+    "definitions": [
+      "to come. it is when someone moves to a place. it is part of going."
+    ],
+    "examples": []
+  },
+  "cowardly": {
+    "word": "cowardly",
+    "definitions": [
+      "not brave. it is when a person is afraid to face danger. it makes someone run away."
+    ],
+    "examples": []
+  },
+  "choice": {
+    "word": "choice",
+    "definitions": [
+      "a decision. it is a choice between two or more things. it can be made by thinking."
+    ],
+    "examples": []
+  },
+  "captain": {
+    "word": "captain",
+    "definitions": [
+      "a person. a leader of a ship or team. has power over others."
+    ],
+    "examples": []
+  },
+  "cow": {
+    "word": "cow",
+    "definitions": [
+      "a animal. it can give milk and it has horns. it is not a bird."
+    ],
+    "examples": []
+  },
+  "crawl": {
+    "word": "crawl",
+    "definitions": [
+      "to move slowly using hands and knees. it is a way some animals move. it is not fast."
+    ],
+    "examples": []
+  },
+  "collect": {
+    "word": "collect",
+    "definitions": [
+      "to gather things together. it can be done with hands or tools. it makes a group of items."
+    ],
+    "examples": []
+  },
+  "cause": {
+    "word": "cause",
+    "definitions": [
+      "to make something happen. it can start a problem or a change. it is not the same as effect."
+    ],
+    "examples": []
+  },
+  "climb": {
+    "word": "climb",
+    "definitions": [
+      "to move upward using feet and hands. it can be done on a mountain or a tree. not walk."
+    ],
+    "examples": []
+  },
+  "colors": {
+    "word": "colors",
+    "definitions": [
+      "a thing. it can be seen. it is not the same as shape."
+    ],
+    "examples": []
+  },
+  "catch": {
+    "word": "catch",
+    "definitions": [
+      "to catch is to get something in your hands. it can happen when you throw or drop something. it is not easy to catch when you are moving fast."
+    ],
+    "examples": []
+  },
+  "current": {
+    "word": "current",
+    "definitions": [
+      "a thing that moves. it can be water or air. it has force."
+    ],
+    "examples": []
+  },
+  "class": {
+    "word": "class",
+    "definitions": [
+      "a group of people. it has rules and a leader. it is part of a bigger group."
+    ],
+    "examples": []
+  },
+  "confident": {
+    "word": "confident",
+    "definitions": [
+      "a feeling. a person is not afraid. it has trust in itself."
+    ],
+    "examples": []
+  },
+  "calm": {
+    "word": "calm",
+    "definitions": [
+      "a quiet feeling. it is not angry. it makes a peaceful place."
+    ],
+    "examples": []
+  },
+  "chemicals": {
+    "word": "chemicals",
+    "definitions": [
+      "things made from elements. they can change and mix with other things. they are not always safe."
+    ],
+    "examples": []
+  },
+  "chest": {
+    "word": "chest",
+    "definitions": [
+      "a part of the body. it has bones and organs. it is not hard."
+    ],
+    "examples": []
+  },
+  "combine": {
+    "word": "combine",
+    "definitions": [
+      "to join things together. it can make one thing from many. it is a way to mix parts."
+    ],
+    "examples": []
+  },
+  "clothing": {
+    "word": "clothing",
+    "definitions": [
+      "a thing. it covers the body. it can be made of fabric."
+    ],
+    "examples": []
+  },
+  "correct": {
+    "word": "correct",
+    "definitions": [
+      "not wrong. it means something is right. it is a good thing."
+    ],
+    "examples": []
+  },
+  "crazy": {
+    "word": "crazy",
+    "definitions": [
+      "not normal. a person has strange ideas or actions."
+    ],
+    "examples": []
+  },
+  "corners": {
+    "word": "corners",
+    "definitions": [
+      "a place where two lines meet. it is a part of a shape. it is not a straight line."
+    ],
+    "examples": []
+  },
+  "communicate": {
+    "word": "communicate",
+    "definitions": [
+      "to share ideas with others. it can be done by speaking or writing. it makes people understand each other."
+    ],
+    "examples": []
+  },
+  "control": {
+    "word": "control",
+    "definitions": [
+      "to control is to make something happen. it can stop or start actions. it is not always easy."
+    ],
+    "examples": []
+  },
+  "copied": {
+    "word": "copied",
+    "definitions": [
+      "not original. it is a thing that has been made like another. it has the same as the original."
+    ],
+    "examples": []
+  },
+  "cape": {
+    "word": "cape",
+    "definitions": [
+      "a piece of clothing. it covers the shoulders and neck. it is not a shirt."
+    ],
+    "examples": []
+  },
+  "correspond": {
+    "word": "correspond",
+    "definitions": [
+      "to send or write back. it can be done by letter or phone. it makes communication."
+    ],
+    "examples": []
+  },
+  "cleans": {
+    "word": "cleans",
+    "definitions": [
+      "to make something clean. it can remove dirt. it is a way to keep things tidy."
+    ],
+    "examples": []
+  },
+  "call": {
+    "word": "call",
+    "definitions": [
+      "to speak to someone. it can show feeling or give information. it is a way to communicate."
+    ],
+    "examples": []
+  },
+  "columbus": {
+    "word": "columbus",
+    "definitions": [
+      "a man. he found a new place in the ocean. he was a sailor."
+    ],
+    "examples": []
+  },
+  "chores": {
+    "word": "chores",
+    "definitions": [
+      "things that need to be done. they make a place clean and ready. they are not always fun."
+    ],
+    "examples": []
+  },
+  "cake": {
+    "word": "cake",
+    "definitions": [
+      "a sweet thing. it is made from flour, sugar, and eggs. it can be eaten with a knife."
+    ],
+    "examples": []
+  },
+  "christopher": {
+    "word": "christopher",
+    "definitions": [
+      "a person. a man that has a big name. he is not a woman."
+    ],
+    "examples": []
+  },
+  "cough": {
+    "word": "cough",
+    "definitions": [
+      "a sound. it is made when someone has a problem with their throat. it can happen when someone is sick."
+    ],
+    "examples": []
+  },
+  "car": {
+    "word": "car",
+    "definitions": [
+      "a vehicle. it can move on roads. it has wheels and an engine."
+    ],
+    "examples": []
+  },
+  "couple": {
+    "word": "couple",
+    "definitions": [
+      "a small number. two people or things. it can be used for two."
+    ],
+    "examples": []
+  },
+  "circle": {
+    "word": "circle",
+    "definitions": [
+      "a shape. it has no beginning and no end. it is round."
+    ],
+    "examples": []
+  },
+  "chairs": {
+    "word": "chairs",
+    "definitions": [
+      "a thing. it has legs and a seat. it is for people to sit on."
+    ],
+    "examples": []
+  },
+  "complete": {
+    "word": "complete",
+    "definitions": [
+      "to finish. to make something full. not partial."
+    ],
+    "examples": []
+  },
+  "cocked": {
+    "word": "cocked",
+    "definitions": [
+      "a position. it is when a gun is ready to shoot. it has a part that is pulled back."
+    ],
+    "examples": []
+  },
+  "contented": {
+    "word": "contented",
+    "definitions": [
+      "a good feeling. when a person is not worried. it has peace."
+    ],
+    "examples": []
+  },
+  "continue": {
+    "word": "continue",
+    "definitions": [
+      "to go on with something. it is to keep doing something. it can happen after a break."
+    ],
+    "examples": []
+  },
+  "clutched": {
+    "word": "clutched",
+    "definitions": [
+      "to hold tightly with hands. it shows strong feeling. not relaxed."
+    ],
+    "examples": []
+  },
+  "cheaper": {
+    "word": "cheaper",
+    "definitions": [
+      "not more expensive. it has less cost. it is better value."
+    ],
+    "examples": []
+  },
+  "counter": {
+    "word": "counter",
+    "definitions": [
+      "a thing that is opposite. it can stop or change something. it is not the same as the main thing."
+    ],
+    "examples": []
+  },
+  "choose": {
+    "word": "choose",
+    "definitions": [
+      "to choose is to pick one thing from many. it is a way to make a decision. it can be easy or hard."
+    ],
+    "examples": []
+  },
+  "count": {
+    "word": "count",
+    "definitions": [
+      "to count is to say numbers when you see things. you use it to know how many there are. it makes numbers bigger when you add."
+    ],
+    "examples": []
+  },
+  "cloudy": {
+    "word": "cloudy",
+    "definitions": [
+      "not clear. when the sky has many clouds. it makes light look soft."
+    ],
+    "examples": []
+  },
+  "conclusion": {
+    "word": "conclusion",
+    "definitions": [
+      "a final statement. it shows the main idea. it is the end of a discussion."
+    ],
+    "examples": []
+  },
+  "continuing": {
+    "word": "continuing",
+    "definitions": [
+      "to keep doing something. it is not stopping. it can be part of a story."
+    ],
+    "examples": []
+  },
+  "can't": {
+    "word": "can't",
+    "definitions": [
+      "not can. it means something is not possible. it is used when someone cannot do something."
+    ],
+    "examples": []
+  },
+  "choices": {
+    "word": "choices",
+    "definitions": [
+      "a thing that is not certain. it can be made by people. it has different options."
+    ],
+    "examples": []
+  },
+  "clear": {
+    "word": "clear",
+    "definitions": [
+      "not cloudy. it can see through. it has no dirt."
+    ],
+    "examples": []
+  },
+  "climbed": {
+    "word": "climbed",
+    "definitions": [
+      "to climb. it is when someone goes up a steep place. it uses legs and hands."
+    ],
+    "examples": []
+  },
+  "cousin": {
+    "word": "cousin",
+    "definitions": [
+      "a relative. a child of an aunt or uncle. part of a family."
+    ],
+    "examples": []
+  },
+  "coming": {
+    "word": "coming",
+    "definitions": [
+      "to arrive soon. it means moving towards a place. it is not going away."
+    ],
+    "examples": []
+  },
+  "cases": {
+    "word": "cases",
+    "definitions": [
+      "a thing that can hold other things. it has a hard cover. it is used to keep things safe."
+    ],
+    "examples": []
+  },
+  "cliffs": {
+    "word": "cliffs",
+    "definitions": [
+      "a place. it is a high edge of land. it is not flat."
+    ],
+    "examples": []
+  },
+  "cook": {
+    "word": "cook",
+    "definitions": [
+      "to make food by heating. it uses fire or heat. it makes food ready to eat."
+    ],
+    "examples": []
+  },
+  "clever": {
+    "word": "clever",
+    "definitions": [
+      "a good quality. a person can think and solve problems. it is not stupid."
+    ],
+    "examples": []
+  },
+  "co-operative": {
+    "word": "co-operative",
+    "definitions": [
+      "a group. people work together. they share things."
+    ],
+    "examples": []
+  },
+  "contrast": {
+    "word": "contrast",
+    "definitions": [
+      "a thing that is not the same. it shows differences between two things. it can be used to compare."
+    ],
+    "examples": []
+  },
+  "chew": {
+    "word": "chew",
+    "definitions": [
+      "to bite and mix with teeth. it can break food into small pieces. it is part of eating."
+    ],
+    "examples": []
+  },
+  "channel": {
+    "word": "channel",
+    "definitions": [
+      "a way to send or receive information. it can be used for communication. it is part of a system."
+    ],
+    "examples": []
+  },
+  "closely": {
+    "word": "closely",
+    "definitions": [
+      "not far. it means to be near. it can describe how things are connected."
+    ],
+    "examples": []
+  },
+  "cherry": {
+    "word": "cherry",
+    "definitions": [
+      "a fruit. it is red and has a sweet taste. it can be used to make juice."
+    ],
+    "examples": []
+  },
+  "confess": {
+    "word": "confess",
+    "definitions": [
+      "to speak out. to say you did something wrong. to tell the truth."
+    ],
+    "examples": []
+  },
+  "children": {
+    "word": "children",
+    "definitions": [
+      "people who are young. they are not adults. they can learn and play."
+    ],
+    "examples": []
+  },
+  "cooking": {
+    "word": "cooking",
+    "definitions": [
+      "to make food ready to eat. it uses heat and time. it can make food taste better."
+    ],
+    "examples": []
+  },
+  "connects": {
+    "word": "connects",
+    "definitions": [
+      "to connect is to join things together. it can make parts work as one. it is a way to link ideas."
+    ],
+    "examples": []
+  },
+  "chum": {
+    "word": "chum",
+    "definitions": [
+      "a friend. a person you know and play with. not an enemy."
+    ],
+    "examples": []
+  },
+  "clumps": {
+    "word": "clumps",
+    "definitions": [
+      "a group of things stuck together. it can be made by small parts joining. it is not smooth."
+    ],
+    "examples": []
+  },
+  "clay": {
+    "word": "clay",
+    "definitions": [
+      "a soft thing. it can be shaped and made hard. it is not hard."
+    ],
+    "examples": []
+  },
+  "cells": {
+    "word": "cells",
+    "definitions": [
+      "a tiny part of living things. they are the basic unit of life. they can grow and change."
+    ],
+    "examples": []
+  },
+  "cold": {
+    "word": "cold",
+    "definitions": [
+      "not hot. when something has little heat. it can make things freeze."
+    ],
+    "examples": []
+  },
+  "closed": {
+    "word": "closed",
+    "definitions": [
+      "not open. it is a state of being shut. it has no space inside."
+    ],
+    "examples": []
+  },
+  "clump": {
+    "word": "clump",
+    "definitions": [
+      "a thing. it is made of many small parts together. it can be soft or hard."
+    ],
+    "examples": []
+  },
+  "chosen": {
+    "word": "chosen",
+    "definitions": [
+      "a past action. it means someone has selected something. it is not random."
+    ],
+    "examples": []
+  },
+  "company": {
+    "word": "company",
+    "definitions": [
+      "a place where people work together. it has many workers and a leader. it makes products or services."
+    ],
+    "examples": []
+  },
+  "chance": {
+    "word": "chance",
+    "definitions": [
+      "a thing. it can happen without being planned. it is not certain."
+    ],
+    "examples": []
+  },
+  "chair": {
+    "word": "chair",
+    "definitions": [
+      "a thing people sit on. it has a seat and back. it is not a bed."
+    ],
+    "examples": []
+  },
+  "chase": {
+    "word": "chase",
+    "definitions": [
+      "to chase is to follow someone or something. it is a way to try to catch. it can happen when you want to get something."
+    ],
+    "examples": []
+  },
+  "carried": {
+    "word": "carried",
+    "definitions": [
+      "to carry something and move it. it is a way of moving things. it is not easy to do."
+    ],
+    "examples": []
+  },
+  "courses": {
+    "word": "courses",
+    "definitions": [
+      "a path or way. it can be in water or on land. it is a direction something moves."
+    ],
+    "examples": []
+  },
+  "certain": {
+    "word": "certain",
+    "definitions": [
+      "not uncertain. it means sure. it is a feeling about something."
+    ],
+    "examples": []
+  },
+  "connection": {
+    "word": "connection",
+    "definitions": [
+      "a link between things. it can join people or ideas. it makes communication possible."
+    ],
+    "examples": []
+  },
+  "clouds": {
+    "word": "clouds",
+    "definitions": [
+      "a thing made of water. it can move in the sky. it is not solid."
+    ],
+    "examples": []
+  },
+  "couldn't": {
+    "word": "couldn't",
+    "definitions": [
+      "could not. is the opposite of could. is not able to."
+    ],
+    "examples": []
+  },
+  "category": {
+    "word": "category",
+    "definitions": [
+      "a group of things. it has similar features. it is used to organize information."
+    ],
+    "examples": []
+  },
+  "cover": {
+    "word": "cover",
+    "definitions": [
+      "a thing that is put over something. it can hide or protect. it has a surface."
+    ],
+    "examples": []
+  },
+  "circular": {
+    "word": "circular",
+    "definitions": [
+      "a shape. it has no beginning and no end. it is round."
+    ],
+    "examples": []
+  },
+  "centre": {
+    "word": "centre",
+    "definitions": [
+      "a place in the middle. it is the main part of something. it is not on the edge."
+    ],
+    "examples": []
+  },
+  "cent": {
+    "word": "cent",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it is not solid."
+    ],
+    "examples": []
+  },
+  "case": {
+    "word": "case",
+    "definitions": [
+      "a thing that is not hard. it can hold other things. it has a shape."
+    ],
+    "examples": []
+  },
+  "captain's": {
+    "word": "captain's",
+    "definitions": [
+      "a person. the leader of a ship or team. has power over others."
+    ],
+    "examples": []
+  },
+  "condition": {
+    "word": "condition",
+    "definitions": [
+      "a state of being. it can be good or bad. it is not always the same."
+    ],
+    "examples": []
+  },
+  "complex": {
+    "word": "complex",
+    "definitions": [
+      "not simple. it has many parts. it is hard to understand."
+    ],
+    "examples": []
+  },
+  "changes": {
+    "word": "changes",
+    "definitions": [
+      "to make something different. it can happen over time. it is not the same as before."
+    ],
+    "examples": []
+  },
+  "cat": {
+    "word": "cat",
+    "definitions": [
+      "a small animal. it can move fast and make sound. it has fur and eyes."
+    ],
+    "examples": []
+  },
+  "cat's": {
+    "word": "cat's",
+    "definitions": [
+      "a small animal. it can move fast and has fur. it is not a dog."
+    ],
+    "examples": []
+  },
+  "chariot": {
+    "word": "chariot",
+    "definitions": [
+      "a big vehicle. it has wheels and is pulled by horses. it can move fast."
+    ],
+    "examples": []
+  },
+  "clock": {
+    "word": "clock",
+    "definitions": [
+      "a thing that shows time. it has numbers and moves slowly. it can tell when to wake up."
+    ],
+    "examples": []
+  },
+  "called": {
+    "word": "called",
+    "definitions": [
+      "to call is to use a voice to say a name or a word. it is a way to speak to someone. it can be loud or soft."
+    ],
+    "examples": []
+  },
+  "compared": {
+    "word": "compared",
+    "definitions": [
+      "to look at two things and see how they are similar or different. it can show if one is bigger or smaller than the other. it is a way to understand things better."
+    ],
+    "examples": []
+  },
+  "cured": {
+    "word": "cured",
+    "definitions": [
+      "not sick. when a person has no disease. it is a good state."
+    ],
+    "examples": []
+  },
+  "controlled": {
+    "word": "controlled",
+    "definitions": [
+      "not free. it is made to happen by someone. it has rules."
+    ],
+    "examples": []
+  },
+  "chicken": {
+    "word": "chicken",
+    "definitions": [
+      "a bird. it can fly but often walks. it has feathers and lays eggs."
+    ],
+    "examples": []
+  },
+  "chaos": {
+    "word": "chaos",
+    "definitions": [
+      "a state of disorder. it has no order or control. it is not calm."
+    ],
+    "examples": []
+  },
+  "chickens": {
+    "word": "chickens",
+    "definitions": [
+      "animals that have feathers and beaks. they can walk and lay eggs. they are not mammals."
+    ],
+    "examples": []
+  },
+  "conclude": {
+    "word": "conclude",
+    "definitions": [
+      "to end a talk or writing. it shows the main idea. it is the last part."
+    ],
+    "examples": []
+  },
+  "coin": {
+    "word": "coin",
+    "definitions": [
+      "a thing made of metal. it has a picture on one side. it can be used to buy things."
+    ],
+    "examples": []
+  },
+  "confidently": {
+    "word": "confidently",
+    "definitions": [
+      "an adverb. it shows when someone is sure. it is not afraid."
+    ],
+    "examples": []
+  },
+  "cigar": {
+    "word": "cigar",
+    "definitions": [
+      "a thing made from tobacco. it is a long stick that people smoke. it can make a strong smell."
+    ],
+    "examples": []
+  },
+  "confused": {
+    "word": "confused",
+    "definitions": [
+      "a feeling. when a person does not know what to do. it has trouble thinking clearly."
+    ],
+    "examples": []
+  },
+  "coffee": {
+    "word": "coffee",
+    "definitions": [
+      "a drink. it is made from beans. it can make people awake."
+    ],
+    "examples": []
+  },
+  "compare": {
+    "word": "compare",
+    "definitions": [
+      "to look at two things and find their similarities and differences. it can show how things are the same or not the same. it is a way to understand better."
+    ],
+    "examples": []
+  },
+  "commence": {
+    "word": "commence",
+    "definitions": [
+      "to begin. to start doing something. it is the first action."
+    ],
+    "examples": []
+  },
+  "comma": {
+    "word": "comma",
+    "definitions": [
+      "a punctuation mark. it separates words in a sentence. it is not a letter."
+    ],
+    "examples": []
+  },
+  "clearly": {
+    "word": "clearly",
+    "definitions": [
+      "an adverb. it shows something is easy to see. it is not hard to understand."
+    ],
+    "examples": []
+  },
+  "chemist's": {
+    "word": "chemist's",
+    "definitions": [
+      "a person. a man or woman that makes and studies chemicals. it has knowledge about chemicals."
+    ],
+    "examples": []
+  },
+  "city": {
+    "word": "city",
+    "definitions": [
+      "a place where many people live. it has buildings and streets. it is not a forest."
+    ],
+    "examples": []
+  },
+  "changing": {
+    "word": "changing",
+    "definitions": [
+      "to make something different. it can be done by adding or taking away. it makes a new form."
+    ],
+    "examples": []
+  },
+  "country": {
+    "word": "country",
+    "definitions": [
+      "a place. it has people and land. it is part of the world."
+    ],
+    "examples": []
+  },
+  "computer": {
+    "word": "computer",
+    "definitions": [
+      "a thing that can store and use information. it can make sounds and show pictures. it has parts that work together."
+    ],
+    "examples": []
+  },
+  "curiosity": {
+    "word": "curiosity",
+    "definitions": [
+      "a feeling. it makes a person want to know more. it is not fear."
+    ],
+    "examples": []
+  },
+  "courage": {
+    "word": "courage",
+    "definitions": [
+      "a good quality. it helps a person to face fear. it is not being afraid."
+    ],
+    "examples": []
+  },
+  "confidence": {
+    "word": "confidence",
+    "definitions": [
+      "a good feeling. it is when a person is not afraid. it makes a person act sure."
+    ],
+    "examples": []
+  },
+  "combined": {
+    "word": "combined",
+    "definitions": [
+      "to join together. it makes one thing from many. it is not separate."
+    ],
+    "examples": []
+  },
+  "cars": {
+    "word": "cars",
+    "definitions": [
+      "a thing that moves on roads. it has wheels and a engine. it can carry people and things."
+    ],
+    "examples": []
+  },
+  "contact": {
+    "word": "contact",
+    "definitions": [
+      "to touch or speak with someone. it can be by phone or in person. it is a way to communicate."
+    ],
+    "examples": []
+  },
+  "countries": {
+    "word": "countries",
+    "definitions": [
+      "places on Earth. each has its own people and government. they are parts of the world."
+    ],
+    "examples": []
+  },
+  "cup": {
+    "word": "cup",
+    "definitions": [
+      "a thing. it can hold liquid. it has a round shape."
+    ],
+    "examples": []
+  },
+  "clean": {
+    "word": "clean",
+    "definitions": [
+      "not dirty. it has no dirt on it. it can be made by washing."
+    ],
+    "examples": []
+  },
+  "chief": {
+    "word": "chief",
+    "definitions": [
+      "a person. a leader of a group or place. has power and responsibility."
+    ],
+    "examples": []
+  },
+  "computers": {
+    "word": "computers",
+    "definitions": [
+      "a thing. it can store and process information. it has a screen and keyboard."
+    ],
+    "examples": []
+  },
+  "crowd": {
+    "word": "crowd",
+    "definitions": [
+      "a group of people. they are together in one place. they can move and talk."
+    ],
+    "examples": []
+  },
+  "cruel": {
+    "word": "cruel",
+    "definitions": [
+      "not kind. it makes people feel bad. it is a bad way to treat others."
+    ],
+    "examples": []
+  },
+  "concluded": {
+    "word": "concluded",
+    "definitions": [
+      "to finish a talk or a story. it means the end has come. it is not continuing."
+    ],
+    "examples": []
+  },
+  "closure": {
+    "word": "closure",
+    "definitions": [
+      "a thing that ends a situation. it can make people feel safe. it is not open."
+    ],
+    "examples": []
+  },
+  "counted": {
+    "word": "counted",
+    "definitions": [
+      "to count. is a verb. makes numbers bigger."
+    ],
+    "examples": []
+  },
+  "clothes": {
+    "word": "clothes",
+    "definitions": [
+      "things people wear. they can be made of different materials. they are not always the same."
+    ],
+    "examples": []
+  },
+  "compromise": {
+    "word": "compromise",
+    "definitions": [
+      "a way to solve a problem. it is when people agree a little. it makes everyone give up something."
+    ],
+    "examples": []
+  },
+  "close": {
+    "word": "close",
+    "definitions": [
+      "to stop opening. when something is not open. it means near or not far."
+    ],
+    "examples": []
+  },
+  "commonplace": {
+    "word": "commonplace",
+    "definitions": [
+      "not special. it is something that happens often. it is not unusual."
+    ],
+    "examples": []
+  },
+  "covers": {
+    "word": "covers",
+    "definitions": [
+      "a thing that is not open. it can be on top of something. it has a surface."
+    ],
+    "examples": []
+  },
+  "consisted": {
+    "word": "consisted",
+    "definitions": [
+      "to consist. is to be made up of parts. has parts that make it whole."
+    ],
+    "examples": []
+  },
+  "cream": {
+    "word": "cream",
+    "definitions": [
+      "a soft white thing. it can be made from milk. it is not hard."
+    ],
+    "examples": []
+  },
+  "careless": {
+    "word": "careless",
+    "definitions": [
+      "not careful. it has little attention. it can cause problems."
+    ],
+    "examples": []
+  },
+  "child": {
+    "word": "child",
+    "definitions": [
+      "a young person. it is not an adult. it can learn and grow."
+    ],
+    "examples": []
+  },
+  "cakes": {
+    "word": "cakes",
+    "definitions": [
+      "a food. it is made from flour, sugar, and eggs. it can be sweet and soft."
+    ],
+    "examples": []
+  },
+  "crash": {
+    "word": "crash",
+    "definitions": [
+      "a loud noise. it happens when things hit each other hard. it can make people scared."
+    ],
+    "examples": []
+  },
+  "completely": {
+    "word": "completely",
+    "definitions": [
+      "not partly. it means something is all there. it has no parts missing."
+    ],
+    "examples": []
+  },
+  "characters": {
+    "word": "characters",
+    "definitions": [
+      "a person. they can talk and make decisions. they have feelings and thoughts."
+    ],
+    "examples": []
+  },
+  "constant": {
+    "word": "constant",
+    "definitions": [
+      "not changing. it stays the same. it has no difference."
+    ],
+    "examples": []
+  },
+  "court": {
+    "word": "court",
+    "definitions": [
+      "a place. it is where people go to have a trial. it has judges and lawyers."
+    ],
+    "examples": []
+  },
+  "check": {
+    "word": "check",
+    "definitions": [
+      "to look at something carefully. it can find mistakes. it is a way to make sure something is right."
+    ],
+    "examples": []
+  },
+  "covering": {
+    "word": "covering",
+    "definitions": [
+      "a thing that is on top. it can hide or protect something. it is not open."
+    ],
+    "examples": []
+  },
+  "comparing": {
+    "word": "comparing",
+    "definitions": [
+      "to look at two things. it can show how they are alike or different. it is a way to understand."
+    ],
+    "examples": []
+  },
+  "common": {
+    "word": "common",
+    "definitions": [
+      "not rare. it is found in many places. it is not special."
+    ],
+    "examples": []
+  },
+  "calendar": {
+    "word": "calendar",
+    "definitions": [
+      "a tool. it shows days and months. it helps people know when things happen."
+    ],
+    "examples": []
+  },
+  "caused": {
+    "word": "caused",
+    "definitions": [
+      "to make something happen. it is a past form of cause. it shows that something was made to happen."
+    ],
+    "examples": []
+  },
+  "credit": {
+    "word": "credit",
+    "definitions": [
+      "a thing that shows you have money. it can be used to buy things. it is not real money."
+    ],
+    "examples": []
+  },
+  "costs": {
+    "word": "costs",
+    "definitions": [
+      "a thing that takes money. it can make people not have money. it is part of buying."
+    ],
+    "examples": []
+  },
+  "collection": {
+    "word": "collection",
+    "definitions": [
+      "a group of things. it has many items together. it is not one thing."
+    ],
+    "examples": []
+  },
+  "color": {
+    "word": "color",
+    "definitions": [
+      "a thing that is not black or white. it can make things look different. it is part of what we see."
+    ],
+    "examples": []
+  },
+  "care": {
+    "word": "care",
+    "definitions": [
+      "a feeling. it is when a person wants to help or protect something. it can make a person act gently."
+    ],
+    "examples": []
+  },
+  "consist": {
+    "word": "consist",
+    "definitions": [
+      "to consist is to be made up of parts. it can show what is included. it is not the same as having all parts."
+    ],
+    "examples": []
+  },
+  "cities": {
+    "word": "cities",
+    "definitions": [
+      "places where many people live. they have buildings and roads. they are not all the same."
+    ],
+    "examples": []
+  },
+  "cooked": {
+    "word": "cooked",
+    "definitions": [
+      "a thing that is not raw. it has been made hot with fire. it is ready to eat."
+    ],
+    "examples": []
+  },
+  "cure": {
+    "word": "cure",
+    "definitions": [
+      "a way to make something better. it can stop sickness. it is not a thing that makes you sick."
+    ],
+    "examples": []
+  },
+  "cannot": {
+    "word": "cannot",
+    "definitions": [
+      "not can. it means something is not possible. it is used when a person or thing is not able to do something."
+    ],
+    "examples": []
+  },
+  "cost": {
+    "word": "cost",
+    "definitions": [
+      "a thing that is not free. it is what you give to get something. it can be money or time."
+    ],
+    "examples": []
+  },
+  "crystals": {
+    "word": "crystals",
+    "definitions": [
+      "a thing. it has a clear shape. it can be found in rocks."
+    ],
+    "examples": []
+  },
+  "conversation": {
+    "word": "conversation",
+    "definitions": [
+      "a talk between people. it can happen when they speak and listen. it makes people understand each other."
+    ],
+    "examples": []
+  },
+  "competitions": {
+    "word": "competitions",
+    "definitions": [
+      "events where people try to do things well. they can be fun or serious. people can win or lose."
+    ],
+    "examples": []
+  },
+  "certainty": {
+    "word": "certainty",
+    "definitions": [
+      "a feeling that something is true. it is not unsure. it makes you believe strongly."
+    ],
+    "examples": []
+  },
+  "cholera": {
+    "word": "cholera",
+    "definitions": [
+      "a bad disease. it makes people sick and throw up. it is not easy to cure."
+    ],
+    "examples": []
+  },
+  "camera": {
+    "word": "camera",
+    "definitions": [
+      "a tool. it can take pictures. it has a lens."
+    ],
+    "examples": []
+  },
+  "cows": {
+    "word": "cows",
+    "definitions": [
+      "animals that have big horns. they can make sound and give milk. they are not birds."
+    ],
+    "examples": []
+  },
+  "checks": {
+    "word": "checks",
+    "definitions": [
+      "a way to make sure something is right. it is a part of reading. it can find mistakes."
+    ],
+    "examples": []
+  },
+  "charge-sheet": {
+    "word": "charge-sheet",
+    "definitions": [
+      "a list. it has information about a person. it is used in a court."
+    ],
+    "examples": []
+  },
+  "concerned": {
+    "word": "concerned",
+    "definitions": [
+      "a feeling. when a person is not calm. it has worry."
+    ],
+    "examples": []
+  },
+  "create": {
+    "word": "create",
+    "definitions": [
+      "to make something new. it can change old things. it is a way to build."
+    ],
+    "examples": []
+  },
+  "causes": {
+    "word": "causes",
+    "definitions": [
+      "to make something happen. it can start a problem. it is not the same as the problem."
+    ],
+    "examples": []
+  },
+  "cheap": {
+    "word": "cheap",
+    "definitions": [
+      "not expensive. it has little cost. it can be bought for little money."
+    ],
+    "examples": []
+  },
+  "container": {
+    "word": "container",
+    "definitions": [
+      "a thing. it can hold other things. it has an open space inside."
+    ],
+    "examples": []
+  },
+  "cotton": {
+    "word": "cotton",
+    "definitions": [
+      "a soft thing. it is not hard. it can be made into clothes."
+    ],
+    "examples": []
+  },
+  "cry": {
+    "word": "cry",
+    "definitions": [
+      "to make sound and show sadness. it can happen when someone is hurt. it is not happy."
+    ],
+    "examples": []
+  },
+  "concrete": {
+    "word": "concrete",
+    "definitions": [
+      "a thing that is not soft. it is hard and can be made into shapes. it is used to build things."
+    ],
+    "examples": []
+  },
+  "cheese": {
+    "word": "cheese",
+    "definitions": [
+      "a soft or hard food. it is made from milk. it can be eaten alone or with bread."
+    ],
+    "examples": []
+  },
+  "crispy": {
+    "word": "crispy",
+    "definitions": [
+      "a texture. it is not soft. it is dry and hard."
+    ],
+    "examples": []
+  },
+  "chemist": {
+    "word": "chemist",
+    "definitions": [
+      "a person. a man or woman that knows about chemicals. it can make new things."
+    ],
+    "examples": []
+  },
+  "charge": {
+    "word": "charge",
+    "definitions": [
+      "to give electricity. it can make a battery work. it is not safe if you touch it."
+    ],
+    "examples": []
+  },
+  "conscientiously": {
+    "word": "conscientiously",
+    "definitions": [
+      "to do things with care. it is not careless. it shows respect for what is right."
+    ],
+    "examples": []
+  },
+  "curve": {
+    "word": "curve",
+    "definitions": [
+      "a shape. it is not straight. it can be part of a line."
+    ],
+    "examples": []
+  },
+  "communication": {
+    "word": "communication",
+    "definitions": [
+      "a way to share ideas. it can be spoken or written. it helps people understand each other."
+    ],
+    "examples": []
+  },
+  "carry": {
+    "word": "carry",
+    "definitions": [
+      "to move something with hands or body. it can help to move things. it is not easy for heavy things."
+    ],
+    "examples": []
+  },
+  "complications": {
+    "word": "complications",
+    "definitions": [
+      "not simple. it can make problems worse. it is a result of something bad."
+    ],
+    "examples": []
+  },
+  "cut": {
+    "word": "cut",
+    "definitions": [
+      "to cut is to separate something into parts. it uses a sharp tool. it makes things smaller."
+    ],
+    "examples": []
+  },
+  "closest": {
+    "word": "closest",
+    "definitions": [
+      "not far. it is the most near. it has the least distance."
+    ],
+    "examples": []
+  },
+  "careful": {
+    "word": "careful",
+    "definitions": [
+      "not careless. it has attention to what you do. it can avoid mistakes."
+    ],
+    "examples": []
+  },
+  "course": {
+    "word": "course",
+    "definitions": [
+      "a path. it can be straight or bend. it has a start and end."
+    ],
+    "examples": []
+  },
+  "carefully": {
+    "word": "carefully",
+    "definitions": [
+      "to do something with attention. it is not careless. it makes things safer."
+    ],
+    "examples": []
+  },
+  "change": {
+    "word": "change",
+    "definitions": [
+      "to make something different. it can make things look or be something else. it is not the same as before."
+    ],
+    "examples": []
+  },
+  "containing": {
+    "word": "containing",
+    "definitions": [
+      "having something inside. it is not empty. it can hold things."
+    ],
+    "examples": []
+  },
+  "creature": {
+    "word": "creature",
+    "definitions": [
+      "a living thing. it can move and feel. it has a body."
+    ],
+    "examples": []
+  },
+  "connect": {
+    "word": "connect",
+    "definitions": [
+      "to connect is to join things together. it can make parts work as one. it is a way to link ideas."
+    ],
+    "examples": []
+  },
+  "coffee-room": {
+    "word": "coffee-room",
+    "definitions": [
+      "a place. it is where people can drink coffee. it is part of a building."
+    ],
+    "examples": []
+  },
+  "cooling": {
+    "word": "cooling",
+    "definitions": [
+      "a process. it makes things not hot. it can lower temperature."
+    ],
+    "examples": []
+  },
+  "command": {
+    "word": "command",
+    "definitions": [
+      "a verb. it is to tell someone to do something. it can make a person act."
+    ],
+    "examples": []
+  },
+  "comfortable": {
+    "word": "comfortable",
+    "definitions": [
+      "a feeling. it is not hard or painful. it makes people relax."
+    ],
+    "examples": []
+  }
+}

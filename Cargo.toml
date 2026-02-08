@@ -2,8 +2,10 @@
 members = [
     "crates/yalm-core",
     "crates/yalm-parser",
+    "crates/yalm-cache",
     "crates/yalm-engine",
     "crates/yalm-eval",
     "crates/yalm-evolve",
+    "crates/yalm-wikt-build",
 ]
 resolver = "2"

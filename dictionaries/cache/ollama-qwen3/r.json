@@ -1,0 +1,702 @@
+{
+  "reservation": {
+    "word": "reservation",
+    "definitions": [
+      "a place to stay. it is not a home. it can be in a hotel."
+    ],
+    "examples": []
+  },
+  "resumed": {
+    "word": "resumed",
+    "definitions": [
+      "to continue after stopping. it means to start again. it is not new."
+    ],
+    "examples": []
+  },
+  "relieved": {
+    "word": "relieved",
+    "definitions": [
+      "not worried. when a person feels good because something bad is over."
+    ],
+    "examples": []
+  },
+  "rhythm": {
+    "word": "rhythm",
+    "definitions": [
+      "a pattern of sound. it has beats that repeat. it makes music move."
+    ],
+    "examples": []
+  },
+  "reach": {
+    "word": "reach",
+    "definitions": [
+      "to touch or get to something. it can happen by moving. it is a way to get things."
+    ],
+    "examples": []
+  },
+  "restaurant": {
+    "word": "restaurant",
+    "definitions": [
+      "a place. people go there to eat food. it has tables and chairs."
+    ],
+    "examples": []
+  },
+  "read": {
+    "word": "read",
+    "definitions": [
+      "to look at words on paper. it can help you learn and understand. it is not the same as listening."
+    ],
+    "examples": []
+  },
+  "really": {
+    "word": "really",
+    "definitions": [
+      "not normal. it shows something is very true. it makes words stronger."
+    ],
+    "examples": []
+  },
+  "relaxed": {
+    "word": "relaxed",
+    "definitions": [
+      "not worried. a person can have a calm feeling. it is a state of being."
+    ],
+    "examples": []
+  },
+  "risk": {
+    "word": "risk",
+    "definitions": [
+      "to face possible harm. it can cause loss or danger. not safe."
+    ],
+    "examples": []
+  },
+  "responsibility": {
+    "word": "responsibility",
+    "definitions": [
+      "a duty. it is to do what is right. it makes a person trustworthy."
+    ],
+    "examples": []
+  },
+  "reply": {
+    "word": "reply",
+    "definitions": [
+      "to answer back. it is a way to talk to someone. it can be polite or rude."
+    ],
+    "examples": []
+  },
+  "run": {
+    "word": "run",
+    "definitions": [
+      "to move fast using legs. it can make a person tired. it is a way to travel."
+    ],
+    "examples": []
+  },
+  "results": {
+    "word": "results",
+    "definitions": [
+      "a thing that shows what happened. it can be good or bad. it is not a plan."
+    ],
+    "examples": []
+  },
+  "reading-room": {
+    "word": "reading-room",
+    "definitions": [
+      "a place. it has books and tables. people can read and sit there."
+    ],
+    "examples": []
+  },
+  "role": {
+    "word": "role",
+    "definitions": [
+      "a part of a play or movie. it is a job that a person has. it can be good or bad."
+    ],
+    "examples": []
+  },
+  "raw": {
+    "word": "raw",
+    "definitions": [
+      "not cooked. it is a thing that has not been made or treated. it can be used to make other things."
+    ],
+    "examples": []
+  },
+  "responsible": {
+    "word": "responsible",
+    "definitions": [
+      "a person. they have to make good choices. they are not careless."
+    ],
+    "examples": []
+  },
+  "recollect": {
+    "word": "recollect",
+    "definitions": [
+      "to remember. it is to think about something again. it can help to know the past."
+    ],
+    "examples": []
+  },
+  "risky": {
+    "word": "risky",
+    "definitions": [
+      "not safe. it can cause harm. it has danger."
+    ],
+    "examples": []
+  },
+  "routine": {
+    "word": "routine",
+    "definitions": [
+      "a habit. it is a way of doing things every day. it makes life easier."
+    ],
+    "examples": []
+  },
+  "retired": {
+    "word": "retired",
+    "definitions": [
+      "not working. a person has stopped their job. it is a state of life."
+    ],
+    "examples": []
+  },
+  "roads": {
+    "word": "roads",
+    "definitions": [
+      "a path people and cars use. it is made of stone or dirt. it connects places."
+    ],
+    "examples": []
+  },
+  "remains": {
+    "word": "remains",
+    "definitions": [
+      "what is left after something is gone. it can be seen or touched. it is not moving."
+    ],
+    "examples": []
+  },
+  "response": {
+    "word": "response",
+    "definitions": [
+      "king: a person. a man that has power over a big place."
+    ],
+    "examples": []
+  },
+  "real": {
+    "word": "real",
+    "definitions": [
+      "not fake. it is true and not made up. it can be felt or seen."
+    ],
+    "examples": []
+  },
+  "recommended": {
+    "word": "recommended",
+    "definitions": [
+      "to suggest. it is a way to tell someone what to do. it is not forced."
+    ],
+    "examples": []
+  },
+  "refilled": {
+    "word": "refilled",
+    "definitions": [
+      "to fill again. it is a past action. it means something was filled after being empty."
+    ],
+    "examples": []
+  },
+  "reduction": {
+    "word": "reduction",
+    "definitions": [
+      "a decrease. it is a change that makes something smaller. it can happen in size or amount."
+    ],
+    "examples": []
+  },
+  "repeat": {
+    "word": "repeat",
+    "definitions": [
+      "to say something again. it can be used when you want to make sure someone hears. it is not the same as telling a story."
+    ],
+    "examples": []
+  },
+  "respectable": {
+    "word": "respectable",
+    "definitions": [
+      "not bad. a person is respectable when they act well. it makes others trust them."
+    ],
+    "examples": []
+  },
+  "room": {
+    "word": "room",
+    "definitions": [
+      "a place. it can be used for sleeping or eating. it has walls and a floor."
+    ],
+    "examples": []
+  },
+  "replied": {
+    "word": "replied",
+    "definitions": [
+      "to speak after someone else. it is a way to answer. it can be polite or not."
+    ],
+    "examples": []
+  },
+  "repacked": {
+    "word": "repacked",
+    "definitions": [
+      "to put things again in a container. it is done after taking out. it makes things organized."
+    ],
+    "examples": []
+  },
+  "rivers": {
+    "word": "rivers",
+    "definitions": [
+      "a big stream of water. it flows from high places to low places. it is part of the sea or a lake."
+    ],
+    "examples": []
+  },
+  "rock": {
+    "word": "rock",
+    "definitions": [
+      "a hard thing. it can be found on the earth. it can break easily."
+    ],
+    "examples": []
+  },
+  "rat": {
+    "word": "rat",
+    "definitions": [
+      "a small animal. it has a long tail and it can run fast. it is not clean."
+    ],
+    "examples": []
+  },
+  "rule": {
+    "word": "rule",
+    "definitions": [
+      "a rule. it is a way to do something. it can make things clear."
+    ],
+    "examples": []
+  },
+  "romantic": {
+    "word": "romantic",
+    "definitions": [
+      "a feeling. it is not practical. it makes people think about love and beauty."
+    ],
+    "examples": []
+  },
+  "return": {
+    "word": "return",
+    "definitions": [
+      "to go back to a previous place or state. it can happen after leaving something. it is the opposite of go forward."
+    ],
+    "examples": []
+  },
+  "rough": {
+    "word": "rough",
+    "definitions": [
+      "not smooth. it has a hard or bumpy surface. it can feel uncomfortable."
+    ],
+    "examples": []
+  },
+  "related": {
+    "word": "related",
+    "definitions": [
+      "to have a connection. it can be because of a common idea or thing. it is not always the same as similar."
+    ],
+    "examples": []
+  },
+  "record": {
+    "word": "record",
+    "definitions": [
+      "a thing that has sound. it can save voices and music. it is not alive."
+    ],
+    "examples": []
+  },
+  "relax": {
+    "word": "relax",
+    "definitions": [
+      "to stop being busy. to feel calm. not worried."
+    ],
+    "examples": []
+  },
+  "result": {
+    "word": "result",
+    "definitions": [
+      "a thing that comes from a process. it is not a real thing. it can be good or bad."
+    ],
+    "examples": []
+  },
+  "remedies": {
+    "word": "remedies",
+    "definitions": [
+      "things that can help make you better. they are used when you are sick. they can be made from plants or chemicals."
+    ],
+    "examples": []
+  },
+  "rude": {
+    "word": "rude",
+    "definitions": [
+      "not polite. it is a bad way to speak or act. it makes people feel uncomfortable."
+    ],
+    "examples": []
+  },
+  "roots": {
+    "word": "roots",
+    "definitions": [
+      "a part of a plant. it is under the ground. it helps the plant to grow."
+    ],
+    "examples": []
+  },
+  "random": {
+    "word": "random",
+    "definitions": [
+      "not planned. it has no order. it can happen at any time."
+    ],
+    "examples": []
+  },
+  "rooms": {
+    "word": "rooms",
+    "definitions": [
+      "a place in a house. it can be used for different activities. it is part of a building."
+    ],
+    "examples": []
+  },
+  "roof": {
+    "word": "roof",
+    "definitions": [
+      "a part of a house. it is on top. it can keep rain out."
+    ],
+    "examples": []
+  },
+  "required": {
+    "word": "required",
+    "definitions": [
+      "not optional. it means something must be done or given. it is a rule."
+    ],
+    "examples": []
+  },
+  "rises": {
+    "word": "rises",
+    "definitions": [
+      "to go up. it can happen when something is not flat. it makes a movement."
+    ],
+    "examples": []
+  },
+  "reading": {
+    "word": "reading",
+    "definitions": [
+      "to look at words and understand their meaning. it can help learn and know more. it is a way to get information."
+    ],
+    "examples": []
+  },
+  "rich": {
+    "word": "rich",
+    "definitions": [
+      "not poor. a person has a lot of money. it makes them have many things."
+    ],
+    "examples": []
+  },
+  "rules": {
+    "word": "rules",
+    "definitions": [
+      "a set of instructions. it can tell what is allowed and not allowed. it is part of games and activities."
+    ],
+    "examples": []
+  },
+  "rolled": {
+    "word": "rolled",
+    "definitions": [
+      "to make something round by pressing. it is a shape. it can be made from paper or clay."
+    ],
+    "examples": []
+  },
+  "rhubarb": {
+    "word": "rhubarb",
+    "definitions": [
+      "a plant. it has long green sticks. it is not sweet."
+    ],
+    "examples": []
+  },
+  "regretfully": {
+    "word": "regretfully",
+    "definitions": [
+      "an adverb. it shows that someone feels bad about something. it is not happy."
+    ],
+    "examples": []
+  },
+  "reopen": {
+    "word": "reopen",
+    "definitions": [
+      "to open again. after being closed. it can happen when people are ready."
+    ],
+    "examples": []
+  },
+  "revel": {
+    "word": "revel",
+    "definitions": [
+      "a loud and happy thing. people do it when they are excited. it is not quiet."
+    ],
+    "examples": []
+  },
+  "right": {
+    "word": "right",
+    "definitions": [
+      "a direction. it is the opposite of left. it is a way to move."
+    ],
+    "examples": []
+  },
+  "reverse": {
+    "word": "reverse",
+    "definitions": [
+      "to turn back. to make something the opposite way. it is not forward."
+    ],
+    "examples": []
+  },
+  "readiness": {
+    "word": "readiness",
+    "definitions": [
+      "a state. it is being ready to act. it has preparedness."
+    ],
+    "examples": []
+  },
+  "resting": {
+    "word": "resting",
+    "definitions": [
+      "to not moving or working. it is a state of being calm. it makes a person feel tired."
+    ],
+    "examples": []
+  },
+  "reason": {
+    "word": "reason",
+    "definitions": [
+      "a thing that makes you think. it can help you decide what to do. it is not feeling."
+    ],
+    "examples": []
+  },
+  "river": {
+    "word": "river",
+    "definitions": [
+      "a long flowing water. it can move and it is clear. it is part of a lake or sea."
+    ],
+    "examples": []
+  },
+  "relative": {
+    "word": "relative",
+    "definitions": [
+      "a person. a man or woman that is connected to you by family. it can be a brother, sister, father, or mother."
+    ],
+    "examples": []
+  },
+  "rope": {
+    "word": "rope",
+    "definitions": [
+      "a thing made of fibers. it can hold weight. it is strong and flexible."
+    ],
+    "examples": []
+  },
+  "railway": {
+    "word": "railway",
+    "definitions": [
+      "a place. it has tracks and trains move on it. it is part of a big system."
+    ],
+    "examples": []
+  },
+  "rather": {
+    "word": "rather",
+    "definitions": [
+      "not very. it is used to say something is not much. it can show a small amount."
+    ],
+    "examples": []
+  },
+  "ropes": {
+    "word": "ropes",
+    "definitions": [
+      "a thing made of thick thread. it can be used to tie or climb. it is strong and flexible."
+    ],
+    "examples": []
+  },
+  "relationship": {
+    "word": "relationship",
+    "definitions": [
+      "a connection between people. it can be good or bad. it is part of life."
+    ],
+    "examples": []
+  },
+  "rise": {
+    "word": "rise",
+    "definitions": [
+      "to move upward. it can happen when something is not heavy. it makes a thing go higher."
+    ],
+    "examples": []
+  },
+  "refers": {
+    "word": "refers",
+    "definitions": [
+      "to point to or mention something. it can show where something is. it is a way to talk about something."
+    ],
+    "examples": []
+  },
+  "reflected": {
+    "word": "reflected",
+    "definitions": [
+      "not direct. it is a kind of light. it comes from a surface."
+    ],
+    "examples": []
+  },
+  "respond": {
+    "word": "respond",
+    "definitions": [
+      "to answer back. it can be quick or slow. it is a way to talk."
+    ],
+    "examples": []
+  },
+  "remained": {
+    "word": "remained",
+    "definitions": [
+      "to stay in the same place or state. it is the past tense of remain. it shows something did not change."
+    ],
+    "examples": []
+  },
+  "rug": {
+    "word": "rug",
+    "definitions": [
+      "a thing that is on the floor. it can be made of wool or cotton. it is not hard."
+    ],
+    "examples": []
+  },
+  "round": {
+    "word": "round",
+    "definitions": [
+      "a shape. it has no corners. it is like a ball."
+    ],
+    "examples": []
+  },
+  "rest": {
+    "word": "rest",
+    "definitions": [
+      "a time when you stop working. it is not busy. it makes you feel calm."
+    ],
+    "examples": []
+  },
+  "repeating": {
+    "word": "repeating",
+    "definitions": [
+      "to say or do something again. it is not new. it can be done many times."
+    ],
+    "examples": []
+  },
+  "remembered": {
+    "word": "remembered",
+    "definitions": [
+      "a past action. it is the opposite of forgotten. it has to do with knowing something again."
+    ],
+    "examples": []
+  },
+  "rubber": {
+    "word": "rubber",
+    "definitions": [
+      "a thing. it can stretch and return to its shape. it is not hard."
+    ],
+    "examples": []
+  },
+  "rare": {
+    "word": "rare",
+    "definitions": [
+      "not common. when something happens only a few times."
+    ],
+    "examples": []
+  },
+  "ready": {
+    "word": "ready",
+    "definitions": [
+      "a state. it means something is prepared. it can happen before an action."
+    ],
+    "examples": []
+  },
+  "rats": {
+    "word": "rats",
+    "definitions": [
+      "small animals. they have long tails and big ears. they can run and jump."
+    ],
+    "examples": []
+  },
+  "remember": {
+    "word": "remember",
+    "definitions": [
+      "to keep something in mind. it helps you know things later. it is not forget."
+    ],
+    "examples": []
+  },
+  "red": {
+    "word": "red",
+    "definitions": [
+      "a color. it is not white. it is a bright color."
+    ],
+    "examples": []
+  },
+  "roofs": {
+    "word": "roofs",
+    "definitions": [
+      "a part of a house. it is on top to keep out rain. it can be made of wood or metal."
+    ],
+    "examples": []
+  },
+  "remain": {
+    "word": "remain",
+    "definitions": [
+      "to stay in the same place or state. it can happen when nothing changes. it is not moving."
+    ],
+    "examples": []
+  },
+  "respect": {
+    "word": "respect",
+    "definitions": [
+      "a feeling. it is not anger. it shows care for others."
+    ],
+    "examples": []
+  },
+  "rocks": {
+    "word": "rocks",
+    "definitions": [
+      "a thing. it is hard and not soft. it can break and it is found on the ground."
+    ],
+    "examples": []
+  },
+  "remove": {
+    "word": "remove",
+    "definitions": [
+      "to take away. it can make something smaller. it is not adding."
+    ],
+    "examples": []
+  },
+  "referee": {
+    "word": "referee",
+    "definitions": [
+      "a person. to make sure a game is fair. has power to stop play."
+    ],
+    "examples": []
+  },
+  "restore": {
+    "word": "restore",
+    "definitions": [
+      "to make something again as it was. it can fix broken things. it is the opposite of break."
+    ],
+    "examples": []
+  },
+  "rain": {
+    "word": "rain",
+    "definitions": [
+      "a thing that falls from the sky. it is water and it can make the ground wet. it is not hard."
+    ],
+    "examples": []
+  },
+  "road": {
+    "word": "road",
+    "definitions": [
+      "a path. it is made of stone or dirt. people can walk or drive on it."
+    ],
+    "examples": []
+  },
+  "receive": {
+    "word": "receive",
+    "definitions": [
+      "to get something from someone. it can happen when you are given a gift. it is not the same as giving."
+    ],
+    "examples": []
+  },
+  "ran": {
+    "word": "ran",
+    "definitions": [
+      "to run. it is past tense. it shows movement with legs."
+    ],
+    "examples": []
+  }
+}

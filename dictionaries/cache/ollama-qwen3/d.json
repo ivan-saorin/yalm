@@ -1,0 +1,849 @@
+{
+  "drowsy": {
+    "word": "drowsy",
+    "definitions": [
+      "a feeling. a person is not awake. they want to sleep."
+    ],
+    "examples": []
+  },
+  "difference": {
+    "word": "difference",
+    "definitions": [
+      "a thing that is not same. it shows how two things are not alike. it can be seen between two things."
+    ],
+    "examples": []
+  },
+  "die": {
+    "word": "die",
+    "definitions": [
+      "to stop living. it is the end of life. not alive anymore."
+    ],
+    "examples": []
+  },
+  "dangerous": {
+    "word": "dangerous",
+    "definitions": [
+      "not safe. it can cause harm. it makes people afraid."
+    ],
+    "examples": []
+  },
+  "days": {
+    "word": "days",
+    "definitions": [
+      "a time period. it is part of a year. it can be long or short."
+    ],
+    "examples": []
+  },
+  "dict5": {
+    "word": "dict5",
+    "definitions": [
+      "a thing that is not real. it can be used to make other things. it has no weight."
+    ],
+    "examples": []
+  },
+  "dried": {
+    "word": "dried",
+    "definitions": [
+      "not wet. it has no water in it. it is hard and light."
+    ],
+    "examples": []
+  },
+  "done": {
+    "word": "done",
+    "definitions": [
+      "a state. it means something is finished. it is not being done."
+    ],
+    "examples": []
+  },
+  "distances": {
+    "word": "distances",
+    "definitions": [
+      "a thing that is not near. it can be between people or places. it makes communication harder."
+    ],
+    "examples": []
+  },
+  "death": {
+    "word": "death",
+    "definitions": [
+      "the end of life. a person is not alive after death. it happens when the body stops working."
+    ],
+    "examples": []
+  },
+  "deck": {
+    "word": "deck",
+    "definitions": [
+      "a place on a ship. it has a floor and is not wet. it can be used for walking."
+    ],
+    "examples": []
+  },
+  "danger": {
+    "word": "danger",
+    "definitions": [
+      "a bad thing that can hurt. it makes people feel worried. it is not safe."
+    ],
+    "examples": []
+  },
+  "dogs": {
+    "word": "dogs",
+    "definitions": [
+      "animals that can run fast. they have fur and bark. they are not birds."
+    ],
+    "examples": []
+  },
+  "devices": {
+    "word": "devices",
+    "definitions": [
+      "things that people use. they can help do work. they are not living."
+    ],
+    "examples": []
+  },
+  "decrease": {
+    "word": "decrease",
+    "definitions": [
+      "to make something smaller. it can happen when you take away. it is the opposite of increase."
+    ],
+    "examples": []
+  },
+  "dirty": {
+    "word": "dirty",
+    "definitions": [
+      "not clean. it has bad smell or look. it can make things bad."
+    ],
+    "examples": []
+  },
+  "decision": {
+    "word": "decision",
+    "definitions": [
+      "a choice. it is made after thinking. it can change the future."
+    ],
+    "examples": []
+  },
+  "depression": {
+    "word": "depression",
+    "definitions": [
+      "a bad feeling. it makes a person feel sad and tired. it is not happy."
+    ],
+    "examples": []
+  },
+  "dress": {
+    "word": "dress",
+    "definitions": [
+      "a thing to wear on the body. it can cover the body and make a person look nice. it is made of fabric."
+    ],
+    "examples": []
+  },
+  "dispensary": {
+    "word": "dispensary",
+    "definitions": [
+      "a place. it has medicine and doctors. it is not a hospital."
+    ],
+    "examples": []
+  },
+  "dealt": {
+    "word": "dealt",
+    "definitions": [
+      "to give something to someone. it is a past form of give. it can mean to give or to handle."
+    ],
+    "examples": []
+  },
+  "duty": {
+    "word": "duty",
+    "definitions": [
+      "a thing that a person must do. it is a responsibility. it can make a person feel good."
+    ],
+    "examples": []
+  },
+  "day": {
+    "word": "day",
+    "definitions": [
+      "a time when the sun is up. it is not night. people can see and move during it."
+    ],
+    "examples": []
+  },
+  "definition": {
+    "word": "definition",
+    "definitions": [
+      "a way to explain the meaning of a word. it can help people understand what a word is. it is not a guess."
+    ],
+    "examples": []
+  },
+  "differences": {
+    "word": "differences",
+    "definitions": [
+      "not same. when two things are not equal. it shows how they are not alike."
+    ],
+    "examples": []
+  },
+  "defined": {
+    "word": "defined",
+    "definitions": [
+      "to set limits on something. to say what is allowed or not allowed. to make clear what is right or wrong."
+    ],
+    "examples": []
+  },
+  "didn't": {
+    "word": "didn't",
+    "definitions": [
+      "did not. is the opposite of did. shows something did not happen."
+    ],
+    "examples": []
+  },
+  "disease": {
+    "word": "disease",
+    "definitions": [
+      "a bad condition. it makes a person feel sick. it can spread from one person to another."
+    ],
+    "examples": []
+  },
+  "discussed": {
+    "word": "discussed",
+    "definitions": [
+      "to talk about something. it is a past form of discuss. it shows that ideas have been shared."
+    ],
+    "examples": []
+  },
+  "dish": {
+    "word": "dish",
+    "definitions": [
+      "a thing you put food on. it can be made of different materials. it is used for eating."
+    ],
+    "examples": []
+  },
+  "disagree": {
+    "word": "disagree",
+    "definitions": [
+      "to not agree. to have a different opinion. it can cause arguments."
+    ],
+    "examples": []
+  },
+  "drunk": {
+    "word": "drunk",
+    "definitions": [
+      "a person. not clear in mind. has trouble walking and talking."
+    ],
+    "examples": []
+  },
+  "drawing": {
+    "word": "drawing",
+    "definitions": [
+      "a thing that is made with a pencil or pen. it can show ideas or pictures. it is not real."
+    ],
+    "examples": []
+  },
+  "disagreement": {
+    "word": "disagreement",
+    "definitions": [
+      "a problem between people. it happens when they have different ideas. it is not agreement."
+    ],
+    "examples": []
+  },
+  "divide": {
+    "word": "divide",
+    "definitions": [
+      "to split into parts. it can make groups. it is not mix."
+    ],
+    "examples": []
+  },
+  "dropping": {
+    "word": "dropping",
+    "definitions": [
+      "to let go of something. it is when something falls. it can happen when you lose hold."
+    ],
+    "examples": []
+  },
+  "dragged": {
+    "word": "dragged",
+    "definitions": [
+      "to pull someone or something while moving. it is a way of moving with force. it makes movement slow and hard."
+    ],
+    "examples": []
+  },
+  "difficult": {
+    "word": "difficult",
+    "definitions": [
+      "not easy. it needs more work or skill. it makes people feel tired."
+    ],
+    "examples": []
+  },
+  "drake": {
+    "word": "drake",
+    "definitions": [
+      "a bird. it can fly and it has a long neck. it is not a fish."
+    ],
+    "examples": []
+  },
+  "democracy": {
+    "word": "democracy",
+    "definitions": [
+      "a system. people have power to make decisions. it is not ruled by one person."
+    ],
+    "examples": []
+  },
+  "damage": {
+    "word": "damage",
+    "definitions": [
+      "a bad thing that makes something not work right. it can happen when something is broken or hurt. it is not good."
+    ],
+    "examples": []
+  },
+  "door": {
+    "word": "door",
+    "definitions": [
+      "a thing. it can open and close. it is part of a building."
+    ],
+    "examples": []
+  },
+  "direction": {
+    "word": "direction",
+    "definitions": [
+      "a way to go. it can be north, south, east, or west. it helps to know where to move."
+    ],
+    "examples": []
+  },
+  "doctors": {
+    "word": "doctors",
+    "definitions": [
+      "people. they can help when someone is sick. they have knowledge about the body."
+    ],
+    "examples": []
+  },
+  "doctor": {
+    "word": "doctor",
+    "definitions": [
+      "a person. he or she can help people when they are sick. he or she has knowledge about health."
+    ],
+    "examples": []
+  },
+  "distemper": {
+    "word": "distemper",
+    "definitions": [
+      "a bad illness. it makes animals sick and weak. it is not good for health."
+    ],
+    "examples": []
+  },
+  "dinner": {
+    "word": "dinner",
+    "definitions": [
+      "a meal. it is eaten in the evening. it has food and drinks."
+    ],
+    "examples": []
+  },
+  "design": {
+    "word": "design",
+    "definitions": [
+      "to make something look good. it uses ideas and plans. it can make things work well."
+    ],
+    "examples": []
+  },
+  "described": {
+    "word": "described",
+    "definitions": [
+      "to described: to say what something is like. it can show the feeling or look. it is not a action but a way of talking."
+    ],
+    "examples": []
+  },
+  "dictionary": {
+    "word": "dictionary",
+    "definitions": [
+      "a book. it has words and their meanings. it is used to find the meaning of words."
+    ],
+    "examples": []
+  },
+  "detailed": {
+    "word": "detailed",
+    "definitions": [
+      "not simple. it has many small parts. it shows things clearly."
+    ],
+    "examples": []
+  },
+  "desire": {
+    "word": "desire",
+    "definitions": [
+      "a feeling. it makes a person want something. it can be strong or weak."
+    ],
+    "examples": []
+  },
+  "during": {
+    "word": "during",
+    "definitions": [
+      "a time when something happens. it is part of a longer time. it can be short or long."
+    ],
+    "examples": []
+  },
+  "diseases": {
+    "word": "diseases",
+    "definitions": [
+      "things that make people sick. they can spread from one person to another. they are not good for health."
+    ],
+    "examples": []
+  },
+  "divided": {
+    "word": "divided",
+    "definitions": [
+      "not whole. it has parts that are separate. it can mean split into groups."
+    ],
+    "examples": []
+  },
+  "discuss": {
+    "word": "discuss",
+    "definitions": [
+      "to talk about something with others. it can help people share ideas. it is a way to learn and understand."
+    ],
+    "examples": []
+  },
+  "different": {
+    "word": "different",
+    "definitions": [
+      "not same. it has some things that are not like others. it can be in shape, color, or size."
+    ],
+    "examples": []
+  },
+  "daily": {
+    "word": "daily",
+    "definitions": [
+      "a thing that happens every day. it can be a habit or a routine. it is not special."
+    ],
+    "examples": []
+  },
+  "dead": {
+    "word": "dead",
+    "definitions": [
+      "not alive. when a person or thing has no life. it cannot move or feel."
+    ],
+    "examples": []
+  },
+  "discovered": {
+    "word": "discovered",
+    "definitions": [
+      "to find something new. it is a past action. it can happen by chance."
+    ],
+    "examples": []
+  },
+  "decisions": {
+    "word": "decisions",
+    "definitions": [
+      "things that are chosen. they can be easy or hard. they make changes."
+    ],
+    "examples": []
+  },
+  "disagreeing": {
+    "word": "disagreeing",
+    "definitions": [
+      "not agreeing. when someone has a different opinion."
+    ],
+    "examples": []
+  },
+  "degree": {
+    "word": "degree",
+    "definitions": [
+      "a measure of heat or cold. it is not the same as temperature. it can be used to show how hot or cold something is."
+    ],
+    "examples": []
+  },
+  "determined": {
+    "word": "determined",
+    "definitions": [
+      "a person. has strong will. not easy to change mind."
+    ],
+    "examples": []
+  },
+  "definitions": {
+    "word": "definitions",
+    "definitions": [
+      "apple: a fruit. it is red or green. it can be eaten."
+    ],
+    "examples": []
+  },
+  "diphtheria": {
+    "word": "diphtheria",
+    "definitions": [
+      "a disease. it can make a person very sick. it is caused by a bad germ."
+    ],
+    "examples": []
+  },
+  "diagnosis": {
+    "word": "diagnosis",
+    "definitions": [
+      "a process. it is used to find out what is wrong with a person. it can help to decide what to do."
+    ],
+    "examples": []
+  },
+  "dirt": {
+    "word": "dirt",
+    "definitions": [
+      "a thing that is not clean. it can be found on the ground. it is made of small particles."
+    ],
+    "examples": []
+  },
+  "describes": {
+    "word": "describes",
+    "definitions": [
+      "to explain what something is like. it shows the quality of something. it tells how something feels or looks."
+    ],
+    "examples": []
+  },
+  "disorder": {
+    "word": "disorder",
+    "definitions": [
+      "a problem with the mind. it makes a person act or feel in a bad way. it is not normal."
+    ],
+    "examples": []
+  },
+  "downward": {
+    "word": "downward",
+    "definitions": [
+      "not upward. it is a direction toward the earth. it is the opposite of upward."
+    ],
+    "examples": []
+  },
+  "dot": {
+    "word": "dot",
+    "definitions": [
+      "a small round mark. it can be made with a pen. it is part of a sentence."
+    ],
+    "examples": []
+  },
+  "drive": {
+    "word": "drive",
+    "definitions": [
+      "to move a car or vehicle. it uses wheels and roads. it makes the car go forward."
+    ],
+    "examples": []
+  },
+  "diploma": {
+    "word": "diploma",
+    "definitions": [
+      "a paper. it shows that someone has learned something. it is given by a school."
+    ],
+    "examples": []
+  },
+  "dear": {
+    "word": "dear",
+    "definitions": [
+      "a kind of letter. it is used to talk to someone. it can be written or spoken."
+    ],
+    "examples": []
+  },
+  "down": {
+    "word": "down",
+    "definitions": [
+      "a direction. it is the opposite of up. it is the way things fall."
+    ],
+    "examples": []
+  },
+  "drink": {
+    "word": "drink",
+    "definitions": [
+      "to take liquid into the mouth. it can help the body get water. it is not always safe."
+    ],
+    "examples": []
+  },
+  "dark": {
+    "word": "dark",
+    "definitions": [
+      "not light. it is when there is little or no light. it can make things hard to see."
+    ],
+    "examples": []
+  },
+  "devastating": {
+    "word": "devastating",
+    "definitions": [
+      "not good. it makes a lot of damage. it can cause great sadness."
+    ],
+    "examples": []
+  },
+  "drivers": {
+    "word": "drivers",
+    "definitions": [
+      "people who drive cars. they use their hands and feet to control the vehicle. they have a license."
+    ],
+    "examples": []
+  },
+  "dressing": {
+    "word": "dressing",
+    "definitions": [
+      "a thing you put on. it can make you look better. it is part of clothes."
+    ],
+    "examples": []
+  },
+  "distance": {
+    "word": "distance",
+    "definitions": [
+      "a thing that is not near. it is how far something is from you. it can be measured."
+    ],
+    "examples": []
+  },
+  "distraction": {
+    "word": "distraction",
+    "definitions": [
+      "a thing that makes you not pay attention. it can stop you from doing something. it is not important."
+    ],
+    "examples": []
+  },
+  "discussion": {
+    "word": "discussion",
+    "definitions": [
+      "a conversation. people talk about a topic. it can be serious or not."
+    ],
+    "examples": []
+  },
+  "decrepit": {
+    "word": "decrepit",
+    "definitions": [
+      "not strong. it has broken parts. it is old and weak."
+    ],
+    "examples": []
+  },
+  "describe": {
+    "word": "describe",
+    "definitions": [
+      "to explain something clearly. to say what something is like. to make it easy to understand."
+    ],
+    "examples": []
+  },
+  "degrees": {
+    "word": "degrees",
+    "definitions": [
+      "a way to show how hot or cold something is. it can be measured with a tool. it is not a thing but a number."
+    ],
+    "examples": []
+  },
+  "digits": {
+    "word": "digits",
+    "definitions": [
+      "a number. it is a sign made with a pencil or pen. it can be used to count."
+    ],
+    "examples": []
+  },
+  "deal": {
+    "word": "deal",
+    "definitions": [
+      "to deal is to handle something. it can mean to talk about a problem. it can also mean to give something to someone."
+    ],
+    "examples": []
+  },
+  "drop": {
+    "word": "drop",
+    "definitions": [
+      "to let something fall. it can happen when you lose hold. it makes sound when it hits the ground."
+    ],
+    "examples": []
+  },
+  "dips": {
+    "word": "dips",
+    "definitions": [
+      "to move slightly down. it can happen when something is not straight. it is a small movement."
+    ],
+    "examples": []
+  },
+  "doing": {
+    "word": "doing",
+    "definitions": [
+      "to do something. it is a way of showing action. it can be part of a sentence."
+    ],
+    "examples": []
+  },
+  "disinclination": {
+    "word": "disinclination",
+    "definitions": [
+      "not a willingness. it is a feeling of not wanting to do something. it makes a person avoid doing something."
+    ],
+    "examples": []
+  },
+  "devil": {
+    "word": "devil",
+    "definitions": [
+      "a bad spirit. it is not good. it can make people do wrong things."
+    ],
+    "examples": []
+  },
+  "disreputable": {
+    "word": "disreputable",
+    "definitions": [
+      "not respectable. it has a bad name. it makes people lose trust."
+    ],
+    "examples": []
+  },
+  "dull": {
+    "word": "dull",
+    "definitions": [
+      "not interesting. it has little excitement. it can make things feel boring."
+    ],
+    "examples": []
+  },
+  "drew": {
+    "word": "drew",
+    "definitions": [
+      "to make a picture with a pen. it can show shapes and lines. it is a action that uses hand."
+    ],
+    "examples": []
+  },
+  "don't": {
+    "word": "don't",
+    "definitions": [
+      "not to. when someone does not do something. it is the opposite of do."
+    ],
+    "examples": []
+  },
+  "directions": {
+    "word": "directions",
+    "definitions": [
+      "a way to go. it tells where to move. it can be north, south, east, or west."
+    ],
+    "examples": []
+  },
+  "dollars": {
+    "word": "dollars",
+    "definitions": [
+      "a kind of money. it is used to buy things. it is not the same as coins."
+    ],
+    "examples": []
+  },
+  "dry": {
+    "word": "dry",
+    "definitions": [
+      "not wet. it has little water. it can be a feeling."
+    ],
+    "examples": []
+  },
+  "despair": {
+    "word": "despair",
+    "definitions": [
+      "a bad feeling. it is not hope. it makes a person feel very sad."
+    ],
+    "examples": []
+  },
+  "drinks": {
+    "word": "drinks",
+    "definitions": [
+      "to take liquid into the body. it is an action with the mouth. it can be water or other liquids."
+    ],
+    "examples": []
+  },
+  "dance": {
+    "word": "dance",
+    "definitions": [
+      "to move body in a special way. it can be fun and make people happy. it is part of music."
+    ],
+    "examples": []
+  },
+  "dog": {
+    "word": "dog",
+    "definitions": [
+      "a animal. it can make sound and move fast. it has fur and a tail."
+    ],
+    "examples": []
+  },
+  "dozen": {
+    "word": "dozen",
+    "definitions": [
+      "a number. it is twelve. it is a group of twelve things."
+    ],
+    "examples": []
+  },
+  "disgraceful": {
+    "word": "disgraceful",
+    "definitions": [
+      "not good. it makes people feel ashamed. it is a bad thing."
+    ],
+    "examples": []
+  },
+  "distant": {
+    "word": "distant",
+    "definitions": [
+      "not near. it means far away. it can describe a place or a person."
+    ],
+    "examples": []
+  },
+  "direct": {
+    "word": "direct",
+    "definitions": [
+      "to go straight. it is not round. it makes a clear path."
+    ],
+    "examples": []
+  },
+  "deep": {
+    "word": "deep",
+    "definitions": [
+      "not shallow. it is a word for something that has much water. it can describe a place that is hard to reach."
+    ],
+    "examples": []
+  },
+  "dig": {
+    "word": "dig",
+    "definitions": [
+      "to dig is to make a hole with hands or tools. it can be done in the ground or in walls. it is a way to find things or move earth."
+    ],
+    "examples": []
+  },
+  "dollar": {
+    "word": "dollar",
+    "definitions": [
+      "a kind of money. it is used in many countries. it is not the same as a coin."
+    ],
+    "examples": []
+  },
+  "doubt": {
+    "word": "doubt",
+    "definitions": [
+      "a feeling. it is not sure. it can make a person not trust."
+    ],
+    "examples": []
+  },
+  "discontented": {
+    "word": "discontented",
+    "definitions": [
+      "not happy. when a person is not satisfied. it has bad feeling."
+    ],
+    "examples": []
+  },
+  "dream": {
+    "word": "dream",
+    "definitions": [
+      "a thing that is not real. it can happen in sleep. it makes people feel happy or scared."
+    ],
+    "examples": []
+  },
+  "dishonest": {
+    "word": "dishonest",
+    "definitions": [
+      "not honest. when a person lies or does bad things."
+    ],
+    "examples": []
+  },
+  "decide": {
+    "word": "decide",
+    "definitions": [
+      "to choose between things. it can be hard to do. it makes a choice."
+    ],
+    "examples": []
+  },
+  "describing": {
+    "word": "describing",
+    "definitions": [
+      "a way of talking. it shows how something is. it can tell about size, color, or feeling."
+    ],
+    "examples": []
+  },
+  "dessert": {
+    "word": "dessert",
+    "definitions": [
+      "a sweet thing. it is eaten after a meal. it can be made of sugar, fruit, or cream."
+    ],
+    "examples": []
+  },
+  "damaged": {
+    "word": "damaged",
+    "definitions": [
+      "not good. it has broken or torn parts. it can look bad."
+    ],
+    "examples": []
+  },
+  "discover": {
+    "word": "discover",
+    "definitions": [
+      "to find something new. it can happen by looking carefully. it makes people learn more."
+    ],
+    "examples": []
+  }
+}

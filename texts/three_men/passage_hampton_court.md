@@ -1,0 +1,15 @@
+Harris asked me if I had ever been in the maze at Hampton Court. He said he went in once to show somebody else the way. He had studied it up in a map, and it was so simple that it seemed foolish. Harris said he thought that map must have been got up as a practical joke, because it was not a bit like the real thing, and only misleading. It was a country cousin that Harris took in. He said we will just go in here, so that you can say you have been, but it is very simple. It is absurd to call it a maze. You keep on taking the first turning to the right. We will just walk round for ten minutes, and then go and get some lunch.
+
+They met some people soon after they had got inside, who said they had been there for three quarters of an hour, and had had about enough of it. Harris told them they could follow him, if they liked; he was just going in, and then should turn round and come out again. They said it was very kind of him, and fell behind, and followed.
+
+They picked up various other people who wanted to get it over, as they went along, until they had absorbed all the persons in the maze. People who had given up all hopes of ever getting either in or out, or of ever seeing their home and friends again, plucked up courage at the sight of Harris and his party, and joined the procession, blessing him. Harris said he should judge there must have been twenty people, following him, in all; and one woman with a baby, who had been there all the morning, insisted on taking his arm, for fear of losing him. Harris kept on turning to the right, but it seemed a long way, and his cousin said he supposed it was a very big maze.
+
+Harris began to think it rather strange himself, but he held on until, at last, they passed the half of a penny bun on the ground that his cousin swore he had noticed there seven minutes ago. Harris said oh, impossible! but the woman with the baby said, not at all, as she herself had taken it from the child, and thrown it down there, just before she met Harris. She also added that she wished she never had met Harris, and expressed an opinion that he was an impostor. That made Harris mad, and he produced his map, and explained his theory.
+
+Harris did not know where they were, and suggested that the best thing to do would be to go back to the entrance, and begin again. About ten minutes more passed, and then they found themselves in the centre.
+
+After that, they simply could not get anywhere else. Whatever way they turned brought them back to the middle. They all got crazy at last, and sang out for the keeper, and the man came and climbed up the ladder outside, and shouted out directions to them. They huddled together, and waited; and he climbed down, and came in.
+
+He was a young keeper, as luck would have it, and new to the business; and when he got in, he could not find them, and he wandered about, trying to get to them, and then he got lost. They had to wait till one of the old keepers came back from his dinner before they got out.
+
+Harris said he thought it was a very fine maze, so far as he was a judge; and we agreed that we would try to get George to go into it, on our way back.

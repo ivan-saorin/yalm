@@ -110,10 +110,18 @@ pub fn extract_relations(
         }
     }
 
-    // Topic words: appear in < 25% of entries (specific enough to be subjects/objects)
+    // Topic words: appear in < threshold of entries (specific enough to be subjects/objects)
     // This makes "can", "has", "in" etc. non-topic so they appear as connectors between
     // entity/property words.
-    let topic_threshold = dictionary.entries.len() * 25 / 100;
+    //
+    // Scale topic threshold sub-linearly with dictionary size.
+    // For small dicts (~50 entries), threshold ≈ 25% (unchanged).
+    // For large dicts (783+), effective % drops as 25% / ln(n/50),
+    // allowing more content words to be topic endpoints → more relations → more connectors.
+    let n = dictionary.entries.len() as f64;
+    let base = 50.0_f64;
+    let log_scale = (n / base).ln().max(1.0);
+    let topic_threshold = (n * 0.25 / log_scale) as usize;
     let topic_words: HashSet<String> = dictionary
         .entry_words
         .iter()
@@ -187,8 +195,79 @@ pub fn extract_relations(
     relations
 }
 
+/// Compute uniformity score for a connector pattern across alphabetical buckets.
+/// Returns how uniformly the pattern is distributed (0.0 = clustered, 1.0 = perfectly uniform).
+fn compute_uniformity(
+    pattern: &[String],
+    buckets: &[Vec<&DictionaryEntry>],
+) -> f64 {
+    let epsilon = 1e-10;
+
+    let ratios: Vec<f64> = buckets
+        .iter()
+        .map(|bucket| {
+            if bucket.is_empty() {
+                return 0.0;
+            }
+            let hits = bucket
+                .iter()
+                .filter(|entry| {
+                    // Check if the pattern appears in this entry's definition + examples
+                    let mut all_text = entry.definition.clone();
+                    for ex in &entry.examples {
+                        all_text.push(' ');
+                        all_text.push_str(ex);
+                    }
+                    let tokens = tokenize(&all_text);
+                    let pat_len = pattern.len();
+                    if pat_len == 0 {
+                        return false;
+                    }
+                    tokens.windows(pat_len).any(|window| {
+                        window
+                            .iter()
+                            .zip(pattern.iter())
+                            .all(|(tok, pat)| tok.to_lowercase() == *pat)
+                    })
+                })
+                .count();
+            hits as f64 / bucket.len() as f64
+        })
+        .collect();
+
+    let mean = ratios.iter().sum::<f64>() / ratios.len() as f64;
+    let variance = ratios.iter().map(|r| (r - mean).powi(2)).sum::<f64>() / ratios.len() as f64;
+    1.0 - (variance / (mean * mean + epsilon))
+}
+
+/// Build alphabetical buckets from dictionary entries for uniformity testing.
+fn build_alphabetical_buckets(dictionary: &Dictionary, num_buckets: usize) -> Vec<Vec<&DictionaryEntry>> {
+    let n = dictionary.entries.len();
+    let num_buckets = num_buckets.min(n).max(1);
+    let bucket_size = n / num_buckets;
+
+    let mut sorted_indices: Vec<usize> = (0..n).collect();
+    sorted_indices.sort_by(|&a, &b| dictionary.entries[a].word.cmp(&dictionary.entries[b].word));
+
+    (0..num_buckets)
+        .map(|i| {
+            let start = i * bucket_size;
+            let end = if i == num_buckets - 1 { n } else { (i + 1) * bucket_size };
+            sorted_indices[start..end]
+                .iter()
+                .map(|&idx| &dictionary.entries[idx])
+                .collect()
+        })
+        .collect()
+}
+
 /// Discover connectors from the dictionary text and return both the connectors
 /// and all extracted sentence relations.
+///
+/// Two-pass pipeline:
+/// 1. Frequency filter: select candidate patterns above min_frequency
+/// 2. Uniformity filter: keep only candidates distributed uniformly across the dictionary
+///    (skipped for small dictionaries < 100 entries where frequency is sufficient)
 pub fn discover_connectors(
     dictionary: &Dictionary,
     params: &EngineParams,
@@ -204,26 +283,18 @@ pub fn discover_connectors(
         *freq.entry(rel.connector_pattern.clone()).or_insert(0) += 1;
     }
 
-    let mut rng = SimpleRng::new(params.rng_seed);
-    let mut connectors = Vec::new();
+    // === PASS 1: Frequency filter — collect candidates ===
+    let mut candidates: Vec<(Vec<String>, usize)> = Vec::new();
 
     match strategy.connector_detection {
         ConnectorDetection::FrequencyOnly => {
-            // Original behavior: filter by raw frequency count
             for (pattern, count) in &freq {
                 if *count >= params.connector_min_frequency && !pattern.is_empty() {
-                    let direction = random_unit_vector(params.dimensions, &mut rng);
-                    connectors.push(Connector {
-                        pattern: pattern.clone(),
-                        force_direction: direction,
-                        magnitude: params.force_magnitude,
-                        frequency: *count,
-                    });
+                    candidates.push((pattern.clone(), *count));
                 }
             }
         }
         ConnectorDetection::PositionalBias => {
-            // Boost patterns that appear early in definitions (position < 5 tokens)
             let mut early_count: HashMap<Vec<String>, usize> = HashMap::new();
             for entry in &dictionary.entries {
                 let tokens = tokenize(&entry.definition);
@@ -232,7 +303,6 @@ pub fn discover_connectors(
                     .map(|t| stem_to_entry(t, &dictionary.entry_set))
                     .collect();
 
-                // Check first 5 mapped tokens for connector patterns
                 for (pattern, _) in &freq {
                     let pat_len = pattern.len();
                     if pat_len == 0 {
@@ -259,25 +329,16 @@ pub fn discover_connectors(
                 if pattern.is_empty() {
                     continue;
                 }
-                // Boost by 1.5x for each early occurrence
                 let early = early_count.get(pattern).copied().unwrap_or(0);
-                let adjusted = *count + early / 2; // effectively 1.5x for early ones
+                let adjusted = *count + early / 2;
                 if adjusted >= params.connector_min_frequency {
-                    let direction = random_unit_vector(params.dimensions, &mut rng);
-                    connectors.push(Connector {
-                        pattern: pattern.clone(),
-                        force_direction: direction,
-                        magnitude: params.force_magnitude,
-                        frequency: *count,
-                    });
+                    candidates.push((pattern.clone(), *count));
                 }
             }
         }
         ConnectorDetection::MutualInformation => {
-            // Pointwise Mutual Information: score = count * log(count * total / (left_count * right_count))
             let total_relations = relations.len().max(1) as f64;
 
-            // Count how many relations each word appears in (as left or right)
             let mut left_counts: HashMap<String, usize> = HashMap::new();
             let mut right_counts: HashMap<String, usize> = HashMap::new();
             for rel in &relations {
@@ -285,7 +346,6 @@ pub fn discover_connectors(
                 *right_counts.entry(rel.right_word.clone()).or_insert(0) += 1;
             }
 
-            // For each connector pattern, compute PMI over all relations using it
             let mut pattern_scores: HashMap<Vec<String>, f64> = HashMap::new();
             for rel in &relations {
                 let left_c = *left_counts.get(&rel.left_word).unwrap_or(&1) as f64;
@@ -298,7 +358,6 @@ pub fn discover_connectors(
                     .or_insert(0.0) += pmi;
             }
 
-            // Normalize by count
             for (pattern, score) in &mut pattern_scores {
                 let count = freq.get(pattern).copied().unwrap_or(1) as f64;
                 *score /= count;
@@ -310,16 +369,90 @@ pub fn discover_connectors(
                 }
                 let score = pattern_scores.get(pattern).copied().unwrap_or(0.0);
                 if score > 0.0 {
-                    let direction = random_unit_vector(params.dimensions, &mut rng);
-                    connectors.push(Connector {
-                        pattern: pattern.clone(),
-                        force_direction: direction,
-                        magnitude: params.force_magnitude,
-                        frequency: *count,
-                    });
+                    candidates.push((pattern.clone(), *count));
                 }
             }
         }
+    }
+
+    // === PASS 2: Uniformity filter ===
+    let num_buckets = 10;
+    let uniformity_threshold = 0.75;
+    let skip_uniformity = dictionary.entries.len() < 100;
+
+    let buckets = if !skip_uniformity {
+        build_alphabetical_buckets(dictionary, num_buckets)
+    } else {
+        Vec::new()
+    };
+
+    let mut rng = SimpleRng::new(params.rng_seed);
+    let mut connectors = Vec::new();
+    let mut rejected_count = 0usize;
+
+    // Sort candidates by frequency desc for deterministic RNG consumption
+    candidates.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+
+    for (pattern, count) in &candidates {
+        let uniformity = if skip_uniformity {
+            1.0 // Small dict: assume all candidates are uniform
+        } else {
+            compute_uniformity(pattern, &buckets)
+        };
+
+        if uniformity > uniformity_threshold || skip_uniformity {
+            let direction = random_unit_vector(params.dimensions, &mut rng);
+            connectors.push(Connector {
+                pattern: pattern.clone(),
+                force_direction: direction,
+                magnitude: params.force_magnitude,
+                frequency: *count,
+                uniformity,
+            });
+        } else {
+            rejected_count += 1;
+        }
+    }
+
+    // Print uniformity diagnostics for medium+ dictionaries
+    if !skip_uniformity {
+        eprintln!(
+            "=== Uniformity Filter: {} entries | {} candidates | {} buckets ===",
+            dictionary.entries.len(),
+            candidates.len(),
+            num_buckets
+        );
+        eprintln!(
+            "{:<25} {:>6} {:>10} {:>10}",
+            "Pattern", "Freq", "Uniform", "Status"
+        );
+        // Show all candidates sorted by uniformity descending
+        let mut diag: Vec<(&Vec<String>, usize, f64)> = candidates
+            .iter()
+            .map(|(p, c)| (p, *c, compute_uniformity(p, &buckets)))
+            .collect();
+        diag.sort_by(|a, b| b.2.partial_cmp(&a.2).unwrap_or(std::cmp::Ordering::Equal));
+        for (pattern, freq, uni) in &diag {
+            let pat_str: String = pattern
+                .iter()
+                .map(|s| format!("\"{}\"", s))
+                .collect::<Vec<_>>()
+                .join(" ");
+            let status = if *uni > uniformity_threshold {
+                "CONNECTOR"
+            } else {
+                "content"
+            };
+            eprintln!(
+                "{:<25} {:>6} {:>10.4} {:>10}",
+                pat_str, freq, uni, status
+            );
+        }
+        eprintln!(
+            "Accepted: {} connectors | Rejected: {} content words",
+            connectors.len(),
+            rejected_count
+        );
     }
 
     // Sort by frequency descending for deterministic ordering
@@ -443,5 +576,26 @@ mod tests {
             "Should find at least 2 negated relations, found {}",
             negated.len()
         );
+    }
+
+    #[test]
+    fn test_topic_threshold_scaling() {
+        let cases: Vec<(usize, usize, usize)> = vec![
+            (51, 10, 15),       // dict5: ~12, same as old 25%
+            (100, 15, 30),      // small: slightly lower %
+            (783, 50, 100),     // Ollama: ~71 (was 195)
+            (1005, 60, 110),    // dict12: ~84 (was 251)
+            (2008, 100, 180),   // dict18: ~136 (was 502)
+        ];
+        for (n, min_t, max_t) in cases {
+            let nf = n as f64;
+            let log_scale = (nf / 50.0_f64).ln().max(1.0);
+            let threshold = (nf * 0.25 / log_scale) as usize;
+            assert!(
+                threshold >= min_t && threshold <= max_t,
+                "n={}: threshold={} not in [{}, {}]",
+                n, threshold, min_t, max_t
+            );
+        }
     }
 }

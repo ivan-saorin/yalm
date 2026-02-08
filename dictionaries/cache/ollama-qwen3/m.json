@@ -1,0 +1,779 @@
+{
+  "meters": {
+    "word": "meters",
+    "definitions": [
+      "a unit. it is used to measure length. it is part of the metric system."
+    ],
+    "examples": []
+  },
+  "medical": {
+    "word": "medical",
+    "definitions": [
+      "a subject. it is about health and body. it has to do with doctors and hospitals."
+    ],
+    "examples": []
+  },
+  "metal": {
+    "word": "metal",
+    "definitions": [
+      "a hard thing. it can be made into shapes. it is not soft."
+    ],
+    "examples": []
+  },
+  "mood": {
+    "word": "mood",
+    "definitions": [
+      "a feeling. it can be happy or sad. it is not always the same."
+    ],
+    "examples": []
+  },
+  "making": {
+    "word": "making",
+    "definitions": [
+      "to create something. it can be done with hands or tools. it makes things change."
+    ],
+    "examples": []
+  },
+  "manners": {
+    "word": "manners",
+    "definitions": [
+      "a way of acting. it shows respect and kindness. it is not rude."
+    ],
+    "examples": []
+  },
+  "match": {
+    "word": "match",
+    "definitions": [
+      "a thing to find the same. it can be used in games. it has two parts that are the same."
+    ],
+    "examples": []
+  },
+  "mistake": {
+    "word": "mistake",
+    "definitions": [
+      "a mistake. it is an error. it is not correct."
+    ],
+    "examples": []
+  },
+  "move": {
+    "word": "move",
+    "definitions": [
+      "to move is to change place. it can happen with legs or arms. it is not staying still."
+    ],
+    "examples": []
+  },
+  "meal": {
+    "word": "meal",
+    "definitions": [
+      "a thing you eat. it has food and drink. it is not always the same."
+    ],
+    "examples": []
+  },
+  "milk": {
+    "word": "milk",
+    "definitions": [
+      "a white liquid. it comes from cows. it can be drunk."
+    ],
+    "examples": []
+  },
+  "maybe": {
+    "word": "maybe",
+    "definitions": [
+      "not sure. it is a word that shows a possibility. it can be used when something is not certain."
+    ],
+    "examples": []
+  },
+  "mention": {
+    "word": "mention",
+    "definitions": [
+      "to say something in a speech or writing. it is a way to talk about something. it can be used to show a point."
+    ],
+    "examples": []
+  },
+  "meet": {
+    "word": "meet",
+    "definitions": [
+      "to meet is to come together. it can happen when people talk. it is not the same as leave."
+    ],
+    "examples": []
+  },
+  "mad": {
+    "word": "mad",
+    "definitions": [
+      "a feeling. when a person is not calm. it can make them shout or hit."
+    ],
+    "examples": []
+  },
+  "money": {
+    "word": "money",
+    "definitions": [
+      "a thing people use to buy things. it can be paper or metal. it is not free."
+    ],
+    "examples": []
+  },
+  "measuring": {
+    "word": "measuring",
+    "definitions": [
+      "to find out size or amount. it uses tools or marks. it is part of learning."
+    ],
+    "examples": []
+  },
+  "moving": {
+    "word": "moving",
+    "definitions": [
+      "to change place. it can happen when something is not still. it is a way to go from one place to another."
+    ],
+    "examples": []
+  },
+  "mrs": {
+    "word": "mrs",
+    "definitions": [
+      "a title. it is used for a married woman. it is part of a name."
+    ],
+    "examples": []
+  },
+  "messy": {
+    "word": "messy",
+    "definitions": [
+      "not clean. it has things in a bad way. it is hard to look at."
+    ],
+    "examples": []
+  },
+  "machine": {
+    "word": "machine",
+    "definitions": [
+      "a thing that can move and work by itself. it uses energy to do tasks. it has parts that work together."
+    ],
+    "examples": []
+  },
+  "mail": {
+    "word": "mail",
+    "definitions": [
+      "a thing that can carry messages. it can be sent through the air. it is not hard."
+    ],
+    "examples": []
+  },
+  "meat": {
+    "word": "meat",
+    "definitions": [
+      "a thing that comes from animals. it is not plant. it can be cooked and eaten."
+    ],
+    "examples": []
+  },
+  "murderer": {
+    "word": "murderer",
+    "definitions": [
+      "a person. a man that has killed another. not good."
+    ],
+    "examples": []
+  },
+  "meets": {
+    "word": "meets",
+    "definitions": [
+      "to meet. to come together. to see someone."
+    ],
+    "examples": []
+  },
+  "maze": {
+    "word": "maze",
+    "definitions": [
+      "a place with many paths. it is hard to find the way out. it makes people confused."
+    ],
+    "examples": []
+  },
+  "moved": {
+    "word": "moved",
+    "definitions": [
+      "to move from one place to another. it can happen when something is not still. it is a change in position."
+    ],
+    "examples": []
+  },
+  "meaning": {
+    "word": "meaning",
+    "definitions": [
+      "a thing that shows what a word or idea is. it can help people understand. it is not a word itself."
+    ],
+    "examples": []
+  },
+  "movement": {
+    "word": "movement",
+    "definitions": [
+      "a change in position. it can be fast or slow. it is part of motion."
+    ],
+    "examples": []
+  },
+  "material": {
+    "word": "material",
+    "definitions": [
+      "a thing that is not hard. it can be made into many shapes. it is used to make objects."
+    ],
+    "examples": []
+  },
+  "men": {
+    "word": "men",
+    "definitions": [
+      "a man. part of a group called men. has a body and can think."
+    ],
+    "examples": []
+  },
+  "math": {
+    "word": "math",
+    "definitions": [
+      "a subject. it uses numbers and shapes. it helps to solve problems."
+    ],
+    "examples": []
+  },
+  "measure": {
+    "word": "measure",
+    "definitions": [
+      "to measure is to find the size or amount of something. it can be done with tools or by comparing. it helps to know how much or how big something is."
+    ],
+    "examples": []
+  },
+  "method": {
+    "word": "method",
+    "definitions": [
+      "a way to do something. it can help to make work easier. it has steps to follow."
+    ],
+    "examples": []
+  },
+  "meeting": {
+    "word": "meeting",
+    "definitions": [
+      "a gathering of people. it can be for a purpose. it has a time and place."
+    ],
+    "examples": []
+  },
+  "mountains": {
+    "word": "mountains",
+    "definitions": [
+      "big rocks that are high. they are part of the earth. they can be very tall."
+    ],
+    "examples": []
+  },
+  "mental": {
+    "word": "mental",
+    "definitions": [
+      "a state of mind. it can be calm or worried. it is not physical."
+    ],
+    "examples": []
+  },
+  "months": {
+    "word": "months",
+    "definitions": [
+      "a time period. there are twelve months in a year. each month has different days."
+    ],
+    "examples": []
+  },
+  "male": {
+    "word": "male",
+    "definitions": [
+      "a person. a man. not female."
+    ],
+    "examples": []
+  },
+  "mark": {
+    "word": "mark",
+    "definitions": [
+      "a name. it can be used to know a person. it is not a verb."
+    ],
+    "examples": []
+  },
+  "memory": {
+    "word": "memory",
+    "definitions": [
+      "a thing that is not hard. it can keep information. it helps people remember things."
+    ],
+    "examples": []
+  },
+  "manage": {
+    "word": "manage",
+    "definitions": [
+      "to control or take care of something. it can make things work better. it is not easy."
+    ],
+    "examples": []
+  },
+  "month": {
+    "word": "month",
+    "definitions": [
+      "a part of a year. it has about 30 days. it is used to count time."
+    ],
+    "examples": []
+  },
+  "martyr": {
+    "word": "martyr",
+    "definitions": [
+      "a person. a man or woman that is not afraid of death. it has a strong belief."
+    ],
+    "examples": []
+  },
+  "minutes": {
+    "word": "minutes",
+    "definitions": [
+      "a small part of time. it is not hours. it can be counted."
+    ],
+    "examples": []
+  },
+  "makes": {
+    "word": "makes",
+    "definitions": [
+      "to create something. it can cause change. it is an action."
+    ],
+    "examples": []
+  },
+  "mild": {
+    "word": "mild",
+    "definitions": [
+      "not strong. it has little heat. it is not hot."
+    ],
+    "examples": []
+  },
+  "machines": {
+    "word": "machines",
+    "definitions": [
+      "things that can move or work by themselves. they are made by people. they can do jobs for humans."
+    ],
+    "examples": []
+  },
+  "medicines": {
+    "word": "medicines",
+    "definitions": [
+      "things that can make you feel better. they are not food. they can help when you are sick."
+    ],
+    "examples": []
+  },
+  "mate": {
+    "word": "mate",
+    "definitions": [
+      "a person. a friend. not a stranger."
+    ],
+    "examples": []
+  },
+  "misleading": {
+    "word": "misleading",
+    "definitions": [
+      "not true. it makes people believe wrong things. it is not honest."
+    ],
+    "examples": []
+  },
+  "matter": {
+    "word": "matter",
+    "definitions": [
+      "a thing that can be solid, liquid, or gas. it can change form when heat is added or taken away. it has weight and takes up space."
+    ],
+    "examples": []
+  },
+  "mistakes": {
+    "word": "mistakes",
+    "definitions": [
+      "things that are not right. they can happen when someone does not know. they are errors."
+    ],
+    "examples": []
+  },
+  "minds": {
+    "word": "minds",
+    "definitions": [
+      "a place inside a person. it can think and feel things. it is not the same as the body."
+    ],
+    "examples": []
+  },
+  "measured": {
+    "word": "measured",
+    "definitions": [
+      "not hot. when something has little heat. it can make sound and move fast."
+    ],
+    "examples": []
+  },
+  "managed": {
+    "word": "managed",
+    "definitions": [
+      "to control or deal with something. it is a past form of manage. it shows something was done successfully."
+    ],
+    "examples": []
+  },
+  "music": {
+    "word": "music",
+    "definitions": [
+      "a sound made by people. it can be happy or sad. it has rhythm and melody."
+    ],
+    "examples": []
+  },
+  "madding": {
+    "word": "madding",
+    "definitions": [
+      "a feeling. it makes a person think too much. it is not calm."
+    ],
+    "examples": []
+  },
+  "married": {
+    "word": "married",
+    "definitions": [
+      "a state. a person is not single. it means they have a spouse."
+    ],
+    "examples": []
+  },
+  "metric": {
+    "word": "metric",
+    "definitions": [
+      "a system. it uses meters and grams. it is used for measuring."
+    ],
+    "examples": []
+  },
+  "marriage": {
+    "word": "marriage",
+    "definitions": [
+      "a relationship between two people. it is a bond made by law. it can be between a man and a woman."
+    ],
+    "examples": []
+  },
+  "montmorency's": {
+    "word": "montmorency's",
+    "definitions": [
+      "a type of tart. it is a fruit. it has a sour taste."
+    ],
+    "examples": []
+  },
+  "messages": {
+    "word": "messages",
+    "definitions": [
+      "a thing that has words or pictures. it can be sent from one person to another. it is part of communication."
+    ],
+    "examples": []
+  },
+  "mine": {
+    "word": "mine",
+    "definitions": [
+      "a thing. it is not someone else's. it is owned by me."
+    ],
+    "examples": []
+  },
+  "march": {
+    "word": "march",
+    "definitions": [
+      "to walk in a group. people march with steps. it is a way to move together."
+    ],
+    "examples": []
+  },
+  "main": {
+    "word": "main",
+    "definitions": [
+      "a part of something. it is the most important part. it is not extra."
+    ],
+    "examples": []
+  },
+  "moves": {
+    "word": "moves",
+    "definitions": [
+      "to moves. it can change place. it is not still."
+    ],
+    "examples": []
+  },
+  "map": {
+    "word": "map",
+    "definitions": [
+      "a thing that shows where places are. it has lines and symbols. it can help people find directions."
+    ],
+    "examples": []
+  },
+  "mix": {
+    "word": "mix",
+    "definitions": [
+      "to mix is to combine things together. it can make a new thing. it is not to separate."
+    ],
+    "examples": []
+  },
+  "movie": {
+    "word": "movie",
+    "definitions": [
+      "a thing that is not real. it can show stories and pictures. it is made by people."
+    ],
+    "examples": []
+  },
+  "mountain": {
+    "word": "mountain",
+    "definitions": [
+      "a big high place. it is not flat. it has rocks and trees."
+    ],
+    "examples": []
+  },
+  "mortal": {
+    "word": "mortal",
+    "definitions": [
+      "not immortal. a person or thing that can die. it has a limited life."
+    ],
+    "examples": []
+  },
+  "montmorency": {
+    "word": "montmorency",
+    "definitions": [
+      "a type of sour cherry. it is a fruit. it has a red color."
+    ],
+    "examples": []
+  },
+  "middle": {
+    "word": "middle",
+    "definitions": [
+      "a place. it is not at the start or end. it is part of something."
+    ],
+    "examples": []
+  },
+  "man's": {
+    "word": "man's",
+    "definitions": [
+      "a man's. is a person. has a body and can think."
+    ],
+    "examples": []
+  },
+  "moment": {
+    "word": "moment",
+    "definitions": [
+      "a short time. it can be part of a longer time. it is not always the same."
+    ],
+    "examples": []
+  },
+  "mess": {
+    "word": "mess",
+    "definitions": [
+      "a thing that is not clean. it can be made by putting many things together. it makes a bad look."
+    ],
+    "examples": []
+  },
+  "modified": {
+    "word": "modified",
+    "definitions": [
+      "not original. it has been changed. it is not the same as before."
+    ],
+    "examples": []
+  },
+  "met": {
+    "word": "met",
+    "definitions": [
+      "to meet. to come together. to see someone."
+    ],
+    "examples": []
+  },
+  "mind": {
+    "word": "mind",
+    "definitions": [
+      "a part of a person. it can think and feel. it is not the same as the body."
+    ],
+    "examples": []
+  },
+  "modern": {
+    "word": "modern",
+    "definitions": [
+      "not old. it is a new way of doing things. it has new ideas and technology."
+    ],
+    "examples": []
+  },
+  "melody": {
+    "word": "melody",
+    "definitions": [
+      "a sound that has order. it can be made by voice or instrument. it is part of music."
+    ],
+    "examples": []
+  },
+  "mean": {
+    "word": "mean",
+    "definitions": [
+      "not kind. it is when someone says something bad. it can make others feel sad."
+    ],
+    "examples": []
+  },
+  "malady": {
+    "word": "malady",
+    "definitions": [
+      "a bad condition. it makes a person feel sick. it is not healthy."
+    ],
+    "examples": []
+  },
+  "man-made": {
+    "word": "man-made",
+    "definitions": [
+      "not natural. it is made by people. it is not from nature."
+    ],
+    "examples": []
+  },
+  "maladies": {
+    "word": "maladies",
+    "definitions": [
+      "not healthy. they are problems in the body. they can make a person feel bad."
+    ],
+    "examples": []
+  },
+  "materials": {
+    "word": "materials",
+    "definitions": [
+      "a thing. it can be used to make other things. it has different types."
+    ],
+    "examples": []
+  },
+  "meanings": {
+    "word": "meanings",
+    "definitions": [
+      "not clear. when a word has more than one idea. it can be hard to understand."
+    ],
+    "examples": []
+  },
+  "monday": {
+    "word": "monday",
+    "definitions": [
+      "a day. it is the first day of the week. it comes before tuesday."
+    ],
+    "examples": []
+  },
+  "minute": {
+    "word": "minute",
+    "definitions": [
+      "a small unit of time. it is part of an hour. it can be used to measure short periods."
+    ],
+    "examples": []
+  },
+  "man": {
+    "word": "man",
+    "definitions": [
+      "a person. a man has a body and can think. a man is not a woman."
+    ],
+    "examples": []
+  },
+  "means": {
+    "word": "means",
+    "definitions": [
+      "to be important. it is a word that shows something has value. it is not the same as useless."
+    ],
+    "examples": []
+  },
+  "mankind": {
+    "word": "mankind",
+    "definitions": [
+      "a group. it is made of all human beings. it has many different people."
+    ],
+    "examples": []
+  },
+  "motion": {
+    "word": "motion",
+    "definitions": [
+      "a movement. it can be quick or slow. it is a part of action."
+    ],
+    "examples": []
+  },
+  "morning": {
+    "word": "morning",
+    "definitions": [
+      "a time of day. the sun is up. people start their day."
+    ],
+    "examples": []
+  },
+  "muscles": {
+    "word": "muscles",
+    "definitions": [
+      "a part of the body. they can move when the brain tells them. they are made of soft tissue."
+    ],
+    "examples": []
+  },
+  "mouth": {
+    "word": "mouth",
+    "definitions": [
+      "a part of the face. it can take in food and speak. it is not hard."
+    ],
+    "examples": []
+  },
+  "myself": {
+    "word": "myself",
+    "definitions": [
+      "a person. it is the same as you. it is used when you talk about yourself."
+    ],
+    "examples": []
+  },
+  "mammals": {
+    "word": "mammals",
+    "definitions": [
+      "animals that have hair. they can make milk for their young. they have warm blood."
+    ],
+    "examples": []
+  },
+  "malignant": {
+    "word": "malignant",
+    "definitions": [
+      "not good. it can cause serious harm. it is a bad type of disease."
+    ],
+    "examples": []
+  },
+  "mother": {
+    "word": "mother",
+    "definitions": [
+      "a woman. she has a child. she takes care of her child."
+    ],
+    "examples": []
+  },
+  "miles": {
+    "word": "miles",
+    "definitions": [
+      "a unit. it is used to measure distance. it is not the same as kilometers."
+    ],
+    "examples": []
+  },
+  "meant": {
+    "word": "meant",
+    "definitions": [
+      "not real. it is a word that shows someone's idea. it is part of a sentence."
+    ],
+    "examples": []
+  },
+  "mixing": {
+    "word": "mixing",
+    "definitions": [
+      "to combine things together. it makes a new thing. it can change the color or taste."
+    ],
+    "examples": []
+  },
+  "medicine": {
+    "word": "medicine",
+    "definitions": [
+      "a thing that is not food. it can make people feel better. it is used to help when someone is sick."
+    ],
+    "examples": []
+  },
+  "marks": {
+    "word": "marks",
+    "definitions": [
+      "a sign that shows something happened. it can be made by writing or drawing. it is not always clear."
+    ],
+    "examples": []
+  },
+  "missing": {
+    "word": "missing",
+    "definitions": [
+      "not present. it means something is not there. it can happen when something is taken away."
+    ],
+    "examples": []
+  },
+  "mingled": {
+    "word": "mingled",
+    "definitions": [
+      "to mix together. it can make things look different. it is not clear."
+    ],
+    "examples": []
+  },
+  "mystery": {
+    "word": "mystery",
+    "definitions": [
+      "a story. it has secrets and unknown things. it makes people think and guess."
+    ],
+    "examples": []
+  },
+  "museum": {
+    "word": "museum",
+    "definitions": [
+      "a place. it has things from the past. it is for people to see and learn."
+    ],
+    "examples": []
+  },
+  "melt": {
+    "word": "melt",
+    "definitions": [
+      "to change from solid to liquid. it happens when heat is added. it is not hard anymore."
+    ],
+    "examples": []
+  }
+}

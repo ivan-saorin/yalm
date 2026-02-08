@@ -1,0 +1,2410 @@
+{
+  "student": {
+    "word": "student",
+    "definitions": [
+      "a person. a student is in school. a student learns things."
+    ],
+    "examples": []
+  },
+  "sounds": {
+    "word": "sounds",
+    "definitions": [
+      "a thing that is not seen. it can be made by people or things. it can be high or low."
+    ],
+    "examples": []
+  },
+  "see": {
+    "word": "see",
+    "definitions": [
+      "to look with eyes. it can help to know about things. it is a way to learn."
+    ],
+    "examples": []
+  },
+  "sureness": {
+    "word": "sureness",
+    "definitions": [
+      "a feeling. it is not doubt. it makes a person act confidently."
+    ],
+    "examples": []
+  },
+  "stay": {
+    "word": "stay",
+    "definitions": [
+      "to remain in one place. it means not to move. it can happen when someone is waiting."
+    ],
+    "examples": []
+  },
+  "sizes": {
+    "word": "sizes",
+    "definitions": [
+      "not the same. it can be big or small. it is a way to describe how much space something takes."
+    ],
+    "examples": []
+  },
+  "sea-sick": {
+    "word": "sea-sick",
+    "definitions": [
+      "a bad feeling. it happens when a person is on a boat. it makes them feel sick."
+    ],
+    "examples": []
+  },
+  "slums": {
+    "word": "slums",
+    "definitions": [
+      "a place. it has many poor people. it is not clean."
+    ],
+    "examples": []
+  },
+  "strong": {
+    "word": "strong",
+    "definitions": [
+      "not weak. it can hold or carry heavy things. it makes things last longer."
+    ],
+    "examples": []
+  },
+  "steam": {
+    "word": "steam",
+    "definitions": [
+      "a thing that is not solid. it can move and it is made of water. it is hot."
+    ],
+    "examples": []
+  },
+  "sunny": {
+    "word": "sunny",
+    "definitions": [
+      "not cloudy. the sky has bright light. it makes the weather warm."
+    ],
+    "examples": []
+  },
+  "sentences": {
+    "word": "sentences",
+    "definitions": [
+      "a group of words. it can show ideas and tell stories. it is not a single word."
+    ],
+    "examples": []
+  },
+  "steady": {
+    "word": "steady",
+    "definitions": [
+      "a state. it means not moving or changing. it is not shaky."
+    ],
+    "examples": []
+  },
+  "shaking": {
+    "word": "shaking",
+    "definitions": [
+      "a movement. it is not still. it can happen when someone is afraid."
+    ],
+    "examples": []
+  },
+  "store": {
+    "word": "store",
+    "definitions": [
+      "a place. it can keep things safe. it has shelves and a door."
+    ],
+    "examples": []
+  },
+  "sickening": {
+    "word": "sickening",
+    "definitions": [
+      "not good. it makes people feel bad. it is a bad feeling."
+    ],
+    "examples": []
+  },
+  "sadness": {
+    "word": "sadness",
+    "definitions": [
+      "a feeling. it is not happy. it comes from not being pleased."
+    ],
+    "examples": []
+  },
+  "stores": {
+    "word": "stores",
+    "definitions": [
+      "a place. it can keep things safe. it has shelves."
+    ],
+    "examples": []
+  },
+  "status": {
+    "word": "status",
+    "definitions": [
+      "a position. it shows how much power or respect a person has. it can change over time."
+    ],
+    "examples": []
+  },
+  "shoe": {
+    "word": "shoe",
+    "definitions": [
+      "a thing that covers feet. it can be worn on feet. it is made of leather or cloth."
+    ],
+    "examples": []
+  },
+  "steamed": {
+    "word": "steamed",
+    "definitions": [
+      "to make steam. it is a way water can change. it is hot."
+    ],
+    "examples": []
+  },
+  "split": {
+    "word": "split",
+    "definitions": [
+      "to divide into parts. it can make things separate. it is a way to separate things."
+    ],
+    "examples": []
+  },
+  "simply": {
+    "word": "simply",
+    "definitions": [
+      "to do something in a not hard way. it is not complex. it can make things easy."
+    ],
+    "examples": []
+  },
+  "scrape": {
+    "word": "scrape",
+    "definitions": [
+      "to move quickly with a rough surface. it can make a sound. it is not smooth."
+    ],
+    "examples": []
+  },
+  "swagger": {
+    "word": "swagger",
+    "definitions": [
+      "a way of walking. a person walks with swagger when they are confident. it shows they are proud."
+    ],
+    "examples": []
+  },
+  "snatched": {
+    "word": "snatched",
+    "definitions": [
+      "to take suddenly and quickly. it is not a normal way to take. it can happen without asking."
+    ],
+    "examples": []
+  },
+  "showing": {
+    "word": "showing",
+    "definitions": [
+      "a state of being. it is when something is not hidden. it is when something is made visible."
+    ],
+    "examples": []
+  },
+  "sheep": {
+    "word": "sheep",
+    "definitions": [
+      "an animal. it has soft wool and it can jump. it is not dangerous."
+    ],
+    "examples": []
+  },
+  "sharp": {
+    "word": "sharp",
+    "definitions": [
+      "a thing that has a point. it can cut. it is not round."
+    ],
+    "examples": []
+  },
+  "smaller": {
+    "word": "smaller",
+    "definitions": [
+      "not bigger. it has less size. it can fit into bigger things."
+    ],
+    "examples": []
+  },
+  "sift": {
+    "word": "sift",
+    "definitions": [
+      "to separate things by moving them through fingers. it can make a sound. it is a way to clean."
+    ],
+    "examples": []
+  },
+  "salty": {
+    "word": "salty",
+    "definitions": [
+      "not sweet. it has a taste of salt. it can be in water or food."
+    ],
+    "examples": []
+  },
+  "suggestion": {
+    "word": "suggestion",
+    "definitions": [
+      "a thing that is given to help. it can be an idea or a plan. it is not always correct."
+    ],
+    "examples": []
+  },
+  "saw": {
+    "word": "saw",
+    "definitions": [
+      "a tool. it is made of wood or metal. it can cut and shape things."
+    ],
+    "examples": []
+  },
+  "support": {
+    "word": "support",
+    "definitions": [
+      "to help something stand. it can make things stronger. it is not the same as push."
+    ],
+    "examples": []
+  },
+  "succeed": {
+    "word": "succeed",
+    "definitions": [
+      "to do something well. it makes a person happy. it is not to fail."
+    ],
+    "examples": []
+  },
+  "spirit": {
+    "word": "spirit",
+    "definitions": [
+      "a thing that is not physical. it can make people feel strong. it is part of life."
+    ],
+    "examples": []
+  },
+  "shallow": {
+    "word": "shallow",
+    "definitions": [
+      "not deep. it has little water or depth. it is easy to walk in."
+    ],
+    "examples": []
+  },
+  "sport": {
+    "word": "sport",
+    "definitions": [
+      "a game. people play it with rules. it makes people move and have fun."
+    ],
+    "examples": []
+  },
+  "seem": {
+    "word": "seem",
+    "definitions": [
+      "to look like. it can show how something looks. it is not always true."
+    ],
+    "examples": []
+  },
+  "sore": {
+    "word": "sore",
+    "definitions": [
+      "a bad feeling. it happens when something hurts. it is not comfortable."
+    ],
+    "examples": []
+  },
+  "smiled": {
+    "word": "smiled",
+    "definitions": [
+      "to show a happy feeling. it is a face action. it is not sad."
+    ],
+    "examples": []
+  },
+  "swarm": {
+    "word": "swarm",
+    "definitions": [
+      "a group of small things moving together. they can be insects or people. they move in a big crowd."
+    ],
+    "examples": []
+  },
+  "sound": {
+    "word": "sound",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it is made by vibrations."
+    ],
+    "examples": []
+  },
+  "suggest": {
+    "word": "suggest",
+    "definitions": [
+      "to give an idea or a plan. it can help someone make a choice. it is not a command."
+    ],
+    "examples": []
+  },
+  "small": {
+    "word": "small",
+    "definitions": [
+      "not big. it has little size. it takes up little space."
+    ],
+    "examples": []
+  },
+  "statement": {
+    "word": "statement",
+    "definitions": [
+      "a thing that says something clearly. it can be true or false. it has words or letters."
+    ],
+    "examples": []
+  },
+  "stupid": {
+    "word": "stupid",
+    "definitions": [
+      "not smart. a person has bad ideas. it makes others laugh."
+    ],
+    "examples": []
+  },
+  "studying": {
+    "word": "studying",
+    "definitions": [
+      "to learn things carefully. it can help you understand better. it is part of learning."
+    ],
+    "examples": []
+  },
+  "sitting": {
+    "word": "sitting",
+    "definitions": [
+      "to sit. is a position when you are not moving. has legs on the floor."
+    ],
+    "examples": []
+  },
+  "sibling": {
+    "word": "sibling",
+    "definitions": [
+      "a person. a child of the same parents. part of a family."
+    ],
+    "examples": []
+  },
+  "seen": {
+    "word": "seen",
+    "definitions": [
+      "a word that is past tense. it means something has been looked at. it is part of the verb see."
+    ],
+    "examples": []
+  },
+  "six": {
+    "word": "six",
+    "definitions": [
+      "a number. it is after five and before seven. it has two parts of three and three."
+    ],
+    "examples": []
+  },
+  "slope": {
+    "word": "slope",
+    "definitions": [
+      "a place. it is not flat. it can be up or down."
+    ],
+    "examples": []
+  },
+  "strawberry": {
+    "word": "strawberry",
+    "definitions": [
+      "a red fruit. it has seeds on the outside. it is sweet and soft."
+    ],
+    "examples": []
+  },
+  "stop": {
+    "word": "stop",
+    "definitions": [
+      "to stop. it means to not move or act. it can happen when something is done."
+    ],
+    "examples": []
+  },
+  "stack": {
+    "word": "stack",
+    "definitions": [
+      "a thing. it is a way to put items one on top of another. it has order."
+    ],
+    "examples": []
+  },
+  "surprise": {
+    "word": "surprise",
+    "definitions": [
+      "a feeling. it can make people stop and listen. it is not expected."
+    ],
+    "examples": []
+  },
+  "seat": {
+    "word": "seat",
+    "definitions": [
+      "a thing. it is a place where people can sit. it has a flat surface."
+    ],
+    "examples": []
+  },
+  "sense": {
+    "word": "sense",
+    "definitions": [
+      "a way to know something. it can be with eyes, ears, or touch. it is not always clear."
+    ],
+    "examples": []
+  },
+  "sweet": {
+    "word": "sweet",
+    "definitions": [
+      "a taste. it is not sour. it makes people feel good."
+    ],
+    "examples": []
+  },
+  "sinking": {
+    "word": "sinking",
+    "definitions": [
+      "to go down into water. it is not going up. it can happen to a boat."
+    ],
+    "examples": []
+  },
+  "steps": {
+    "word": "steps",
+    "definitions": [
+      "a part of a staircase. it is a small flat piece. it can be made of wood or concrete."
+    ],
+    "examples": []
+  },
+  "structure": {
+    "word": "structure",
+    "definitions": [
+      "a way to organize things. it has parts that are in order. it makes things clear."
+    ],
+    "examples": []
+  },
+  "seeming": {
+    "word": "seeming",
+    "definitions": [
+      "not real. it looks like something but is not. it makes people think something is true."
+    ],
+    "examples": []
+  },
+  "similar": {
+    "word": "similar",
+    "definitions": [
+      "not different. it has the same or close meaning. it can be used to compare things."
+    ],
+    "examples": []
+  },
+  "seven": {
+    "word": "seven",
+    "definitions": [
+      "a number. it is one more than six. it is not eight."
+    ],
+    "examples": []
+  },
+  "send": {
+    "word": "send",
+    "definitions": [
+      "to give something to someone. it can be done through mail or online. it makes people receive things."
+    ],
+    "examples": []
+  },
+  "system": {
+    "word": "system",
+    "definitions": [
+      "a set of rules. it helps computers work. it is not a person."
+    ],
+    "examples": []
+  },
+  "short": {
+    "word": "short",
+    "definitions": [
+      "not long. it has little size. it takes little time."
+    ],
+    "examples": []
+  },
+  "streets": {
+    "word": "streets",
+    "definitions": [
+      "a path. it is made by people. it is part of a city."
+    ],
+    "examples": []
+  },
+  "swore": {
+    "word": "swore",
+    "definitions": [
+      "a word. it is not polite. it can show anger or pain."
+    ],
+    "examples": []
+  },
+  "successful": {
+    "word": "successful",
+    "definitions": [
+      "a good feeling. when a person has done something well. it makes people happy."
+    ],
+    "examples": []
+  },
+  "scenery": {
+    "word": "scenery",
+    "definitions": [
+      "a view. it has trees, mountains, and water. it is not man-made."
+    ],
+    "examples": []
+  },
+  "surprised": {
+    "word": "surprised",
+    "definitions": [
+      "a feeling. when something happens that is not expected. it has a big emotion."
+    ],
+    "examples": []
+  },
+  "suffix": {
+    "word": "suffix",
+    "definitions": [
+      "a part of a word. it is added to the end. it can change the meaning."
+    ],
+    "examples": []
+  },
+  "solved": {
+    "word": "solved",
+    "definitions": [
+      "a problem. it is done. it has no more questions."
+    ],
+    "examples": []
+  },
+  "someone's": {
+    "word": "someone's",
+    "definitions": [
+      "a possessive form. it shows something belongs to a person. it is used with a name."
+    ],
+    "examples": []
+  },
+  "sing": {
+    "word": "sing",
+    "definitions": [
+      "to make sound with voice. it can be happy or sad. it is a way to share feelings."
+    ],
+    "examples": []
+  },
+  "sky": {
+    "word": "sky",
+    "definitions": [
+      "a big place above the earth. it is not hard. it has clouds and stars."
+    ],
+    "examples": []
+  },
+  "slipper": {
+    "word": "slipper",
+    "definitions": [
+      "a thing. it is not hard. it can be worn on feet."
+    ],
+    "examples": []
+  },
+  "smells": {
+    "word": "smells",
+    "definitions": [
+      "a thing that has a strong odor. it can make people feel sick. it is not always good."
+    ],
+    "examples": []
+  },
+  "sun": {
+    "word": "sun",
+    "definitions": [
+      "a big hot thing in the sky. it makes light. it gives heat."
+    ],
+    "examples": []
+  },
+  "steward": {
+    "word": "steward",
+    "definitions": [
+      "a person. a man that has power over a big place. he takes care of people and things."
+    ],
+    "examples": []
+  },
+  "supposed": {
+    "word": "supposed",
+    "definitions": [
+      "not real. it is a thing that is not true. it can be used to say something is not correct."
+    ],
+    "examples": []
+  },
+  "smallest": {
+    "word": "smallest",
+    "definitions": [
+      "not big. it is the least in size. it has the least amount."
+    ],
+    "examples": []
+  },
+  "smell": {
+    "word": "smell",
+    "definitions": [
+      "a thing that you can notice with your nose. it can be good or bad. it is not seen."
+    ],
+    "examples": []
+  },
+  "secrets": {
+    "word": "secrets",
+    "definitions": [
+      "a thing that is not known. it can be kept by people. it is hidden."
+    ],
+    "examples": []
+  },
+  "sixty": {
+    "word": "sixty",
+    "definitions": [
+      "a number. it is ten more than fifty. it is written as 60."
+    ],
+    "examples": []
+  },
+  "somersaults": {
+    "word": "somersaults",
+    "definitions": [
+      "a movement. it is when a person flips over. it makes a person turn upside down."
+    ],
+    "examples": []
+  },
+  "simple": {
+    "word": "simple",
+    "definitions": [
+      "not complex. it is easy to understand. it has few parts."
+    ],
+    "examples": []
+  },
+  "shape": {
+    "word": "shape",
+    "definitions": [
+      "a form that a thing has. it can be round, square, or long. it is part of what makes a thing look like something."
+    ],
+    "examples": []
+  },
+  "save": {
+    "word": "save",
+    "definitions": [
+      "to keep something safe. it can stop something from being lost. it makes sure things are not broken."
+    ],
+    "examples": []
+  },
+  "sadly": {
+    "word": "sadly",
+    "definitions": [
+      "an adverb. it shows a feeling of sadness. it is not happy."
+    ],
+    "examples": []
+  },
+  "steak": {
+    "word": "steak",
+    "definitions": [
+      "a food. it is a piece of meat. it can be cooked."
+    ],
+    "examples": []
+  },
+  "sick": {
+    "word": "sick",
+    "definitions": [
+      "not well. when a person has pain or feels weak. it can make them not able to move."
+    ],
+    "examples": []
+  },
+  "summoned": {
+    "word": "summoned",
+    "definitions": [
+      "to call someone to come. it is a way to make a person appear. it is used when someone needs help."
+    ],
+    "examples": []
+  },
+  "stove": {
+    "word": "stove",
+    "definitions": [
+      "a thing. it can make food hot. it has a place for burning fuel."
+    ],
+    "examples": []
+  },
+  "salt": {
+    "word": "salt",
+    "definitions": [
+      "a white thing. it can make food taste better. it is not sweet."
+    ],
+    "examples": []
+  },
+  "sleepier": {
+    "word": "sleepier",
+    "definitions": [
+      "a feeling. it is when someone wants to sleep more. it is not awake."
+    ],
+    "examples": []
+  },
+  "sending": {
+    "word": "sending",
+    "definitions": [
+      "to send something to a place. it uses mail or messages. it can be done by people or machines."
+    ],
+    "examples": []
+  },
+  "summer": {
+    "word": "summer",
+    "definitions": [
+      "a time of year. the weather is hot and sunny. it has long days and short nights."
+    ],
+    "examples": []
+  },
+  "sunk": {
+    "word": "sunk",
+    "definitions": [
+      "not up. it is the past of sink. it means to go down into water."
+    ],
+    "examples": []
+  },
+  "sheerness": {
+    "word": "sheerness",
+    "definitions": [
+      "a quality. it is not soft. it makes things feel smooth."
+    ],
+    "examples": []
+  },
+  "sleep": {
+    "word": "sleep",
+    "definitions": [
+      "a state of rest. the body is not moving. the mind is quiet."
+    ],
+    "examples": []
+  },
+  "shut": {
+    "word": "shut",
+    "definitions": [
+      "to close. it stops something from opening. it makes a sound."
+    ],
+    "examples": []
+  },
+  "silly": {
+    "word": "silly",
+    "definitions": [
+      "not smart. a person acts in a foolish way. it is a bad quality."
+    ],
+    "examples": []
+  },
+  "staircase": {
+    "word": "staircase",
+    "definitions": [
+      "a thing. it is a way to go up or down. it has steps."
+    ],
+    "examples": []
+  },
+  "seemed": {
+    "word": "seemed",
+    "definitions": [
+      "to look like. it is not sure. it can change."
+    ],
+    "examples": []
+  },
+  "sides": {
+    "word": "sides",
+    "definitions": [
+      "a part of a shape. it can be straight or curved. it is not the middle."
+    ],
+    "examples": []
+  },
+  "smoke": {
+    "word": "smoke",
+    "definitions": [
+      "a thing that comes from fire. it is not clear. it can make people cough."
+    ],
+    "examples": []
+  },
+  "side": {
+    "word": "side",
+    "definitions": [
+      "a part of something. it can be left or right. it is not the middle."
+    ],
+    "examples": []
+  },
+  "shouted": {
+    "word": "shouted",
+    "definitions": [
+      "to shout. it is a loud sound. it is not quiet."
+    ],
+    "examples": []
+  },
+  "seller": {
+    "word": "seller",
+    "definitions": [
+      "a person. to give things to others in exchange for money. has a shop or a place to sell things."
+    ],
+    "examples": []
+  },
+  "sand": {
+    "word": "sand",
+    "definitions": [
+      "a thing made of small hard bits. it is not soft. it can be found on beaches."
+    ],
+    "examples": []
+  },
+  "services": {
+    "word": "services",
+    "definitions": [
+      "things that people do for others. they can help or make life easier. they are not things you can touch."
+    ],
+    "examples": []
+  },
+  "swim": {
+    "word": "swim",
+    "definitions": [
+      "to move in water using arms and legs. it can be done in a pool or a lake. not walk."
+    ],
+    "examples": []
+  },
+  "ship's": {
+    "word": "ship's",
+    "definitions": [
+      "a part of a ship. it can move in water. it is not hard."
+    ],
+    "examples": []
+  },
+  "seems": {
+    "word": "seems",
+    "definitions": [
+      "to look like something is true. it can show a feeling or a guess. it is not certain."
+    ],
+    "examples": []
+  },
+  "sea": {
+    "word": "sea",
+    "definitions": [
+      "a big place with water. it has waves and fish. it is not land."
+    ],
+    "examples": []
+  },
+  "speed": {
+    "word": "speed",
+    "definitions": [
+      "a measure of how fast something moves. it can be shown by how far something goes in a time. it makes movement faster."
+    ],
+    "examples": []
+  },
+  "separates": {
+    "word": "separates",
+    "definitions": [
+      "to separates: to make things not together. it can divide into parts. it is a action."
+    ],
+    "examples": []
+  },
+  "shook": {
+    "word": "shook",
+    "definitions": [
+      "to move hands quickly. it can happen when someone is afraid. not steady."
+    ],
+    "examples": []
+  },
+  "suit": {
+    "word": "suit",
+    "definitions": [
+      "a piece of clothing. it has buttons and it covers the body."
+    ],
+    "examples": []
+  },
+  "south": {
+    "word": "south",
+    "definitions": [
+      "a direction. it is the opposite of north. it is a part of the world."
+    ],
+    "examples": []
+  },
+  "star": {
+    "word": "star",
+    "definitions": [
+      "a bright thing in the sky. it can shine and move slowly. it is not a planet."
+    ],
+    "examples": []
+  },
+  "sail": {
+    "word": "sail",
+    "definitions": [
+      "to move on water using a boat. it uses wind to go forward. it is not walking."
+    ],
+    "examples": []
+  },
+  "scruff": {
+    "word": "scruff",
+    "definitions": [
+      "the scruff: is a part of a cat's neck. it is soft and can be touched. it is not hard."
+    ],
+    "examples": []
+  },
+  "soap": {
+    "word": "soap",
+    "definitions": [
+      "a thing that is not hard. it can clean and it is soft. it makes bubbles."
+    ],
+    "examples": []
+  },
+  "street": {
+    "word": "street",
+    "definitions": [
+      "a place where people walk and drive. it has buildings on both sides. it is part of a city."
+    ],
+    "examples": []
+  },
+  "speaks": {
+    "word": "speaks",
+    "definitions": [
+      "to speaks. it is to use voice to say words. it is a way to communicate."
+    ],
+    "examples": []
+  },
+  "surging": {
+    "word": "surging",
+    "definitions": [
+      "a big movement of water. it can be strong and fast. it is not calm."
+    ],
+    "examples": []
+  },
+  "study": {
+    "word": "study",
+    "definitions": [
+      "to look at and learn about something. it can help you understand better. it is not just reading."
+    ],
+    "examples": []
+  },
+  "smart": {
+    "word": "smart",
+    "definitions": [
+      "a good quality. it means a person can think well. it is not stupid."
+    ],
+    "examples": []
+  },
+  "speaking": {
+    "word": "speaking",
+    "definitions": [
+      "to speak. it is to use words to talk. it makes communication."
+    ],
+    "examples": []
+  },
+  "sign": {
+    "word": "sign",
+    "definitions": [
+      "a mark. it can show meaning. it is used to tell something."
+    ],
+    "examples": []
+  },
+  "slowly": {
+    "word": "slowly",
+    "definitions": [
+      "an action. it is not fast. it takes more time."
+    ],
+    "examples": []
+  },
+  "spoon": {
+    "word": "spoon",
+    "definitions": [
+      "a tool. it has a curved shape. it is used to eat or mix things."
+    ],
+    "examples": []
+  },
+  "smarter": {
+    "word": "smarter",
+    "definitions": [
+      "a person. has more knowledge than others. can think better."
+    ],
+    "examples": []
+  },
+  "shine": {
+    "word": "shine",
+    "definitions": [
+      "to make light. it is a bright thing. it can make a surface look good."
+    ],
+    "examples": []
+  },
+  "straight": {
+    "word": "straight",
+    "definitions": [
+      "not curved. it is a line that goes in one direction. it has no bend."
+    ],
+    "examples": []
+  },
+  "set": {
+    "word": "set",
+    "definitions": [
+      "a group of things. it can be made by putting things together. it has parts that are connected."
+    ],
+    "examples": []
+  },
+  "stronger": {
+    "word": "stronger",
+    "definitions": [
+      "not weak. it has more power than something else. it can make things happen more easily."
+    ],
+    "examples": []
+  },
+  "sang": {
+    "word": "sang",
+    "definitions": [
+      "to sing. it is a sound made with the voice. it can be happy or sad."
+    ],
+    "examples": []
+  },
+  "seasons": {
+    "word": "seasons",
+    "definitions": [
+      "a time of year. it has different weather and looks. it changes with the sun."
+    ],
+    "examples": []
+  },
+  "shoulders": {
+    "word": "shoulders",
+    "definitions": [
+      "a part of the body. it is where the arms connect. it can carry things."
+    ],
+    "examples": []
+  },
+  "samuel": {
+    "word": "samuel",
+    "definitions": [
+      "a person. a man that has a name samuel. it is a common name."
+    ],
+    "examples": []
+  },
+  "shopping": {
+    "word": "shopping",
+    "definitions": [
+      "to buy things. it can take time and money. it is a activity."
+    ],
+    "examples": []
+  },
+  "stuck": {
+    "word": "stuck",
+    "definitions": [
+      "not able to move. it is when something is trapped. it can happen when there is no way out."
+    ],
+    "examples": []
+  },
+  "state": {
+    "word": "state",
+    "definitions": [
+      "a place. it has a government. it can be big or small."
+    ],
+    "examples": []
+  },
+  "spout": {
+    "word": "spout",
+    "definitions": [
+      "a thing that can make a loud sound. it can push out water or steam. it is part of a machine."
+    ],
+    "examples": []
+  },
+  "slop": {
+    "word": "slop",
+    "definitions": [
+      "a thing that is not clean. it can be wet and messy. it is not good to eat."
+    ],
+    "examples": []
+  },
+  "soles": {
+    "word": "soles",
+    "definitions": [
+      "the bottom part of a shoe. they are not hard. they can be made of different materials."
+    ],
+    "examples": []
+  },
+  "suited": {
+    "word": "suited",
+    "definitions": [
+      "not bad. it can fit well. it makes a good match."
+    ],
+    "examples": []
+  },
+  "salad": {
+    "word": "salad",
+    "definitions": [
+      "a food. it is made of different vegetables. it can have dressing."
+    ],
+    "examples": []
+  },
+  "symptoms": {
+    "word": "symptoms",
+    "definitions": [
+      "things that show a person is sick. they can make the body feel bad. they are not always the same."
+    ],
+    "examples": []
+  },
+  "skulking": {
+    "word": "skulking",
+    "definitions": [
+      "a way of moving. it is not open. it is done in secret."
+    ],
+    "examples": []
+  },
+  "solve": {
+    "word": "solve",
+    "definitions": [
+      "to find an answer. to make a problem clear. it can help people think."
+    ],
+    "examples": []
+  },
+  "stand": {
+    "word": "stand",
+    "definitions": [
+      "to stand. it is to be in a place without sitting or lying. it can be done with legs."
+    ],
+    "examples": []
+  },
+  "stood": {
+    "word": "stood",
+    "definitions": [
+      "to stand in one place. it is the opposite of sat. it is a past tense of stand."
+    ],
+    "examples": []
+  },
+  "strange": {
+    "word": "strange",
+    "definitions": [
+      "not normal. it is hard to understand. it makes people feel confused."
+    ],
+    "examples": []
+  },
+  "shed": {
+    "word": "shed",
+    "definitions": [
+      "a building. it has a roof and walls. it is not strong."
+    ],
+    "examples": []
+  },
+  "stuff": {
+    "word": "stuff",
+    "definitions": [
+      "a thing. it can be any kind of material or object. it is not always clear or hard."
+    ],
+    "examples": []
+  },
+  "sat": {
+    "word": "sat",
+    "definitions": [
+      "to sit. is to be in a position where you are not moving. has legs on the ground."
+    ],
+    "examples": []
+  },
+  "sin": {
+    "word": "sin",
+    "definitions": [
+      "a bad action. it is not good. it makes people feel guilty."
+    ],
+    "examples": []
+  },
+  "severe": {
+    "word": "severe",
+    "definitions": [
+      "not light. it is a strong kind of pain or weather. it can cause harm."
+    ],
+    "examples": []
+  },
+  "start": {
+    "word": "start",
+    "definitions": [
+      "to begin. it is the first part of something. it makes action happen."
+    ],
+    "examples": []
+  },
+  "second": {
+    "word": "second",
+    "definitions": [
+      "a part of a thing. it is not first. it comes after first."
+    ],
+    "examples": []
+  },
+  "stopped": {
+    "word": "stopped",
+    "definitions": [
+      "not moving. it is the opposite of started. it means to stop doing something."
+    ],
+    "examples": []
+  },
+  "scourge": {
+    "word": "scourge",
+    "definitions": [
+      "a thing that causes pain. it can be a whip or a punishment. it makes people suffer."
+    ],
+    "examples": []
+  },
+  "soup": {
+    "word": "soup",
+    "definitions": [
+      "a hot liquid. it has food in it. it is made from water and other things."
+    ],
+    "examples": []
+  },
+  "shirt": {
+    "word": "shirt",
+    "definitions": [
+      "a piece of clothing. it covers the upper body. it has buttons and sleeves."
+    ],
+    "examples": []
+  },
+  "sixpenny": {
+    "word": "sixpenny",
+    "definitions": [
+      "a small coin. it is worth six pence. it is not a big coin."
+    ],
+    "examples": []
+  },
+  "sour": {
+    "word": "sour",
+    "definitions": [
+      "not sweet. it has a bad taste. it can make a person feel sick."
+    ],
+    "examples": []
+  },
+  "supporting": {
+    "word": "supporting",
+    "definitions": [
+      "a thing that helps. it can hold up something. it is not moving."
+    ],
+    "examples": []
+  },
+  "sometimes": {
+    "word": "sometimes",
+    "definitions": [
+      "not always. it means a thing happens at times. it is not often."
+    ],
+    "examples": []
+  },
+  "style": {
+    "word": "style",
+    "definitions": [
+      "a way of looking or doing things. it can make something look better. it has a special way of making things look nice."
+    ],
+    "examples": []
+  },
+  "sell": {
+    "word": "sell",
+    "definitions": [
+      "to give something to someone in exchange for money. it is a way to get money. people do it to make profit."
+    ],
+    "examples": []
+  },
+  "sleeping": {
+    "word": "sleeping",
+    "definitions": [
+      "a state. a person is not awake. it makes them rest."
+    ],
+    "examples": []
+  },
+  "suddenly": {
+    "word": "suddenly",
+    "definitions": [
+      "an unexpected way. it happens quickly. it is not planned."
+    ],
+    "examples": []
+  },
+  "step": {
+    "word": "step",
+    "definitions": [
+      "to move with one foot at a time. it is a way to walk. it makes you go forward."
+    ],
+    "examples": []
+  },
+  "sweets": {
+    "word": "sweets",
+    "definitions": [
+      "a thing that is not bitter. it can taste good. it is made of sugar."
+    ],
+    "examples": []
+  },
+  "strongly": {
+    "word": "strongly",
+    "definitions": [
+      "not weak. it can make something happen with power. it is a way to show feeling."
+    ],
+    "examples": []
+  },
+  "saying": {
+    "word": "saying",
+    "definitions": [
+      "to speak words. it is a way to share ideas. it can be true or false."
+    ],
+    "examples": []
+  },
+  "sold": {
+    "word": "sold",
+    "definitions": [
+      "past tense of sell. it means something was given for money. it is not new."
+    ],
+    "examples": []
+  },
+  "serious": {
+    "word": "serious",
+    "definitions": [
+      "not funny. it means a person is not joking. it has no humor."
+    ],
+    "examples": []
+  },
+  "successfully": {
+    "word": "successfully",
+    "definitions": [
+      "to do something well. it shows that a task is done right. it is not failed."
+    ],
+    "examples": []
+  },
+  "somewhere": {
+    "word": "somewhere",
+    "definitions": [
+      "a place. it is not a specific place. it can be any place."
+    ],
+    "examples": []
+  },
+  "single": {
+    "word": "single",
+    "definitions": [
+      "a person. not married. has no partner."
+    ],
+    "examples": []
+  },
+  "stops": {
+    "word": "stops",
+    "definitions": [
+      "to stop. it is when something does not move. it can happen when a force is applied."
+    ],
+    "examples": []
+  },
+  "strength": {
+    "word": "strength",
+    "definitions": [
+      "a power. it makes a person or thing able to do hard work. it is not weak."
+    ],
+    "examples": []
+  },
+  "southend": {
+    "word": "southend",
+    "definitions": [
+      "a place. it is a town in the east of england. it is part of the uk."
+    ],
+    "examples": []
+  },
+  "stars": {
+    "word": "stars",
+    "definitions": [
+      "small bright things in the sky. they shine at night. they are not close to earth."
+    ],
+    "examples": []
+  },
+  "size": {
+    "word": "size",
+    "definitions": [
+      "a measure of how big or small something is. it can be big or small. it is not the same as shape."
+    ],
+    "examples": []
+  },
+  "shaky": {
+    "word": "shaky",
+    "definitions": [
+      "not steady. it can move a little. it is not safe."
+    ],
+    "examples": []
+  },
+  "subject": {
+    "word": "subject",
+    "definitions": [
+      "a topic. it is what is being talked about. it can be a person, place, or thing."
+    ],
+    "examples": []
+  },
+  "specific": {
+    "word": "specific",
+    "definitions": [
+      "not general. it has exact meaning. it is clear and exact."
+    ],
+    "examples": []
+  },
+  "secret": {
+    "word": "secret",
+    "definitions": [
+      "a thing that is not known. it is kept hidden. it can be shared only with some people."
+    ],
+    "examples": []
+  },
+  "souls": {
+    "word": "souls",
+    "definitions": [
+      "not bodies. they are part of people. they can feel and think."
+    ],
+    "examples": []
+  },
+  "sees": {
+    "word": "sees",
+    "definitions": [
+      "to see. it is to use eyes. it can know what is around."
+    ],
+    "examples": []
+  },
+  "surfaces": {
+    "word": "surfaces",
+    "definitions": [
+      "a thing that has a top part. it can be hard or soft. it is not inside."
+    ],
+    "examples": []
+  },
+  "studies": {
+    "word": "studies",
+    "definitions": [
+      "to learn things carefully. it can take time and effort. it makes knowledge."
+    ],
+    "examples": []
+  },
+  "shared": {
+    "word": "shared",
+    "definitions": [
+      "not own. when something is part of. it can be used by many."
+    ],
+    "examples": []
+  },
+  "special": {
+    "word": "special",
+    "definitions": [
+      "not common. it has a unique quality. it is different from others."
+    ],
+    "examples": []
+  },
+  "separate": {
+    "word": "separate",
+    "definitions": [
+      "to separate is to make things not together. it can divide into parts. it is not mixing."
+    ],
+    "examples": []
+  },
+  "stable": {
+    "word": "stable",
+    "definitions": [
+      "not moving. a thing that does not change. it can hold things safely."
+    ],
+    "examples": []
+  },
+  "solution": {
+    "word": "solution",
+    "definitions": [
+      "a way to solve a problem. it can make things clear. it is not a mistake."
+    ],
+    "examples": []
+  },
+  "strangers": {
+    "word": "strangers",
+    "definitions": [
+      "people you do not know. they can be in your place. they are not your friends."
+    ],
+    "examples": []
+  },
+  "spoken": {
+    "word": "spoken",
+    "definitions": [
+      "a word that is not written. it is said with the mouth. it can be heard."
+    ],
+    "examples": []
+  },
+  "sensations": {
+    "word": "sensations",
+    "definitions": [
+      "things that a person feels. they can be good or bad. they are not always clear."
+    ],
+    "examples": []
+  },
+  "sad": {
+    "word": "sad",
+    "definitions": [
+      "a feeling. when a person is not happy. it has little joy."
+    ],
+    "examples": []
+  },
+  "suggested": {
+    "word": "suggested",
+    "definitions": [
+      "to give an idea or plan. it can help others make a choice. it is not always correct."
+    ],
+    "examples": []
+  },
+  "still": {
+    "word": "still",
+    "definitions": [
+      "not moving. it can mean not changing. it is a word that shows something is not moving or not changing."
+    ],
+    "examples": []
+  },
+  "similarities": {
+    "word": "similarities",
+    "definitions": [
+      "things that are alike. they have the same features. they can be compared."
+    ],
+    "examples": []
+  },
+  "sloped": {
+    "word": "sloped",
+    "definitions": [
+      "not flat. it has a gentle rise or fall. it is a shape of a surface."
+    ],
+    "examples": []
+  },
+  "sea-side": {
+    "word": "sea-side",
+    "definitions": [
+      "a place. it is near the sea. it has sand and water."
+    ],
+    "examples": []
+  },
+  "ship": {
+    "word": "ship",
+    "definitions": [
+      "a big boat. it can move on water. it has sails or engines."
+    ],
+    "examples": []
+  },
+  "spouse": {
+    "word": "spouse",
+    "definitions": [
+      "a person. a man or woman that is married to another. it has a partner."
+    ],
+    "examples": []
+  },
+  "shoulder": {
+    "word": "shoulder",
+    "definitions": [
+      "a part of the body. it is on the side of the body. it can hold things."
+    ],
+    "examples": []
+  },
+  "saturday": {
+    "word": "saturday",
+    "definitions": [
+      "a day. it is not a work day. it is part of the week."
+    ],
+    "examples": []
+  },
+  "space": {
+    "word": "space",
+    "definitions": [
+      "a big area around things. it is not filled with matter. it can hold stars and planets."
+    ],
+    "examples": []
+  },
+  "skill": {
+    "word": "skill",
+    "definitions": [
+      "a ability. it can help a person do something well. it makes work easier."
+    ],
+    "examples": []
+  },
+  "sixteen": {
+    "word": "sixteen",
+    "definitions": [
+      "a number. it is ten plus six. it is not fifteen."
+    ],
+    "examples": []
+  },
+  "sleeves": {
+    "word": "sleeves",
+    "definitions": [
+      "a part of a shirt. it covers the arm. it is made of cloth."
+    ],
+    "examples": []
+  },
+  "scared": {
+    "word": "scared",
+    "definitions": [
+      "a feeling. it is not safe. it makes a person move fast."
+    ],
+    "examples": []
+  },
+  "soft": {
+    "word": "soft",
+    "definitions": [
+      "not hard. it can be touched easily. it is not strong."
+    ],
+    "examples": []
+  },
+  "sex": {
+    "word": "sex",
+    "definitions": [
+      "a part of a person. it is not the same for everyone. it can be male or female."
+    ],
+    "examples": []
+  },
+  "speak": {
+    "word": "speak",
+    "definitions": [
+      "to speak is to use words to talk. it is a way to share ideas. people can speak with their mouth and voice."
+    ],
+    "examples": []
+  },
+  "shout": {
+    "word": "shout",
+    "definitions": [
+      "to speak loudly. it can make people hear far away. it is not quiet."
+    ],
+    "examples": []
+  },
+  "snow": {
+    "word": "snow",
+    "definitions": [
+      "a thing that is not hard. it can move and it is white. it is made of ice."
+    ],
+    "examples": []
+  },
+  "shows": {
+    "word": "shows",
+    "definitions": [
+      "to make something visible. it can be done with light. it is a way to present something."
+    ],
+    "examples": []
+  },
+  "season": {
+    "word": "season",
+    "definitions": [
+      "a time of year. it has different weather. it makes plants grow."
+    ],
+    "examples": []
+  },
+  "success": {
+    "word": "success",
+    "definitions": [
+      "a good result. it happens when something works well. it makes people feel proud."
+    ],
+    "examples": []
+  },
+  "slam": {
+    "word": "slam",
+    "definitions": [
+      "to hit something hard. it makes a loud sound. it is a quick action."
+    ],
+    "examples": []
+  },
+  "seedy": {
+    "word": "seedy",
+    "definitions": [
+      "not clean. it has bad smells. it can make people sick."
+    ],
+    "examples": []
+  },
+  "seized": {
+    "word": "seized",
+    "definitions": [
+      "to take something suddenly. it is not allowed without permission. it is a strong action."
+    ],
+    "examples": []
+  },
+  "sunday": {
+    "word": "sunday",
+    "definitions": [
+      "a day. it is the first day of the week. it is not a work day."
+    ],
+    "examples": []
+  },
+  "shown": {
+    "word": "shown",
+    "definitions": [
+      "to make clear. it is a past form of show. it means something has been made visible."
+    ],
+    "examples": []
+  },
+  "stone": {
+    "word": "stone",
+    "definitions": [
+      "a hard thing. it can break and it is not soft. it is part of the earth."
+    ],
+    "examples": []
+  },
+  "smoothly": {
+    "word": "smoothly",
+    "definitions": [
+      "an action. it is not rough. it can move without making noise."
+    ],
+    "examples": []
+  },
+  "structural": {
+    "word": "structural",
+    "definitions": [
+      "a kind of thing. it is about the way parts are put together. it makes a shape or a system."
+    ],
+    "examples": []
+  },
+  "share": {
+    "word": "share",
+    "definitions": [
+      "to give something to another. it can be a thing or an idea. it makes people feel connected."
+    ],
+    "examples": []
+  },
+  "supper": {
+    "word": "supper",
+    "definitions": [
+      "a meal. it is eaten in the evening. it is not the same as breakfast."
+    ],
+    "examples": []
+  },
+  "skin": {
+    "word": "skin",
+    "definitions": [
+      "a thing that covers the body. it is not hard. it can feel and it can move."
+    ],
+    "examples": []
+  },
+  "sailors": {
+    "word": "sailors",
+    "definitions": [
+      "people. they work on ships. they can move on water."
+    ],
+    "examples": []
+  },
+  "safely": {
+    "word": "safely",
+    "definitions": [
+      "not dangerous. it is a way to move or act. it makes things not hurt."
+    ],
+    "examples": []
+  },
+  "smoking": {
+    "word": "smoking",
+    "definitions": [
+      "to burn something with fire. it can make smoke and bad air. it is not healthy."
+    ],
+    "examples": []
+  },
+  "sort": {
+    "word": "sort",
+    "definitions": [
+      "to sort is to put things in order. it can make a group of things easier to find. it is a way to organize."
+    ],
+    "examples": []
+  },
+  "seek": {
+    "word": "seek",
+    "definitions": [
+      "to look for something. it can take time. it is not easy."
+    ],
+    "examples": []
+  },
+  "spot": {
+    "word": "spot",
+    "definitions": [
+      "a thing that is not plain. it can be seen clearly. it is a part of a picture."
+    ],
+    "examples": []
+  },
+  "selected": {
+    "word": "selected",
+    "definitions": [
+      "a thing that is not unselected. it is chosen. it has been picked."
+    ],
+    "examples": []
+  },
+  "square": {
+    "word": "square",
+    "definitions": [
+      "a shape. it has four equal sides. all angles are right."
+    ],
+    "examples": []
+  },
+  "sticks": {
+    "word": "sticks",
+    "definitions": [
+      "a thing. it is made of wood. it can be used to hit or point."
+    ],
+    "examples": []
+  },
+  "science": {
+    "word": "science",
+    "definitions": [
+      "a way to learn about the world. it uses facts and tests. it helps to understand how things work."
+    ],
+    "examples": []
+  },
+  "seventeen": {
+    "word": "seventeen",
+    "definitions": [
+      "a number. it is after sixteen and before eighteen. it is not a round number."
+    ],
+    "examples": []
+  },
+  "slippery": {
+    "word": "slippery",
+    "definitions": [
+      "not safe. it can make you fall. it is wet and smooth."
+    ],
+    "examples": []
+  },
+  "sudden": {
+    "word": "sudden",
+    "definitions": [
+      "not slow. it happens quickly. it is unexpected."
+    ],
+    "examples": []
+  },
+  "suffer": {
+    "word": "suffer",
+    "definitions": [
+      "to feel pain or bad things. it happens when something bad is done to you. it is not good."
+    ],
+    "examples": []
+  },
+  "show": {
+    "word": "show",
+    "definitions": [
+      "to make something appear. to give a view of something. to present something clearly."
+    ],
+    "examples": []
+  },
+  "shillings": {
+    "word": "shillings",
+    "definitions": [
+      "a kind of money. it is used in some countries. it is not the same as dollars."
+    ],
+    "examples": []
+  },
+  "started": {
+    "word": "started",
+    "definitions": [
+      "to begin doing something. it is the first part of an action. it makes a new beginning."
+    ],
+    "examples": []
+  },
+  "stories": {
+    "word": "stories",
+    "definitions": [
+      "a thing that has a beginning, middle, and end. it can have people, places, and events. it is not real but can feel real."
+    ],
+    "examples": []
+  },
+  "stranger": {
+    "word": "stranger",
+    "definitions": [
+      "a person. not known. can be friendly or not."
+    ],
+    "examples": []
+  },
+  "self-referential": {
+    "word": "self-referential",
+    "definitions": [
+      "a thing. it refers to itself. it talks about itself."
+    ],
+    "examples": []
+  },
+  "strawberries": {
+    "word": "strawberries",
+    "definitions": [
+      "a fruit. it is red and has small seeds. it can be eaten raw."
+    ],
+    "examples": []
+  },
+  "slammed": {
+    "word": "slammed",
+    "definitions": [
+      "to slam is to hit something hard with force. it makes a loud sound. it is a quick action."
+    ],
+    "examples": []
+  },
+  "school": {
+    "word": "school",
+    "definitions": [
+      "a place where people learn. it has teachers and students. it is not a home."
+    ],
+    "examples": []
+  },
+  "struck": {
+    "word": "struck",
+    "definitions": [
+      "to hit suddenly. it can cause pain. it is a past tense of hit."
+    ],
+    "examples": []
+  },
+  "sings": {
+    "word": "sings",
+    "definitions": [
+      "to make music with voice. it can be happy or sad. it is a way to show feeling."
+    ],
+    "examples": []
+  },
+  "situation": {
+    "word": "situation",
+    "definitions": [
+      "a condition. it can be good or bad. it has a beginning and an end."
+    ],
+    "examples": []
+  },
+  "speech": {
+    "word": "speech",
+    "definitions": [
+      "a way to talk. it is made with the mouth. it can share ideas."
+    ],
+    "examples": []
+  },
+  "shelves": {
+    "word": "shelves",
+    "definitions": [
+      "a thing. it is a flat surface. it can hold books and things."
+    ],
+    "examples": []
+  },
+  "shop": {
+    "word": "shop",
+    "definitions": [
+      "a place. it has things for people to buy. it can be a building or a website."
+    ],
+    "examples": []
+  },
+  "squashed": {
+    "word": "squashed",
+    "definitions": [
+      "not round. it is flat and broken. it has little shape."
+    ],
+    "examples": []
+  },
+  "sugar": {
+    "word": "sugar",
+    "definitions": [
+      "a sweet thing. it is not hard. it can make food taste good."
+    ],
+    "examples": []
+  },
+  "shaped": {
+    "word": "shaped",
+    "definitions": [
+      "not round. it has a form. it can be straight or curved."
+    ],
+    "examples": []
+  },
+  "sir": {
+    "word": "sir",
+    "definitions": [
+      "a title. it is used to show respect. it is not a name."
+    ],
+    "examples": []
+  },
+  "stays": {
+    "word": "stays",
+    "definitions": [
+      "to stay is to remain in one place. it can mean not moving. it is the opposite of goes."
+    ],
+    "examples": []
+  },
+  "sister": {
+    "word": "sister",
+    "definitions": [
+      "a person. a female brother. part of a family."
+    ],
+    "examples": []
+  },
+  "surface": {
+    "word": "surface",
+    "definitions": [
+      "a thing that is not deep. it is the top part of something. it can be touched."
+    ],
+    "examples": []
+  },
+  "sink": {
+    "word": "sink",
+    "definitions": [
+      "a thing. it can hold water and it is not hard. it has a hole in the bottom."
+    ],
+    "examples": []
+  },
+  "sources": {
+    "word": "sources",
+    "definitions": [
+      "a place. it has information. it can be a person or a book."
+    ],
+    "examples": []
+  },
+  "solid": {
+    "word": "solid",
+    "definitions": [
+      "a thing that is not soft. it has a fixed shape. it can be hard or not."
+    ],
+    "examples": []
+  },
+  "safer": {
+    "word": "safer",
+    "definitions": [
+      "not dangerous. it has less risk. it can protect."
+    ],
+    "examples": []
+  },
+  "sentence": {
+    "word": "sentence",
+    "definitions": [
+      "a thing that is made of words. it can show ideas and tell stories. it has meaning."
+    ],
+    "examples": []
+  },
+  "sleepy": {
+    "word": "sleepy",
+    "definitions": [
+      "a feeling. when a person wants to close their eyes. it is not awake."
+    ],
+    "examples": []
+  },
+  "standing": {
+    "word": "standing",
+    "definitions": [
+      "a position. a person is not sitting. it is a way to be ready."
+    ],
+    "examples": []
+  },
+  "satisfied": {
+    "word": "satisfied",
+    "definitions": [
+      "a feeling. when a person has what they want. it is not unhappy."
+    ],
+    "examples": []
+  },
+  "stick": {
+    "word": "stick",
+    "definitions": [
+      "a thing. it is long and hard. it can be used to hit or point."
+    ],
+    "examples": []
+  },
+  "shoot": {
+    "word": "shoot",
+    "definitions": [
+      "to shoot is to throw something with force. it can hit a target. it is a way to use a gun."
+    ],
+    "examples": []
+  },
+  "served": {
+    "word": "served",
+    "definitions": [
+      "to give food to someone. it is a past action. it can mean help or prepare."
+    ],
+    "examples": []
+  },
+  "sensible": {
+    "word": "sensible",
+    "definitions": [
+      "not silly. it can make good choices. it has good sense."
+    ],
+    "examples": []
+  },
+  "slight": {
+    "word": "slight",
+    "definitions": [
+      "not big. it can mean a small amount. it is not strong."
+    ],
+    "examples": []
+  },
+  "st": {
+    "word": "st",
+    "definitions": [
+      "a short way to write street. it is a part of an address."
+    ],
+    "examples": []
+  },
+  "staying": {
+    "word": "staying",
+    "definitions": [
+      "to stay in one place. it means not moving. it can happen when you are resting."
+    ],
+    "examples": []
+  },
+  "slightly": {
+    "word": "slightly",
+    "definitions": [
+      "not very. a little bit. not much."
+    ],
+    "examples": []
+  },
+  "sickness": {
+    "word": "sickness",
+    "definitions": [
+      "a bad feeling. it makes a person not healthy. it can make them tired."
+    ],
+    "examples": []
+  },
+  "skies": {
+    "word": "skies",
+    "definitions": [
+      "the air above the earth. it is not solid. it can have clouds and colors."
+    ],
+    "examples": []
+  },
+  "sensation": {
+    "word": "sensation",
+    "definitions": [
+      "a feeling. it comes from the body. it can be hot, cold, or pain."
+    ],
+    "examples": []
+  },
+  "sight": {
+    "word": "sight",
+    "definitions": [
+      "a sense. it is how we see things. it uses eyes."
+    ],
+    "examples": []
+  },
+  "studied": {
+    "word": "studied",
+    "definitions": [
+      "to look at something carefully. it can help you learn new things. it is not just seeing."
+    ],
+    "examples": []
+  },
+  "series": {
+    "word": "series",
+    "definitions": [
+      "a series. it is a group of things that are in order. each part comes after the other."
+    ],
+    "examples": []
+  },
+  "somewhat": {
+    "word": "somewhat",
+    "definitions": [
+      "not very. a little bit. not completely."
+    ],
+    "examples": []
+  },
+  "symbols": {
+    "word": "symbols",
+    "definitions": [
+      "a thing. it can show meaning. it is not real."
+    ],
+    "examples": []
+  },
+  "solitude": {
+    "word": "solitude",
+    "definitions": [
+      "a state. it is being alone. it has no people around."
+    ],
+    "examples": []
+  },
+  "safe": {
+    "word": "safe",
+    "definitions": [
+      "not dangerous. it is a place where people can stay without harm. it can protect things from harm."
+    ],
+    "examples": []
+  },
+  "sailor": {
+    "word": "sailor",
+    "definitions": [
+      "a person. works on a ship. uses a sail to move."
+    ],
+    "examples": []
+  },
+  "stage": {
+    "word": "stage",
+    "definitions": [
+      "a place where people act. it can be a big room or a small area. it is part of a theater."
+    ],
+    "examples": []
+  },
+  "steep": {
+    "word": "steep",
+    "definitions": [
+      "not flat. it is a slope that goes up quickly. it can be dangerous to walk on."
+    ],
+    "examples": []
+  },
+  "shapes": {
+    "word": "shapes",
+    "definitions": [
+      "a form. it can be round, square, or long. it is not the same as color."
+    ],
+    "examples": []
+  },
+  "selfish": {
+    "word": "selfish",
+    "definitions": [
+      "not kind. it is when a person takes more than their share. it makes others feel bad."
+    ],
+    "examples": []
+  },
+  "society": {
+    "word": "society",
+    "definitions": [
+      "a group of people. they live together and share rules. they have jobs and families."
+    ],
+    "examples": []
+  },
+  "seeing": {
+    "word": "seeing",
+    "definitions": [
+      "to use eyes. it can know what is around. it is part of knowing."
+    ],
+    "examples": []
+  },
+  "spread": {
+    "word": "spread",
+    "definitions": [
+      "to spread is to make something cover more area. it can happen when you move things around. it makes things go wider."
+    ],
+    "examples": []
+  },
+  "sent": {
+    "word": "sent",
+    "definitions": [
+      "to put something in a place. it is a past form of send. it can mean something has been given."
+    ],
+    "examples": []
+  },
+  "shore": {
+    "word": "shore",
+    "definitions": [
+      "a place. it is the edge of the land near water. it has sand or rocks."
+    ],
+    "examples": []
+  },
+  "scene": {
+    "word": "scene",
+    "definitions": [
+      "a picture. it can show people and things. it is part of a movie."
+    ],
+    "examples": []
+  },
+  "strapped": {
+    "word": "strapped",
+    "definitions": [
+      "not free. a person has something tight around their body. it can make them feel uncomfortable."
+    ],
+    "examples": []
+  },
+  "slow": {
+    "word": "slow",
+    "definitions": [
+      "not fast. it means moving or happening with little speed. it can take more time."
+    ],
+    "examples": []
+  },
+  "since": {
+    "word": "since",
+    "definitions": [
+      "to start from a time. it is used to show when something happens. it can be part of a sentence."
+    ],
+    "examples": []
+  },
+  "scarlet": {
+    "word": "scarlet",
+    "definitions": [
+      "a red color. it is not common. it is bright and strong."
+    ],
+    "examples": []
+  },
+  "stomach": {
+    "word": "stomach",
+    "definitions": [
+      "a part of the body. it can hold food. it makes you feel full."
+    ],
+    "examples": []
+  },
+  "sworn": {
+    "word": "sworn",
+    "definitions": [
+      "not true. when a person says something with an oath. it is not changed."
+    ],
+    "examples": []
+  },
+  "swallow": {
+    "word": "swallow",
+    "definitions": [
+      "to swallow is to take something into the stomach. it is done with the mouth and throat. it makes food go inside the body."
+    ],
+    "examples": []
+  },
+  "suffering": {
+    "word": "suffering",
+    "definitions": [
+      "a bad feeling. it is not happy. it can happen when someone is hurt or in pain."
+    ],
+    "examples": []
+  },
+  "seats": {
+    "word": "seats",
+    "definitions": [
+      "a thing that is not hard. it can hold people. it is part of a room."
+    ],
+    "examples": []
+  },
+  "soon": {
+    "word": "soon",
+    "definitions": [
+      "a time. it is before later. it is not far away."
+    ],
+    "examples": []
+  },
+  "ships": {
+    "word": "ships",
+    "definitions": [
+      "big boats that can float on water. they can move across the sea. they are made of strong materials."
+    ],
+    "examples": []
+  },
+  "somehow": {
+    "word": "somehow",
+    "definitions": [
+      "a way. it can happen without knowing why. it is not clear."
+    ],
+    "examples": []
+  },
+  "somebody": {
+    "word": "somebody",
+    "definitions": [
+      "a person. it is not known exactly who. it can be any man or woman."
+    ],
+    "examples": []
+  },
+  "sails": {
+    "word": "sails",
+    "definitions": [
+      "a part of a boat. it can catch wind. it is made of cloth."
+    ],
+    "examples": []
+  },
+  "smile": {
+    "word": "smile",
+    "definitions": [
+      "a face expression. it shows when someone is happy. it makes others feel good."
+    ],
+    "examples": []
+  },
+  "soda-water": {
+    "word": "soda-water",
+    "definitions": [
+      "a drink. it is not hard. it has bubbles."
+    ],
+    "examples": []
+  },
+  "story": {
+    "word": "story",
+    "definitions": [
+      "a thing that has a beginning, middle, and end. it can have characters and events. it is made of words and sentences."
+    ],
+    "examples": []
+  },
+  "shoes": {
+    "word": "shoes",
+    "definitions": [
+      "a thing that covers feet. it can protect feet from cold. it is made of leather or cloth."
+    ],
+    "examples": []
+  },
+  "screen": {
+    "word": "screen",
+    "definitions": [
+      "a thing that shows pictures and words. it can show videos and games. it is part of a computer."
+    ],
+    "examples": []
+  },
+  "sit": {
+    "word": "sit",
+    "definitions": [
+      "to sit. is to be on a surface with legs down. not stand."
+    ],
+    "examples": []
+  },
+  "stopping": {
+    "word": "stopping",
+    "definitions": [
+      "to not moving. it is the opposite of moving. it can happen when you are tired."
+    ],
+    "examples": []
+  },
+  "stretch": {
+    "word": "stretch",
+    "definitions": [
+      "to stretch is to make something longer. it can make a person feel better. it is a way to move body parts."
+    ],
+    "examples": []
+  },
+  "smooth": {
+    "word": "smooth",
+    "definitions": [
+      "not rough. it feels soft to touch. it can make things move easily."
+    ],
+    "examples": []
+  },
+  "students": {
+    "word": "students",
+    "definitions": [
+      "people who learn things. they go to school. they have lessons."
+    ],
+    "examples": []
+  },
+  "sure": {
+    "word": "sure",
+    "definitions": [
+      "an answer. it means yes. it is not uncertain."
+    ],
+    "examples": []
+  },
+  "seeds": {
+    "word": "seeds",
+    "definitions": [
+      "a small part of a plant. it can grow into a new plant. it has a hard cover."
+    ],
+    "examples": []
+  },
+  "selling": {
+    "word": "selling",
+    "definitions": [
+      "to give something to someone in exchange for money. it can make a person rich. it is a way to get money."
+    ],
+    "examples": []
+  }
+}

@@ -1,13 +1,11 @@
 [package]
-name = "yalm-eval"
+name = "yalm-cache"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 yalm-core = { path = "../yalm-core" }
 yalm-parser = { path = "../yalm-parser" }
-yalm-cache = { path = "../yalm-cache" }
-yalm-engine = { path = "../yalm-engine" }
-clap = { version = "4", features = ["derive"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+ureq = { version = "3", features = ["json"] }

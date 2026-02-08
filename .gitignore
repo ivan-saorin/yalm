@@ -27,6 +27,11 @@ results_v*/
 # Claude Code session data
 .claude/
 
+# Dictionary cache (large, regenerable from XML dumps)
+dictionaries/cache/*.json
+dictionaries/cache/*.xml
+dictionaries/cache/*.xml.bz2
+
 # Stale artifacts
 /2/
 /nul

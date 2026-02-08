@@ -1,0 +1,884 @@
+{
+  "alike": {
+    "word": "alike",
+    "definitions": [
+      "not different. it means two things are similar. it can describe people or things."
+    ],
+    "examples": []
+  },
+  "anger": {
+    "word": "anger",
+    "definitions": [
+      "a strong feeling. it can make a person act quickly. it is not calm."
+    ],
+    "examples": []
+  },
+  "alive": {
+    "word": "alive",
+    "definitions": [
+      "a state. a thing has life. it can grow and move."
+    ],
+    "examples": []
+  },
+  "ad": {
+    "word": "ad",
+    "definitions": [
+      "a sound. it is short and quick. it can show surprise or anger."
+    ],
+    "examples": []
+  },
+  "apply": {
+    "word": "apply",
+    "definitions": [
+      "to use something in a proper way. it can make a job done better. it is a way to use knowledge."
+    ],
+    "examples": []
+  },
+  "allowed": {
+    "word": "allowed",
+    "definitions": [
+      "not stopped. it means something can happen. it is a past form of let."
+    ],
+    "examples": []
+  },
+  "ague": {
+    "word": "ague",
+    "definitions": [
+      "a sickness. it makes a person feel very hot and tired. it is not a normal feeling."
+    ],
+    "examples": []
+  },
+  "absorbed": {
+    "word": "absorbed",
+    "definitions": [
+      "not paying attention. it has no idea about what is happening. it is fully focused on something."
+    ],
+    "examples": []
+  },
+  "address": {
+    "word": "address",
+    "definitions": [
+      "a thing to say when talking to someone. it can be written or spoken. it has a place and a name."
+    ],
+    "examples": []
+  },
+  "ambition": {
+    "word": "ambition",
+    "definitions": [
+      "a feeling. it makes a person want to achieve something. it is not just wanting things."
+    ],
+    "examples": []
+  },
+  "answered": {
+    "word": "answered",
+    "definitions": [
+      "to give a reply. it is a way to respond to a question. it can be spoken or written."
+    ],
+    "examples": []
+  },
+  "agree": {
+    "word": "agree",
+    "definitions": [
+      "to agree is to say you are not against something. you can say it with words or actions. it makes a relationship better."
+    ],
+    "examples": []
+  },
+  "asleep": {
+    "word": "asleep",
+    "definitions": [
+      "a state. a person is not awake. it has no movement."
+    ],
+    "examples": []
+  },
+  "alphabetically": {
+    "word": "alphabetically",
+    "definitions": [
+      "a way to order words. it uses letters in order. it is a method to sort."
+    ],
+    "examples": []
+  },
+  "along": {
+    "word": "along",
+    "definitions": [
+      "a direction. it is not straight. it goes next to something."
+    ],
+    "examples": []
+  },
+  "action": {
+    "word": "action",
+    "definitions": [
+      "a thing that people do. it can change the world. it makes things happen."
+    ],
+    "examples": []
+  },
+  "aunt": {
+    "word": "aunt",
+    "definitions": [
+      "a relative. a sister of a parent. a woman that is not a mother."
+    ],
+    "examples": []
+  },
+  "able": {
+    "word": "able",
+    "definitions": [
+      "a word. it means can do something. it is not the same as not able."
+    ],
+    "examples": []
+  },
+  "angle": {
+    "word": "angle",
+    "definitions": [
+      "a shape. it is made by two lines that meet. it has a measure in degrees."
+    ],
+    "examples": []
+  },
+  "active": {
+    "word": "active",
+    "definitions": [
+      "a state. it means a person or thing is not quiet. it can move or do things."
+    ],
+    "examples": []
+  },
+  "anecdotes": {
+    "word": "anecdotes",
+    "definitions": [
+      "a story. it is not true. it can make people laugh."
+    ],
+    "examples": []
+  },
+  "arms": {
+    "word": "arms",
+    "definitions": [
+      "a part of the body. it is used to hold and move things. it is connected to the body."
+    ],
+    "examples": []
+  },
+  "actions": {
+    "word": "actions",
+    "definitions": [
+      "things that people do. they can be big or small. they make changes."
+    ],
+    "examples": []
+  },
+  "area": {
+    "word": "area",
+    "definitions": [
+      "a place. it has a size. it is part of a bigger thing."
+    ],
+    "examples": []
+  },
+  "account": {
+    "word": "account",
+    "definitions": [
+      "a thing that has money. it can be in a bank. it is not real."
+    ],
+    "examples": []
+  },
+  "alone": {
+    "word": "alone",
+    "definitions": [
+      "not with others. a person is alone when no one is near. it means being by oneself."
+    ],
+    "examples": []
+  },
+  "activities": {
+    "word": "activities",
+    "definitions": [
+      "things people do for fun or work. they can be easy or hard. they make time pass."
+    ],
+    "examples": []
+  },
+  "against": {
+    "word": "against",
+    "definitions": [
+      "not for. it shows you are not in agreement. it can mean you are opposing something."
+    ],
+    "examples": []
+  },
+  "attention": {
+    "word": "attention",
+    "definitions": [
+      "a focus. it is given to something important. it can be lost if not used."
+    ],
+    "examples": []
+  },
+  "ashamed": {
+    "word": "ashamed",
+    "definitions": [
+      "a feeling. it is not happy. it happens when a person does something wrong."
+    ],
+    "examples": []
+  },
+  "awhile": {
+    "word": "awhile",
+    "definitions": [
+      "a little time. it is not a long time. it can be used before a verb."
+    ],
+    "examples": []
+  },
+  "afternoon": {
+    "word": "afternoon",
+    "definitions": [
+      "a time of day. it comes after morning. it is before evening."
+    ],
+    "examples": []
+  },
+  "angles": {
+    "word": "angles",
+    "definitions": [
+      "a shape. it has straight lines and corners. it can be in different forms."
+    ],
+    "examples": []
+  },
+  "arrange": {
+    "word": "arrange",
+    "definitions": [
+      "to arrange is to put things in order. it can make a place look neat. it is a way to organize."
+    ],
+    "examples": []
+  },
+  "age": {
+    "word": "age",
+    "definitions": [
+      "a number that shows how old a person is. it can increase over time. it is not the same as a person's size."
+    ],
+    "examples": []
+  },
+  "acquisition": {
+    "word": "acquisition",
+    "definitions": [
+      "a thing. it is when someone gets something new. it can be by buying or taking."
+    ],
+    "examples": []
+  },
+  "acting": {
+    "word": "acting",
+    "definitions": [
+      "to pretend to be someone else. it is a way to show feelings or stories. it can be part of a play or movie."
+    ],
+    "examples": []
+  },
+  "affectation": {
+    "word": "affectation",
+    "definitions": [
+      "a way of acting that is not natural. it is done to seem different. it is not real."
+    ],
+    "examples": []
+  },
+  "appear": {
+    "word": "appear",
+    "definitions": [
+      "to seem to be. to look like something. it can make people think."
+    ],
+    "examples": []
+  },
+  "agrees": {
+    "word": "agrees",
+    "definitions": [
+      "to say yes. it is not disagree. it can show that someone is not angry."
+    ],
+    "examples": []
+  },
+  "adults": {
+    "word": "adults",
+    "definitions": [
+      "people who are not children. they can make decisions. they have grown up."
+    ],
+    "examples": []
+  },
+  "america": {
+    "word": "america",
+    "definitions": [
+      "a country. it has a big population and many cities. it is known for freedom and democracy."
+    ],
+    "examples": []
+  },
+  "acute": {
+    "word": "acute",
+    "definitions": [
+      "not slow. it has a sharp angle. it can mean very serious."
+    ],
+    "examples": []
+  },
+  "agreeing": {
+    "word": "agreeing",
+    "definitions": [
+      "a feeling. it is when a person is not disagreeing. it can show by saying yes."
+    ],
+    "examples": []
+  },
+  "anxiety": {
+    "word": "anxiety",
+    "definitions": [
+      "a feeling. it is not calm. it can make a person worry a lot."
+    ],
+    "examples": []
+  },
+  "asks": {
+    "word": "asks",
+    "definitions": [
+      "to ask is to want to know something. it is a way to get information. it can be done with words or questions."
+    ],
+    "examples": []
+  },
+  "again": {
+    "word": "again",
+    "definitions": [
+      "to do something once more. it is used when you want to repeat. it is not new."
+    ],
+    "examples": []
+  },
+  "ask": {
+    "word": "ask",
+    "definitions": [
+      "to ask is to want to know something. it is to speak or write to someone. it can be done with words."
+    ],
+    "examples": []
+  },
+  "avoid": {
+    "word": "avoid",
+    "definitions": [
+      "to not do something. to keep away from something. not to touch or use."
+    ],
+    "examples": []
+  },
+  "ahead": {
+    "word": "ahead",
+    "definitions": [
+      "a direction. it is the way forward. it is not behind."
+    ],
+    "examples": []
+  },
+  "almost": {
+    "word": "almost",
+    "definitions": [
+      "not quite. when something is close to being true. it is not exactly."
+    ],
+    "examples": []
+  },
+  "available": {
+    "word": "available",
+    "definitions": [
+      "not busy. it can be used or taken. it has no one using it."
+    ],
+    "examples": []
+  },
+  "answer": {
+    "word": "answer",
+    "definitions": [
+      "king: a person. a man that has power over a big place."
+    ],
+    "examples": []
+  },
+  "awake": {
+    "word": "awake",
+    "definitions": [
+      "a state. a person is not sleeping. it has eyes open."
+    ],
+    "examples": []
+  },
+  "appetite": {
+    "word": "appetite",
+    "definitions": [
+      "a feeling that makes a person want to eat. it can be strong or weak. it is not always about food."
+    ],
+    "examples": []
+  },
+  "asked": {
+    "word": "asked",
+    "definitions": [
+      "to ask is to want to know something. it is to speak or write to someone. it can be polite or direct."
+    ],
+    "examples": []
+  },
+  "adult": {
+    "word": "adult",
+    "definitions": [
+      "an adult. a person who is not a child. has grown up and can take care of themselves."
+    ],
+    "examples": []
+  },
+  "animals": {
+    "word": "animals",
+    "definitions": [
+      "a living thing. it can move and eat. it has a body and can grow."
+    ],
+    "examples": []
+  },
+  "air": {
+    "word": "air",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it is part of the sky."
+    ],
+    "examples": []
+  },
+  "advise": {
+    "word": "advise",
+    "definitions": [
+      "to give advice. it can help someone make a good choice. it is not a command."
+    ],
+    "examples": []
+  },
+  "areas": {
+    "word": "areas",
+    "definitions": [
+      "a place. it can be big or small. it is part of a bigger place."
+    ],
+    "examples": []
+  },
+  "actually": {
+    "word": "actually",
+    "definitions": [
+      "a word. it is used to show something is true. it can start a sentence."
+    ],
+    "examples": []
+  },
+  "adverb": {
+    "word": "adverb",
+    "definitions": [
+      "an word that shows how. it can describe a verb. it can show when or where something happens."
+    ],
+    "examples": []
+  },
+  "arguments": {
+    "word": "arguments",
+    "definitions": [
+      "a discussion. people use words to show their ideas. it can be loud or calm."
+    ],
+    "examples": []
+  },
+  "asking": {
+    "word": "asking",
+    "definitions": [
+      "to want to know something. it is a way to get information. it can be done with words."
+    ],
+    "examples": []
+  },
+  "applied": {
+    "word": "applied",
+    "definitions": [
+      "to use something in a real way. it is not just thinking about. it makes things happen."
+    ],
+    "examples": []
+  },
+  "announcement": {
+    "word": "announcement",
+    "definitions": [
+      "a thing to say. it can tell people about something. it is not a secret."
+    ],
+    "examples": []
+  },
+  "above": {
+    "word": "above",
+    "definitions": [
+      "a position. it is higher than something else. it is not below."
+    ],
+    "examples": []
+  },
+  "among": {
+    "word": "among",
+    "definitions": [
+      "to be in a group. it is not alone. it is part of a group."
+    ],
+    "examples": []
+  },
+  "aim": {
+    "word": "aim",
+    "definitions": [
+      "to aim is to direct something toward a place. it can be done with eyes or tools. it makes shooting or throwing more accurate."
+    ],
+    "examples": []
+  },
+  "across": {
+    "word": "across",
+    "definitions": [
+      "to go from one side to another. it is not in the same place. it can be used with a line or a surface."
+    ],
+    "examples": []
+  },
+  "absurd": {
+    "word": "absurd",
+    "definitions": [
+      "not sensible. it makes no sense. it is very strange."
+    ],
+    "examples": []
+  },
+  "ability": {
+    "word": "ability",
+    "definitions": [
+      "a skill. it can help a person do something well. it is not always easy."
+    ],
+    "examples": []
+  },
+  "acceptable": {
+    "word": "acceptable",
+    "definitions": [
+      "not bad. it can be used or done. it is a good thing."
+    ],
+    "examples": []
+  },
+  "absence": {
+    "word": "absence",
+    "definitions": [
+      "a state of not being present. it can make people feel lonely. it is a condition of not having someone."
+    ],
+    "examples": []
+  },
+  "around": {
+    "word": "around",
+    "definitions": [
+      "a place near something. it can be used to show position. it is not far away."
+    ],
+    "examples": []
+  },
+  "added": {
+    "word": "added",
+    "definitions": [
+      "to add something to a place. it makes a thing bigger. it is a way to make more."
+    ],
+    "examples": []
+  },
+  "affectionately": {
+    "word": "affectionately",
+    "definitions": [
+      "an action. it shows love and care. it is not cold or distant."
+    ],
+    "examples": []
+  },
+  "arranged": {
+    "word": "arranged",
+    "definitions": [
+      "to put things in order. it is a way to make things look neat. it can mean things are not messy."
+    ],
+    "examples": []
+  },
+  "acts": {
+    "word": "acts",
+    "definitions": [
+      "to do something. it is a way people show their feelings. it can be real or pretend."
+    ],
+    "examples": []
+  },
+  "act": {
+    "word": "act",
+    "definitions": [
+      "to act. it is to do something. it can be a way to show feelings."
+    ],
+    "examples": []
+  },
+  "advised": {
+    "word": "advised",
+    "definitions": [
+      "to give a suggestion. it is not a command. it can help someone make a good choice."
+    ],
+    "examples": []
+  },
+  "advertisement": {
+    "word": "advertisement",
+    "definitions": [
+      "a thing to make people buy something. it can tell you about a product. it is not real news."
+    ],
+    "examples": []
+  },
+  "angry": {
+    "word": "angry",
+    "definitions": [
+      "a bad feeling. it is not happy. it makes a person want to shout or hit."
+    ],
+    "examples": []
+  },
+  "adjective": {
+    "word": "adjective",
+    "definitions": [
+      "a word. it says something about a noun. it can show size, color, or feeling."
+    ],
+    "examples": []
+  },
+  "apostrophe": {
+    "word": "apostrophe",
+    "definitions": [
+      "a mark. it shows that a word is missing a letter. it is used in names and words."
+    ],
+    "examples": []
+  },
+  "ah": {
+    "word": "ah",
+    "definitions": [
+      "a sound. it is short and made when someone is surprised. it is not a word."
+    ],
+    "examples": []
+  },
+  "anxious": {
+    "word": "anxious",
+    "definitions": [
+      "a feeling. it is not calm. it makes a person worry."
+    ],
+    "examples": []
+  },
+  "advanced": {
+    "word": "advanced",
+    "definitions": [
+      "not simple. it is more difficult to learn. it has more knowledge."
+    ],
+    "examples": []
+  },
+  "anywhere": {
+    "word": "anywhere",
+    "definitions": [
+      "not a specific place. it means a place that is not known. it can be used to show that something is possible in many places."
+    ],
+    "examples": []
+  },
+  "agreed": {
+    "word": "agreed",
+    "definitions": [
+      "a feeling. when a person is not disagreeing. it is a response to something."
+    ],
+    "examples": []
+  },
+  "always": {
+    "word": "always",
+    "definitions": [
+      "not sometimes. it means something happens all the time. it is used to show something is true in every case."
+    ],
+    "examples": []
+  },
+  "adding": {
+    "word": "adding",
+    "definitions": [
+      "to add something to a number. it makes the number bigger. it is a math action."
+    ],
+    "examples": []
+  },
+  "apple": {
+    "word": "apple",
+    "definitions": [
+      "a fruit. it is red or green. it has a sweet taste."
+    ],
+    "examples": []
+  },
+  "afraid": {
+    "word": "afraid",
+    "definitions": [
+      "a feeling. it is not happy. it happens when something is dangerous."
+    ],
+    "examples": []
+  },
+  "afloat": {
+    "word": "afloat",
+    "definitions": [
+      "to not be under water. it can move on the surface. it is not sunk."
+    ],
+    "examples": []
+  },
+  "airy": {
+    "word": "airy",
+    "definitions": [
+      "not heavy. it can make things feel light. it is a kind of feeling."
+    ],
+    "examples": []
+  },
+  "amount": {
+    "word": "amount",
+    "definitions": [
+      "a thing that shows how much there is. it can be big or small. it is not a name."
+    ],
+    "examples": []
+  },
+  "arrive": {
+    "word": "arrive",
+    "definitions": [
+      "to come to a place. it means to get there. it is the opposite of leave."
+    ],
+    "examples": []
+  },
+  "aroused": {
+    "word": "aroused",
+    "definitions": [
+      "not calm. it has a strong feeling. it can make a person act quickly."
+    ],
+    "examples": []
+  },
+  "activity": {
+    "word": "activity",
+    "definitions": [
+      "a thing that people do. it can be fun or useful. it makes time pass."
+    ],
+    "examples": []
+  },
+  "anymore": {
+    "word": "anymore",
+    "definitions": [
+      "not any more. when something is not happening now. it is used to say that something has stopped."
+    ],
+    "examples": []
+  },
+  "attempt": {
+    "word": "attempt",
+    "definitions": [
+      "an action. it is trying to do something. it is not sure if it will succeed."
+    ],
+    "examples": []
+  },
+  "aware": {
+    "word": "aware",
+    "definitions": [
+      "a feeling. it means you know something. it is not asleep."
+    ],
+    "examples": []
+  },
+  "ailment": {
+    "word": "ailment",
+    "definitions": [
+      "a bad feeling in the body. it can make a person not work well. it is not good for health."
+    ],
+    "examples": []
+  },
+  "agreement": {
+    "word": "agreement",
+    "definitions": [
+      "a state of being the same. it is when people have the same idea. it makes communication easier."
+    ],
+    "examples": []
+  },
+  "allows": {
+    "word": "allows",
+    "definitions": [
+      "to allows: to let something happen. it can let people do things. it is not stopping."
+    ],
+    "examples": []
+  },
+  "already": {
+    "word": "already",
+    "definitions": [
+      "an adverb. it shows something has happened before. it is used to say something is done."
+    ],
+    "examples": []
+  },
+  "afterwards": {
+    "word": "afterwards",
+    "definitions": [
+      "a time that comes after. it is not before. it can happen later."
+    ],
+    "examples": []
+  },
+  "arriving": {
+    "word": "arriving",
+    "definitions": [
+      "to arrive. it means to come to a place. it happens when someone gets to where they are going."
+    ],
+    "examples": []
+  },
+  "amounts": {
+    "word": "amounts",
+    "definitions": [
+      "a thing that has a number. it can be big or small. it is not a name."
+    ],
+    "examples": []
+  },
+  "ago": {
+    "word": "ago",
+    "definitions": [
+      "a time word. it shows when something happened before now. it is not now."
+    ],
+    "examples": []
+  },
+  "add": {
+    "word": "add",
+    "definitions": [
+      "to put something more. it can make a list longer. it is a way to join things."
+    ],
+    "examples": []
+  },
+  "adieu": {
+    "word": "adieu",
+    "definitions": [
+      "a word. it is used to say goodbye. it is not common in everyday talk."
+    ],
+    "examples": []
+  },
+  "ashore": {
+    "word": "ashore",
+    "definitions": [
+      "not in the water. it is on the land. it is the opposite of afloat."
+    ],
+    "examples": []
+  },
+  "animal's": {
+    "word": "animal's",
+    "definitions": [
+      "an animal. it is a living thing. it can move and eat."
+    ],
+    "examples": []
+  },
+  "amazing": {
+    "word": "amazing",
+    "definitions": [
+      "a good feeling. it is not usual. it makes people surprised."
+    ],
+    "examples": []
+  },
+  "angel": {
+    "word": "angel",
+    "definitions": [
+      "a being. it has wings and can fly. it is not a human."
+    ],
+    "examples": []
+  },
+  "achieve": {
+    "word": "achieve",
+    "definitions": [
+      "to get something done. it can make a person feel proud. it is a result of effort."
+    ],
+    "examples": []
+  },
+  "animal": {
+    "word": "animal",
+    "definitions": [
+      "an animal. it can move and eat. it is not a plant."
+    ],
+    "examples": []
+  },
+  "approval": {
+    "word": "approval",
+    "definitions": [
+      "a good feeling. it shows when someone agrees. it is not anger."
+    ],
+    "examples": []
+  },
+  "answers": {
+    "word": "answers",
+    "definitions": [
+      "answer: a thing that is not correct. it can make people feel bad. it is not true."
+    ],
+    "examples": []
+  },
+  "advice": {
+    "word": "advice",
+    "definitions": [
+      "a thing that is not a fact. it can help people make good choices. it is a kind of talk."
+    ],
+    "examples": []
+  },
+  "allow": {
+    "word": "allow",
+    "definitions": [
+      "to let something happen. it can let people go through. it is not stop."
+    ],
+    "examples": []
+  },
+  "away": {
+    "word": "away",
+    "definitions": [
+      "not here. it means something is not near. it can be a direction."
+    ],
+    "examples": []
+  },
+  "arm": {
+    "word": "arm",
+    "definitions": [
+      "a part of the body. it can move and hold things. it is on the side of the body."
+    ],
+    "examples": []
+  }
+}

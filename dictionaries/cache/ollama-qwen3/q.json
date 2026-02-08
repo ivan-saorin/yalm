@@ -1,0 +1,100 @@
+{
+  "questions": {
+    "word": "questions",
+    "definitions": [
+      "a thing that is not answers. it can be asked and it has words. it is part of talking."
+    ],
+    "examples": []
+  },
+  "qualities": {
+    "word": "qualities",
+    "definitions": [
+      "a kind of features. they can be good or bad. they make a person or thing special."
+    ],
+    "examples": []
+  },
+  "quick": {
+    "word": "quick",
+    "definitions": [
+      "an adjective. it means not slow. it can describe a fast action."
+    ],
+    "examples": []
+  },
+  "quality": {
+    "word": "quality",
+    "definitions": [
+      "a good or bad feature. it can make something better or worse. it is part of a thing."
+    ],
+    "examples": []
+  },
+  "quaint-perched": {
+    "word": "quaint-perched",
+    "definitions": [
+      "a place. it has old buildings. it is not modern."
+    ],
+    "examples": []
+  },
+  "question": {
+    "word": "question",
+    "definitions": [
+      "a word used to ask for information. it can be used before a noun. it is not a statement."
+    ],
+    "examples": []
+  },
+  "query": {
+    "word": "query",
+    "definitions": [
+      "king: a person. a man that has power over a big place."
+    ],
+    "examples": []
+  },
+  "queen": {
+    "word": "queen",
+    "definitions": [
+      "a woman. a person that has power over a big place. not a king."
+    ],
+    "examples": []
+  },
+  "quiet": {
+    "word": "quiet",
+    "definitions": [
+      "not loud. it is a state of having little sound. it can describe a place or a person."
+    ],
+    "examples": []
+  },
+  "queer": {
+    "word": "queer",
+    "definitions": [
+      "not normal. it can mean strange or different. it is a word for people who love others of the same sex."
+    ],
+    "examples": []
+  },
+  "quickly": {
+    "word": "quickly",
+    "definitions": [
+      "an adverb. it describes how something happens fast. it is not slow."
+    ],
+    "examples": []
+  },
+  "quarters": {
+    "word": "quarters",
+    "definitions": [
+      "a part of a coin. it has a picture on one side. it is worth a quarter of a dollar."
+    ],
+    "examples": []
+  },
+  "quite": {
+    "word": "quite",
+    "definitions": [
+      "not very. when something is not much. it is used to say something is not strong."
+    ],
+    "examples": []
+  },
+  "quarter": {
+    "word": "quarter",
+    "definitions": [
+      "a part of an hour. it is 15 minutes. it can be a coin."
+    ],
+    "examples": []
+  }
+}

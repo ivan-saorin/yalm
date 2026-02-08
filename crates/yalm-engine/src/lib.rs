@@ -102,7 +102,7 @@ impl Comprehend for Engine {
         if !self.quiet {
             println!("=== Discovered {} connectors ===", connectors.len());
             for c in &connectors {
-                println!("  {:?} (freq: {})", c.pattern, c.frequency);
+                println!("  {:?} (freq: {}, uni: {:.3})", c.pattern, c.frequency, c.uniformity);
             }
             println!(
                 "=== Extracted {} sentence relations ({} negated) ===",
@@ -150,7 +150,7 @@ impl Comprehend for Engine {
         if !self.quiet {
             println!("=== Discovered {} connectors ===", connectors.len());
             for c in &connectors {
-                println!("  {:?} (freq: {})", c.pattern, c.frequency);
+                println!("  {:?} (freq: {}, uni: {:.3})", c.pattern, c.frequency, c.uniformity);
             }
             println!(
                 "=== Dict relations: {} ({} negated) ===",

@@ -1,0 +1,723 @@
+{
+  "exactly": {
+    "word": "exactly",
+    "definitions": [
+      "not almost. it means something is correct. it is used when a thing is true."
+    ],
+    "examples": []
+  },
+  "energy": {
+    "word": "energy",
+    "definitions": [
+      "a thing that makes movement and heat. it can come from many sources. it is not solid."
+    ],
+    "examples": []
+  },
+  "else's": {
+    "word": "else's",
+    "definitions": [
+      "not mine. it is someone else's. it belongs to another person."
+    ],
+    "examples": []
+  },
+  "evidently": {
+    "word": "evidently",
+    "definitions": [
+      "a word. it shows something is clear. it is not hidden."
+    ],
+    "examples": []
+  },
+  "eater": {
+    "word": "eater",
+    "definitions": [
+      "a person. to take food into the body. has a mouth and teeth."
+    ],
+    "examples": []
+  },
+  "entree": {
+    "word": "entree",
+    "definitions": [
+      "a main dish. it is the first course served. it can be meat or vegetable."
+    ],
+    "examples": []
+  },
+  "eventually": {
+    "word": "eventually",
+    "definitions": [
+      "a word. it means after a long time. it is not quick."
+    ],
+    "examples": []
+  },
+  "excited": {
+    "word": "excited",
+    "definitions": [
+      "a feeling. when a person is not calm. it can make them talk fast."
+    ],
+    "examples": []
+  },
+  "east": {
+    "word": "east",
+    "definitions": [
+      "a direction. it is one of the four main directions. it is opposite to west."
+    ],
+    "examples": []
+  },
+  "edge": {
+    "word": "edge",
+    "definitions": [
+      "a part of a shape. it is the line where two sides meet. it can be straight or curved."
+    ],
+    "examples": []
+  },
+  "eating": {
+    "word": "eating",
+    "definitions": [
+      "to take food into the body. it gives energy. it is a way to get food."
+    ],
+    "examples": []
+  },
+  "evening": {
+    "word": "evening",
+    "definitions": [
+      "a time of day. it is not morning. the sun goes down."
+    ],
+    "examples": []
+  },
+  "europe": {
+    "word": "europe",
+    "definitions": [
+      "a place. it is a big area with many countries. it has mountains, rivers, and cities."
+    ],
+    "examples": []
+  },
+  "entity": {
+    "word": "entity",
+    "definitions": [
+      "a thing. it can be a person, place, or idea. it has a name."
+    ],
+    "examples": []
+  },
+  "except": {
+    "word": "except",
+    "definitions": [
+      "not include. it means to leave out. it is used when something is not allowed."
+    ],
+    "examples": []
+  },
+  "explained": {
+    "word": "explained",
+    "definitions": [
+      "a past action. it means to make clear. it is a form of the verb explain."
+    ],
+    "examples": []
+  },
+  "eyrie": {
+    "word": "eyrie",
+    "definitions": [
+      "an empty place. it is where a bird lives. it is on a high tree or rock."
+    ],
+    "examples": []
+  },
+  "ending": {
+    "word": "ending",
+    "definitions": [
+      "a part of a word. it shows the sound of a word. it is at the end of a word."
+    ],
+    "examples": []
+  },
+  "even": {
+    "word": "even",
+    "definitions": [
+      "not odd. it is a number that can be divided by two. it is a word that means the same on both sides."
+    ],
+    "examples": []
+  },
+  "eyes": {
+    "word": "eyes",
+    "definitions": [
+      "a part of the face. they can see and feel light. they are not ears."
+    ],
+    "examples": []
+  },
+  "ends": {
+    "word": "ends",
+    "definitions": [
+      "a part of a word. it is the last letters of a word. it shows what a word is called."
+    ],
+    "examples": []
+  },
+  "easily": {
+    "word": "easily",
+    "definitions": [
+      "not hard. it can be done with little effort. it is simple to do."
+    ],
+    "examples": []
+  },
+  "enemy": {
+    "word": "enemy",
+    "definitions": [
+      "an enemy is a person or thing that is not friendly. it tries to harm or stop you. it is not a friend."
+    ],
+    "examples": []
+  },
+  "elephant": {
+    "word": "elephant",
+    "definitions": [
+      "a big animal. it has a long nose and big ears. it can walk on four legs."
+    ],
+    "examples": []
+  },
+  "else": {
+    "word": "else",
+    "definitions": [
+      "not this. it is used when there is more than one choice. it can mean another thing."
+    ],
+    "examples": []
+  },
+  "extraordinary": {
+    "word": "extraordinary",
+    "definitions": [
+      "not ordinary. it is very special. it makes people feel surprised."
+    ],
+    "examples": []
+  },
+  "either": {
+    "word": "either",
+    "definitions": [
+      "not both. it is used to show two choices. it can be used with or."
+    ],
+    "examples": []
+  },
+  "expressed": {
+    "word": "expressed",
+    "definitions": [
+      "to made clear. it is a way to show feelings. it is not hidden."
+    ],
+    "examples": []
+  },
+  "error": {
+    "word": "error",
+    "definitions": [
+      "an mistake. it can happen when something is not right. it is not correct."
+    ],
+    "examples": []
+  },
+  "eat": {
+    "word": "eat",
+    "definitions": [
+      "to take food into the body. it is a way to get energy. it makes people full."
+    ],
+    "examples": []
+  },
+  "envious": {
+    "word": "envious",
+    "definitions": [
+      "a feeling. when someone wants what another has. it is not happy."
+    ],
+    "examples": []
+  },
+  "eighteen": {
+    "word": "eighteen",
+    "definitions": [
+      "a number. it is two more than sixteen. it is not nineteen."
+    ],
+    "examples": []
+  },
+  "easier": {
+    "word": "easier",
+    "definitions": [
+      "not hard. it can be done with less effort. it is a way to do something."
+    ],
+    "examples": []
+  },
+  "everything": {
+    "word": "everything",
+    "definitions": [
+      "all things together. it includes every part. it is not nothing."
+    ],
+    "examples": []
+  },
+  "expensive": {
+    "word": "expensive",
+    "definitions": [
+      "not cheap. it has a high price. it is not easy to buy."
+    ],
+    "examples": []
+  },
+  "electricity": {
+    "word": "electricity",
+    "definitions": [
+      "a kind of energy. it can make things work and light up. it is not seen."
+    ],
+    "examples": []
+  },
+  "exact": {
+    "word": "exact",
+    "definitions": [
+      "not wrong. it has no mistake. it is very clear."
+    ],
+    "examples": []
+  },
+  "effect": {
+    "word": "effect",
+    "definitions": [
+      "a result of something. it can change things. it is not always seen."
+    ],
+    "examples": []
+  },
+  "earliest": {
+    "word": "earliest",
+    "definitions": [
+      "not later. it is the first time. it is the beginning."
+    ],
+    "examples": []
+  },
+  "exists": {
+    "word": "exists",
+    "definitions": [
+      "to be real. it means something is not made up. it can be seen or felt."
+    ],
+    "examples": []
+  },
+  "excellent": {
+    "word": "excellent",
+    "definitions": [
+      "a good feeling. it is not bad. it makes people happy."
+    ],
+    "examples": []
+  },
+  "enough": {
+    "word": "enough",
+    "definitions": [
+      "a word that shows there is a good amount. it is not more than needed. it can be used with many things."
+    ],
+    "examples": []
+  },
+  "ed": {
+    "word": "ed",
+    "definitions": [
+      "a thing. it is not hard. it can move and it is clear."
+    ],
+    "examples": []
+  },
+  "encourage": {
+    "word": "encourage",
+    "definitions": [
+      "to make someone try harder. it can help people do things. it is not to stop someone."
+    ],
+    "examples": []
+  },
+  "everywhere": {
+    "word": "everywhere",
+    "definitions": [
+      "a place. it is not in one spot. it covers all areas."
+    ],
+    "examples": []
+  },
+  "es": {
+    "word": "es",
+    "definitions": [
+      "a sound. it is short and quick. it is made when someone says yes."
+    ],
+    "examples": []
+  },
+  "empty": {
+    "word": "empty",
+    "definitions": [
+      "not full. it has no things inside. it can hold things."
+    ],
+    "examples": []
+  },
+  "equal": {
+    "word": "equal",
+    "definitions": [
+      "not different. it has the same amount or value. it is fair."
+    ],
+    "examples": []
+  },
+  "eighteenth": {
+    "word": "eighteenth",
+    "definitions": [
+      "a number. it comes after seventeen and before nineteen. it is the second number in the eighteenth century."
+    ],
+    "examples": []
+  },
+  "entry": {
+    "word": "entry",
+    "definitions": [
+      "a thing to put information. it can hold words and pictures. it is not a book."
+    ],
+    "examples": []
+  },
+  "eleven": {
+    "word": "eleven",
+    "definitions": [
+      "a number. it is after ten and before twelve. it is not even."
+    ],
+    "examples": []
+  },
+  "ever": {
+    "word": "ever",
+    "definitions": [
+      "not never. it is used to show something happens at any time. it can be used with past or present actions."
+    ],
+    "examples": []
+  },
+  "earth": {
+    "word": "earth",
+    "definitions": [
+      "a planet. it is round and has water and air. it is not a star."
+    ],
+    "examples": []
+  },
+  "english": {
+    "word": "english",
+    "definitions": [
+      "a language. it is used to speak and write. it is the main language in many countries."
+    ],
+    "examples": []
+  },
+  "everybody": {
+    "word": "everybody",
+    "definitions": [
+      "a person. everybody is all people. everybody is not just one."
+    ],
+    "examples": []
+  },
+  "errors": {
+    "word": "errors",
+    "definitions": [
+      "things that are not correct. they can happen when people make mistakes. they can be fixed."
+    ],
+    "examples": []
+  },
+  "everyone": {
+    "word": "everyone",
+    "definitions": [
+      "a person. part of a group. not alone."
+    ],
+    "examples": []
+  },
+  "engine": {
+    "word": "engine",
+    "definitions": [
+      "a thing that makes machines work. it uses fuel to create movement. it has parts that move quickly."
+    ],
+    "examples": []
+  },
+  "encouraged": {
+    "word": "encouraged",
+    "definitions": [
+      "a feeling. when someone is not afraid. it makes people try harder."
+    ],
+    "examples": []
+  },
+  "expected": {
+    "word": "expected",
+    "definitions": [
+      "not surprised. it is a feeling when something happens as you thought. it is a feeling when something happens as you thought."
+    ],
+    "examples": []
+  },
+  "examine": {
+    "word": "examine",
+    "definitions": [
+      "to look at carefully. to check something closely. to study something."
+    ],
+    "examples": []
+  },
+  "exist": {
+    "word": "exist",
+    "definitions": [
+      "to be real. to have life or be in a place. not not exist."
+    ],
+    "examples": []
+  },
+  "escape": {
+    "word": "escape",
+    "definitions": [
+      "to run away from a place. it can happen when someone is in danger. it is not safe to stay."
+    ],
+    "examples": []
+  },
+  "expecting": {
+    "word": "expecting",
+    "definitions": [
+      "to feel that something will happen. it is a feeling about the future. it is not sure."
+    ],
+    "examples": []
+  },
+  "end": {
+    "word": "end",
+    "definitions": [
+      "a thing that is not beginning. it is the last part. it can mean to stop."
+    ],
+    "examples": []
+  },
+  "exchange": {
+    "word": "exchange",
+    "definitions": [
+      "to give something and get something else in return. it can happen between people or countries. it makes trade possible."
+    ],
+    "examples": []
+  },
+  "encouragement": {
+    "word": "encouragement",
+    "definitions": [
+      "a good feeling. it can make people try harder. it is not sad."
+    ],
+    "examples": []
+  },
+  "eastern": {
+    "word": "eastern",
+    "definitions": [
+      "a direction. it is the opposite of western. it is the side of the world where the sun rises."
+    ],
+    "examples": []
+  },
+  "equilibrium": {
+    "word": "equilibrium",
+    "definitions": [
+      "a state. it is when forces are balanced. it makes things stay still."
+    ],
+    "examples": []
+  },
+  "enigma": {
+    "word": "enigma",
+    "definitions": [
+      "an unknown thing. it is hard to understand. it makes people think."
+    ],
+    "examples": []
+  },
+  "eggs": {
+    "word": "eggs",
+    "definitions": [
+      "a thing that is not hard. it can be cooked. it comes from a bird."
+    ],
+    "examples": []
+  },
+  "eight": {
+    "word": "eight",
+    "definitions": [
+      "a number. it is two more than six. it has two parts of four."
+    ],
+    "examples": []
+  },
+  "everyday": {
+    "word": "everyday",
+    "definitions": [
+      "not special. it is normal and happens every day. it is part of daily life."
+    ],
+    "examples": []
+  },
+  "excitement": {
+    "word": "excitement",
+    "definitions": [
+      "a feeling. it comes from something exciting. it makes people happy."
+    ],
+    "examples": []
+  },
+  "eye": {
+    "word": "eye",
+    "definitions": [
+      "an organ. it can see and it is in the face."
+    ],
+    "examples": []
+  },
+  "entries": {
+    "word": "entries",
+    "definitions": [
+      "a thing. it is a list of information. it can be in a book or on a computer."
+    ],
+    "examples": []
+  },
+  "expression": {
+    "word": "expression",
+    "definitions": [
+      "a way to show feeling or idea. it can be with words or face. it is not a thing."
+    ],
+    "examples": []
+  },
+  "engines": {
+    "word": "engines",
+    "definitions": [
+      "a thing that makes machines move. it uses fuel to create power. it is part of a car or a boat."
+    ],
+    "examples": []
+  },
+  "explaining": {
+    "word": "explaining",
+    "definitions": [
+      "to make clear. it is a way to show how something works. it uses words and examples."
+    ],
+    "examples": []
+  },
+  "efficacious": {
+    "word": "efficacious",
+    "definitions": [
+      "not useless. it works well. it makes results."
+    ],
+    "examples": []
+  },
+  "emotion": {
+    "word": "emotion",
+    "definitions": [
+      "a feeling inside. it can be happy or sad. it makes a person act or speak."
+    ],
+    "examples": []
+  },
+  "easy": {
+    "word": "easy",
+    "definitions": [
+      "not hard. it can be done without much effort. it is simple."
+    ],
+    "examples": []
+  },
+  "experience": {
+    "word": "experience",
+    "definitions": [
+      "a feeling that comes from doing something. it can make you learn or feel strong. it is part of life."
+    ],
+    "examples": []
+  },
+  "eaten": {
+    "word": "eaten",
+    "definitions": [
+      "a past form of eat. it is not raw. it has been eaten."
+    ],
+    "examples": []
+  },
+  "events": {
+    "word": "events",
+    "definitions": [
+      "things that happen. they can be big or small. they are part of time."
+    ],
+    "examples": []
+  },
+  "expense": {
+    "word": "expense",
+    "definitions": [
+      "a thing that costs money. it is not free. it can make a person have less money."
+    ],
+    "examples": []
+  },
+  "explain": {
+    "word": "explain",
+    "definitions": [
+      "to make clear. it can help people understand. it is to say things in a simple way."
+    ],
+    "examples": []
+  },
+  "effort": {
+    "word": "effort",
+    "definitions": [
+      "a action that takes energy. it is needed to do hard things. it makes progress."
+    ],
+    "examples": []
+  },
+  "earn": {
+    "word": "earn",
+    "definitions": [
+      "to get money by working. it is a way to have more money. it can take time."
+    ],
+    "examples": []
+  },
+  "entirely": {
+    "word": "entirely",
+    "definitions": [
+      "not partly. it means completely. it has no parts left."
+    ],
+    "examples": []
+  },
+  "enthusiasm": {
+    "word": "enthusiasm",
+    "definitions": [
+      "a feeling. it makes people want to do things. it is not sadness."
+    ],
+    "examples": []
+  },
+  "elements": {
+    "word": "elements",
+    "definitions": [
+      "things that make up everything. they can be solid, liquid, or gas. they are not made of other things."
+    ],
+    "examples": []
+  },
+  "extra": {
+    "word": "extra",
+    "definitions": [
+      "not main. it is more than needed. it is added."
+    ],
+    "examples": []
+  },
+  "enjoy": {
+    "word": "enjoy",
+    "definitions": [
+      "to feel pleasure. when a person likes something. it makes them happy."
+    ],
+    "examples": []
+  },
+  "entrance": {
+    "word": "entrance",
+    "definitions": [
+      "an opening. it is a way to go in. it is part of a door."
+    ],
+    "examples": []
+  },
+  "examples": {
+    "word": "examples",
+    "definitions": [
+      "dog: an animal. it can make sound and move fast.  \nsun: a big hot thing in the sky."
+    ],
+    "examples": []
+  },
+  "example": {
+    "word": "example",
+    "definitions": [
+      "a thing that shows how something is done. it can be used to make something clear. it is not a real thing."
+    ],
+    "examples": []
+  },
+  "eats": {
+    "word": "eats",
+    "definitions": [
+      "to eat. it is to take food into the body. it makes people strong."
+    ],
+    "examples": []
+  },
+  "eighteenpence": {
+    "word": "eighteenpence",
+    "definitions": [
+      "a coin. it is worth eighteenpence. it is not a big coin."
+    ],
+    "examples": []
+  },
+  "exciting": {
+    "word": "exciting",
+    "definitions": [
+      "a feeling. it makes people want to do something. it is not boring."
+    ],
+    "examples": []
+  },
+  "england": {
+    "word": "england",
+    "definitions": [
+      "a country. it is in europe. it has a queen."
+    ],
+    "examples": []
+  },
+  "ears": {
+    "word": "ears",
+    "definitions": [
+      "a part of the body. they can hear sounds. they are on the sides of the head."
+    ],
+    "examples": []
+  },
+  "exercise": {
+    "word": "exercise",
+    "definitions": [
+      "to move the body to stay healthy. it can make the body strong. it is not sitting all the time."
+    ],
+    "examples": []
+  }
+}

@@ -1,0 +1,779 @@
+{
+  "loved": {
+    "word": "loved",
+    "definitions": [
+      "a feeling. it is not sad. it is when someone has a good feeling towards another."
+    ],
+    "examples": []
+  },
+  "light": {
+    "word": "light",
+    "definitions": [
+      "a thing that is not dark. it can come from the sun. it makes things visible."
+    ],
+    "examples": []
+  },
+  "latter": {
+    "word": "latter",
+    "definitions": [
+      "not former. it is the second of two things. it is used to talk about the second one in a pair."
+    ],
+    "examples": []
+  },
+  "learning": {
+    "word": "learning",
+    "definitions": [
+      "to get knowledge. it can happen by studying or experience. it makes a person smarter."
+    ],
+    "examples": []
+  },
+  "leading": {
+    "word": "leading",
+    "definitions": [
+      "a part of a line. it shows the way. it is first in order."
+    ],
+    "examples": []
+  },
+  "limited": {
+    "word": "limited",
+    "definitions": [
+      "not unlimited. it has a small amount. it can not go beyond a certain point."
+    ],
+    "examples": []
+  },
+  "lazy": {
+    "word": "lazy",
+    "definitions": [
+      "not active. a person that does not want to work. it makes things take longer."
+    ],
+    "examples": []
+  },
+  "liver-pill": {
+    "word": "liver-pill",
+    "definitions": [
+      "a pill. it is for the liver. it can help the body."
+    ],
+    "examples": []
+  },
+  "lack": {
+    "word": "lack",
+    "definitions": [
+      "not have. it means to not have something. it can make a person feel sad."
+    ],
+    "examples": []
+  },
+  "likes": {
+    "word": "likes",
+    "definitions": [
+      "a feeling. it is when someone wants something. it makes them happy."
+    ],
+    "examples": []
+  },
+  "liver": {
+    "word": "liver",
+    "definitions": [
+      "a part of the body. it is inside the chest. it makes and stores energy."
+    ],
+    "examples": []
+  },
+  "london": {
+    "word": "london",
+    "definitions": [
+      "a city. it is in the country of england. it has a big river and many buildings."
+    ],
+    "examples": []
+  },
+  "lying": {
+    "word": "lying",
+    "definitions": [
+      "not true. it is when someone says something that is not real. it is a bad thing to do."
+    ],
+    "examples": []
+  },
+  "lose": {
+    "word": "lose",
+    "definitions": [
+      "to lose is to not have something. it happens when you give it away or it is taken. you can feel sad when you lose something."
+    ],
+    "examples": []
+  },
+  "long": {
+    "word": "long",
+    "definitions": [
+      "not short. it is a word that describes something that takes time. it can also describe something that is big in size."
+    ],
+    "examples": []
+  },
+  "later": {
+    "word": "later",
+    "definitions": [
+      "a time that is after now. it is a time that comes after something else. it is not before."
+    ],
+    "examples": []
+  },
+  "listlessness": {
+    "word": "listlessness",
+    "definitions": [
+      "a bad feeling. it makes a person not want to do things. it is not happy."
+    ],
+    "examples": []
+  },
+  "lifetime": {
+    "word": "lifetime",
+    "definitions": [
+      "a long time. it is the time a person lives. it has many years."
+    ],
+    "examples": []
+  },
+  "largest": {
+    "word": "largest",
+    "definitions": [
+      "not small. it is bigger than other things. it has the most size."
+    ],
+    "examples": []
+  },
+  "lead": {
+    "word": "lead",
+    "definitions": [
+      "a metal. it is hard and can be made into wires. it is used in pencils."
+    ],
+    "examples": []
+  },
+  "layers": {
+    "word": "layers",
+    "definitions": [
+      "a part of something. it can be thin or thick. it is made of different parts."
+    ],
+    "examples": []
+  },
+  "length": {
+    "word": "length",
+    "definitions": [
+      "a measure of how long something is. it can be measured in units. it is part of size."
+    ],
+    "examples": []
+  },
+  "listening": {
+    "word": "listening",
+    "definitions": [
+      "to pay attention with ears. it can understand sounds. it is a way to learn."
+    ],
+    "examples": []
+  },
+  "leg": {
+    "word": "leg",
+    "definitions": [
+      "a part of the body. it is used to walk. it can move and stand."
+    ],
+    "examples": []
+  },
+  "less": {
+    "word": "less",
+    "definitions": [
+      "not more. when something has a small amount. it can compare to another thing."
+    ],
+    "examples": []
+  },
+  "lanes": {
+    "word": "lanes",
+    "definitions": [
+      "a part of a road. it is a line that people use to move in. it can be for cars or for walking."
+    ],
+    "examples": []
+  },
+  "legs": {
+    "word": "legs",
+    "definitions": [
+      "a part of the body. they help a person to walk. they are not hands."
+    ],
+    "examples": []
+  },
+  "lowest": {
+    "word": "lowest",
+    "definitions": [
+      "not highest. it is the smallest in a group. it has the least value."
+    ],
+    "examples": []
+  },
+  "line": {
+    "word": "line",
+    "definitions": [
+      "a straight mark. it can be long or short. it is not curved."
+    ],
+    "examples": []
+  },
+  "lost": {
+    "word": "lost",
+    "definitions": [
+      "not found. it means something is not where it should be. it can describe a person or thing."
+    ],
+    "examples": []
+  },
+  "leaning": {
+    "word": "leaning",
+    "definitions": [
+      "a position. it is not straight. it can be forward or backward."
+    ],
+    "examples": []
+  },
+  "lemons": {
+    "word": "lemons",
+    "definitions": [
+      "a fruit. it is sour and has a yellow color. it can be used to make juice."
+    ],
+    "examples": []
+  },
+  "lines": {
+    "word": "lines",
+    "definitions": [
+      "a mark made by a pen or pencil. it can be straight or curved. it is part of a drawing."
+    ],
+    "examples": []
+  },
+  "looked": {
+    "word": "looked",
+    "definitions": [
+      "to see with eyes. it is the past tense of look. it shows that something was seen."
+    ],
+    "examples": []
+  },
+  "lived": {
+    "word": "lived",
+    "definitions": [
+      "to live in the past. to exist in a past time. not alive now."
+    ],
+    "examples": []
+  },
+  "least": {
+    "word": "least",
+    "definitions": [
+      "not most. it is the smallest amount. it can be used to show something is not big."
+    ],
+    "examples": []
+  },
+  "ladies": {
+    "word": "ladies",
+    "definitions": [
+      "a group of women. they are people. they can be polite and kind."
+    ],
+    "examples": []
+  },
+  "lot": {
+    "word": "lot",
+    "definitions": [
+      "a big amount. it can be used for things. it is not small."
+    ],
+    "examples": []
+  },
+  "liverpool": {
+    "word": "liverpool",
+    "definitions": [
+      "a city. it is in england. it is known for football."
+    ],
+    "examples": []
+  },
+  "left": {
+    "word": "left",
+    "definitions": [
+      "a side. it is opposite of right. it can be used to describe direction."
+    ],
+    "examples": []
+  },
+  "legal": {
+    "word": "legal",
+    "definitions": [
+      "a thing. it is allowed by the law. it can be used in court."
+    ],
+    "examples": []
+  },
+  "language": {
+    "word": "language",
+    "definitions": [
+      "a way to speak. it uses words and rules. it helps people share ideas."
+    ],
+    "examples": []
+  },
+  "love": {
+    "word": "love",
+    "definitions": [
+      "a strong feeling. it makes people care about others. it is not just for family."
+    ],
+    "examples": []
+  },
+  "looking": {
+    "word": "looking",
+    "definitions": [
+      "to look. to use eyes to see something. it can show interest or not."
+    ],
+    "examples": []
+  },
+  "lay": {
+    "word": "lay",
+    "definitions": [
+      "to put something down. it can be done slowly. it is not the same as throw."
+    ],
+    "examples": []
+  },
+  "listen": {
+    "word": "listen",
+    "definitions": [
+      "to pay attention. to hear something carefully. it is not the same as talk."
+    ],
+    "examples": []
+  },
+  "learn": {
+    "word": "learn",
+    "definitions": [
+      "to get knowledge. it can help you understand better. it makes you smarter."
+    ],
+    "examples": []
+  },
+  "loans": {
+    "word": "loans",
+    "definitions": [
+      "a thing. it is money given to someone. it can be paid back later."
+    ],
+    "examples": []
+  },
+  "let": {
+    "word": "let",
+    "definitions": [
+      "to allow something to happen. to not stop something. to give permission."
+    ],
+    "examples": []
+  },
+  "leaving": {
+    "word": "leaving",
+    "definitions": [
+      "to go away from a place. it is the action of not staying. it can mean to stop being with someone."
+    ],
+    "examples": []
+  },
+  "laziness": {
+    "word": "laziness",
+    "definitions": [
+      "a bad habit. it is not working hard. it makes people do nothing."
+    ],
+    "examples": []
+  },
+  "leaves": {
+    "word": "leaves",
+    "definitions": [
+      "a part of a plant. it can fall down when the plant is not alive. it is not hard."
+    ],
+    "examples": []
+  },
+  "letter": {
+    "word": "letter",
+    "definitions": [
+      "a thing used to write. it can make words and show ideas. it is not a number."
+    ],
+    "examples": []
+  },
+  "liquids": {
+    "word": "liquids",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it has no fixed shape."
+    ],
+    "examples": []
+  },
+  "last": {
+    "word": "last",
+    "definitions": [
+      "a thing that is not first. it comes after many things. it is the final one."
+    ],
+    "examples": []
+  },
+  "looks": {
+    "word": "looks",
+    "definitions": [
+      "to use eyes to see. it can show what something is. it is a way to get information."
+    ],
+    "examples": []
+  },
+  "law": {
+    "word": "law",
+    "definitions": [
+      "a rule. it is made by people to control behavior. it can be broken and cause punishment."
+    ],
+    "examples": []
+  },
+  "losing": {
+    "word": "losing",
+    "definitions": [
+      "not winning. when a person has no chance to win. it can make a person feel sad."
+    ],
+    "examples": []
+  },
+  "loose": {
+    "word": "loose",
+    "definitions": [
+      "not tight. it can move easily. it is not fixed."
+    ],
+    "examples": []
+  },
+  "longer": {
+    "word": "longer",
+    "definitions": [
+      "not short. it has more length. it can take more time."
+    ],
+    "examples": []
+  },
+  "large": {
+    "word": "large",
+    "definitions": [
+      "not small. it has a big size. it takes up much space."
+    ],
+    "examples": []
+  },
+  "lodging": {
+    "word": "lodging",
+    "definitions": [
+      "a place. it is where people stay. it has a bed."
+    ],
+    "examples": []
+  },
+  "lessons": {
+    "word": "lessons",
+    "definitions": [
+      "a thing that is not hard. it can help people learn. it is part of teaching."
+    ],
+    "examples": []
+  },
+  "live": {
+    "word": "live",
+    "definitions": [
+      "to live is to stay in a place. a person lives in a house. it means to be alive."
+    ],
+    "examples": []
+  },
+  "luck": {
+    "word": "luck",
+    "definitions": [
+      "a thing that makes good things happen. it is not always the same. it can come and go."
+    ],
+    "examples": []
+  },
+  "ladder": {
+    "word": "ladder",
+    "definitions": [
+      "a thing. it can be used to climb up. it has steps."
+    ],
+    "examples": []
+  },
+  "lb": {
+    "word": "lb",
+    "definitions": [
+      "a unit. it is used to measure weight. it is short for pound."
+    ],
+    "examples": []
+  },
+  "lawyers": {
+    "word": "lawyers",
+    "definitions": [
+      "people who help others. they can talk in court. they make sure laws are followed."
+    ],
+    "examples": []
+  },
+  "leeward": {
+    "word": "leeward",
+    "definitions": [
+      "not windward. it is the side that is protected from wind. it is the side that gets less wind."
+    ],
+    "examples": []
+  },
+  "learns": {
+    "word": "learns",
+    "definitions": [
+      "to learn. it is to get knowledge. it can happen by studying."
+    ],
+    "examples": []
+  },
+  "lake": {
+    "word": "lake",
+    "definitions": [
+      "a big place with water. it is not salty. it can have fish and plants."
+    ],
+    "examples": []
+  },
+  "laws": {
+    "word": "laws",
+    "definitions": [
+      "rules made by people. they tell what is allowed and not allowed. they help keep order."
+    ],
+    "examples": []
+  },
+  "living": {
+    "word": "living",
+    "definitions": [
+      "a state. it means having life. it can be used to describe things that grow and move."
+    ],
+    "examples": []
+  },
+  "leave": {
+    "word": "leave",
+    "definitions": [
+      "to go away from a place. it means to stop being there. it can happen when you are not needed."
+    ],
+    "examples": []
+  },
+  "lays": {
+    "word": "lays",
+    "definitions": [
+      "to put something down. it can be done slowly. it is not the same as throws."
+    ],
+    "examples": []
+  },
+  "loudly": {
+    "word": "loudly",
+    "definitions": [
+      "an adverb. it describes sound that is not quiet. it makes noise more strong."
+    ],
+    "examples": []
+  },
+  "letters": {
+    "word": "letters",
+    "definitions": [
+      "a thing. they are made of paper or computer. they can carry messages."
+    ],
+    "examples": []
+  },
+  "list": {
+    "word": "list",
+    "definitions": [
+      "to write down things in order. it can show many items. it is a way to show information."
+    ],
+    "examples": []
+  },
+  "life": {
+    "word": "life",
+    "definitions": [
+      "a time when a person is alive. it can change and it has feelings. it is not always easy."
+    ],
+    "examples": []
+  },
+  "little": {
+    "word": "little",
+    "definitions": [
+      "not big. when something has small size. it can be used to show something is not much."
+    ],
+    "examples": []
+  },
+  "level": {
+    "word": "level",
+    "definitions": [
+      "a state of being even. it has no up or down. it is not sloped."
+    ],
+    "examples": []
+  },
+  "low": {
+    "word": "low",
+    "definitions": [
+      "not high. it is a place that is near the ground. it can describe a sound that is quiet."
+    ],
+    "examples": []
+  },
+  "loss": {
+    "word": "loss",
+    "definitions": [
+      "a thing that is not having. when something is gone. it can make people feel sad."
+    ],
+    "examples": []
+  },
+  "link": {
+    "word": "link",
+    "definitions": [
+      "a thing that connects parts. it can join things together. it is not a separate part."
+    ],
+    "examples": []
+  },
+  "lots": {
+    "word": "lots",
+    "definitions": [
+      "a lot of things. it can mean many or much. it is not a single thing."
+    ],
+    "examples": []
+  },
+  "landing-stage": {
+    "word": "landing-stage",
+    "definitions": [
+      "a place. it is where a plane or boat comes to stop. it has ground or water for arriving."
+    ],
+    "examples": []
+  },
+  "let's": {
+    "word": "let's",
+    "definitions": [
+      "a word. it is used to start talking. it can show surprise."
+    ],
+    "examples": []
+  },
+  "lunch": {
+    "word": "lunch",
+    "definitions": [
+      "a meal. it is eaten in the middle of the day. it can be hot or cold."
+    ],
+    "examples": []
+  },
+  "land": {
+    "word": "land",
+    "definitions": [
+      "a big place on earth. it is not water. it can have trees and animals."
+    ],
+    "examples": []
+  },
+  "license": {
+    "word": "license",
+    "definitions": [
+      "a paper that gives permission. it is needed to drive a car. it shows you are allowed to do something."
+    ],
+    "examples": []
+  },
+  "limit": {
+    "word": "limit",
+    "definitions": [
+      "a rule. it stops something from going beyond a point. it has a clear end."
+    ],
+    "examples": []
+  },
+  "learned": {
+    "word": "learned",
+    "definitions": [
+      "a person. has knowledge and understanding. not ignorant."
+    ],
+    "examples": []
+  },
+  "lives": {
+    "word": "lives",
+    "definitions": [
+      "to live. it means to exist and be active. it can happen in a house or outside."
+    ],
+    "examples": []
+  },
+  "location": {
+    "word": "location",
+    "definitions": [
+      "a place. it is where something is. it can be a city or a room."
+    ],
+    "examples": []
+  },
+  "lie": {
+    "word": "lie",
+    "definitions": [
+      "to say something that is not true. it is a bad action. it makes people not trust."
+    ],
+    "examples": []
+  },
+  "liquid": {
+    "word": "liquid",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it has no shape."
+    ],
+    "examples": []
+  },
+  "lit": {
+    "word": "lit",
+    "definitions": [
+      "not dark. it is a word that means something is exciting. it can describe a place or a situation."
+    ],
+    "examples": []
+  },
+  "look": {
+    "word": "look",
+    "definitions": [
+      "to look is to use eyes to see. it can find things. it is a way to know about things."
+    ],
+    "examples": []
+  },
+  "laughed": {
+    "word": "laughed",
+    "definitions": [
+      "to make a sound when you are happy. it shows you are not sad. it can happen when you hear something funny."
+    ],
+    "examples": []
+  },
+  "lean": {
+    "word": "lean",
+    "definitions": [
+      "to lean is to bend forward. it is a way to move the body. it can happen when someone is tired."
+    ],
+    "examples": []
+  },
+  "learnt": {
+    "word": "learnt",
+    "definitions": [
+      "past tense of learn. it means to understand something. it is not the same as learn."
+    ],
+    "examples": []
+  },
+  "leather": {
+    "word": "leather",
+    "definitions": [
+      "a thing made from animal skin. it is not hard. it can be used to make shoes and bags."
+    ],
+    "examples": []
+  },
+  "laugh": {
+    "word": "laugh",
+    "definitions": [
+      "to make a sound with your mouth. it shows you are happy. it can happen when you hear something funny."
+    ],
+    "examples": []
+  },
+  "lib": {
+    "word": "lib",
+    "definitions": [
+      "a thing that is not hard. it can move and it is clear. it can be found in a bottle."
+    ],
+    "examples": []
+  },
+  "loud": {
+    "word": "loud",
+    "definitions": [
+      "not quiet. it is a sound that can be heard easily. it makes people feel uncomfortable."
+    ],
+    "examples": []
+  },
+  "lonely": {
+    "word": "lonely",
+    "definitions": [
+      "a feeling. when a person is not with others. it has no company."
+    ],
+    "examples": []
+  },
+  "lower": {
+    "word": "lower",
+    "definitions": [
+      "not higher. it is the opposite of up. it can be a word for a place."
+    ],
+    "examples": []
+  },
+  "leader": {
+    "word": "leader",
+    "definitions": [
+      "a person. has power over others. makes decisions for a group."
+    ],
+    "examples": []
+  },
+  "limits": {
+    "word": "limits",
+    "definitions": [
+      "a rule. it stops something from going beyond. it has a clear end."
+    ],
+    "examples": []
+  },
+  "liked": {
+    "word": "liked",
+    "definitions": [
+      "a feeling. it is not the same as not liked. it means someone has a good feeling about something."
+    ],
+    "examples": []
+  },
+  "lengthy": {
+    "word": "lengthy",
+    "definitions": [
+      "not short. it is a word for something that is long. it can describe a story or a time."
+    ],
+    "examples": []
+  }
+}
