@@ -1,4 +1,4 @@
-# YALM Results
+# DAPHNE Results
 
 > Comprehensive scores across all test suites, dictionary sizes, and phases.
 
@@ -114,7 +114,7 @@ Both failures trace to Ollama defining "person" as "a human being" — the chain
 | CONTENT | 16/20 | Physical world queries |
 | MATH | 5/5 | Number operations |
 | GRAMMAR | 5/5 | Language structure |
-| SELF | 10/10 | Identity queries ("What is YALM?") |
+| SELF | 10/10 | Identity queries ("What is DAPHNE?") |
 | Cross-space | 5/5 | Multi-domain queries |
 | Full pipeline | 4/5 | Complex routing |
 | **Total** | **45/50** | 90% |

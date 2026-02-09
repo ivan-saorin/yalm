@@ -1,12 +1,12 @@
 # r0x-001: The f-Function Test
 
 **Branch:** pure-research
-**Goal:** Determine if neural network embeddings contain the same geometric structure as YALM equilibrium.
+**Goal:** Determine if neural network embeddings contain the same geometric structure as DAPHNE equilibrium.
 **Verdict:** Binary. Correlation > 0.5 = f exists. Correlation < 0.3 = different knowledge. Between = inconclusive.
 
 ## Hypothesis
 
-If YALM's geometric space and LLM embedding spaces capture the same semantic structure, then pairwise distances between dict5 words in GPT-2 embedding space should correlate with pairwise distances in YALM equilibrium space.
+If DAPHNE's geometric space and LLM embedding spaces capture the same semantic structure, then pairwise distances between dict5 words in GPT-2 embedding space should correlate with pairwise distances in DAPHNE equilibrium space.
 
 ## Prior Art Search (Step 0 — Do This First)
 
@@ -50,18 +50,18 @@ If a paper already does exactly what r0x-001 proposes: USE THEIR NUMBERS. Don't 
 
 A standalone Python script: `research/r0x_001_f_test.py`
 
-### Step 1: Extract YALM distances
+### Step 1: Extract DAPHNE distances
 
-Run YALM on dict5 with the v11 parameters (from results_v11/) and dump ALL pairwise distances between the 51 words to a JSON file.
+Run DAPHNE on dict5 with the v11 parameters (from results_v11/) and dump ALL pairwise distances between the 51 words to a JSON file.
 
 ```bash
-# The project already has yalm-eval. Add a --dump-distances flag
+# The project already has dafhne-eval. Add a --dump-distances flag
 # or parse from existing debug output.
 # If easier: add a minimal Rust binary in research/ that loads
 # the equilibrium and prints the distance matrix as CSV.
 ```
 
-Alternative: read the equilibrium output directly. Check if `yalm-eval` already prints distances (it does for test queries). If not, add a `--dump-matrix` flag to yalm-eval that outputs:
+Alternative: read the equilibrium output directly. Check if `dafhne-eval` already prints distances (it does for test queries). If not, add a `--dump-matrix` flag to dafhne-eval that outputs:
 
 ```
 word_a,word_b,distance
@@ -119,15 +119,15 @@ for w1 in dict5_words:
 from scipy.stats import spearmanr, pearsonr
 
 # Align the pairs
-pairs = sorted(yalm_distances.keys())
-yalm_dists = [yalm_distances[p] for p in pairs]
+pairs = sorted(dafhne_distances.keys())
+dafhne_dists = [dafhne_distances[p] for p in pairs]
 gpt2_cos = [gpt2_distances[p]['cosine'] for p in pairs]
 gpt2_euc = [gpt2_distances[p]['euclidean'] for p in pairs]
 
-spearman_cos, p_cos = spearmanr(yalm_dists, gpt2_cos)
-spearman_euc, p_euc = spearmanr(yalm_dists, gpt2_euc)
-pearson_cos, _ = pearsonr(yalm_dists, gpt2_cos)
-pearson_euc, _ = pearsonr(yalm_dists, gpt2_euc)
+spearman_cos, p_cos = spearmanr(dafhne_dists, gpt2_cos)
+spearman_euc, p_euc = spearmanr(dafhne_dists, gpt2_euc)
+pearson_cos, _ = pearsonr(dafhne_dists, gpt2_cos)
+pearson_euc, _ = pearsonr(dafhne_dists, gpt2_euc)
 
 print(f"Spearman (cosine):    {spearman_cos:.4f}  p={p_cos:.2e}")
 print(f"Spearman (euclidean): {spearman_euc:.4f}  p={p_euc:.2e}")
@@ -137,7 +137,7 @@ print(f"Pearson (euclidean):  {pearson_euc:.4f}")
 
 ### Step 5: Visualize
 
-Generate a scatter plot: X = YALM distance, Y = GPT-2 distance. One plot per metric (cosine, euclidean). Save as PNG.
+Generate a scatter plot: X = DAPHNE distance, Y = GPT-2 distance. One plot per metric (cosine, euclidean). Save as PNG.
 
 Also generate a 2D projection (t-SNE or PCA) of both spaces side by side. Label the 51 words. Visual inspection: do the clusters match?
 
@@ -146,7 +146,7 @@ Also generate a 2D projection (t-SNE or PCA) of both spaces side by side. Label 
 ```
 research/
 ├── r0x_001_f_test.py          # Main script
-├── r0x_001_dump_distances.rs  # If needed: Rust helper for YALM distances
+├── r0x_001_dump_distances.rs  # If needed: Rust helper for DAPHNE distances
 ├── r0x_001_results.json       # Raw numbers
 ├── r0x_001_scatter.png        # Correlation scatter
 ├── r0x_001_projection.png     # Side-by-side t-SNE/PCA

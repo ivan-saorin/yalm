@@ -1,12 +1,12 @@
 [workspace]
 members = [
-    "crates/yalm-core",
-    "crates/yalm-parser",
-    "crates/yalm-cache",
-    "crates/yalm-engine",
-    "crates/yalm-eval",
-    "crates/yalm-evolve",
-    "crates/yalm-wikt-build",
-    "crates/yalm-demo",
+    "crates/dafhne-core",
+    "crates/dafhne-parser",
+    "crates/dafhne-cache",
+    "crates/dafhne-engine",
+    "crates/dafhne-eval",
+    "crates/dafhne-evolve",
+    "crates/dafhne-wikt-build",
+    "crates/dafhne-demo",
 ]
 resolver = "2"

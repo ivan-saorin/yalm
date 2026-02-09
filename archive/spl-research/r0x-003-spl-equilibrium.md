@@ -2,11 +2,11 @@
 
 **Branch:** pure-research
 **Prerequisite:** None (independent path from r0x-001/002)
-**Goal:** Replace YALM's force-field equilibrium with SPL predator-prey dynamics and verify it produces equivalent or better geometry.
+**Goal:** Replace DAPHNE's force-field equilibrium with SPL predator-prey dynamics and verify it produces equivalent or better geometry.
 
 ## Hypothesis
 
-YALM's equilibrium engine uses iterative force application with decaying learning rate — essentially gradient descent. SPL uses predator-prey population dynamics with O(n) scaling. If the geometric structure is fundamental (not an artifact of the optimization method), both should converge to equivalent spaces.
+DAPHNE's equilibrium engine uses iterative force application with decaying learning rate — essentially gradient descent. SPL uses predator-prey population dynamics with O(n) scaling. If the geometric structure is fundamental (not an artifact of the optimization method), both should converge to equivalent spaces.
 
 Bonus: SPL maintains a *population* of configurations, not a single point. This could resolve ambiguities (Montmorency as dog vs person-like).
 
@@ -50,11 +50,11 @@ Critical focus: model merging / task arithmetic literature. If weight-space arit
 
 ## What To Build
 
-New crate: `crates/yalm-spl/` (or standalone `research/r0x_003_spl_equilibrium.rs`)
+New crate: `crates/dafhne-spl/` (or standalone `research/r0x_003_spl_equilibrium.rs`)
 
 ### Phase A: Minimal SPL Engine
 
-Implement the core SPL loop adapted to YALM's domain:
+Implement the core SPL loop adapted to DAPHNE's domain:
 
 ```rust
 struct Word {
@@ -88,12 +88,12 @@ struct SPLEngine {
 ### Phase B: Run on dict5
 
 ```
-Input: dict5.md + grammar5.md (same as current YALM)
+Input: dict5.md + grammar5.md (same as current DAPHNE)
 Parameters: Same connector discovery output
 Output: Population of 50 equilibrium configurations for 51 words
 ```
 
-Compare with current YALM equilibrium:
+Compare with current DAPHNE equilibrium:
 1. For each configuration in the population, compute dict5_test scores (20 questions)
 2. Compute mean score across population
 3. Compute best-of-population score
@@ -104,7 +104,7 @@ Compare with current YALM equilibrium:
 The key test for population advantage:
 
 ```
-In current YALM:
+In current DAPHNE:
   Montmorency ↔ dog = 1.14
   Montmorency ↔ person = 0.98
   (inverted — geometry sees anthropomorphism)
@@ -147,7 +147,7 @@ Note: "energy", "force", "move", "thing", "animal", "live" are bridge terms (exi
 
 ```
 research/
-├── r0x_003_spl_equilibrium.rs  # or crates/yalm-spl/
+├── r0x_003_spl_equilibrium.rs  # or crates/dafhne-spl/
 ├── dict_science5.md            # Test dictionary
 ├── r0x_003_results.json
 │   ├── dict5_scores (per-configuration and aggregate)

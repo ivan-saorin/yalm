@@ -2,7 +2,7 @@
 
 ## GOAL
 
-Build the ability to run multiple independent geometric spaces ("thought domains") and compose their outputs via a TASK dispatcher space. This is YALM's path toward SLM-level abstraction.
+Build the ability to run multiple independent geometric spaces ("thought domains") and compose their outputs via a TASK dispatcher space. This is DAPHNE's path toward SLM-level abstraction.
 
 Two domain spaces (MATH, GRAMMAR) + one dispatcher space (TASK). Each space runs its own equilibrium independently. The TASK space routes queries to the correct domain(s) and composes results.
 
@@ -15,7 +15,7 @@ Two domain spaces (MATH, GRAMMAR) + one dispatcher space (TASK). Each space runs
 
 ## KEY ARCHITECTURAL DECISIONS
 
-### 1. Each space = independent YALM instance
+### 1. Each space = independent DAPHNE instance
 
 Each dictionary gets its own equilibrium. No shared state during equilibrium computation. The spaces are connected ONLY at query time via bridge terms.
 
@@ -25,7 +25,7 @@ dict_grammar5.md → equilibrium → Space_GRAMMAR (48 words, 8D)
 dict_task5.md  → equilibrium → Space_TASK   (40 words, 8D)
 ```
 
-Implementation: run `yalm-eval` three times, one per dictionary. Store three separate spaces.
+Implementation: run `dafhne-eval` three times, one per dictionary. Store three separate spaces.
 
 ### 2. Bridge terms identified by vocabulary intersection
 
@@ -132,7 +132,7 @@ When multiple spaces are activated, results must be composed:
 
 ### Phase A: Infrastructure (≈1 day)
 
-**New module: `multispace.rs` in yalm-engine**
+**New module: `multispace.rs` in dafhne-engine**
 
 ```rust
 pub struct Space {
@@ -156,7 +156,7 @@ impl MultiSpace {
 }
 ```
 
-**Changes to yalm-eval:**
+**Changes to dafhne-eval:**
 - New flag: `--spaces math:dict_math5.md,grammar:dict_grammar5.md,task:dict_task5.md`
 - Loads multiple spaces, builds MultiSpace
 - Routes and resolves queries through MultiSpace
@@ -165,17 +165,17 @@ impl MultiSpace {
 
 Before any cross-space work, validate that each dictionary works independently:
 
-1. Run dict_math5 through standard yalm-eval with v11 params
+1. Run dict_math5 through standard dafhne-eval with v11 params
    - Does equilibrium converge?
    - Do basic math queries work? (Q01-Q05)
    - Distance matrix: are numbers near each other? Are operations near operations?
 
-2. Run dict_grammar5 through standard yalm-eval
+2. Run dict_grammar5 through standard dafhne-eval
    - Does equilibrium converge?
    - Do grammar queries work? (Q06-Q10)
    - Distance matrix: are nouns near nouns? Are verbs near verbs?
 
-3. Run dict_task5 through standard yalm-eval
+3. Run dict_task5 through standard dafhne-eval
    - Does equilibrium converge?
    - Do routing queries work? (Q11-Q15)
    - Distance matrix: are number-related terms clustered? Word-related terms?
@@ -193,7 +193,7 @@ If ANY single-space fails: fix the dictionary first. Don't proceed to cross-spac
 ### Phase D: Joint Mode Comparison (≈half day)
 
 1. Merge all three dicts into one: dict_joint.md
-2. Run standard yalm-eval on dict_joint
+2. Run standard dafhne-eval on dict_joint
 3. Score multispace_test.md on joint space
 4. Compare: separate vs joint scores
 
@@ -221,21 +221,21 @@ If ANY single-space fails: fix the dictionary first. Don't proceed to cross-spac
 - Phase B fails: dictionaries don't produce meaningful geometry → rewrite dictionaries
 - Phase C routing wrong >50%: TASK space doesn't separate domains → redesign dispatcher
 - Joint mode scores HIGHER on cross-space than separate: domain separation hurts → rethink architecture
-- Any existing regression fails: back out changes to yalm-engine
+- Any existing regression fails: back out changes to dafhne-engine
 
 ## CODE CHANGES SCOPE
 
 | File | Change |
 |------|--------|
-| `crates/yalm-engine/src/multispace.rs` | NEW: MultiSpace, routing, cross-space resolution |
-| `crates/yalm-engine/src/lib.rs` | Add multispace module |
-| `crates/yalm-eval/src/main.rs` | Add --spaces flag, MultiSpace mode |
+| `crates/dafhne-engine/src/multispace.rs` | NEW: MultiSpace, routing, cross-space resolution |
+| `crates/dafhne-engine/src/lib.rs` | Add multispace module |
+| `crates/dafhne-eval/src/main.rs` | Add --spaces flag, MultiSpace mode |
 | `dictionaries/dict_math5.md` | NEW (already created) |
 | `dictionaries/dict_grammar5.md` | NEW (already created) |
 | `dictionaries/dict_task5.md` | NEW (already created) |
 | `dictionaries/multispace_test.md` | NEW (already created) |
 
-**No changes to**: yalm-core, yalm-parser, yalm-evolve, resolver.rs (existing), equilibrium engine
+**No changes to**: dafhne-core, dafhne-parser, dafhne-evolve, resolver.rs (existing), equilibrium engine
 
 The resolver.rs is REUSED inside each Space. multispace.rs WRAPS the existing resolver, it doesn't replace it.
 
@@ -247,7 +247,7 @@ Q21 ("Two plus three. Write the answer as a sentence.") is the litmus test. MATH
 
 Future spaces (not in scope for Phase 16):
 - LOGIC: causation, implication, contradiction
-- SELF: what YALM is, what it can do, what it cannot do
+- SELF: what DAPHNE is, what it can do, what it cannot do
 - CONTENT: dict5/dict12/open-mode (existing capability)
 - CAUSAL: why, because, therefore
 

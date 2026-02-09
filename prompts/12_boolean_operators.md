@@ -54,7 +54,7 @@ This avoids changing `QuestionType`, `detect_yes_no_question()`, or any existing
 
 ### Step 1: Add BoolOp enum
 
-In `crates/yalm-engine/src/resolver.rs`, add near the top:
+In `crates/dafhne-engine/src/resolver.rs`, add near the top:
 
 ```rust
 /// Boolean operator for compound queries.
@@ -270,9 +270,9 @@ pub fn resolve_question(
 
 ### Step 5: No changes elsewhere
 
-- **yalm-core**: No changes. Answer types are unchanged.
-- **yalm-parser**: No changes. Tokenizer already produces "and"/"or" as tokens.
-- **yalm-eval**: No changes. `evaluate()` calls `resolve_question()` which now handles compounds internally.
+- **dafhne-core**: No changes. Answer types are unchanged.
+- **dafhne-parser**: No changes. Tokenizer already produces "and"/"or" as tokens.
+- **dafhne-eval**: No changes. `evaluate()` calls `resolve_question()` which now handles compounds internally.
 - **Engine/equilibrium/connectors**: No changes.
 
 ## TESTING
@@ -393,14 +393,14 @@ Create `texts/three_men/bool_test.md` with 5 questions using entities.
 
 ```bash
 # 1. dict5 boolean test (closed mode)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_bool_test.md \
     --mode equilibrium
 # Expected: ≥9/10 (Q05 might be tricky: ball→animal chain depends on dict5 definitions)
 
 # 2. Three Men boolean test (open mode + entities)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -410,21 +410,21 @@ cargo run -p yalm-eval -- \
 # Expected: 5/5
 
 # 3. dict5 regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_test.md \
     --mode equilibrium
 # Expected: 20/20
 
 # 4. dict12 regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict12.md \
     --test dictionaries/dict12_test.md \
     --mode equilibrium
 # Expected: 14/20
 
 # 5. passage1 regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/passage1.md \
     --cache-type ollama \
     --cache dictionaries/cache/ollama-qwen3 \
@@ -433,7 +433,7 @@ cargo run -p yalm-eval -- \
 # Expected: 5/5
 
 # 6. full_test regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -443,7 +443,7 @@ cargo run -p yalm-eval -- \
 # Expected: 19/21
 
 # 7. 3w_test regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -491,7 +491,7 @@ Existing tests contain no "and"/"or" tokens in questions, so the compound detect
 
 ## KNOWN LIMITATIONS
 
-1. **Compound-noun subjects**: "Is bread and butter good?" would be incorrectly split. Mitigated by `op_idx < 3` guard (requires operator at position 3+). YALM's test vocabulary doesn't include compound nouns.
+1. **Compound-noun subjects**: "Is bread and butter good?" would be incorrectly split. Mitigated by `op_idx < 3` guard (requires operator at position 3+). DAPHNE's test vocabulary doesn't include compound nouns.
 
 2. **Mixed negation + boolean**: "Is a dog not a cat and not a person?" splits into "Is a dog not a cat?" + "Is a dog not a person?". Each sub-question's negation detection handles the "not" independently. Should work but is untested in Phase 12.
 

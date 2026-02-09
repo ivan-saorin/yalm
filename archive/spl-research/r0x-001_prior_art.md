@@ -16,8 +16,8 @@
 - Year: 2025
 - Link: https://arxiv.org/abs/2508.10003
 - Key finding: LLM embedding matrices encode semantic structure that correlates highly with human ratings. Word projections on antonym-pair directions (e.g., kind-cruel) match human judgments. Structure reduces to ~3 dimensions, closely resembling patterns from human survey data. Shifting tokens along one semantic direction causes off-target effects proportional to cosine similarity.
-- Relevance: **confirms_hypothesis** — LLM static embeddings DO contain geometric semantic structure. The structure is low-dimensional (~3D), which is relevant since YALM uses 8D.
-- Impact on experiment: Strong evidence that the f-function should exist. However, their comparison is LLM-vs-human-ratings, not LLM-vs-geometric-space. r0x-001 compares LLM-vs-YALM, which is novel.
+- Relevance: **confirms_hypothesis** — LLM static embeddings DO contain geometric semantic structure. The structure is low-dimensional (~3D), which is relevant since DAPHNE uses 8D.
+- Impact on experiment: Strong evidence that the f-function should exist. However, their comparison is LLM-vs-human-ratings, not LLM-vs-geometric-space. r0x-001 compares LLM-vs-DAPHNE, which is novel.
 
 ### Paper 2: Ethayarajh (2019) — "How Contextual are Contextualized Word Representations?"
 - Authors: Kawin Ethayarajh
@@ -40,7 +40,7 @@
 - Year: 2020
 - Link: https://arxiv.org/abs/2005.03812
 - Key finding: Comprehensive comparison of word2vec, GloVe, fastText on SimLex-999 and WordSim-353 using cosine similarity. Typical Spearman correlations with human similarity judgments: 0.3-0.5 for raw static embeddings on SimLex-999.
-- Relevance: **extends** — Provides baseline Spearman correlation ranges. If r0x-001 finds Spearman ~0.3-0.5 between YALM and GPT-2, that's in the same range as GPT-2-vs-human, which would be a strong result.
+- Relevance: **extends** — Provides baseline Spearman correlation ranges. If r0x-001 finds Spearman ~0.3-0.5 between DAPHNE and GPT-2, that's in the same range as GPT-2-vs-human, which would be a strong result.
 - Impact on experiment: Our "ALIVE" threshold of 0.5 may be aggressive given that even embedding-vs-human correlations are often 0.3-0.5.
 
 ### Paper 5: Yang, Zhang, Han & Liu (2025) — "Semantic Enrichment of Neural Word Embeddings"
@@ -48,16 +48,16 @@
 - Year: 2025
 - Link: https://doi.org/10.1017/nlp.2025.10005
 - Key finding: Retrofitting static and contextualized embeddings with taxonomic similarity achieves SOTA: Spearman 0.78 on SimLex-999, 0.76 on SimVerb-3500. Raw embeddings are significantly lower.
-- Relevance: **extends** — Shows that raw embeddings capture partial semantic structure, and structured knowledge injection (like YALM's definition-based approach) can close the gap. The fact that retrofitting helps implies raw embeddings miss some semantic signal.
-- Impact on experiment: YALM is definition-based (structured knowledge), while GPT-2 wte are distributional. The gap between them may be the structured-vs-distributional gap, not a fundamental geometry mismatch.
+- Relevance: **extends** — Shows that raw embeddings capture partial semantic structure, and structured knowledge injection (like DAPHNE's definition-based approach) can close the gap. The fact that retrofitting helps implies raw embeddings miss some semantic signal.
+- Impact on experiment: DAPHNE is definition-based (structured knowledge), while GPT-2 wte are distributional. The gap between them may be the structured-vs-distributional gap, not a fundamental geometry mismatch.
 
 ### Paper 6: Renner, Denis, Gilleron & Brunelliere (2023) — "Exploring Category Structure with Contextual Language Models"
 - Authors: Joseph Renner, Pascal Denis, Remi Gilleron, Angele Brunelliere
 - Year: 2023
 - Link: https://arxiv.org/abs/2302.06942
 - Key finding: Static word embeddings fail at predicting typicality (category membership strength) using cosine similarity. BERT-based probes with disambiguation improve predictions. WordNet Information Content similarities match or beat BERT for typicality.
-- Relevance: **extends** — YALM's space encodes category structure geometrically (dog closer to animal). The finding that static embeddings fail at typicality while structured resources (WordNet) succeed suggests YALM may capture different information than GPT-2 wte.
-- Impact on experiment: May explain a low correlation — YALM captures typicality/category structure, GPT-2 wte capture distributional co-occurrence. These are related but different.
+- Relevance: **extends** — DAPHNE's space encodes category structure geometrically (dog closer to animal). The finding that static embeddings fail at typicality while structured resources (WordNet) succeed suggests DAPHNE may capture different information than GPT-2 wte.
+- Impact on experiment: May explain a low correlation — DAPHNE captures typicality/category structure, GPT-2 wte capture distributional co-occurrence. These are related but different.
 
 ---
 
@@ -65,13 +65,13 @@
 
 **Novelty level: medium**
 
-The comparison of embedding cosine distances with human similarity judgments is well-studied. However, comparing a **non-NN geometric semantic space** (YALM) with NN embeddings (GPT-2 wte) is novel. No paper in our search does exactly this.
+The comparison of embedding cosine distances with human similarity judgments is well-studied. However, comparing a **non-NN geometric semantic space** (DAPHNE) with NN embeddings (GPT-2 wte) is novel. No paper in our search does exactly this.
 
 **Key insights for r0x-001:**
 1. Static embeddings DO encode semantic structure (Kozlowski 2025 confirms hypothesis)
 2. Anisotropy is a real concern — consider centering (Mu & Viswanath 2017)
 3. Baseline Spearman for embedding-vs-human is 0.3-0.5 (Toshevska 2020), so our 0.5 ALIVE threshold may be aggressive
 4. Category/typicality structure may differ between distributional and definition-based spaces (Renner 2023)
-5. The 8D YALM space vs 768D GPT-2 space dimensionality mismatch is not a problem per se — Kozlowski shows semantic structure is ~3D in LLM embeddings
+5. The 8D DAPHNE space vs 768D GPT-2 space dimensionality mismatch is not a problem per se — Kozlowski shows semantic structure is ~3D in LLM embeddings
 
 **Proceed: yes** — No paper already answers our specific question. The experiment is worth running.

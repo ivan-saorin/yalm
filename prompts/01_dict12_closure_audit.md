@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are working on a research project called YALM (Yet Another Language Model). The project explores whether a system can build internal geometric representations of knowledge from text alone — no predefined rules, no ontology, no parsing grammar.
+You are working on a research project called DAPHNE (Yet Another Language Model). The project explores whether a system can build internal geometric representations of knowledge from text alone — no predefined rules, no ontology, no parsing grammar.
 
 The foundation is two closed dictionaries:
 - **dict5**: 50 words at a 5-year-old comprehension level. Verified CLOSED.

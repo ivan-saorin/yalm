@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-Phase 13 proved that YALM can express what it knows: `describe()` generates sentences from definitions with 100% self-consistency. The system reads its own definitions and produces natural language.
+Phase 13 proved that DAPHNE can express what it knows: `describe()` generates sentences from definitions with 100% self-consistency. The system reads its own definitions and produces natural language.
 
 Phase 14 adds the two "reasoning" question words: **When** and **Why**. Both are answered by reading definitions — not by geometric distance.
 
@@ -755,14 +755,14 @@ Create `texts/three_men/2w_test.md` with 5 questions.
 
 ```bash
 # 1. dict5 When/Why test
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_2w_test.md \
     --mode equilibrium
 # Expected: ≥7/10 (When questions depend on condition extraction working)
 
 # 2. Three Men When/Why test
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -772,25 +772,25 @@ cargo run -p yalm-eval -- \
 # Expected: 5/5
 
 # 3-9. Regressions
-cargo run -p yalm-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_test.md --mode equilibrium
 # Expected: 20/20
 
-cargo run -p yalm-eval -- --dict dictionaries/dict12.md --test dictionaries/dict12_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --dict dictionaries/dict12.md --test dictionaries/dict12_test.md --mode equilibrium
 # Expected: 14/20
 
-cargo run -p yalm-eval -- --text texts/passage1.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/passage1_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/passage1.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/passage1_test.md --mode equilibrium
 # Expected: 5/5
 
-cargo run -p yalm-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/full_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/full_test.md --mode equilibrium
 # Expected: 19/21
 
-cargo run -p yalm-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/3w_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/3w_test.md --mode equilibrium
 # Expected: 10/10
 
-cargo run -p yalm-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_bool_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_bool_test.md --mode equilibrium
 # Expected: 9/10
 
-cargo run -p yalm-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/bool_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/bool_test.md --mode equilibrium
 # Expected: 5/5
 ```
 
@@ -836,7 +836,7 @@ All 5 are simple 1-2 hop "why" chains through entity definitions. These should b
 
 ## KNOWN LIMITATIONS
 
-1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. This is honest — YALM knows what it was told, not deeper causal mechanisms.
+1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. This is honest — DAPHNE knows what it was told, not deeper causal mechanisms.
 
 2. **"When" rarely has answers in dict5**: Most dict5 definitions lack temporal/conditional clauses. The "to feel good" pattern in eat's definition is one of few extractable conditions. Most "when" questions correctly return IDK.
 

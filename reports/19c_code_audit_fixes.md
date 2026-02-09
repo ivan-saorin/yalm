@@ -28,7 +28,7 @@
 | A01 | 🔴 | Hardcoded 5W question words | Added `LANGUAGE-SPECIFIC LAYER` comment block documenting the 5 hardcoded English question words and refactoring path to language-adapter config |
 | A02 | 🔴 | Hardcoded `is_structural()` (28 words) | Replaced with `structural_words_cache` (union of per-space `classify_word_roles()` output) + question-syntax meta-words. All 8+ call sites updated to `self.is_structural_cached()` |
 | A03 | 🔴 | Hardcoded article/verb/skip lists in resolver | Replaced articles with `structural.contains()` in entity fast path and subject extraction. Question verbs use `structural.contains(&tokens[0])`. Question syntax filter uses structural set. Skip-word fallbacks retained as definition-shape patterns (see Design Note below) |
-| A05 | 🟡 | Hardcoded `self_triggers = ["yalm"]` | Derived from vocabulary: words unique to SELF space (not in other domain spaces, not structural). Pronoun patterns `("are","you")` etc. retained with comment |
+| A05 | 🟡 | Hardcoded `self_triggers = ["dafhne"]` | Derived from vocabulary: words unique to SELF space (not in other domain spaces, not structural). Pronoun patterns `("are","you")` etc. retained with comment |
 | A09 | 🟡 | `is_connector_word` / `is_property_word` appear hardcoded | Added doc comments documenting that `is_connector_word` is fully data-driven (scans discovered connectors) and `is_property_word` uses ELI5 definition-shape heuristics |
 | A10 | 🟡 | `MAX_FOLLOW_PER_HOP = 3` hardcoded | Externalized to `EngineParams.max_follow_per_hop` with `#[serde(default)]` for backward compatibility. All 4 call sites updated |
 | A11 | 🟡 | `max_hops = 3` hardcoded in 4 places | Externalized to `EngineParams.max_chain_hops`. Updated `resolve_yes_no`, `resolve_why`, `resolve_when`, `describe`, and all multispace chain calls |
@@ -39,7 +39,7 @@
 | A20 | 🟢 | `preceded_by_not` assumes "not" exists | Added connector-existence guard: negation check only fires when the space has a discovered "not" connector |
 | A23 | 🟢 | `find_siblings` uses string comparison | Added TODO comment documenting geometric alternative (nearest-neighbor spatial lookup) |
 | A24 | 🟢 | Connector discovery constants hardcoded | Externalized `num_buckets` and `uniformity_threshold` to `EngineParams.uniformity_num_buckets` and `EngineParams.uniformity_threshold` |
-| — | — | Evolution infrastructure for new params | Added 5 fields to `ParamRanges`, `random_genome()`, `mutate()`, and `crossover()` in yalm-evolve |
+| — | — | Evolution infrastructure for new params | Added 5 fields to `ParamRanges`, `random_genome()`, `mutate()`, and `crossover()` in dafhne-evolve |
 | — | — | `preceded_by_not` uses hardcoded articles | Replaced `["a","an","the"]` with `structural.contains()` parameter |
 
 ### Deferred Findings (8)
@@ -79,14 +79,14 @@ These are marked as LANGUAGE-SPECIFIC and would need replacement for non-English
 
 | File | Changes |
 |------|---------|
-| `crates/yalm-core/src/lib.rs` | +5 EngineParams fields with serde defaults |
-| `crates/yalm-engine/src/resolver.rs` | Replaced hardcoded lists + constants, added doc comments, language-layer annotations |
-| `crates/yalm-engine/src/multispace.rs` | +2 struct fields, cache-based structural, SELF triggers from vocabulary, task routing from space vocab |
-| `crates/yalm-engine/src/connector_discovery.rs` | Read uniformity constants from params |
-| `crates/yalm-engine/src/strategy.rs` | NegationModel doc comments |
-| `crates/yalm-evolve/src/genome.rs` | +5 ParamRanges fields |
-| `crates/yalm-evolve/src/population.rs` | +5 fields in random_genome() |
-| `crates/yalm-evolve/src/operators.rs` | +5 mutation + crossover blocks |
+| `crates/dafhne-core/src/lib.rs` | +5 EngineParams fields with serde defaults |
+| `crates/dafhne-engine/src/resolver.rs` | Replaced hardcoded lists + constants, added doc comments, language-layer annotations |
+| `crates/dafhne-engine/src/multispace.rs` | +2 struct fields, cache-based structural, SELF triggers from vocabulary, task routing from space vocab |
+| `crates/dafhne-engine/src/connector_discovery.rs` | Read uniformity constants from params |
+| `crates/dafhne-engine/src/strategy.rs` | NegationModel doc comments |
+| `crates/dafhne-evolve/src/genome.rs` | +5 ParamRanges fields |
+| `crates/dafhne-evolve/src/population.rs` | +5 fields in random_genome() |
+| `crates/dafhne-evolve/src/operators.rs` | +5 mutation + crossover blocks |
 
 ## Regression Results
 

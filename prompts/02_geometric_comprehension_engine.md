@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are building the first version of YALM (Yet Another Language Model), a system that reads a closed dictionary and builds geometric knowledge representations WITHOUT any predefined rules, ontology, or parsing grammar. Everything emerges from the text.
+You are building the first version of DAPHNE (Yet Another Language Model), a system that reads a closed dictionary and builds geometric knowledge representations WITHOUT any predefined rules, ontology, or parsing grammar. Everything emerges from the text.
 
 This is NOT a traditional NLP pipeline. There is no tokenizer, no POS tagger, no dependency parser, no predefined relation types. The system reads character streams, discovers structure, and builds a geometric space where proximity encodes meaning.
 
@@ -118,28 +118,28 @@ honesty  = correct_i_dont_know / total_unknowable_questions
 
 ## IMPLEMENTATION LANGUAGE
 
-Rust. The project already has a Cargo workspace at `D:\workspace\projects\yalm`.
+Rust. The project already has a Cargo workspace at `D:\workspace\projects\dafhne`.
 
 ## FILE STRUCTURE
 
 ```
-yalm/
+dafhne/
 ├── Cargo.toml          (workspace)
 ├── dictionaries/
 │   ├── dict5.md
 │   ├── dict5_test.md
 │   └── dict12.md
 ├── crates/
-│   ├── yalm-core/       (data structures, traits, geometry)
-│   ├── yalm-parser/     (dictionary + question parsing)
-│   ├── yalm-engine/     (force field builder + question resolver)
-│   └── yalm-eval/       (fitness evaluation + test runner)
+│   ├── dafhne-core/       (data structures, traits, geometry)
+│   ├── dafhne-parser/     (dictionary + question parsing)
+│   ├── dafhne-engine/     (force field builder + question resolver)
+│   └── dafhne-eval/       (fitness evaluation + test runner)
 └── prompts/
 ```
 
 ## IMPLEMENTATION REQUIREMENTS
 
-### yalm-core
+### dafhne-core
 ```rust
 // Key types
 struct WordPoint {
@@ -174,13 +174,13 @@ trait Comprehend {
 }
 ```
 
-### yalm-parser
+### dafhne-parser
 - Parse dict5.md format: extract entries with word, definition, examples
 - Parse dict5_test.md: extract questions with expected answers
 - Handle markdown bold (`**word**`), em-dash (—), bullet points
 - Robust to minor format variations
 
-### yalm-engine
+### dafhne-engine
 This is the heart. Implement the Comprehend trait:
 
 1. **train()**: 
@@ -205,7 +205,7 @@ This is the heart. Implement the Comprehend trait:
    - How to handle multi-word connectors ("is a" vs "is")
    - How to handle sentences with more than one connector ("a thing that lives")
 
-### yalm-eval
+### dafhne-eval
 - Load test questions
 - Run each through the engine
 - Compute fitness score

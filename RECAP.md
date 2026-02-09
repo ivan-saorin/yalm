@@ -1,4 +1,4 @@
-# YALM — Project Recap
+# DAPHNE — Project Recap
 
 **Yet Another Language Model**
 *A geometric comprehension engine that learns from text alone*
@@ -7,9 +7,9 @@ Last updated: 2026-02-09
 
 ---
 
-## What YALM Is
+## What DAPHNE Is
 
-YALM is a research project exploring whether a system can comprehend language through geometry — without neural networks, without pretrained models, without grammar rules, without any NLP library.
+DAPHNE is a research project exploring whether a system can comprehend language through geometry — without neural networks, without pretrained models, without grammar rules, without any NLP library.
 
 The system reads a closed dictionary (every word in every definition is itself defined), builds an N-dimensional space where words are points, discovers connectors ("is a", "can", "not") from text statistics, and answers questions by traversing definitions and measuring geometric distance.
 
@@ -124,7 +124,7 @@ Input: text.md (or dictionary.md) + entities.md (optional)
 ```
 
 Language: Rust. Pure, no ML libraries. 5 crates:
-yalm-core, yalm-parser, yalm-engine, yalm-eval, yalm-evolve.
+dafhne-core, dafhne-parser, dafhne-engine, dafhne-eval, dafhne-evolve.
 
 Open mode uses Ollama (qwen3) for definition generation but no neural
 network touches the geometric comprehension — only dictionary authoring.
@@ -355,7 +355,7 @@ A comparable transformer-based system would require:
 - Multi-head attention (GPU hours for training)
 - Fine-tuning for question answering
 
-YALM achieves 85% combined fitness on two dictionaries with ~15 tunable parameters and a geometric space that fits in a few kilobytes.
+DAPHNE achieves 85% combined fitness on two dictionaries with ~15 tunable parameters and a geometric space that fits in a few kilobytes.
 
 ## Phase 11: 3W (What/Who/Where) + Chain Depth
 
@@ -454,7 +454,7 @@ montmorency: "a dog" → "dog" passes all filters → returns "dog" ✅
 
 ### Fix
 
-1. **`DictionaryEntry.is_entity` flag** added to `yalm-core`. Set to `true` during entity merge in `yalm-eval/main.rs`.
+1. **`DictionaryEntry.is_entity` flag** added to `dafhne-core`. Set to `true` during entity merge in `dafhne-eval/main.rs`.
 
 2. **Entity fast path** in `definition_category()`: when `entry.is_entity`, skip all heuristic filters (structural, connector, property, noun-check). Only skip articles (a/an/the) and the subject itself. First non-article dictionary word is the category.
 
@@ -464,11 +464,11 @@ montmorency: "a dog" → "dog" passes all filters → returns "dog" ✅
 
 | File | Change |
 |------|--------|
-| `yalm-core/src/lib.rs` | Added `is_entity: bool` field to `DictionaryEntry` |
-| `yalm-parser/src/dictionary.rs` | All 5 constructors: `is_entity: false` |
-| `yalm-cache/src/assembler.rs` | 1 constructor: `is_entity: false` |
-| `yalm-eval/src/main.rs` | Entity merge: `entity_entry.is_entity = true` |
-| `yalm-engine/src/resolver.rs` | Entity fast path in `definition_category()` |
+| `dafhne-core/src/lib.rs` | Added `is_entity: bool` field to `DictionaryEntry` |
+| `dafhne-parser/src/dictionary.rs` | All 5 constructors: `is_entity: false` |
+| `dafhne-cache/src/assembler.rs` | 1 constructor: `is_entity: false` |
+| `dafhne-eval/src/main.rs` | Entity merge: `entity_entry.is_entity = true` |
+| `dafhne-engine/src/resolver.rs` | Entity fast path in `definition_category()` |
 
 ### BEFORE/AFTER Comparison
 
@@ -554,7 +554,7 @@ All compound questions correctly decompose and combine. Entity definitions provi
 
 ### The Flip: Comprehension → Generation
 
-Phase 13 reverses the flow. Instead of answering questions about text, YALM now *describes* what it knows about words — generating natural-language sentences from definitions and chain inference.
+Phase 13 reverses the flow. Instead of answering questions about text, DAPHNE now *describes* what it knows about words — generating natural-language sentences from definitions and chain inference.
 
 Key design decision: **generation comes from definitions, not geometry**. Geometric proximity gives similarity (dog ≈ cat), not identity. The definitions are ground truth.
 
@@ -581,8 +581,8 @@ Input: word + dictionary + space
 
 | File | Change |
 |------|--------|
-| `yalm-engine/src/resolver.rs` | Added `describe()`, `find_siblings()`, `make_article()` |
-| `yalm-eval/src/main.rs` | Added `--describe`, `--describe-verify` CLI flags + `sentence_to_question()` |
+| `dafhne-engine/src/resolver.rs` | Added `describe()`, `find_siblings()`, `make_article()` |
+| `dafhne-eval/src/main.rs` | Added `--describe`, `--describe-verify` CLI flags + `sentence_to_question()` |
 
 No changes to engine, parser, core, equilibrium, or connector discovery.
 
@@ -754,7 +754,7 @@ Entity definitions produce clean 1-hop explanations. The 2-hop chain for Montmor
 
 ### Known Limitations
 
-1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. Honest — YALM knows what it was told, not deeper causal mechanisms.
+1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. Honest — DAPHNE knows what it was told, not deeper causal mechanisms.
 2. **"When" rarely has answers in dict5**: Most definitions lack temporal/conditional clauses. The "to feel good" in eat's definition is one of few extractable conditions.
 3. **Purpose ≈ temporal**: "to feel good" answers "when" because in ELI5 definitions, purpose IS the implicit condition ("you eat WHEN you want to feel good").
 4. **Chain can find spurious conditions** (Q09): Following chains too deep can find "to" clauses in definitional contexts that aren't really temporal answers.
@@ -811,7 +811,7 @@ Phase 16 introduced **multiple independent geometric spaces**, each with its own
 
 ### Architecture
 
-Each space is a complete YALM instance — independent connector discovery, independent equilibrium, independent resolver. Spaces connect only at query time through:
+Each space is a complete DAPHNE instance — independent connector discovery, independent equilibrium, independent resolver. Spaces connect only at query time through:
 
 1. **Bridge terms**: Words appearing in multiple spaces serve as handoff points. "number" bridges MATH and GRAMMAR.
 2. **TASK routing**: The TASK space computes geometric distance from query content words to domain labels ("math", "grammar", "content"). Closest domain handles the query.
@@ -819,7 +819,7 @@ Each space is a complete YALM instance — independent connector discovery, inde
 
 ### Code
 
-New file: `crates/yalm-engine/src/multispace.rs` (~1500 lines, later grew to ~2150).
+New file: `crates/dafhne-engine/src/multispace.rs` (~1500 lines, later grew to ~2150).
 CLI: `--spaces content:dict5.md,math:dict_math5.md,grammar:dict_grammar5.md,task:dict_task5.md`
 
 ### Results
@@ -859,18 +859,18 @@ Cross-space routing achieved 10/10 — every query that spans domains is correct
 
 ## Phase 18: SELF Space — Identity as Geometry
 
-### YALM Learns What It Is
+### DAPHNE Learns What It Is
 
-Phase 18 added a fifth space: SELF. The SELF dictionary (`dict_self5.md`) defines what YALM is, what it can do, and what it cannot do — all in the same ELI5 format as other dictionaries.
+Phase 18 added a fifth space: SELF. The SELF dictionary (`dict_self5.md`) defines what DAPHNE is, what it can do, and what it cannot do — all in the same ELI5 format as other dictionaries.
 
 ### Design Decision: Peer, Not Meta
 
-SELF is a regular geometric space, not a privileged meta-space. "YALM" is a point near "system" and "geometric" and "comprehension". Its capabilities are connectors. Its limitations are distances.
+SELF is a regular geometric space, not a privileged meta-space. "DAPHNE" is a point near "system" and "geometric" and "comprehension". Its capabilities are connectors. Its limitations are distances.
 
 ### Routing
 
 Self-referential queries detected by:
-- `self_triggers = ["yalm"]` — queries mentioning YALM by name
+- `self_triggers = ["dafhne"]` — queries mentioning DAPHNE by name
 - `self_patterns = [("are", "you"), ("can", "you"), ("do", "you")]` — second-person patterns
 
 ### Results
@@ -887,7 +887,7 @@ Self-referential queries detected by:
 | Full pipeline | 4/5 |
 | **Total** | **45/50 (90%)** |
 
-SELF space achieves 10/10 — YALM correctly answers questions about its own identity, capabilities, and limitations.
+SELF space achieves 10/10 — DAPHNE correctly answers questions about its own identity, capabilities, and limitations.
 
 ### Known Failures (5/50)
 
@@ -903,11 +903,11 @@ SELF space achieves 10/10 — YALM correctly answers questions about its own ide
 
 ### The Idea
 
-YALM generates descriptions of its known concepts (via describe()), feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
+DAPHNE generates descriptions of its known concepts (via describe()), feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
 
 ### Implementation
 
-New file: `crates/yalm-engine/src/bootstrap.rs` (245 lines).
+New file: `crates/dafhne-engine/src/bootstrap.rs` (245 lines).
 
 ```
 loop {
@@ -929,7 +929,7 @@ Converged at Level 2. The 4 new connectors at Level 1 include "is not" — emerg
 
 ### Significance
 
-This is YALM's first self-improvement mechanism that doesn't require human intervention (unlike evolution, which needs test suites). The bootstrap loop surfaces implicit grammar from definitions and incorporates it into the geometric space.
+This is DAPHNE's first self-improvement mechanism that doesn't require human intervention (unlike evolution, which needs test suites). The bootstrap loop surfaces implicit grammar from definitions and incorporates it into the geometric space.
 
 ## Phase 19b: Code Audit, README Overhaul, Prior Art Analysis
 
@@ -946,7 +946,7 @@ Before proceeding to Phase 20 (per-space parameter evolution), Phase 19b paused 
 
 ### The Honest Summary
 
-YALM is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.
+DAPHNE is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.
 
 ## Evolution Journey (Updated)
 
@@ -978,7 +978,7 @@ YALM is a geometric comprehension engine that combines established techniques (f
 Addressed 16 of the 24 findings from Phase 19b. Key changes:
 - **Hardcoded word lists removed**: `is_structural()` (28 words) replaced with per-space `classify_word_roles()` cache. Question verb detection uses discovered structural set.
 - **Magic constants externalized**: 5 new `EngineParams` fields (`max_follow_per_hop`, `max_chain_hops`, `weighted_distance_alpha`, `uniformity_num_buckets`, `uniformity_threshold`) with full evolution support.
-- **SELF triggers derived from vocabulary**: words unique to SELF space replace hardcoded `["yalm"]`.
+- **SELF triggers derived from vocabulary**: words unique to SELF space replace hardcoded `["dafhne"]`.
 - **Task indicators from space vocab**: grammar/content indicator arrays replaced with dictionary membership checks.
 - **Negation guard**: `preceded_by_not()` only fires when "not" connector exists in the space.
 - **Documentation**: NegationModel research results, language-specific layer annotations, TODO comments.
@@ -1010,15 +1010,15 @@ Rich property extraction for describe(), enabling stronger bootstrap loop signal
 ## Project Files
 
 ```
-yalm/
+dafhne/
 ├── crates/
-│   ├── yalm-core/         Data structures and traits
-│   ├── yalm-parser/        Dictionary, test, and grammar file parsing
-│   ├── yalm-engine/        Force field + resolver + connector discovery + multispace + bootstrap
-│   ├── yalm-eval/          Fitness scoring (+ --entities flag)
-│   ├── yalm-evolve/        Genetic algorithm
-│   ├── yalm-demo/          Interactive demo program
-│   └── yalm-cache/         LLM dictionary assembly (Ollama, Wiktionary)
+│   ├── dafhne-core/         Data structures and traits
+│   ├── dafhne-parser/        Dictionary, test, and grammar file parsing
+│   ├── dafhne-engine/        Force field + resolver + connector discovery + multispace + bootstrap
+│   ├── dafhne-eval/          Fitness scoring (+ --entities flag)
+│   ├── dafhne-evolve/        Genetic algorithm
+│   ├── dafhne-demo/          Interactive demo program
+│   └── dafhne-cache/         LLM dictionary assembly (Ollama, Wiktionary)
 ├── dictionaries/
 │   ├── dict5.md             51 words, CLOSED
 │   ├── dict12.md            1005 words, CLOSED

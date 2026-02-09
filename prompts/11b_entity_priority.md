@@ -48,7 +48,7 @@ The exact mechanism may vary by dictionary content, but the effect is consistent
 
 ### Step 1: Add `is_entity` flag to DictionaryEntry
 
-In `crates/yalm-core/src/lib.rs`:
+In `crates/dafhne-core/src/lib.rs`:
 
 ```rust
 #[derive(Debug, Clone)]
@@ -66,7 +66,7 @@ pub struct DictionaryEntry {
 ```
 
 **Important**: Every existing place that constructs a `DictionaryEntry` needs updating to include `is_entity: false`. This includes:
-- `parse_dictionary()` in yalm-parser
+- `parse_dictionary()` in dafhne-parser
 - Any assembler code that creates entries
 - The entity merge code (where `is_entity: true` is set)
 
@@ -74,7 +74,7 @@ Search for all struct literal constructions of `DictionaryEntry` across the code
 
 ### Step 2: Set the flag during entity merge
 
-In `crates/yalm-eval/src/main.rs`, in the entity merge section:
+In `crates/dafhne-eval/src/main.rs`, in the entity merge section:
 
 ```rust
 for mut entity_entry in entities_dict.entries {
@@ -85,7 +85,7 @@ for mut entity_entry in entities_dict.entries {
 
 ### Step 3: Bypass filters for entity definitions in definition_category()
 
-In `crates/yalm-engine/src/resolver.rs`, modify `definition_category()`:
+In `crates/dafhne-engine/src/resolver.rs`, modify `definition_category()`:
 
 ```rust
 fn definition_category(
@@ -192,7 +192,7 @@ Run once with this diagnostic to capture exactly which filter catches "person". 
 
 ```bash
 # 1. Diagnostic run (with debug prints, BEFORE fix)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -202,7 +202,7 @@ cargo run -p yalm-eval -- \
 # → Record which filter blocks "person" for harris/george
 
 # 2. Apply fix, then re-run 3w_test
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -212,7 +212,7 @@ cargo run -p yalm-eval -- \
 # Expected: ≥7/10 (was 3/10)
 
 # 3. full_test
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -222,7 +222,7 @@ cargo run -p yalm-eval -- \
 # Expected: ≥19/21 (was 17/21, +Q17 What is Harris, +Q18 What is George)
 
 # 4. granularity_test
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -232,21 +232,21 @@ cargo run -p yalm-eval -- \
 # Expected: ≥36/50 (no regression, possible improvement at Levels 2-3)
 
 # 5. dict5 regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_test.md \
     --mode equilibrium
 # Expected: 20/20 (no entities involved, is_entity always false)
 
 # 6. dict12 regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict12.md \
     --test dictionaries/dict12_test.md \
     --mode equilibrium
 # Expected: 14/20 (no entities involved)
 
 # 7. passage1 regression
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/passage1.md \
     --cache-type ollama \
     --cache dictionaries/cache/ollama-qwen3 \
@@ -307,12 +307,12 @@ dict5, dict12, passage1 don't use `--entities`, so `is_entity` is always false. 
 | dict5 | 20/20 |
 | dict12 | 14/20 |
 | passage1 | 5/5 |
-| Code changes | yalm-core (DictionaryEntry + is_entity field), yalm-parser (default false), yalm-eval/main.rs (set true on merge), yalm-engine/resolver.rs (entity fast path) |
+| Code changes | dafhne-core (DictionaryEntry + is_entity field), dafhne-parser (default false), dafhne-eval/main.rs (set true on merge), dafhne-engine/resolver.rs (entity fast path) |
 
 ## OUTPUT CHECKLIST
 
 1. ☐ Diagnostic run: identified which filter blocks "person" for harris/george
-2. ☐ `DictionaryEntry.is_entity` field added to yalm-core
+2. ☐ `DictionaryEntry.is_entity` field added to dafhne-core
 3. ☐ All `DictionaryEntry` constructors updated with `is_entity: false`
 4. ☐ Entity merge sets `is_entity: true`
 5. ☐ `definition_category()` entity fast path implemented

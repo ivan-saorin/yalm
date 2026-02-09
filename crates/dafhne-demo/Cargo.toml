@@ -1,0 +1,11 @@
+[package]
+name = "dafhne-demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dafhne-core = { path = "../dafhne-core" }
+dafhne-parser = { path = "../dafhne-parser" }
+dafhne-cache = { path = "../dafhne-cache" }
+dafhne-engine = { path = "../dafhne-engine" }
+clap = { version = "4", features = ["derive"] }

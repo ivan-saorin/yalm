@@ -2,9 +2,9 @@
 
 ## PREAMBLE
 
-YALM is a geometric comprehension engine that reads closed dictionaries and builds N-dimensional spaces where words are points. Until now, the geometry has been shaped by a **genetic algorithm (GA)** that tunes ~15 parameters over 50 generations × 50 population. The GA finds good configurations, but the system is not **plastic** — it doesn't adapt its geometry as it reads. The parameters are optimized externally, not discovered from the text itself.
+DAPHNE is a geometric comprehension engine that reads closed dictionaries and builds N-dimensional spaces where words are points. Until now, the geometry has been shaped by a **genetic algorithm (GA)** that tunes ~15 parameters over 50 generations × 50 population. The GA finds good configurations, but the system is not **plastic** — it doesn't adapt its geometry as it reads. The parameters are optimized externally, not discovered from the text itself.
 
-This is the single biggest architectural limitation. YALM currently demonstrates that a geometric configuration EXISTS that encodes comprehension. It does not demonstrate that text PRODUCES comprehension through geometry. That's a fundamentally different — and far stronger — claim.
+This is the single biggest architectural limitation. DAPHNE currently demonstrates that a geometric configuration EXISTS that encodes comprehension. It does not demonstrate that text PRODUCES comprehension through geometry. That's a fundamentally different — and far stronger — claim.
 
 ### What We Have (from prompts 01-07)
 
@@ -19,13 +19,13 @@ Three data points on the scaling curve, all produced by GA optimization. The gra
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/         Data structures, GeometricSpace, Answer, traits
-│   ├── yalm-parser/        Dictionary/test/grammar parsing
-│   ├── yalm-engine/        Force field + resolver
-│   ├── yalm-eval/          Fitness scoring
-│   └── yalm-evolve/        Genetic algorithm (THE THING WE'RE REPLACING)
+│   ├── dafhne-core/         Data structures, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/        Dictionary/test/grammar parsing
+│   ├── dafhne-engine/        Force field + resolver
+│   ├── dafhne-eval/          Fitness scoring
+│   └── dafhne-evolve/        Genetic algorithm (THE THING WE'RE REPLACING)
 ├── dictionaries/
 │   ├── dict5.md, dict5_test.md
 │   ├── dict12.md, dict12_test.md
@@ -38,9 +38,9 @@ D:\workspace\projects\yalm\
 ```
 
 **Key files for this phase:**
-- `crates/yalm-engine/src/force_field.rs` — where word positions are computed
-- `crates/yalm-engine/src/engine.rs` — orchestration
-- NEW: `crates/yalm-engine/src/equilibrium.rs` — the sequential learning algorithm
+- `crates/dafhne-engine/src/force_field.rs` — where word positions are computed
+- `crates/dafhne-engine/src/engine.rs` — orchestration
+- NEW: `crates/dafhne-engine/src/equilibrium.rs` — the sequential learning algorithm
 
 ---
 
@@ -292,7 +292,7 @@ The ultimate test: **can you set the parameters ONCE and have them work on any c
 Run sequential equilibrium on dict5 with grammar5. Compare against GA-optimized result (20/20, fitness 1.0).
 
 ```bash
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --mode equilibrium \
     --dict dictionaries/dict5.md \
     --grammar dictionaries/grammar5.md \
@@ -375,7 +375,7 @@ The CRITICAL metric is "params tuned per dict = 0". If the same parameters work 
 
 ## OUTPUT
 
-1. `crates/yalm-engine/src/equilibrium.rs` — the sequential learning module
+1. `crates/dafhne-engine/src/equilibrium.rs` — the sequential learning module
 2. Updated `engine.rs` with `--mode` flag
 3. Fitness table: equilibrium vs GA for all three dicts
 4. Order-sensitivity report (10 runs on dict5)

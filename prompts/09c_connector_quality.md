@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-YALM is a geometric comprehension engine. Prompt 09b added an LLM cache (Qwen3:8b via Ollama) that generates dict5-style definitions for any word on demand. The definitions are excellent — 10/10 quality, proper "is a" / "can" / "not" patterns.
+DAPHNE is a geometric comprehension engine. Prompt 09b added an LLM cache (Qwen3:8b via Ollama) that generates dict5-style definitions for any word on demand. The definitions are excellent — 10/10 quality, proper "is a" / "can" / "not" patterns.
 
 Prompt 09c-scaling fixed the connector discovery threshold to scale logarithmically with dictionary size. Result: connectors found went from 1 → 16 at 783 entries. But the discovered connectors are WRONG:
 
@@ -17,17 +17,17 @@ This prompt adds a **uniformity filter** as a second pass in connector discovery
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/         Data structures, GeometricSpace, Answer, traits
-│   ├── yalm-parser/        Dictionary/test/grammar parsing
-│   ├── yalm-engine/        Force field + resolver + equilibrium
+│   ├── dafhne-core/         Data structures, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/        Dictionary/test/grammar parsing
+│   ├── dafhne-engine/        Force field + resolver + equilibrium
 │   │   └── src/
 │   │       └── connector_discovery.rs   ← THE FILE TO CHANGE
-│   ├── yalm-eval/          Fitness scoring, CLI
-│   ├── yalm-evolve/        Genetic algorithm (legacy)
-│   ├── yalm-cache/         DictionaryCache trait + Manual + Wiktionary + Ollama
-│   └── yalm-wikt-build/    Wiktionary XML parser
+│   ├── dafhne-eval/          Fitness scoring, CLI
+│   ├── dafhne-evolve/        Genetic algorithm (legacy)
+│   ├── dafhne-cache/         DictionaryCache trait + Manual + Wiktionary + Ollama
+│   └── dafhne-wikt-build/    Wiktionary XML parser
 ├── dictionaries/
 │   ├── dict5.md, dict12.md, dict18.md
 │   └── cache/
@@ -40,7 +40,7 @@ D:\workspace\projects\yalm\
 └── RECAP.md
 ```
 
-**Key file:** `crates/yalm-engine/src/connector_discovery.rs`
+**Key file:** `crates/dafhne-engine/src/connector_discovery.rs`
 
 ---
 
@@ -290,7 +290,7 @@ This table is essential for debugging. If valid connectors are rejected (uniform
 Run dict5 with the uniformity filter. Must produce the SAME 11 connectors and 20/20 score.
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --grammar dictionaries/grammar5.md \
     --test dictionaries/dict5_test.md
@@ -308,7 +308,7 @@ if entries.len() < 100 {
 ### Test 2: Dict12
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict12.md \
     --grammar dictionaries/grammar5.md \
     --test dictionaries/dict12_test.md
@@ -319,7 +319,7 @@ Previous result: 14/20 with 117 connectors (too many). The uniformity filter sho
 ### Test 3: Dict18
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict18.md \
     --test dictionaries/dict18_test.md
 ```
@@ -329,7 +329,7 @@ Previous result: 14/20 with 297 connectors. Target: 20-40 connectors, score ≥ 
 ### Test 4: Ollama Dict5 Reconstruction (THE KEY TEST)
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --mode open \
     --text texts/dict5_defs.md \
     --cache dictionaries/cache/ollama-qwen3/ \
@@ -347,7 +347,7 @@ This is the test that tells us if the uniformity filter fixes the open-mode pipe
 ### Test 5: Passage1
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --mode open \
     --text texts/passage1.md \
     --cache dictionaries/cache/ollama-qwen3/ \

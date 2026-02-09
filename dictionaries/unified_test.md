@@ -170,19 +170,19 @@ Note: SELF space, direct definition lookup
 
 **Q42**: Are you a person?
 **A**: No
-Note: SELF space, yalm definition says "not a person"
+Note: SELF space, dafhne definition says "not a person"
 
 **Q43**: Are you an animal?
 **A**: No
-Note: SELF space, yalm definition says "not an animal"
+Note: SELF space, dafhne definition says "not an animal"
 
 **Q44**: Can you make mistakes?
 **A**: Yes
-Note: SELF space, mistake is defined as something yalm can make
+Note: SELF space, mistake is defined as something dafhne can make
 
 **Q45**: Do you have a body?
 **A**: No
-Note: SELF space, yalm has no body
+Note: SELF space, dafhne has no body
 
 ---
 
@@ -190,11 +190,11 @@ Note: SELF space, yalm has no body
 
 **Q46**: Can you count?
 **A**: Yes
-Note: SELF knows yalm can count, bridges to MATH
+Note: SELF knows dafhne can count, bridges to MATH
 
 **Q47**: Can you see?
 **A**: No
-Note: SELF knows yalm cannot see (no eyes)
+Note: SELF knows dafhne cannot see (no eyes)
 
 **Q48**: Can you read?
 **A**: Yes
@@ -202,7 +202,7 @@ Note: SELF direct capability
 
 **Q49**: Can you eat?
 **A**: No
-Note: SELF knows yalm cannot eat (no body)
+Note: SELF knows dafhne cannot eat (no body)
 
 **Q50**: Do you know what a dog is?
 **A**: Yes

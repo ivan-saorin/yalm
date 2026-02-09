@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are continuing development of YALM (Yet Another Language Model), a geometric comprehension engine written in pure Rust. YALM reads closed dictionaries, discovers connectors from text, builds N-dimensional geometric spaces, and answers questions via proximity queries. An evolutionary system tunes its parameters and strategy choices.
+You are continuing development of DAPHNE (Yet Another Language Model), a geometric comprehension engine written in pure Rust. DAPHNE reads closed dictionaries, discovers connectors from text, builds N-dimensional geometric spaces, and answers questions via proximity queries. An evolutionary system tunes its parameters and strategy choices.
 
 **Phase 4 is complete.** All targets met:
 
@@ -21,13 +21,13 @@ You are continuing development of YALM (Yet Another Language Model), a geometric
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/       Core types: EngineParams, GeometricSpace, Answer, TestQuestion
-│   ├── yalm-parser/     Dictionary/test file parsing, tokenization, stemming
-│   ├── yalm-engine/     Engine, resolver.rs (question answering), strategy.rs (18 variants)
-│   ├── yalm-eval/       Evaluation, fitness scoring (accuracy × 0.5 + honesty × 0.5)
-│   └── yalm-evolve/     Genetic algorithm: genome, population, mutation, crossover, runner
+│   ├── dafhne-core/       Core types: EngineParams, GeometricSpace, Answer, TestQuestion
+│   ├── dafhne-parser/     Dictionary/test file parsing, tokenization, stemming
+│   ├── dafhne-engine/     Engine, resolver.rs (question answering), strategy.rs (18 variants)
+│   ├── dafhne-eval/       Evaluation, fitness scoring (accuracy × 0.5 + honesty × 0.5)
+│   └── dafhne-evolve/     Genetic algorithm: genome, population, mutation, crossover, runner
 ├── dictionaries/
 │   ├── dict5.md          50 words, 5-year-old level, fully closed
 │   ├── dict5_test.md     20 questions: Q01-Q05 direct, Q06-Q10 transitive, Q11-Q14 negation, Q15-Q18 unknown, Q19-Q20 property
@@ -104,7 +104,7 @@ Current: nearest_word(dog, all_dims) → might return "cat" (co-occurrence neigh
 Desired: nearest_word(dog, projected_onto_is_a_axis) → should return "animal"
 ```
 
-**Key code location:** `resolve_what_is()` at `crates/yalm-engine/src/resolver.rs:621-682`
+**Key code location:** `resolve_what_is()` at `crates/dafhne-engine/src/resolver.rs:621-682`
 
 The function already has axis-projection infrastructure for Repulsion model (lines 634-640, 649-650). The same pattern can be adapted: find the "is a" connector, project onto its force_direction, find nearest along that axis.
 
@@ -154,11 +154,11 @@ For "Is a dog a cat?" — the system needs to distinguish "dog and cat are both 
 Add a mechanism where each entity has a unique identity. "Is a dog a cat?" fails because dog's identity ≠ cat's identity, even though they're geometrically close. This could be a reserved dimension or a lookup table.
 
 **Key code locations:**
-- `resolve_yes_no()`: `crates/yalm-engine/src/resolver.rs:470-531`
-- `resolve_yes_no_separate_dimension()`: `crates/yalm-engine/src/resolver.rs:533-587`
-- `decide_yes_no()`: `crates/yalm-engine/src/resolver.rs:589-608`
-- NegationModel enum: `crates/yalm-engine/src/strategy.rs:122-149`
-- Force application for negation: `crates/yalm-engine/src/force_field.rs`
+- `resolve_yes_no()`: `crates/dafhne-engine/src/resolver.rs:470-531`
+- `resolve_yes_no_separate_dimension()`: `crates/dafhne-engine/src/resolver.rs:533-587`
+- `decide_yes_no()`: `crates/dafhne-engine/src/resolver.rs:589-608`
+- NegationModel enum: `crates/dafhne-engine/src/strategy.rs:122-149`
+- Force application for negation: `crates/dafhne-engine/src/force_field.rs`
 
 ---
 
@@ -233,20 +233,20 @@ cargo build --workspace
 cargo test --workspace
 
 # Quick fitness check (default params, no evolution)
-cargo run -p yalm-engine -- --dict dictionaries/dict5.md --test dictionaries/dict5_test.md
+cargo run -p dafhne-engine -- --dict dictionaries/dict5.md --test dictionaries/dict5_test.md
 
 # Run evolution
-cargo run --release -p yalm-evolve -- run \
+cargo run --release -p dafhne-evolve -- run \
   --dict5 dictionaries/dict5.md --test5 dictionaries/dict5_test.md \
   --dict12 dictionaries/dict12.md --test12 dictionaries/dict12_test.md \
   --population 50 --generations 50 --results results_v7/ --seed 42
 
 # Evaluate best genome from a run
-cargo run --release -p yalm-evolve -- run-best results_v6b/ \
+cargo run --release -p dafhne-evolve -- run-best results_v6b/ \
   --dict dictionaries/dict5.md --test dictionaries/dict5_test.md
 
 # Analyze a generation
-cargo run -p yalm-evolve -- analyze results_v6b/gen_049/ --dict5 dictionaries/dict5.md
+cargo run -p dafhne-evolve -- analyze results_v6b/gen_049/ --dict5 dictionaries/dict5.md
 ```
 
 ---

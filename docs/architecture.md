@@ -1,4 +1,4 @@
-# YALM Architecture Deep-Dive
+# DAPHNE Architecture Deep-Dive
 
 > How a geometric comprehension engine works, from dictionary to answers.
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-YALM transforms text into geometry. It reads definitions, discovers recurring patterns (connectors), uses those patterns as physical forces to position words in N-dimensional space, and then answers questions by measuring distances and traversing definitions.
+DAPHNE transforms text into geometry. It reads definitions, discovers recurring patterns (connectors), uses those patterns as physical forces to position words in N-dimensional space, and then answers questions by measuring distances and traversing definitions.
 
 ```
 Dictionary → Connector Discovery → Force Field → Equilibrium → Geometric Space
@@ -20,7 +20,7 @@ No neural networks. No embeddings layer. No training corpus. The dictionary IS t
 
 ## Stage 1: The Closed Dictionary
 
-YALM starts from a **closed dictionary** — a markdown file where every word used in any definition is itself a defined entry.
+DAPHNE starts from a **closed dictionary** — a markdown file where every word used in any definition is itself a defined entry.
 
 ```markdown
 **dog** — an animal. it can make sound. it can live with a person.
@@ -46,7 +46,7 @@ The **closure property** means there are no undefined symbols. Every word in "an
 
 ### Open mode
 
-For arbitrary text, YALM assembles a dictionary on-the-fly:
+For arbitrary text, DAPHNE assembles a dictionary on-the-fly:
 1. Extract seed words from input text
 2. Query Ollama (qwen3) for ELI5 definitions
 3. Recursively define every word in every definition (closure chase)
@@ -215,7 +215,7 @@ Phase 16+ introduced **multiple independent geometric spaces** ("thought domains
 | MATH | dict_math5.md | Numbers, operations, counting |
 | GRAMMAR | dict_grammar5.md | Language structure — nouns, verbs, sentences |
 | TASK | dict_task5.md | Dispatcher — routes queries to correct domain(s) |
-| SELF | dict_self5.md | Identity — what YALM is, can do, cannot do |
+| SELF | dict_self5.md | Identity — what DAPHNE is, can do, cannot do |
 
 Each space runs its own connector discovery and equilibrium independently. They connect only at query time through:
 
@@ -258,12 +258,12 @@ The bootstrap loop discovers grammar that was implicit in the original definitio
 
 | Crate | Lines | Role |
 |-------|------:|------|
-| `yalm-core` | ~312 | Shared types: Dictionary, GeometricSpace, EngineParams, Connector, Answer |
-| `yalm-parser` | ~400 | Markdown parser for dictionaries, tests, grammar files |
-| `yalm-engine` | ~5600 | Core engine: connector discovery, equilibrium, force field, resolver, multispace, bootstrap |
-| `yalm-eval` | ~600 | Evaluation harness: runs test suites, computes fitness |
-| `yalm-evolve` | ~1200 | Genetic algorithm: genome, population, mutation, crossover, selection |
-| `yalm-demo` | ~400 | Interactive demo: load knowledge, answer questions, pretty-print |
-| `yalm-cache` | ~800 | Dictionary assembly from free text via LLM (Ollama, Wiktionary) |
+| `dafhne-core` | ~312 | Shared types: Dictionary, GeometricSpace, EngineParams, Connector, Answer |
+| `dafhne-parser` | ~400 | Markdown parser for dictionaries, tests, grammar files |
+| `dafhne-engine` | ~5600 | Core engine: connector discovery, equilibrium, force field, resolver, multispace, bootstrap |
+| `dafhne-eval` | ~600 | Evaluation harness: runs test suites, computes fitness |
+| `dafhne-evolve` | ~1200 | Genetic algorithm: genome, population, mutation, crossover, selection |
+| `dafhne-demo` | ~400 | Interactive demo: load knowledge, answer questions, pretty-print |
+| `dafhne-cache` | ~800 | Dictionary assembly from free text via LLM (Ollama, Wiktionary) |
 
 Total: ~9300 lines of Rust. Zero external ML dependencies.

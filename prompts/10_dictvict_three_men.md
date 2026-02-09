@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-YALM is a geometric comprehension engine that has progressed through nine phases:
+DAPHNE is a geometric comprehension engine that has progressed through nine phases:
 
 1. **Prompts 01-06**: Built and refined the core engine on closed dictionaries (dict5: 20/20, dict12: 15/20)
 2. **Prompt 07**: Scaled to dict18 (~2000 words), measured the three-point scaling curve
@@ -14,7 +14,7 @@ YALM is a geometric comprehension engine that has progressed through nine phases
 
 Phase 09c added a **uniformity filter** to connector discovery (structural words pass, content words rejected), reducing connector noise at scale while maintaining dict5 at 20/20.
 
-This prompt is the **integration test**. We feed YALM a real piece of literature — Jerome K. Jerome's *Three Men in a Boat* (1889) — and ask it questions about characters, events, and relationships. This is the first time the system encounters narrative text, named entities, humor, and Victorian prose.
+This prompt is the **integration test**. We feed DAPHNE a real piece of literature — Jerome K. Jerome's *Three Men in a Boat* (1889) — and ask it questions about characters, events, and relationships. This is the first time the system encounters narrative text, named entities, humor, and Victorian prose.
 
 *Three Men in a Boat* is ideal because:
 - It's public domain (published 1889)
@@ -26,15 +26,15 @@ This prompt is the **integration test**. We feed YALM a real piece of literature
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/         Data structures, GeometricSpace, Answer, traits
-│   ├── yalm-parser/        Dictionary/test/grammar parsing
-│   ├── yalm-engine/        Force field + resolver + equilibrium
-│   ├── yalm-eval/          Fitness scoring + CLI binary (cargo run -p yalm-eval)
-│   ├── yalm-evolve/        Genetic algorithm (legacy)
-│   ├── yalm-cache/         Dictionary cache (ManualFileCache, WiktionaryCache, OllamaCache)
-│   └── yalm-wikt-build/    Wiktionary dump builder (legacy)
+│   ├── dafhne-core/         Data structures, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/        Dictionary/test/grammar parsing
+│   ├── dafhne-engine/        Force field + resolver + equilibrium
+│   ├── dafhne-eval/          Fitness scoring + CLI binary (cargo run -p dafhne-eval)
+│   ├── dafhne-evolve/        Genetic algorithm (legacy)
+│   ├── dafhne-cache/         Dictionary cache (ManualFileCache, WiktionaryCache, OllamaCache)
+│   └── dafhne-wikt-build/    Wiktionary dump builder (legacy)
 ├── data/
 │   └── Three-Men-in-a-Boat.txt    ← Full book text (already present)
 ├── dictionaries/
@@ -64,11 +64,11 @@ D:\workspace\projects\yalm\
 
 ## IMPORTANT: CONSTRAINTS
 
-- The CLI binary is `yalm-eval`, not `yalm-engine`. All commands use `cargo run -p yalm-eval --`.
+- The CLI binary is `dafhne-eval`, not `dafhne-engine`. All commands use `cargo run -p dafhne-eval --`.
 - We use **OllamaCache** (`--cache-type ollama`) as the dictionary backend. The LLM generates definitions for ANY word, so there are no "not found" entries. Every seed word gets a definition.
 - The Ollama disk cache is at `dictionaries/cache/ollama-qwen3/`. Second runs are instant (100% disk hit rate).
 - Ollama must be running locally: `ollama serve` with model `qwen3:8b` pulled.
-- The full book text is already at `D:\workspace\projects\yalm\data\Three-Men-in-a-Boat.txt`. Do NOT download it again. Strip the Project Gutenberg header/footer when extracting passages.
+- The full book text is already at `D:\workspace\projects\dafhne\data\Three-Men-in-a-Boat.txt`. Do NOT download it again. Strip the Project Gutenberg header/footer when extracting passages.
 - Do NOT read the full book text into your context. Extract passages using targeted line-range reads or grep.
 
 ---
@@ -77,7 +77,7 @@ D:\workspace\projects\yalm\
 
 ### What's New About Narrative Text
 
-All previous YALM inputs have been **definitional**: "a dog is an animal" explicitly states a relationship. Narrative text encodes relationships **implicitly**:
+All previous DAPHNE inputs have been **definitional**: "a dog is an animal" explicitly states a relationship. Narrative text encodes relationships **implicitly**:
 
 - "Montmorency sat up and looked around" → Montmorency can sit and look (capabilities)
 - "Harris said he would be the one to carry the bag" → Harris is a person who can speak and carry things
@@ -105,11 +105,11 @@ The OllamaCache can generate definitions for common English words, but it doesn'
 
 ### What to Build
 
-Add an `--entities` CLI argument to `yalm-eval` that accepts a path to a dictionary-format `.md` file containing character/place definitions. These entity entries are **merged into the assembled dictionary** after assembly, overriding any cache-generated definitions for the same words.
+Add an `--entities` CLI argument to `dafhne-eval` that accepts a path to a dictionary-format `.md` file containing character/place definitions. These entity entries are **merged into the assembled dictionary** after assembly, overriding any cache-generated definitions for the same words.
 
 ### Implementation Details
 
-**1. CLI change** (`crates/yalm-eval/src/main.rs`):
+**1. CLI change** (`crates/dafhne-eval/src/main.rs`):
 
 ```rust
 /// Path to entity definitions file (merged into assembled dictionary, overrides cache)
@@ -219,7 +219,7 @@ Before proceeding to book passages, verify the `--entities` flag works:
 
 ```bash
 # Entities-only baseline (no narrative text, no cache)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --entities texts/three_men_supplementary/entities.md \
     --test texts/three_men/full_test.md \
     --mode equilibrium
@@ -234,7 +234,7 @@ cargo run -p yalm-eval -- \
 
 ### Source
 
-The full book is at `D:\workspace\projects\yalm\data\Three-Men-in-a-Boat.txt`.
+The full book is at `D:\workspace\projects\dafhne\data\Three-Men-in-a-Boat.txt`.
 
 Use grep/head/tail to locate chapter boundaries and passage content WITHOUT reading the full file. The book has chapter markers like "CHAPTER I.", "CHAPTER II.", etc.
 
@@ -277,7 +277,7 @@ Pick whichever approach produces cleaner test questions.
 
 ## TASK 2: WRITE TEST QUESTIONS
 
-Use the standard YALM test format (same as dict5_test.md / passage1_test.md):
+Use the standard DAPHNE test format (same as dict5_test.md / passage1_test.md):
 
 ```markdown
 ---
@@ -359,7 +359,7 @@ Start small, scale up. Record results at each level.
 **Level 1: Entities only (no narrative text, no cache)**
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --entities texts/three_men_supplementary/entities.md \
     --test texts/three_men/full_test.md \
     --mode equilibrium
@@ -370,7 +370,7 @@ This tells us what the entity definitions alone can answer. Baseline.
 **Level 2: Montmorency passage + entities + OllamaCache**
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/passage_montmorency.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -384,7 +384,7 @@ Does the narrative text ADD signal beyond the entity definitions? If passage sco
 **Level 3: Packing passage + entities + OllamaCache**
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/passage_packing.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -396,7 +396,7 @@ cargo run -p yalm-eval -- \
 **Level 4: Hampton Court passage + entities + OllamaCache**
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/passage_hampton_court.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -408,7 +408,7 @@ cargo run -p yalm-eval -- \
 **Level 5: Chapter 1 + entities + OllamaCache**
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/chapter_01.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -431,7 +431,7 @@ cat texts/three_men/passage_montmorency.md \
     texts/three_men/chapter_01.md \
     > texts/three_men/combined.md
 
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -446,14 +446,14 @@ After implementing `--entities`, verify zero regression on existing tests:
 
 ```bash
 # dict5 (closed mode, no entities)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_test.md \
     --mode equilibrium
 # Expected: 20/20
 
 # passage1 (open mode, no entities)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/passage1.md \
     --cache-type ollama \
     --cache dictionaries/cache/ollama-qwen3 \
@@ -522,7 +522,7 @@ Record:
 
 ## WHAT NOT TO DO
 
-- Do NOT modify the engine, equilibrium, resolver, or connector discovery code. The ONLY code change is adding `--entities` to `yalm-eval/main.rs`.
+- Do NOT modify the engine, equilibrium, resolver, or connector discovery code. The ONLY code change is adding `--entities` to `dafhne-eval/main.rs`.
 - Do NOT hand-tune parameters for Three Men in a Boat. Same defaults as prompt 09.
 - Do NOT write test questions that require temporal reasoning, irony detection, or attribution.
 - Do NOT include entity definitions as part of the test score commentary. They're input, not output. The test measures what the system INFERS.
@@ -547,7 +547,7 @@ Note: targets are deliberately lower than dict5/12/18. This is the hardest test 
 
 ## OUTPUT CHECKLIST
 
-1. ☐ `--entities` flag implemented in `yalm-eval/main.rs`
+1. ☐ `--entities` flag implemented in `dafhne-eval/main.rs`
 2. ☐ Regression tests pass (dict5 20/20, passage1 5/5)
 3. ☐ Entity definitions file: `texts/three_men_supplementary/entities.md`
 4. ☐ Extracted passages: `texts/three_men/passage_montmorency.md`, `passage_packing.md`, `passage_hampton_court.md`, `chapter_01.md`

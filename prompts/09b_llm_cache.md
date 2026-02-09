@@ -2,13 +2,13 @@
 
 ## PREAMBLE
 
-YALM is a geometric comprehension engine. Prompt 09 added a dictionary cache pipeline: free text → BFS closure chase → assembled Dictionary → Equilibrium → Resolver. Two backends were built: ManualFileCache and WiktionaryCache.
+DAPHNE is a geometric comprehension engine. Prompt 09 added a dictionary cache pipeline: free text → BFS closure chase → assembled Dictionary → Equilibrium → Resolver. Two backends were built: ManualFileCache and WiktionaryCache.
 
 Results showed the architecture works, but **Wiktionary definitions are too noisy for connector discovery** — the engine found only 1 connector ("a") vs 11 for hand-crafted dict5 definitions. Fitness dropped from 0.8438 (manual cache) to 0.6875 (Wiktionary).
 
 The root cause isn't the pipeline — it's the SHAPE of real dictionary definitions. "A domestic mammal of the family Canidae" doesn't contain the "is a", "can", "not" patterns the connector discovery algorithm was built for.
 
-This prompt adds a third backend: **OllamaCache**, which calls a local Qwen3:8b model to generate definitions in dict5 style. A style prompt constrains the LLM output to produce exactly the sentence patterns YALM's connector discovery expects. The LLM becomes a definition TRANSLATOR — it knows what "dog" means and expresses it in YALM-compatible language.
+This prompt adds a third backend: **OllamaCache**, which calls a local Qwen3:8b model to generate definitions in dict5 style. A style prompt constrains the LLM output to produce exactly the sentence patterns DAPHNE's connector discovery expects. The LLM becomes a definition TRANSLATOR — it knows what "dog" means and expresses it in DAPHNE-compatible language.
 
 Verified: Qwen3:8b with `/nothink` generates clean output in ~2-5 seconds per word.
 
@@ -17,15 +17,15 @@ Example: `soul: a part of a person. it is a thing that can feel love and care. i
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/         Data structures, GeometricSpace, Answer, traits
-│   ├── yalm-parser/        Dictionary/test/grammar parsing
-│   ├── yalm-engine/        Force field + resolver + equilibrium
-│   ├── yalm-eval/          Fitness scoring, CLI (--mode open)
-│   ├── yalm-evolve/        Genetic algorithm (legacy)
-│   ├── yalm-cache/         DictionaryCache trait + ManualFileCache + WiktionaryCache
-│   └── yalm-wikt-build/    Wiktionary XML parser
+│   ├── dafhne-core/         Data structures, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/        Dictionary/test/grammar parsing
+│   ├── dafhne-engine/        Force field + resolver + equilibrium
+│   ├── dafhne-eval/          Fitness scoring, CLI (--mode open)
+│   ├── dafhne-evolve/        Genetic algorithm (legacy)
+│   ├── dafhne-cache/         DictionaryCache trait + ManualFileCache + WiktionaryCache
+│   └── dafhne-wikt-build/    Wiktionary XML parser
 ├── dictionaries/
 │   ├── dict5.md, dict12.md, dict18.md
 │   └── cache/
@@ -38,8 +38,8 @@ D:\workspace\projects\yalm\
 └── RECAP.md
 ```
 
-**Key file to modify:** `crates/yalm-cache/src/lib.rs` (or new file `ollama.rs`)
-**Key file to modify:** `crates/yalm-eval/src/main.rs` (add `--cache-type ollama` option)
+**Key file to modify:** `crates/dafhne-cache/src/lib.rs` (or new file `ollama.rs`)
+**Key file to modify:** `crates/dafhne-eval/src/main.rs` (add `--cache-type ollama` option)
 
 ---
 
@@ -271,10 +271,10 @@ The BFS assembler will make many sequential LLM calls. Print progress:
 
 ## CLI INTEGRATION
 
-Add `--cache-type ollama` to yalm-eval:
+Add `--cache-type ollama` to dafhne-eval:
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --mode open \
     --text texts/passage1.md \
     --cache dictionaries/cache/ollama-qwen3/ \
@@ -326,7 +326,7 @@ If any definition is bad (verbose, uses jargon, missing patterns), adjust the st
 ### Test 2: Dict5 Reconstruction (The Acid Test)
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --mode open \
     --text texts/dict5_defs.md \
     --cache dictionaries/cache/ollama-qwen3/ \
@@ -407,9 +407,9 @@ The CRITICAL metric is **connectors found**. If Ollama definitions produce ≥ 8
 
 ## OUTPUT
 
-1. `crates/yalm-cache/src/ollama.rs` — OllamaCache implementation
-2. Updated `yalm-cache/src/lib.rs` — export OllamaCache
-3. Updated `yalm-eval/src/main.rs` — `--cache-type ollama` + `--ollama-url` + `--ollama-model` flags
+1. `crates/dafhne-cache/src/ollama.rs` — OllamaCache implementation
+2. Updated `dafhne-cache/src/lib.rs` — export OllamaCache
+3. Updated `dafhne-eval/src/main.rs` — `--cache-type ollama` + `--ollama-url` + `--ollama-model` flags
 4. Style prompt stored as a constant or config file
 5. Spot-check results for 10 dict5 words
 6. Comparison table: all four backends on dict5 reconstruction

@@ -1,4 +1,4 @@
-# YALM — Yet Another Language Model
+# DAPHNE — Yet Another Language Model
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -6,11 +6,11 @@
 
 **A geometric comprehension engine that understands language through physics, not statistics.**
 
-**TL;DR** — YALM constructs word vector spaces from closed ELI5 dictionary definitions using typed force-field equilibrium, without neural networks. The pipeline: closed dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement. 51 words → 20/20 perfect. 2008 words → 14/20 with sublinear decay. 5 geometric spaces → 45/50 (90%). The honest finding: geometry encodes similarity, definitions encode identity, absence encodes uncertainty. You need all three.
+**TL;DR** — DAPHNE constructs word vector spaces from closed ELI5 dictionary definitions using typed force-field equilibrium, without neural networks. The pipeline: closed dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement. 51 words → 20/20 perfect. 2008 words → 14/20 with sublinear decay. 5 geometric spaces → 45/50 (90%). The honest finding: geometry encodes similarity, definitions encode identity, absence encodes uncertainty. You need all three.
 
 ---
 
-YALM reads a closed dictionary, places every word as a point in N-dimensional space, and lets sentences act as physical forces that push related words together. After the force field reaches equilibrium, the geometry *is* the knowledge — questions become distance measurements, reasoning becomes chain traversal, and "I don't know" falls out naturally when nothing is close enough.
+DAPHNE reads a closed dictionary, places every word as a point in N-dimensional space, and lets sentences act as physical forces that push related words together. After the force field reaches equilibrium, the geometry *is* the knowledge — questions become distance measurements, reasoning becomes chain traversal, and "I don't know" falls out naturally when nothing is close enough.
 
 No neural networks. No embeddings. No training corpus. Just definitions, forces, and geometry.
 
@@ -18,14 +18,14 @@ No neural networks. No embeddings. No training corpus. Just definitions, forces,
 
 ```bash
 cargo build --release
-cargo run --release -p yalm-demo -- -k dictionaries/dict5.md -q questions_demo.md
+cargo run --release -p dafhne-demo -- -k dictionaries/dict5.md -q questions_demo.md
 ```
 
 Output:
 
 ```
   ╔════════════════════════════════════════════════════╗
-  ║           YALM — Geometric Comprehension           ║
+  ║           DAPHNE — Geometric Comprehension           ║
   ╚════════════════════════════════════════════════════╝
 
   Knowledge : dict5.md (51 entries)
@@ -106,18 +106,18 @@ Five independent geometric spaces ("thought domains"):
 | MATH | dict_math5.md | Numbers, operations, counting |
 | GRAMMAR | dict_grammar5.md | Language structure — nouns, verbs, sentences |
 | TASK | dict_task5.md | Dispatcher — routes queries to correct domain(s) |
-| SELF | dict_self5.md | Identity — what YALM is, can do, cannot do |
+| SELF | dict_self5.md | Identity — what DAPHNE is, can do, cannot do |
 
 Each space runs its own equilibrium independently. Connected at query time through bridge terms and geometric routing.
 
 A **bootstrap loop** (Phase 19) enables self-improvement: describe() generates text, connector discovery finds new patterns, the space rebuilds with richer grammar — all without changing the dictionary.
 
-## Using yalm-demo
+## Using dafhne-demo
 
 ### Closed dictionary (default)
 
 ```bash
-cargo run --release -p yalm-demo -- \
+cargo run --release -p dafhne-demo -- \
   -k dictionaries/dict5.md \
   -q questions_demo.md
 ```
@@ -127,7 +127,7 @@ cargo run --release -p yalm-demo -- \
 ```bash
 ollama pull qwen3:8b && ollama serve
 
-cargo run --release -p yalm-demo -- \
+cargo run --release -p dafhne-demo -- \
   -k texts/three_men/combined.md \
   --entities texts/three_men_supplementary/entities.md \
   --cache-type ollama \
@@ -156,13 +156,13 @@ Seven Rust crates, ~9300 lines total, zero ML dependencies:
 
 | Crate | Role |
 |-------|------|
-| `yalm-core` | Shared types — Dictionary, GeometricSpace, EngineParams |
-| `yalm-parser` | Markdown dictionary and test file parsing |
-| `yalm-engine` | Core engine — connector discovery, force field, equilibrium, resolver, multispace, bootstrap |
-| `yalm-eval` | Evaluation harness — test suites, fitness scoring |
-| `yalm-evolve` | Genetic algorithm — parameter and strategy evolution |
-| `yalm-demo` | Interactive demo with pretty-printing |
-| `yalm-cache` | Dictionary assembly from free text via LLM (Ollama) |
+| `dafhne-core` | Shared types — Dictionary, GeometricSpace, EngineParams |
+| `dafhne-parser` | Markdown dictionary and test file parsing |
+| `dafhne-engine` | Core engine — connector discovery, force field, equilibrium, resolver, multispace, bootstrap |
+| `dafhne-eval` | Evaluation harness — test suites, fitness scoring |
+| `dafhne-evolve` | Genetic algorithm — parameter and strategy evolution |
+| `dafhne-demo` | Interactive demo with pretty-printing |
+| `dafhne-cache` | Dictionary assembly from free text via LLM (Ollama) |
 
 Strategy evolution explores 5 algorithmic dimensions: force function, connector detection, space initialization, multi-connector handling, and negation model — plus ~15 continuous parameters, all co-evolved by genetic algorithm.
 
@@ -182,10 +182,10 @@ All are **closed dictionaries** — every word in every definition is itself def
 
 ```bash
 # Evaluation harness
-cargo run --release -p yalm-eval
+cargo run --release -p dafhne-eval
 
 # Run evolution
-cargo run --release -p yalm-evolve -- run \
+cargo run --release -p dafhne-evolve -- run \
   --dict5 dictionaries/dict5.md --test5 dictionaries/dict5_test.md \
   --population 50 --generations 50 --results results
 ```
@@ -193,15 +193,15 @@ cargo run --release -p yalm-evolve -- run \
 ## Project Structure
 
 ```
-yalm/
+dafhne/
 ├── crates/                     # 7 Rust crates
-│   ├── yalm-core/              # Shared types
-│   ├── yalm-parser/            # Dictionary parsing
-│   ├── yalm-engine/            # Core engine (connector discovery, force field, resolver, multispace)
-│   ├── yalm-eval/              # Evaluation and fitness
-│   ├── yalm-evolve/            # Genetic algorithm
-│   ├── yalm-demo/              # Interactive demo
-│   └── yalm-cache/             # LLM dictionary assembly
+│   ├── dafhne-core/              # Shared types
+│   ├── dafhne-parser/            # Dictionary parsing
+│   ├── dafhne-engine/            # Core engine (connector discovery, force field, resolver, multispace)
+│   ├── dafhne-eval/              # Evaluation and fitness
+│   ├── dafhne-evolve/            # Genetic algorithm
+│   ├── dafhne-demo/              # Interactive demo
+│   └── dafhne-cache/             # LLM dictionary assembly
 ├── dictionaries/               # Closed dictionaries + tests + grammar files
 ├── texts/                      # Open-mode texts (Three Men in a Boat)
 ├── docs/                       # Deep-dive documentation
@@ -224,7 +224,7 @@ yalm/
 
 ## What This Proves
 
-YALM demonstrates that **geometric structure from definitions** can produce meaningful comprehension without neural networks. The system achieves perfect scores on small dictionaries, scales sublinearly, produces honest uncertainty, self-improves through evolution and bootstrap, and handles all 5W question types plus Boolean operators and text generation.
+DAPHNE demonstrates that **geometric structure from definitions** can produce meaningful comprehension without neural networks. The system achieves perfect scores on small dictionaries, scales sublinearly, produces honest uncertainty, self-improves through evolution and bootstrap, and handles all 5W question types plus Boolean operators and text generation.
 
 The honest finding: geometry encodes similarity (what's related), definitions encode identity (what IS what), and absence encodes uncertainty (what's unknown). You need all three. The hybrid geometry + symbolic chain traversal is not a compromise — it's the architecture.
 
@@ -238,21 +238,21 @@ No external data, no API keys, no GPU needed for closed-dictionary mode.
 
 ## Citation
 
-If you use YALM in your research, please cite:
+If you use DAPHNE in your research, please cite:
 
 ```bibtex
-@software{yalm2026,
-  title     = {YALM: Yet Another Language Model --- A Geometric Comprehension Engine},
+@software{dafhne2026,
+  title     = {DAPHNE: Yet Another Language Model --- A Geometric Comprehension Engine},
   author    = {Ivan Saorin},
   year      = {2026},
-  url       = {https://github.com/your-org/yalm},
+  url       = {https://github.com/ivan-saorin/dafhne},
   note      = {Geometric comprehension from closed dictionaries via typed force-field equilibrium}
 }
 ```
 
 ### Related Work
 
-YALM builds on ideas from conceptual spaces, knowledge graph embeddings, and dictionary-based learning. For a full analysis with 20 citations, see [docs/prior_art.md](docs/prior_art.md). Key references:
+DAPHNE builds on ideas from conceptual spaces, knowledge graph embeddings, and dictionary-based learning. For a full analysis with 20 citations, see [docs/prior_art.md](docs/prior_art.md). Key references:
 
 - Gardenfors, P. (2000). *Conceptual Spaces: The Geometry of Thought*. MIT Press.
 - Bordes, A. et al. (2013). "Translating Embeddings for Modeling Multi-relational Data." *NeurIPS 2013*.

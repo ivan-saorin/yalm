@@ -1,6 +1,6 @@
-# YALM Limitations
+# DAPHNE Limitations
 
-> An honest assessment of what YALM cannot do, and why.
+> An honest assessment of what DAPHNE cannot do, and why.
 
 ---
 
@@ -10,15 +10,15 @@
 
 The deepest limitation. Dog and cat are both geometrically close to animal (they are similar). But "Is a dog a cat?" should be No, and "Is a dog an animal?" should be Yes. Distance is symmetric — it cannot encode directed "is-a" relationships.
 
-**Consequence**: Yes/No resolution requires a definition-chain gate on top of geometry. This makes YALM a hybrid system (geometry + symbols), not a pure geometric engine.
+**Consequence**: Yes/No resolution requires a definition-chain gate on top of geometry. This makes DAPHNE a hybrid system (geometry + symbols), not a pure geometric engine.
 
-**Why it's fundamental**: This is a property of metric spaces, not a YALM-specific bug. Any system using distance as the sole knowledge representation will face this. TransE (head + relation = tail) addresses it by making relations directional vectors, not scalar distances.
+**Why it's fundamental**: This is a property of metric spaces, not a DAPHNE-specific bug. Any system using distance as the sole knowledge representation will face this. TransE (head + relation = tail) addresses it by making relations directional vectors, not scalar distances.
 
 ### 2. No Causal Model
 
-YALM knows THAT things are related but not WHY in any deep sense. "Why is a dog an animal?" → "because a dog is an animal" (the definition IS the explanation). This is tautological — correct but shallow.
+DAPHNE knows THAT things are related but not WHY in any deep sense. "Why is a dog an animal?" → "because a dog is an animal" (the definition IS the explanation). This is tautological — correct but shallow.
 
-**Consequence**: YALM cannot explain mechanisms, processes, or causal chains beyond what definitions state explicitly.
+**Consequence**: DAPHNE cannot explain mechanisms, processes, or causal chains beyond what definitions state explicitly.
 
 **Why it's fundamental**: The definitions are the only input. If a definition doesn't explain causation, there is no other source to draw from. Geometry encodes co-occurrence and taxonomic structure, not causal direction.
 
@@ -30,7 +30,7 @@ Geometry has no time axis. "When does a person eat?" is answered by extracting p
 
 ### 4. Vocabulary Scale
 
-YALM has been tested up to 2008 words (dict18) and 2429 words (open mode). This is orders of magnitude smaller than real-world vocabulary (~100K active English words, 1M+ total).
+DAPHNE has been tested up to 2008 words (dict18) and 2429 words (open mode). This is orders of magnitude smaller than real-world vocabulary (~100K active English words, 1M+ total).
 
 **What we know**: The scaling curve is sublinear (1005→2008 words costs only 0.03 fitness). But we don't know if this holds at 10K, 50K, or 100K words.
 
@@ -71,12 +71,12 @@ The following English-specific knowledge is hardcoded in the resolver and multis
 | Structural words | ~30 English function words | multispace.rs |
 | Negation detection | literal "not" | resolver.rs |
 | Number words | "zero" through "ten" | multispace.rs |
-| Self-triggers | "yalm", "you" patterns | multispace.rs |
+| Self-triggers | "dafhne", "you" patterns | multispace.rs |
 | Task indicators | English domain keywords | multispace.rs |
 
 ### What Would Break in Another Language
 
-- **Question type detection**: Completely English-specific. A French YALM would need "est-ce que", "qu'est-ce que", "pourquoi", etc.
+- **Question type detection**: Completely English-specific. A French DAPHNE would need "est-ce que", "qu'est-ce que", "pourquoi", etc.
 - **Article handling**: Languages without articles (Russian, Japanese, Chinese) would need different function-word filtering.
 - **SVO word order**: The resolver assumes Subject-Verb-Object order for English questions. SOV languages (Japanese, Korean, Turkish) would need different parsing.
 - **Connector patterns**: "is a", "can", "not" are English-specific. But the DISCOVERY process is language-independent — the frequency/uniformity pipeline would find "est un", "peut", "ne...pas" in French text.
@@ -123,10 +123,10 @@ The following English-specific knowledge is hardcoded in the resolver and multis
 
 ---
 
-## What YALM is NOT
+## What DAPHNE is NOT
 
 - **Not a general-purpose language model**: It cannot generate free text, translate, summarize, or have conversations.
 - **Not scalable to arbitrary text**: Open mode works but requires an LLM preprocessor for definitions.
 - **Not language-independent (yet)**: The engine core is, but the interface layer is English-only.
-- **Not a replacement for neural networks**: At 2000 words, YALM achieves 90% on structured questions. GPT-4 achieves 90%+ on free-form text about millions of concepts. Different tools, different scales.
+- **Not a replacement for neural networks**: At 2000 words, DAPHNE achieves 90% on structured questions. GPT-4 achieves 90%+ on free-form text about millions of concepts. Different tools, different scales.
 - **Not a pure geometric engine**: The definition-chain gate is symbolic. The hybrid is the system, not a compromise.

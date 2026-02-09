@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Closure checker for YALM dictionaries.
+Closure checker for DAPHNE dictionaries.
 
 Verifies that every word in every definition and example is itself defined
 in the dictionary (or is a recognized inflection/exception).
@@ -482,7 +482,7 @@ def print_report(violations, total_entries, filename):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="YALM dictionary closure checker")
+    parser = argparse.ArgumentParser(description="DAPHNE dictionary closure checker")
     parser.add_argument("dict_file", help="Path to the dictionary .md file to check")
     parser.add_argument("--against", help="Check grammar file against this dictionary's entries (for grammar files)")
     args = parser.parse_args()

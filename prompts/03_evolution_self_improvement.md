@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are building the evolution layer for YALM (Yet Another Language Model). YALM v0.1 (built in Prompt 02) is a geometric comprehension engine that:
+You are building the evolution layer for DAPHNE (Yet Another Language Model). DAPHNE v0.1 (built in Prompt 02) is a geometric comprehension engine that:
 
 1. Reads a closed dictionary (dict5: 50 words)
 2. Discovers connectors from text statistically
@@ -184,18 +184,18 @@ The 70/30 split ensures the system optimizes for dict5 first but doesn't overfit
 
 ## IMPLEMENTATION
 
-### New crate: yalm-evolve
+### New crate: dafhne-evolve
 
 Add to the workspace:
 
 ```
-yalm/
+dafhne/
 ├── crates/
-│   ├── yalm-core/
-│   ├── yalm-parser/
-│   ├── yalm-engine/
-│   ├── yalm-eval/
-│   └── yalm-evolve/     ← NEW
+│   ├── dafhne-core/
+│   ├── dafhne-parser/
+│   ├── dafhne-engine/
+│   ├── dafhne-eval/
+│   └── dafhne-evolve/     ← NEW
 │       ├── src/
 │       │   ├── lib.rs
 │       │   ├── genome.rs
@@ -275,7 +275,7 @@ fn evolve(config: &EvolutionConfig) -> Genome {
 After each generation, update `results/STATUS.md` with:
 
 ```markdown
-# YALM Evolution Status
+# DAPHNE Evolution Status
 
 ## Current Generation: N
 
@@ -378,7 +378,7 @@ For chains like dog→animal→thing: measure whether `dist(dog, thing) < dist(d
 
 ```bash
 # Run evolution
-cargo run --release -p yalm-evolve -- \
+cargo run --release -p dafhne-evolve -- \
     --dict5 dictionaries/dict5.md \
     --test5 dictionaries/dict5_test.md \
     --population 30 \
@@ -386,13 +386,13 @@ cargo run --release -p yalm-evolve -- \
     --results results/
 
 # Analyze a specific generation
-cargo run -p yalm-evolve -- analyze results/gen_015/
+cargo run -p dafhne-evolve -- analyze results/gen_015/
 
 # Run best genome on a specific dictionary
-cargo run -p yalm-evolve -- run-best results/ --dict dictionaries/dict12.md
+cargo run -p dafhne-evolve -- run-best results/ --dict dictionaries/dict12.md
 
 # Resume interrupted evolution
-cargo run --release -p yalm-evolve -- --resume results/
+cargo run --release -p dafhne-evolve -- --resume results/
 ```
 
 ## SUCCESS CRITERIA
@@ -432,7 +432,7 @@ cargo run --release -p yalm-evolve -- --resume results/
 ## OUTPUT
 
 Produce:
-1. All Rust source files for `yalm-evolve` crate
+1. All Rust source files for `dafhne-evolve` crate
 2. Updated workspace `Cargo.toml`
 3. Updated `README.md` with evolution instructions
 4. `results/STATUS.md` template

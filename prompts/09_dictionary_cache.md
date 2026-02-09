@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-YALM is a geometric comprehension engine. Through prompts 01-08 it has demonstrated:
+DAPHNE is a geometric comprehension engine. Through prompts 01-08 it has demonstrated:
 
 1. **Geometric comprehension works** on closed dictionaries at three scales (50, ~400, ~2000 words)
 2. **The scaling curve** tells us how fitness degrades with vocabulary size (from prompt 07)
@@ -10,19 +10,19 @@ YALM is a geometric comprehension engine. Through prompts 01-08 it has demonstra
 
 The remaining bottleneck is **closure**. Every dictionary so far was hand-crafted to ensure every word in every definition is itself defined. This constraint made the science clean but the system impractical. Nobody will hand-close 10,000 words.
 
-This prompt adds a **dictionary cache** — an external lookup that provides definitions on demand. YALM stops reading a specific constructed dictionary and starts reading ANY text, pulling definitions as needed. The dictionary becomes infrastructure, not input.
+This prompt adds a **dictionary cache** — an external lookup that provides definitions on demand. DAPHNE stops reading a specific constructed dictionary and starts reading ANY text, pulling definitions as needed. The dictionary becomes infrastructure, not input.
 
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/         Data structures, GeometricSpace, Answer, traits
-│   ├── yalm-parser/        Dictionary/test/grammar parsing + NEW: cache parser
-│   ├── yalm-engine/        Force field + resolver + equilibrium
-│   ├── yalm-eval/          Fitness scoring
-│   ├── yalm-evolve/        Genetic algorithm (legacy)
-│   └── yalm-cache/         NEW: dictionary cache crate
+│   ├── dafhne-core/         Data structures, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/        Dictionary/test/grammar parsing + NEW: cache parser
+│   ├── dafhne-engine/        Force field + resolver + equilibrium
+│   ├── dafhne-eval/          Fitness scoring
+│   ├── dafhne-evolve/        Genetic algorithm (legacy)
+│   └── dafhne-cache/         NEW: dictionary cache crate
 ├── dictionaries/
 │   ├── dict5.md, dict12.md, dict18.md  (existing)
 │   └── cache/
@@ -78,7 +78,7 @@ The key insight: **steps 1-5 produce an object identical to what dict18.md provi
 
 ## TASK 1: DICTIONARY CACHE CRATE
 
-### New Crate: `yalm-cache`
+### New Crate: `dafhne-cache`
 
 This crate provides a `DictionaryCache` trait and implementations.
 
@@ -249,13 +249,13 @@ Simpler alternative: use a minimal hardcoded stop word list for the first implem
 
 ```bash
 # Old: closed dictionary
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --mode equilibrium \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_test.md
 
 # New: free text with cache
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --mode open \
     --text texts/passage1.md \
     --cache dictionaries/cache/simple-wiktionary/ \
@@ -356,8 +356,8 @@ The CRITICAL metric is dict5 reconstruction. If hand-crafted definitions score 2
 
 ## OUTPUT
 
-1. `crates/yalm-cache/` — new crate with DictionaryCache trait + implementations
-2. Dictionary assembler module (in yalm-cache or yalm-parser)
+1. `crates/dafhne-cache/` — new crate with DictionaryCache trait + implementations
+2. Dictionary assembler module (in dafhne-cache or dafhne-parser)
 3. Simple English Wiktionary parser + build script
 4. Updated engine binary with `--mode open` support
 5. Test passages + test questions in `texts/`

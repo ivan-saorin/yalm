@@ -2,13 +2,13 @@
 """
 r0x-003: SPL Equilibrium - Population-Based Word Positioning
 
-Replaces YALM's force-field equilibrium with predator-prey dynamics.
+Replaces DAPHNE's force-field equilibrium with predator-prey dynamics.
 Each word has a POPULATION of positions (prey). Connectors act as
 predators hunting word pairs that violate their relationships.
 
 Phases:
   A: Minimal SPL engine for word positioning
-  B: Run on dict5, compare with YALM equilibrium (20/20 target)
+  B: Run on dict5, compare with DAPHNE equilibrium (20/20 target)
   C: Montmorency bimodal test (needs dict with Montmorency)
   D: Set operations proof (dict5 + science5)
 
@@ -58,7 +58,7 @@ class SPLConfig:
     minimum_temperature: float = 0.01
     max_prey_per_word: int = 100
     seed: int = 42
-    # Force parameters (from YALM)
+    # Force parameters (from DAPHNE)
     negation_inversion: float = -1.0
     bidirectional_force: float = 0.3
 
@@ -105,7 +105,7 @@ class Relation:
 
 
 def parse_dictionary(filepath: str) -> Tuple[Dict[str, str], List[str], Set[str]]:
-    """Parse a YALM dictionary file. Returns (definitions, entry_words, entry_set)."""
+    """Parse a DAPHNE dictionary file. Returns (definitions, entry_words, entry_set)."""
     definitions = {}
     entry_words = []
     entry_set = set()
@@ -282,7 +282,7 @@ def discover_connectors_and_relations(
 class SPLWordEngine:
     """SPL-based word positioning engine using predator-prey dynamics.
 
-    Key mapping from SPL to YALM:
+    Key mapping from SPL to DAPHNE:
     - Prey = word position candidates. Each word has a population.
     - Predators = connector enforcement agents. They hunt word pairs
       that violate their connector relationship.
@@ -610,7 +610,7 @@ class SPLWordEngine:
         return np.mean(violations) if violations else float('inf')
 
     def get_mean_positions(self) -> Dict[str, np.ndarray]:
-        """Get mean position for each word (for comparison with YALM)."""
+        """Get mean position for each word (for comparison with DAPHNE)."""
         positions = {}
         for word, population in self.prey.items():
             if population:
@@ -633,14 +633,14 @@ class SPLWordEngine:
                 for word, pop in self.prey.items()}
 
 
-# ─── YALM-compatible resolver ─────────────────────────────────────
+# ─── DAPHNE-compatible resolver ─────────────────────────────────────
 
 def euclidean_distance(a: np.ndarray, b: np.ndarray) -> float:
     return float(np.linalg.norm(a - b))
 
 
 class SimpleResolver:
-    """Simplified question resolver using geometric space (matches YALM logic)."""
+    """Simplified question resolver using geometric space (matches DAPHNE logic)."""
 
     def __init__(self, positions: Dict[str, np.ndarray],
                  definitions: Dict[str, str],
@@ -759,7 +759,7 @@ class SimpleResolver:
     def _check_definition_chain(self, subject: str, target: str, depth: int = 3) -> str:
         """Check if target appears in subject's definition chain.
 
-        Uses YALM-style resolution:
+        Uses DAPHNE-style resolution:
         1. Check direct definition (depth 1)
         2. Check transitive definitions (depth 2-3)
         3. Check for negation (not X)
@@ -960,7 +960,7 @@ def run_experiment():
     dict_dir = os.path.join(base_dir, '..', 'dictionaries')
     dict5_path = os.path.join(dict_dir, 'dict5.md')
     test5_path = os.path.join(dict_dir, 'dict5_test.md')
-    yalm_space_path = os.path.join(base_dir, 'r0x_001_yalm_space.json')
+    dafhne_space_path = os.path.join(base_dir, 'r0x_001_dafhne_space.json')
 
     results = {}
 
@@ -1061,36 +1061,36 @@ def run_experiment():
               f"max={max(pop_scores)}, mean={np.mean(pop_scores):.1f}, "
               f"std={np.std(pop_scores):.1f}")
 
-    # Compare distances with YALM equilibrium
+    # Compare distances with DAPHNE equilibrium
     spearman_corr = None
-    if os.path.exists(yalm_space_path):
-        print("\n  Comparing with YALM equilibrium distances...")
-        with open(yalm_space_path, 'r') as f:
-            yalm_space = json.load(f)
+    if os.path.exists(dafhne_space_path):
+        print("\n  Comparing with DAPHNE equilibrium distances...")
+        with open(dafhne_space_path, 'r') as f:
+            dafhne_space = json.load(f)
 
-        yalm_positions = {w: np.array(data['position'])
-                          for w, data in yalm_space['words'].items()}
+        dafhne_positions = {w: np.array(data['position'])
+                          for w, data in dafhne_space['words'].items()}
 
         # Compute pairwise distances for common words
-        common_words = sorted(set(mean_positions.keys()) & set(yalm_positions.keys()))
+        common_words = sorted(set(mean_positions.keys()) & set(dafhne_positions.keys()))
         spl_dists = []
-        yalm_dists = []
+        dafhne_dists = []
         for i in range(len(common_words)):
             for j in range(i+1, len(common_words)):
                 w1, w2 = common_words[i], common_words[j]
                 spl_d = euclidean_distance(mean_positions[w1], mean_positions[w2])
-                yalm_d = euclidean_distance(yalm_positions[w1], yalm_positions[w2])
+                dafhne_d = euclidean_distance(dafhne_positions[w1], dafhne_positions[w2])
                 spl_dists.append(spl_d)
-                yalm_dists.append(yalm_d)
+                dafhne_dists.append(dafhne_d)
 
-        if spl_dists and yalm_dists:
-            spearman_result = stats.spearmanr(spl_dists, yalm_dists)
+        if spl_dists and dafhne_dists:
+            spearman_result = stats.spearmanr(spl_dists, dafhne_dists)
             spearman_corr = float(spearman_result.correlation)
             spearman_p = float(spearman_result.pvalue)
             print(f"  Distance Spearman: r={spearman_corr:.4f}, p={spearman_p:.2e}")
             print(f"  ({len(spl_dists)} word pairs compared)")
     else:
-        print("  [YALM space file not found, skipping distance comparison]")
+        print("  [DAPHNE space file not found, skipping distance comparison]")
 
     results['phase_b'] = {
         'mean_score': correct_mean,
@@ -1433,7 +1433,7 @@ def run_experiment():
     print(f"  dict5 best positions score:       {best_score}/20")
     print(f"  dict5 mean positions score:        {correct_mean}/20")
     if sp_corr is not None:
-        print(f"  Distance Spearman vs YALM:        {sp_corr:.4f}  {'PASS' if sp_corr > 0.6 else 'FAIL'} (need >0.6)")
+        print(f"  Distance Spearman vs DAPHNE:        {sp_corr:.4f}  {'PASS' if sp_corr > 0.6 else 'FAIL'} (need >0.6)")
     print(f"  Union queryable:                  {union_accuracy:.0f}%  {'PASS' if union_accuracy > 85 else 'FAIL'} (need >85%)")
 
     # Overall
@@ -1499,7 +1499,7 @@ def run_experiment():
                 f"{results['phase_a']['final_predators']} predators\n")
         f.write(f"- Mean violation: {results['phase_a']['final_mean_violation']:.4f}\n\n")
         f.write(f"### Phase B: Dict5 Evaluation\n")
-        f.write(f"- Resolver is definition-chain-first (same as YALM), geometry as fallback\n")
+        f.write(f"- Resolver is definition-chain-first (same as DAPHNE), geometry as fallback\n")
         f.write(f"- Population provides {len(pop_scores)} configurations to evaluate\n\n")
         f.write(f"### Phase C: Bimodality\n")
         f.write(f"- Tested {len(bimodal_results)} words for population diversity\n")
@@ -1514,7 +1514,7 @@ def run_experiment():
         f.write(f"**{verdict}**\n\n")
         if verdict == "ALIVE":
             f.write("SPL predator-prey dynamics produce equivalent or better geometry "
-                    "to YALM's force-field. Population maintains diversity. Set operations work. "
+                    "to DAPHNE's force-field. Population maintains diversity. Set operations work. "
                     "Candidate for merge into main engine.\n")
         elif "PARTIAL" in verdict:
             f.write("SPL set operations work but scores don't match force-field. "
@@ -1529,14 +1529,14 @@ def run_experiment():
 
     # Generate visualization
     try:
-        generate_visualizations(engine, mean_positions, yalm_space_path, base_dir, bimodal_results)
+        generate_visualizations(engine, mean_positions, dafhne_space_path, base_dir, bimodal_results)
     except Exception as e:
         print(f"  [Visualization failed: {e}]")
 
     return results
 
 
-def generate_visualizations(engine, mean_positions, yalm_space_path, base_dir, bimodal_results):
+def generate_visualizations(engine, mean_positions, dafhne_space_path, base_dir, bimodal_results):
     """Generate scatter plots and population visualizations."""
     import matplotlib
     matplotlib.use('Agg')
@@ -1607,28 +1607,28 @@ def generate_visualizations(engine, mean_positions, yalm_space_path, base_dir, b
     plt.close()
     print(f"  Population visualization saved to {fig_path}")
 
-    # 2. YALM vs SPL distance comparison
-    if os.path.exists(yalm_space_path):
-        with open(yalm_space_path, 'r') as f:
-            yalm_space = json.load(f)
-        yalm_positions = {w: np.array(data['position']) for w, data in yalm_space['words'].items()}
-        common = sorted(set(mean_positions.keys()) & set(yalm_positions.keys()))
+    # 2. DAPHNE vs SPL distance comparison
+    if os.path.exists(dafhne_space_path):
+        with open(dafhne_space_path, 'r') as f:
+            dafhne_space = json.load(f)
+        dafhne_positions = {w: np.array(data['position']) for w, data in dafhne_space['words'].items()}
+        common = sorted(set(mean_positions.keys()) & set(dafhne_positions.keys()))
 
         spl_d = []
-        yalm_d = []
+        dafhne_d = []
         for i in range(len(common)):
             for j in range(i+1, len(common)):
                 spl_d.append(euclidean_distance(mean_positions[common[i]], mean_positions[common[j]]))
-                yalm_d.append(euclidean_distance(yalm_positions[common[i]], yalm_positions[common[j]]))
+                dafhne_d.append(euclidean_distance(dafhne_positions[common[i]], dafhne_positions[common[j]]))
 
-        if spl_d and yalm_d:
+        if spl_d and dafhne_d:
             fig2, ax2 = plt.subplots(figsize=(7, 7))
-            ax2.scatter(yalm_d, spl_d, alpha=0.3, s=10, c='steelblue')
-            ax2.set_xlabel('YALM distance')
+            ax2.scatter(dafhne_d, spl_d, alpha=0.3, s=10, c='steelblue')
+            ax2.set_xlabel('DAPHNE distance')
             ax2.set_ylabel('SPL distance')
-            rho = stats.spearmanr(yalm_d, spl_d).correlation
+            rho = stats.spearmanr(dafhne_d, spl_d).correlation
             ax2.set_title(f'Distance Comparison (Spearman={rho:.4f})')
-            ax2.plot([min(yalm_d), max(yalm_d)], [min(yalm_d), max(yalm_d)],
+            ax2.plot([min(dafhne_d), max(dafhne_d)], [min(dafhne_d), max(dafhne_d)],
                      'r--', alpha=0.5, label='y=x')
             ax2.legend()
             ax2.grid(True, alpha=0.3)

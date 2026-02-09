@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-YALM (Yet Another Language Model) is a geometric comprehension engine that learns from text alone — no neural networks, no pretrained models, no NLP libraries. It reads closed dictionaries where every word in every definition is itself defined, builds an N-dimensional space where words are points, discovers connectors from statistics, and answers questions by geometric distance + definition-chain traversal.
+DAPHNE (Yet Another Language Model) is a geometric comprehension engine that learns from text alone — no neural networks, no pretrained models, no NLP libraries. It reads closed dictionaries where every word in every definition is itself defined, builds an N-dimensional space where words are points, discovers connectors from statistics, and answers questions by geometric distance + definition-chain traversal.
 
 Three results define the project so far:
 1. **Dict5** (50 words, 5-year-old level): **20/20** — perfect score after v11 surgical fixes
@@ -14,13 +14,13 @@ This prompt builds **dict18** (~2000 words, 18-year-old / university-entry level
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/         Data structures, GeometricSpace, Answer, traits
-│   ├── yalm-parser/        Dictionary/test/grammar parsing
-│   ├── yalm-engine/        Force field + resolver (geometry + chain traversal)
-│   ├── yalm-eval/          Fitness scoring
-│   └── yalm-evolve/        Genetic algorithm
+│   ├── dafhne-core/         Data structures, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/        Dictionary/test/grammar parsing
+│   ├── dafhne-engine/        Force field + resolver (geometry + chain traversal)
+│   ├── dafhne-eval/          Fitness scoring
+│   └── dafhne-evolve/        Genetic algorithm
 ├── dictionaries/
 │   ├── dict5.md             50 words, CLOSED
 │   ├── dict5_test.md        20 test questions
@@ -144,7 +144,7 @@ Grammar text is a regularizer. It's prose written entirely in the dictionary's v
 Use the best v11 genome parameters on dict18:
 
 ```bash
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --dict dictionaries/dict18.md \
     --grammar dictionaries/grammar18.md \
     --test dictionaries/dict18_test.md
@@ -170,13 +170,13 @@ The overfitting gap between diagonal and off-diagonal scores is the key metric. 
 ### Step 3: Evolution on Dict18
 
 ```bash
-cargo run --release -p yalm-evolve -- run \
+cargo run --release -p dafhne-evolve -- run \
     --dict18 dictionaries/dict18.md --test18 dictionaries/dict18_test.md \
     --grammar dictionaries/grammar18.md \
     --population 50 --generations 50 --results results_v12/ --seed 42
 ```
 
-Note: the evolve binary may need updating to accept dict18 paths. Check `yalm-evolve/src/main.rs` for CLI argument handling.
+Note: the evolve binary may need updating to accept dict18 paths. Check `dafhne-evolve/src/main.rs` for CLI argument handling.
 
 ### Step 4: The Scaling Curve
 

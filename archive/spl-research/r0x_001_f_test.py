@@ -2,13 +2,13 @@
 """r0x-001: f-Function Test
 
 Determines if GPT-2 static embeddings contain the same geometric
-structure as YALM equilibrium space by correlating pairwise distances.
+structure as DAPHNE equilibrium space by correlating pairwise distances.
 
 Usage:
-    # First, generate the YALM space dump:
-    #   cargo run --bin yalm-eval -- --dict dictionaries/dict5.md \
+    # First, generate the DAPHNE space dump:
+    #   cargo run --bin dafhne-eval -- --dict dictionaries/dict5.md \
     #       --test dictionaries/dict5_test.md \
-    #       --dump-space research/r0x_001_yalm_space.json
+    #       --dump-space research/r0x_001_dafhne_space.json
     #
     # Then run this script:
     #   python research/r0x_001_f_test.py
@@ -34,7 +34,7 @@ import matplotlib.pyplot as plt
 
 # ── Paths ────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).parent
-SPACE_JSON = SCRIPT_DIR / "r0x_001_yalm_space.json"
+SPACE_JSON = SCRIPT_DIR / "r0x_001_dafhne_space.json"
 RESULTS_JSON = SCRIPT_DIR / "r0x_001_results.json"
 SCATTER_PNG = SCRIPT_DIR / "r0x_001_scatter.png"
 PROJECTION_PNG = SCRIPT_DIR / "r0x_001_projection.png"
@@ -48,10 +48,10 @@ STRUCTURAL_WORDS = {
 }
 
 
-# ── Step 1: Load YALM space ─────────────────────────────────────
+# ── Step 1: Load DAPHNE space ─────────────────────────────────────
 
-def load_yalm_space(path: Path):
-    """Load YALM geometric space and compute pairwise Euclidean distances."""
+def load_dafhne_space(path: Path):
+    """Load DAPHNE geometric space and compute pairwise Euclidean distances."""
     with open(path) as f:
         space = json.load(f)
 
@@ -66,7 +66,7 @@ def load_yalm_space(path: Path):
             w2 = words[j]
             distances[(w1, w2)] = np.linalg.norm(positions[w1] - positions[w2])
 
-    print(f"[YALM] {len(words)} words, {len(distances)} pairs, "
+    print(f"[DAPHNE] {len(words)} words, {len(distances)} pairs, "
           f"{len(positions[words[0]])} dimensions")
     return words, positions, distances
 
@@ -123,14 +123,14 @@ def compute_gpt2_distances(words, embeddings):
 
 # ── Step 4: Correlate ────────────────────────────────────────────
 
-def correlate(yalm_dists, gpt2_dists, label="all"):
-    """Compute Spearman and Pearson correlations between YALM and GPT-2 distances."""
-    pairs = sorted(set(yalm_dists.keys()) & set(gpt2_dists.keys()))
+def correlate(dafhne_dists, gpt2_dists, label="all"):
+    """Compute Spearman and Pearson correlations between DAPHNE and GPT-2 distances."""
+    pairs = sorted(set(dafhne_dists.keys()) & set(gpt2_dists.keys()))
     if len(pairs) < 10:
         print(f"  [{label}] Only {len(pairs)} pairs — skipping.")
         return None
 
-    y = [yalm_dists[p] for p in pairs]
+    y = [dafhne_dists[p] for p in pairs]
     g_cos = [gpt2_dists[p]["cosine"] for p in pairs]
     g_euc = [gpt2_dists[p]["euclidean"] for p in pairs]
 
@@ -166,54 +166,54 @@ def filter_pairs(distances, exclude_words):
 
 # ── Step 5: Visualize ───────────────────────────────────────────
 
-def plot_scatter(yalm_dists, gpt2_dists, results, output_path):
-    """Scatter plot: YALM dist vs GPT-2 dist (cosine and euclidean)."""
-    pairs = sorted(set(yalm_dists.keys()) & set(gpt2_dists.keys()))
-    y = [yalm_dists[p] for p in pairs]
+def plot_scatter(dafhne_dists, gpt2_dists, results, output_path):
+    """Scatter plot: DAPHNE dist vs GPT-2 dist (cosine and euclidean)."""
+    pairs = sorted(set(dafhne_dists.keys()) & set(gpt2_dists.keys()))
+    y = [dafhne_dists[p] for p in pairs]
     g_cos = [gpt2_dists[p]["cosine"] for p in pairs]
     g_euc = [gpt2_dists[p]["euclidean"] for p in pairs]
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
     ax1.scatter(y, g_cos, alpha=0.25, s=6, c="steelblue")
-    ax1.set_xlabel("YALM Euclidean Distance")
+    ax1.set_xlabel("DAPHNE Euclidean Distance")
     ax1.set_ylabel("GPT-2 Cosine Distance")
     rho = results["spearman_cosine"]
     ax1.set_title(f"Cosine — Spearman ρ = {rho:+.4f}")
 
     ax2.scatter(y, g_euc, alpha=0.25, s=6, c="indianred")
-    ax2.set_xlabel("YALM Euclidean Distance")
+    ax2.set_xlabel("DAPHNE Euclidean Distance")
     ax2.set_ylabel("GPT-2 Euclidean Distance")
     rho = results["spearman_euclidean"]
     ax2.set_title(f"Euclidean — Spearman ρ = {rho:+.4f}")
 
-    fig.suptitle("r0x-001: YALM vs GPT-2 Pairwise Distance Correlation", y=1.02)
+    fig.suptitle("r0x-001: DAPHNE vs GPT-2 Pairwise Distance Correlation", y=1.02)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
     print(f"[Plot] Saved scatter to {output_path}")
 
 
-def plot_projections(yalm_positions, gpt2_embeddings, words, output_path):
+def plot_projections(dafhne_positions, gpt2_embeddings, words, output_path):
     """Side-by-side PCA and t-SNE projections of both spaces."""
-    yalm_mat = np.array([yalm_positions[w] for w in words])
+    dafhne_mat = np.array([dafhne_positions[w] for w in words])
     gpt2_mat = np.array([gpt2_embeddings[w] for w in words])
 
     fig, axes = plt.subplots(2, 2, figsize=(18, 16))
 
     # PCA
-    yalm_pca = PCA(n_components=2).fit_transform(yalm_mat)
+    dafhne_pca = PCA(n_components=2).fit_transform(dafhne_mat)
     gpt2_pca = PCA(n_components=2).fit_transform(gpt2_mat)
 
     # t-SNE (perplexity must be < n_samples)
     perp = min(15, len(words) - 1)
-    yalm_tsne = TSNE(n_components=2, perplexity=perp, random_state=42).fit_transform(yalm_mat)
+    dafhne_tsne = TSNE(n_components=2, perplexity=perp, random_state=42).fit_transform(dafhne_mat)
     gpt2_tsne = TSNE(n_components=2, perplexity=perp, random_state=42).fit_transform(gpt2_mat)
 
     datasets = [
-        (axes[0, 0], yalm_pca,  "YALM (PCA)"),
+        (axes[0, 0], dafhne_pca,  "DAPHNE (PCA)"),
         (axes[0, 1], gpt2_pca,  "GPT-2 wte (PCA)"),
-        (axes[1, 0], yalm_tsne, "YALM (t-SNE)"),
+        (axes[1, 0], dafhne_tsne, "DAPHNE (t-SNE)"),
         (axes[1, 1], gpt2_tsne, "GPT-2 wte (t-SNE)"),
     ]
 
@@ -244,7 +244,7 @@ def plot_projections(yalm_positions, gpt2_embeddings, words, output_path):
         ax.set_xticks([])
         ax.set_yticks([])
 
-    fig.suptitle("r0x-001: Word Space Projections — YALM vs GPT-2", fontsize=14)
+    fig.suptitle("r0x-001: Word Space Projections — DAPHNE vs GPT-2", fontsize=14)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
@@ -331,17 +331,17 @@ def main():
     print("r0x-001: f-Function Test")
     print("=" * 60)
 
-    # Step 1: Load YALM space
+    # Step 1: Load DAPHNE space
     if not SPACE_JSON.exists():
         print(f"\nERROR: {SPACE_JSON} not found.")
-        print("Run YALM first:")
-        print("  cargo run --bin yalm-eval -- \\")
+        print("Run DAPHNE first:")
+        print("  cargo run --bin dafhne-eval -- \\")
         print("    --dict dictionaries/dict5.md \\")
         print("    --test dictionaries/dict5_test.md \\")
-        print("    --dump-space research/r0x_001_yalm_space.json")
+        print("    --dump-space research/r0x_001_dafhne_space.json")
         sys.exit(1)
 
-    words, yalm_positions, yalm_dists = load_yalm_space(SPACE_JSON)
+    words, dafhne_positions, dafhne_dists = load_dafhne_space(SPACE_JSON)
 
     # Step 2: Extract GPT-2 embeddings
     gpt2_embeddings, multi_token = extract_gpt2_embeddings(words)
@@ -353,25 +353,25 @@ def main():
     # Step 4: Correlate
     print("\n=== Correlation Results ===")
 
-    results_all = correlate(yalm_dists, gpt2_dists, label="all_words")
+    results_all = correlate(dafhne_dists, gpt2_dists, label="all_words")
 
     # Content words only (exclude structural)
-    yalm_content = filter_pairs(yalm_dists, STRUCTURAL_WORDS)
+    dafhne_content = filter_pairs(dafhne_dists, STRUCTURAL_WORDS)
     gpt2_content = filter_pairs(gpt2_dists, STRUCTURAL_WORDS)
-    results_content = correlate(yalm_content, gpt2_content, label="content_only")
+    results_content = correlate(dafhne_content, gpt2_content, label="content_only")
 
     # Without multi-token words (if any)
     results_single = None
     if multi_token:
         multi_words = {w for w, _, _ in multi_token}
-        yalm_single = filter_pairs(yalm_dists, multi_words)
+        dafhne_single = filter_pairs(dafhne_dists, multi_words)
         gpt2_single = filter_pairs(gpt2_dists, multi_words)
-        results_single = correlate(yalm_single, gpt2_single, label="single_token_only")
+        results_single = correlate(dafhne_single, gpt2_single, label="single_token_only")
 
     # Step 5: Visualize
     print("\n=== Generating Plots ===")
-    plot_scatter(yalm_dists, gpt2_dists, results_all, SCATTER_PNG)
-    plot_projections(yalm_positions, gpt2_embeddings, words, PROJECTION_PNG)
+    plot_scatter(dafhne_dists, gpt2_dists, results_all, SCATTER_PNG)
+    plot_projections(dafhne_positions, gpt2_embeddings, words, PROJECTION_PNG)
 
     # Step 6: Verdict
     verdict = determine_verdict(results_all)

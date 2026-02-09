@@ -1,8 +1,8 @@
-# YALM → DAFNE — Current Status
+# dafhne → DAFHNE — Current Status
 
 > Last updated: 2026-02-09 (Phase 19c)
 >
-> **Name change decided**: YALM → **DAFNE** (Definition-Anchored Force Network Engine)
+> **Name change decided**: dafhne → **DAFHNE** (Definition-Anchored Force-field Heuristic Network Engine)
 > *Daphne = laurel = victory in Greek. Rename phase pending.*
 
 ## Current Score
@@ -16,7 +16,7 @@
 
 ## Architecture
 
-5 geometric spaces (CONTENT, MATH, GRAMMAR, TASK, SELF), each an independent DAFNE instance connected via bridge terms. Bootstrap loop reads own describe() output → discovers new connectors → re-equilibrates.
+5 geometric spaces (CONTENT, MATH, GRAMMAR, TASK, SELF), each an independent DAFHNE instance connected via bridge terms. Bootstrap loop reads own describe() output → discovers new connectors → re-equilibrates.
 
 ## Recent Phases
 
@@ -58,7 +58,7 @@ The novel contribution isn't geometry or forces or evolution — it's the constr
 
 ## Pending Decisions
 
-- **Rename YALM → DAFNE**: Requires dedicated phase (crate names, Cargo.toml, imports, README, all docs, git history note)
+- **Rename DAPHNE → DAFHNE**: Requires dedicated phase (crate names, Cargo.toml, imports, README, all docs, git history note)
 - **Phase 20**: Per-space parameter evolution (genomes per space, not shared)
 - **Phase 15**: Property extraction for richer bootstrap signal
 - **Phase 21**: Open mode multi-space (LLM-assembled dictionaries per domain)

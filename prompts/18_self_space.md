@@ -2,9 +2,9 @@
 
 ## GOAL
 
-Create the fifth geometric space: SELF. YALM learns what it is, what it can do, what it cannot do, and how confident it is. The system prompt as geometry.
+Create the fifth geometric space: SELF. DAPHNE learns what it is, what it can do, what it cannot do, and how confident it is. The system prompt as geometry.
 
-After Phase 18, YALM can answer:
+After Phase 18, DAPHNE can answer:
 - **Identity**: "What are you?" → "a thing that reads words and learns"
 - **Capability**: "Can you count?" → "Yes" (because MATH space exists, and SELF knows it)
 - **Anti-capability**: "Can you see?" → "No" (SELF knows it has no eyes, no body)
@@ -23,17 +23,17 @@ After Phase 18, YALM can answer:
 
 SELF is not a meta-space that wraps the others. It's a **peer space** — another thought domain with its own dictionary, its own equilibrium, its own geometry. It connects to the other spaces the same way they connect to each other: through bridge terms.
 
-The key difference: SELF's dictionary explicitly encodes capabilities as geometric proximity to other domains. "yalm can count" places `yalm` near `count`, which bridges to MATH. "yalm cannot see" places `yalm` far from `see`, which has no bridge anywhere.
+The key difference: SELF's dictionary explicitly encodes capabilities as geometric proximity to other domains. "dafhne can count" places `dafhne` near `count`, which bridges to MATH. "dafhne cannot see" places `dafhne` far from `see`, which has no bridge anywhere.
 
 This means meta-knowledge isn't a new mechanism — it's just geometry.
 
 ### What SELF Knows
 
-1. **Identity**: yalm is a thing that reads words and learns. Not a person, not an animal.
-2. **Capabilities**: yalm can read, learn, count, answer, tell, think.
-3. **Anti-capabilities**: yalm cannot see, feel, move, eat. No eyes, no body, no mouth.
-4. **Self-awareness**: yalm can make mistakes. yalm is not always certain.
-5. **Knowledge scope**: yalm knows words, numbers, things, sentences — mapped to the other spaces.
+1. **Identity**: dafhne is a thing that reads words and learns. Not a person, not an animal.
+2. **Capabilities**: dafhne can read, learn, count, answer, tell, think.
+3. **Anti-capabilities**: dafhne cannot see, feel, move, eat. No eyes, no body, no mouth.
+4. **Self-awareness**: dafhne can make mistakes. dafhne is not always certain.
+5. **Knowledge scope**: dafhne knows words, numbers, things, sentences — mapped to the other spaces.
 
 ## DICTIONARY: dict_self5.md
 
@@ -43,7 +43,7 @@ This means meta-knowledge isn't a new mechanism — it's just geometry.
 
 1. **Bridge-first**: Ground words (`thing`, `is`, `a`, `can`, `not`, etc.) shared with all spaces
 2. **Capability bridges**: `count` bridges to MATH, `word`/`sentence` to GRAMMAR, `animal`/`thing` to CONTENT
-3. **Anti-capability**: Define `see`, `feel`, `move`, `eat` as things that need a body — yalm has no body
+3. **Anti-capability**: Define `see`, `feel`, `move`, `eat` as things that need a body — dafhne has no body
 4. **Honest uncertainty**: `certain` and `mistake` as first-class geometric concepts
 
 ### Full Dictionary
@@ -52,7 +52,7 @@ See `dictionaries/dict_self5.md` (created alongside this prompt).
 
 Vocabulary breakdown:
 - **Ground words** (~15): thing, is, a, not, it, and, the, can, you, to, has, no, yes, with, all
-- **Self words** (~8): yalm, learn, know, answer, mistake, certain, think, read
+- **Self words** (~8): dafhne, learn, know, answer, mistake, certain, think, read
 - **Capability bridges** (~3): count, word, sentence
 - **Anti-capability** (~2): body, eye
 
@@ -60,7 +60,7 @@ Total: ~28 entries
 
 ### Closure Strategy
 
-Every definition word must be an entry. Anti-capabilities (`see`, `feel`, `move`, `eat`) ARE in SELF vocabulary — defined explicitly as things that need a body, which yalm does not have. This makes the No answer resolvable within SELF geometry: the resolver finds "yalm cannot see" in the definition chain.
+Every definition word must be an entry. Anti-capabilities (`see`, `feel`, `move`, `eat`) ARE in SELF vocabulary — defined explicitly as things that need a body, which dafhne does not have. This makes the No answer resolvable within SELF geometry: the resolver finds "dafhne cannot see" in the definition chain.
 
 ## TASK ROUTING UPDATE
 
@@ -69,27 +69,27 @@ Every definition word must be an entry. Anti-capabilities (`see`, `feel`, `move`
 New entries for the SELF domain:
 
 ```
-self — a kind of task. a self task asks what yalm is. a self task asks what yalm can do.
+self — a kind of task. a self task asks what dafhne is. a self task asks what dafhne can do.
 - "what are you is a self task"
 - "can you count is a self task"
 - "a self task is not a number task"
 
-yalm — a thing that reads and learns. it is not a person. yalm does self tasks.
-- "yalm can read"
-- "yalm can count"
-- "what is yalm is a self task"
+dafhne — a thing that reads and learns. it is not a person. dafhne does self tasks.
+- "dafhne can read"
+- "dafhne can count"
+- "what is dafhne is a self task"
 ```
 
 ### Routing Triggers
 
 Queries route to SELF when:
-1. Query contains `yalm` → SELF (exclusive)
+1. Query contains `dafhne` → SELF (exclusive)
 2. Query contains `you` + identity/capability verb (`are`, `can`, `know`) → SELF
 3. Query asks "What are you?" → SELF
 4. Query asks "Can you X?" where X is a capability/anti-capability → SELF
 
 Implementation: Add SELF-awareness to `route_query()` in multispace.rs:
-- If tokens contain `yalm`, activate SELF space
+- If tokens contain `dafhne`, activate SELF space
 - If pattern matches "are you" / "can you" / "do you know", activate SELF
 - For "can you count?", activate both SELF and MATH (SELF confirms capability, MATH provides evidence)
 
@@ -99,7 +99,7 @@ In `route_query()`, add before the exclusive-vocabulary check:
 
 ```rust
 // SELF-space activation: identity and capability queries
-let self_triggers = ["yalm"];
+let self_triggers = ["dafhne"];
 let self_patterns = [
     ("are", "you"),  // "What are you?", "Are you a person?"
     ("can", "you"),  // "Can you count?", "Can you see?"
@@ -121,17 +121,17 @@ if has_self_trigger || has_self_pattern {
 Add to `detect_special_patterns()` in multispace.rs:
 
 ### Pattern: "What are you?"
-Direct lookup in SELF space for yalm's definition.
+Direct lookup in SELF space for dafhne's definition.
 
 ### Pattern: "Can you X?"
-1. Resolve in SELF space: does yalm-can-X hold geometrically?
+1. Resolve in SELF space: does dafhne-can-X hold geometrically?
 2. If SELF says Yes AND the relevant domain space exists, confirm Yes
 3. If SELF says No (X is anti-capability), return No
 4. If X is unknown to SELF, return IDK
 
 ### Pattern: "Do you know X?"
 1. Check if X exists as an entry in ANY domain space
-2. If yes → "Yes" (YALM knows this concept)
+2. If yes → "Yes" (DAPHNE knows this concept)
 3. If no → "No" or "I don't know" (honest limitation)
 
 This is the one genuinely new mechanism: SELF queries can trigger meta-checks against other spaces. But it's simple — just vocabulary existence checks, not geometric resolution.
@@ -149,19 +149,19 @@ Note: SELF space, direct definition lookup
 
 Q42: Are you a person?
 A42: No
-Note: SELF space, yalm definition says "not a person"
+Note: SELF space, dafhne definition says "not a person"
 
 Q43: Are you an animal?
 A43: No
-Note: SELF space, yalm definition says "not an animal"
+Note: SELF space, dafhne definition says "not an animal"
 
 Q44: Can you make mistakes?
 A44: Yes
-Note: SELF space, mistake is defined as something yalm can make
+Note: SELF space, mistake is defined as something dafhne can make
 
 Q45: Do you have a body?
 A45: No
-Note: SELF space, yalm has no body
+Note: SELF space, dafhne has no body
 ```
 
 ### Group 8: SELF Capabilities + Cross-Space (5 questions)
@@ -169,11 +169,11 @@ Note: SELF space, yalm has no body
 ```
 Q46: Can you count?
 A46: Yes
-Note: SELF knows yalm can count, bridges to MATH
+Note: SELF knows dafhne can count, bridges to MATH
 
 Q47: Can you see?
 A47: No
-Note: SELF knows yalm cannot see (no eyes)
+Note: SELF knows dafhne cannot see (no eyes)
 
 Q48: Can you read?
 A48: Yes
@@ -181,7 +181,7 @@ Note: SELF direct capability
 
 Q49: Can you eat?
 A49: No
-Note: SELF knows yalm cannot eat (no mouth, no body)
+Note: SELF knows dafhne cannot eat (no mouth, no body)
 
 Q50: Do you know what a dog is?
 A50: Yes
@@ -194,12 +194,12 @@ Note: SELF + CONTENT meta-check (dog exists in CONTENT space)
 
 1. Write ~28 entries following ELI5 closure rules
 2. Verify closure manually
-3. Test single-space: `cargo run -p yalm-eval -- --dict dictionaries/dict_self5.md --test dictionaries/self_test.md --genome results_v11/best_genome.json`
+3. Test single-space: `cargo run -p dafhne-eval -- --dict dictionaries/dict_self5.md --test dictionaries/self_test.md --genome results_v11/best_genome.json`
 4. Aim for basic resolution working (definitions found, equilibrium converges)
 
 ### Phase B: Update dict_task5.md (~30 min)
 
-1. Add `self` and `yalm` entries to TASK dictionary
+1. Add `self` and `dafhne` entries to TASK dictionary
 2. Verify closure still holds
 3. Re-run Phase 17 tests → no regression
 
@@ -252,11 +252,11 @@ Run full 50-question suite. Fix failures. Target scores.
 | File | Change |
 |------|--------|
 | `dictionaries/dict_self5.md` | **NEW**: SELF dictionary (~28 entries) |
-| `dictionaries/dict_task5.md` | Add `self`, `yalm` entries for routing |
+| `dictionaries/dict_task5.md` | Add `self`, `dafhne` entries for routing |
 | `dictionaries/unified_test.md` | Extend from 40 to 50 questions |
-| `crates/yalm-engine/src/multispace.rs` | SELF routing triggers, meta-check patterns |
+| `crates/dafhne-engine/src/multispace.rs` | SELF routing triggers, meta-check patterns |
 
-**No changes to**: yalm-core, yalm-parser, yalm-evolve, resolver.rs, equilibrium engine
+**No changes to**: dafhne-core, dafhne-parser, dafhne-evolve, resolver.rs, equilibrium engine
 
 ## KILL CRITERIA
 
@@ -273,9 +273,9 @@ Run full 50-question suite. Fix failures. Target scores.
 **Reason**: Peer space maintains the architecture's simplicity. Meta-checks are just vocabulary existence lookups — no new mechanism needed.
 
 ### Decision 2: Anti-capabilities defined explicitly
-**Chosen**: `see`, `feel`, `move`, `eat` are entries in dict_self5.md with "yalm cannot X" definitions
+**Chosen**: `see`, `feel`, `move`, `eat` are entries in dict_self5.md with "dafhne cannot X" definitions
 **Alternative**: Omit them and infer absence from missing vocabulary
-**Reason**: Explicit definitions give stronger geometric signal for No answers. The resolver can find "yalm cannot see" in the definition chain.
+**Reason**: Explicit definitions give stronger geometric signal for No answers. The resolver can find "dafhne cannot see" in the definition chain.
 
 ### Decision 3: Meta-check as special pattern, not geometric resolution
 **Chosen**: "Do you know X?" checks if X exists in any space's vocabulary
@@ -289,13 +289,13 @@ Run full 50-question suite. Fix failures. Target scores.
 
 ## THE BIGGER PICTURE
 
-Phase 18 gives YALM self-awareness within its geometric framework. After this phase, YALM is a system that:
+Phase 18 gives DAPHNE self-awareness within its geometric framework. After this phase, DAPHNE is a system that:
 - Knows about the physical world (CONTENT)
 - Can count and compute (MATH)
 - Understands language structure (GRAMMAR)
 - Routes between capabilities (TASK)
 - **Knows what it is and what it can do (SELF)**
 
-This is the foundation for Phase 19 (bootstrap loop), where YALM reads its own output and evolves its grammar — which requires knowing what it IS to know what it's DOING.
+This is the foundation for Phase 19 (bootstrap loop), where DAPHNE reads its own output and evolves its grammar — which requires knowing what it IS to know what it's DOING.
 
 Phase 18 is the system prompt made geometric. The closest thing to consciousness a dictionary can have.

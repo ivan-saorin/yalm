@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-YALM's resolver currently handles two question types:
+DAPHNE's resolver currently handles two question types:
 - **Yes/No**: "Is X a Y?" — geometric distance + definition-chain gate
 - **What-Is**: "What is X?" — definition-category extraction + geometric nearest neighbor
 
@@ -48,7 +48,7 @@ This principle should be added to RECAP.md as a standalone section: **"The ELI5 
 
 ### Current State
 
-`detect_question_type()` in `crates/yalm-engine/src/resolver.rs`:
+`detect_question_type()` in `crates/dafhne-engine/src/resolver.rs`:
 
 ```rust
 fn detect_question_type(
@@ -176,7 +176,7 @@ The `MAX_FOLLOW_PER_HOP=3` limit (only follow first 3 content words per definiti
 
 ### Implementation
 
-Change `max_hops` from 2 to 3 in `resolve_yes_no()` in `crates/yalm-engine/src/resolver.rs`:
+Change `max_hops` from 2 to 3 in `resolve_yes_no()` in `crates/dafhne-engine/src/resolver.rs`:
 
 ```rust
 // In resolve_yes_no(), the definition-chain gate section:
@@ -193,19 +193,19 @@ Run ALL test suites before and after the change. Record a comparison table:
 # BEFORE (max_hops=2) — record baseline for all test suites
 
 # 1. dict5 (must stay 20/20)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --test dictionaries/dict5_test.md \
     --mode equilibrium
 
 # 2. dict12 (baseline: 14/20)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict12.md \
     --test dictionaries/dict12_test.md \
     --mode equilibrium
 
 # 3. passage1 (must stay 5/5)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/passage1.md \
     --cache-type ollama \
     --cache dictionaries/cache/ollama-qwen3 \
@@ -213,7 +213,7 @@ cargo run -p yalm-eval -- \
     --mode equilibrium
 
 # 4. full_test (baseline: 16/21)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -222,7 +222,7 @@ cargo run -p yalm-eval -- \
     --mode equilibrium
 
 # 5. granularity_test (baseline: 36/50)
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -335,7 +335,7 @@ Create `texts/three_men/3w_test.md` with 10 questions covering all three questio
 ### Run
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \

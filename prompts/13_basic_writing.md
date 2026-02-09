@@ -2,16 +2,16 @@
 
 ## PREAMBLE
 
-Phase 12 achieved boolean compound queries (9/10 dict5_bool, 5/5 Three Men bool) with zero regressions. YALM now comprehends: Yes/No, What/Who/Where, boolean AND/OR, negation, transitive chains up to 3 hops, and entity definitions.
+Phase 12 achieved boolean compound queries (9/10 dict5_bool, 5/5 Three Men bool) with zero regressions. DAPHNE now comprehends: Yes/No, What/Who/Where, boolean AND/OR, negation, transitive chains up to 3 hops, and entity definitions.
 
-Phase 13 flips the direction: from **comprehension** to **generation**. The system reads its own geometry and definitions to produce descriptive sentences about a word. This is YALM expressing what it knows.
+Phase 13 flips the direction: from **comprehension** to **generation**. The system reads its own geometry and definitions to produce descriptive sentences about a word. This is DAPHNE expressing what it knows.
 
 ## GOAL
 
-Add a `--describe` CLI mode to yalm-eval that generates natural-language descriptions of words by traversing definitions and geometric neighborhoods.
+Add a `--describe` CLI mode to dafhne-eval that generates natural-language descriptions of words by traversing definitions and geometric neighborhoods.
 
 ```
-cargo run -p yalm-eval -- --dict dictionaries/dict5.md --describe dog,cat,sun
+cargo run -p dafhne-eval -- --dict dictionaries/dict5.md --describe dog,cat,sun
 ```
 
 Output:
@@ -64,7 +64,7 @@ Input: word + dictionary + space
 
 - **New function `describe()`** in `resolver.rs` — generation logic
 - **New function `describe_entry()`** in `resolver.rs` — single-word description
-- **New CLI flag `--describe`** in `yalm-eval/main.rs` — invocation
+- **New CLI flag `--describe`** in `dafhne-eval/main.rs` — invocation
 - **No changes** to engine, parser, core, equilibrium, connectors
 
 ## IMPLEMENTATION
@@ -243,16 +243,16 @@ fn make_article(word: &str, dictionary: &Dictionary) -> String {
 
 Both functions are currently private in resolver.rs. `describe()` needs `definition_chain_check()` which is already in the same module, so no visibility change needed — just ensure `describe()` can call them (same module = fine).
 
-However, `describe()` itself needs to be `pub` so yalm-eval can call it:
+However, `describe()` itself needs to be `pub` so dafhne-eval can call it:
 
 ```rust
 // Already in resolver.rs, just add pub:
 pub fn describe(...) -> Vec<String> { ... }
 ```
 
-### Step 3: Add `--describe` flag to yalm-eval CLI
+### Step 3: Add `--describe` flag to dafhne-eval CLI
 
-In `yalm-eval/src/main.rs`, add to the `Cli` struct:
+In `dafhne-eval/src/main.rs`, add to the `Cli` struct:
 
 ```rust
 /// Describe words: generate natural-language descriptions (comma-separated)
@@ -273,7 +273,7 @@ if let Some(ref words) = cli.describe {
     println!("\n=== Describe Mode ===");
 
     for word in &word_list {
-        let sentences = yalm_engine::resolver::describe(
+        let sentences = dafhne_engine::resolver::describe(
             word,
             engine.space(),
             &dictionary,
@@ -297,7 +297,7 @@ if let Some(ref words) = cli.describe {
             for s in &sentences {
                 let question = sentence_to_question(s);
                 if let Some(ref q) = question {
-                    let (answer, dist, _) = yalm_engine::resolver::resolve_question(
+                    let (answer, dist, _) = dafhne_engine::resolver::resolve_question(
                         q,
                         engine.space(),
                         &dictionary,
@@ -333,7 +333,7 @@ if let Some(ref words) = cli.describe {
 }
 ```
 
-### Step 4: `sentence_to_question()` helper in yalm-eval
+### Step 4: `sentence_to_question()` helper in dafhne-eval
 
 Converts a generated sentence back into a Yes/No question for verification.
 
@@ -386,7 +386,7 @@ fn sentence_to_question(sentence: &str) -> Option<String> {
 ### Test 1: dict5 describe (closed mode)
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --dict dictionaries/dict5.md \
     --describe dog,cat,sun,person,animal \
     --describe-verify \
@@ -435,7 +435,7 @@ if s.contains("is not") {
 ### Test 2: Three Men describe (open mode + entities)
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -475,31 +475,31 @@ Describe mode is additive — when `--describe` is not specified, behavior is id
 
 ```bash
 # dict5
-cargo run -p yalm-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_test.md --mode equilibrium
 # Expected: 20/20
 
 # dict12
-cargo run -p yalm-eval -- --dict dictionaries/dict12.md --test dictionaries/dict12_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --dict dictionaries/dict12.md --test dictionaries/dict12_test.md --mode equilibrium
 # Expected: 14/20
 
 # passage1
-cargo run -p yalm-eval -- --text texts/passage1.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/passage1_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/passage1.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/passage1_test.md --mode equilibrium
 # Expected: 5/5
 
 # full_test
-cargo run -p yalm-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/full_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/full_test.md --mode equilibrium
 # Expected: 19/21
 
 # 3w_test
-cargo run -p yalm-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/3w_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/3w_test.md --mode equilibrium
 # Expected: 10/10
 
 # dict5_bool_test
-cargo run -p yalm-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_bool_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --dict dictionaries/dict5.md --test dictionaries/dict5_bool_test.md --mode equilibrium
 # Expected: 9/10
 
 # bool_test
-cargo run -p yalm-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/bool_test.md --mode equilibrium
+cargo run -p dafhne-eval -- --text texts/three_men/combined.md --entities texts/three_men_supplementary/entities.md --cache-type ollama --cache dictionaries/cache/ollama-qwen3 --test texts/three_men/bool_test.md --mode equilibrium
 # Expected: 5/5
 ```
 
@@ -571,8 +571,8 @@ Negation sentences: **skipped** — known geometric limitation.
 1. ☐ `describe()` function in resolver.rs
 2. ☐ `find_siblings()` helper in resolver.rs
 3. ☐ `make_article()` helper in resolver.rs
-4. ☐ `--describe` and `--describe-verify` CLI flags in yalm-eval
-5. ☐ `sentence_to_question()` helper in yalm-eval
+4. ☐ `--describe` and `--describe-verify` CLI flags in dafhne-eval
+5. ☐ `sentence_to_question()` helper in dafhne-eval
 6. ☐ dict5 describe output for dog, cat, sun, person, animal
 7. ☐ Three Men describe output for montmorency, harris, thames, kingston
 8. ☐ Self-consistency verification results

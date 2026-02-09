@@ -4,7 +4,7 @@
 
 ## GOAL
 
-Extend the genetic algorithm (yalm-evolve) to tune parameters per-space. Currently all spaces use the same v11 params, but optimal geometry likely differs: MATH may want tighter clustering, GRAMMAR may want more separation between categories.
+Extend the genetic algorithm (dafhne-evolve) to tune parameters per-space. Currently all spaces use the same v11 params, but optimal geometry likely differs: MATH may want tighter clustering, GRAMMAR may want more separation between categories.
 
 ## CORE IDEA
 
@@ -20,7 +20,7 @@ Genome_TASK:    {routing_threshold: 0.6, domain_bias: ...}
 
 ## KEY QUESTIONS
 
-1. Can yalm-evolve run on individual spaces in isolation?
+1. Can dafhne-evolve run on individual spaces in isolation?
 2. Or must evolution consider cross-space performance (requires multi-space eval in fitness function)?
 3. Is there a simpler approach: tune only the 2-3 most sensitive params per space?
 

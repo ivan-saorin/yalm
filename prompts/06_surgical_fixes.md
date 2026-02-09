@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-YALM is a geometric comprehension engine at the end of its evolutionary optimization phase. Six phases of development have produced:
+DAPHNE is a geometric comprehension engine at the end of its evolutionary optimization phase. Six phases of development have produced:
 
 - **0.7063 combined fitness** with zero overfitting (v10, best ever)
 - **10/10 positive queries**, **5/5 transitive reasoning**, **3-4/4 honesty**
@@ -19,13 +19,13 @@ These are architectural limitations. No more evolution runs. Two surgical code c
 ## PROJECT STRUCTURE
 
 ```
-D:\workspace\projects\yalm\
+D:\workspace\projects\dafhne\
 ├── crates/
-│   ├── yalm-core/       Core types, GeometricSpace, Answer, traits
-│   ├── yalm-parser/     Dictionary/test/grammar parsing
-│   ├── yalm-engine/     Engine + resolver.rs (THE FILE TO CHANGE)
-│   ├── yalm-eval/       Fitness scoring
-│   └── yalm-evolve/     GA (not changed in this prompt)
+│   ├── dafhne-core/       Core types, GeometricSpace, Answer, traits
+│   ├── dafhne-parser/     Dictionary/test/grammar parsing
+│   ├── dafhne-engine/     Engine + resolver.rs (THE FILE TO CHANGE)
+│   ├── dafhne-eval/       Fitness scoring
+│   └── dafhne-evolve/     GA (not changed in this prompt)
 ├── dictionaries/
 │   ├── dict5.md, dict5_test.md
 │   ├── dict12.md, dict12_test.md
@@ -33,7 +33,7 @@ D:\workspace\projects\yalm\
 └── results_v10/         Best run (genome for testing)
 ```
 
-**Key file:** `crates/yalm-engine/src/resolver.rs`
+**Key file:** `crates/dafhne-engine/src/resolver.rs`
 
 The resolver dispatches questions:
 ```
@@ -333,7 +333,7 @@ use_definition_fallback: bool,  // whether to use definition extraction for what
 Apply both fixes to the resolver. Use the best v10 genome parameters. Run:
 
 ```bash
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --dict dictionaries/dict5.md \
     --grammar dictionaries/grammar5.md \
     --test dictionaries/dict5_test.md
@@ -364,7 +364,7 @@ Target: 20/20 on dict5.
 Run on dict12 WITHOUT retraining:
 
 ```bash
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --dict dictionaries/dict12.md \
     --grammar dictionaries/grammar5.md \
     --test dictionaries/dict12_test.md
@@ -375,7 +375,7 @@ Target: > 16/20 on dict12 (negation + property queries should now work if defini
 ### Step 3: Grammar Test
 
 ```bash
-cargo run -p yalm-engine -- \
+cargo run -p dafhne-engine -- \
     --dict dictionaries/dict5.md \
     --grammar dictionaries/grammar5.md \
     --test dictionaries/grammar5_test.md
@@ -388,7 +388,7 @@ Target: > 17/20 on grammar5_test (meta-knowledge questions Q17-Q20 may still be 
 Only if Step 1-3 show improvement. Add the 4 new genome parameters. Run 20 generations:
 
 ```bash
-cargo run --release -p yalm-evolve -- run \
+cargo run --release -p dafhne-evolve -- run \
     --dict5 dictionaries/dict5.md --test5 dictionaries/dict5_test.md \
     --dict12 dictionaries/dict12.md --test12 dictionaries/dict12_test.md \
     --grammar dictionaries/grammar5.md \
@@ -433,7 +433,7 @@ If any of these regress after the fixes, the chain check is being too aggressive
 
 ## ATTACHED FILES
 
-- All source code (crates/yalm-*)
+- All source code (crates/dafhne-*)
 - All dictionaries and test files
 - `results_v10/` best genome parameters
 - `prompts/04_phase5_handoff.md` — detailed resolver architecture reference

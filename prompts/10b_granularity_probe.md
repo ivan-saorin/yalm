@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-Phase 10 proved YALM can comprehend Victorian literature at 0.87 fitness (16/21). But the 21-question test mostly asks Level 2-3 questions ("Is Montmorency a dog?", "Is Harris a person?"). We know the system gets entity-type classification right. We DON'T know where it breaks down.
+Phase 10 proved DAPHNE can comprehend Victorian literature at 0.87 fitness (16/21). But the 21-question test mostly asks Level 2-3 questions ("Is Montmorency a dog?", "Is Harris a person?"). We know the system gets entity-type classification right. We DON'T know where it breaks down.
 
 This prompt expands the test suite from 21 to ~50 questions organized along a **coarse-to-fine gradient**. The goal is NOT to improve the score — it's to map the comprehension boundary. At what level of detail does geometric comprehension degrade from "knows" to "guesses" to "can't"?
 
@@ -103,7 +103,7 @@ These probe whether narrative co-occurrence creates geometric proximity for attr
 
 Create `texts/three_men/granularity_test.md` with ~50 questions organized by level.
 
-Use the standard YALM test format:
+Use the standard DAPHNE test format:
 
 ```markdown
 # granularity_test — Coarse-to-Fine Comprehension Probe
@@ -152,7 +152,7 @@ Before writing Level 4-6 questions, inspect the cached definitions for key words
 # Check what Ollama says about "dog", "person", "river", "town", "maze", etc.
 # The cache is in dictionaries/cache/ollama-qwen3/*.json (per-letter files)
 # Use jq or grep to extract specific definitions:
-cd D:\workspace\projects\yalm
+cd D:\workspace\projects\dafhne
 cat dictionaries/cache/ollama-qwen3/d.json | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('dog',{}).get('definitions',['not found']))"
 cat dictionaries/cache/ollama-qwen3/p.json | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('person',{}).get('definitions',['not found']))"
 cat dictionaries/cache/ollama-qwen3/r.json | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('river',{}).get('definitions',['not found']))"
@@ -173,7 +173,7 @@ Some words may not be cached yet (they'll be generated on first run). For these,
 ### Combined text + entities (same as Phase 10 Level 6)
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --text texts/three_men/combined.md \
     --entities texts/three_men_supplementary/entities.md \
     --cache-type ollama \
@@ -249,7 +249,7 @@ Plot fitness vs level. The SHAPE of the curve matters more than the absolute val
 Run the granularity test WITHOUT narrative text, using only entity definitions:
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
     --entities texts/three_men_supplementary/entities.md \
     --test texts/three_men/granularity_test.md \
     --mode equilibrium

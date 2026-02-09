@@ -4,22 +4,22 @@
 
 ## CONTEXT
 
-Phase 19b produced a 24-finding code audit. This prompt fixes most of them, organized into batches by theme. The goal is to bring YALM closer to its founding principles without breaking anything.
+Phase 19b produced a 24-finding code audit. This prompt fixes most of them, organized into batches by theme. The goal is to bring DAPHNE closer to its founding principles without breaking anything.
 
-Project location: `D:\workspace\projects\yalm`
+Project location: `D:\workspace\projects\dafhne`
 
-Use the filesystem MCP with path `D:\workspace\projects\yalm` to access files.
+Use the filesystem MCP with path `D:\workspace\projects\dafhne` to access files.
 
 ## PREREQUISITE READING
 
 Read these before writing any code:
 1. `reports/19b_code_audit.md` — the full audit (24 findings, severity ratings, recommendations)
-2. `crates/yalm-engine/src/connector_discovery.rs` — understand `classify_word_roles()` and what it already discovers
-3. `crates/yalm-engine/src/resolver.rs` — the largest file, most fixes land here
-4. `crates/yalm-engine/src/multispace.rs` — structural word list and TASK routing
-5. `crates/yalm-core/src/lib.rs` — `EngineParams` struct (constants to add)
-6. `crates/yalm-engine/src/strategy.rs` — `StrategyConfig` struct
-7. `crates/yalm-engine/src/force_field.rs` — negation model implementations
+2. `crates/dafhne-engine/src/connector_discovery.rs` — understand `classify_word_roles()` and what it already discovers
+3. `crates/dafhne-engine/src/resolver.rs` — the largest file, most fixes land here
+4. `crates/dafhne-engine/src/multispace.rs` — structural word list and TASK routing
+5. `crates/dafhne-core/src/lib.rs` — `EngineParams` struct (constants to add)
+6. `crates/dafhne-engine/src/strategy.rs` — `StrategyConfig` struct
+7. `crates/dafhne-engine/src/force_field.rs` — negation model implementations
 
 ## WHAT TO FIX (and what NOT to fix)
 
@@ -40,7 +40,7 @@ Read these before writing any code:
 
 ### ✅ BATCH 1: Replace Hardcoded Word Lists with Discovered Data
 **Findings**: A02, A03, A20, A24
-**Theme**: YALM's connector discovery already identifies structural words. Use that data instead of hardcoded English lists.
+**Theme**: DAPHNE's connector discovery already identifies structural words. Use that data instead of hardcoded English lists.
 
 #### The Key Insight
 `connector_discovery.rs` already has `classify_word_roles()` which computes document frequency for every word and classifies high-frequency words as structural. The result is available at space-build time. The hardcoded lists in resolver.rs and multispace.rs are shortcuts to information the system already discovers.
@@ -53,7 +53,7 @@ The `Engine` (in `lib.rs`) already holds a `GeometricSpace` which has `connector
 
 Fix: Store the structural word set on `GeometricSpace`:
 ```rust
-// In yalm-core/src/lib.rs, add to GeometricSpace:
+// In dafhne-core/src/lib.rs, add to GeometricSpace:
 pub struct GeometricSpace {
     // ... existing fields ...
     /// Words classified as structural by connector discovery (high document frequency).
@@ -128,7 +128,7 @@ fn preceded_by_negation(&self, tokens: &[&str], idx: usize) -> bool {
     // Only check for negation if we discovered a negation connector
     self.space.connectors.iter().any(|c| c.pattern == vec![prev.to_string()] && prev == "not")
     // More general: any single-word connector that appears as negation
-    // For now, "not" is the only negation connector YALM discovers
+    // For now, "not" is the only negation connector DAPHNE discovers
 }
 ```
 
@@ -142,7 +142,7 @@ The simplest correct fix: check if "not" is a discovered connector pattern, and 
 
 #### Changes
 
-Add to `EngineParams` in `yalm-core/src/lib.rs`:
+Add to `EngineParams` in `dafhne-core/src/lib.rs`:
 
 ```rust
 /// Maximum content words to follow per hop in definition chain traversal.
@@ -202,7 +202,7 @@ fn is_connector_word(&self, word: &str) -> bool {
 
 #### A05: SELF-Space Triggers
 
-Currently hardcoded: `self_triggers = ["yalm"]` and `self_patterns = [("are", "you"), ...]`.
+Currently hardcoded: `self_triggers = ["dafhne"]` and `self_patterns = [("are", "you"), ...]`.
 
 Fix: At `MultiSpace` construction, extract self-triggers from the SELF dictionary:
 ```rust
@@ -259,7 +259,7 @@ Add a clear comment block at the top of question detection:
 // LANGUAGE-SPECIFIC LAYER
 // The 5W question words (what, who, where, when, why) are
 // hardcoded English. This is accepted as interface-layer code.
-// A multilingual YALM would replace this function.
+// A multilingual DAPHNE would replace this function.
 // The yes/no detection uses discovered structural words.
 // ═════════════════════════════════════════════════════════════
 ```
@@ -336,19 +336,19 @@ After ALL fixes, run the full regression suite:
 
 ```bash
 # Single-space dict5
-cargo run --release -p yalm-eval
+cargo run --release -p dafhne-eval
 
 # Single-space dict12
-cargo run --release -p yalm-eval -- --dict dictionaries/dict12.md --test dictionaries/dict12_test.md --grammar dictionaries/grammar18.md --genome results_v11/best_genome.json
+cargo run --release -p dafhne-eval -- --dict dictionaries/dict12.md --test dictionaries/dict12_test.md --grammar dictionaries/grammar18.md --genome results_v11/best_genome.json
 
 # Multi-space unified test (45/50 baseline)
-cargo run --release -p yalm-eval -- \
+cargo run --release -p dafhne-eval -- \
   --spaces content:dictionaries/dict5.md,math:dictionaries/dict_math5.md,grammar:dictionaries/dict_grammar5.md,task:dictionaries/dict_task5.md,self:dictionaries/dict_self5.md \
   --test dictionaries/unified_test.md \
   --genome results_v11/best_genome.json
 
 # Bootstrap (should still find connectors and converge)
-cargo run --release -p yalm-eval -- \
+cargo run --release -p dafhne-eval -- \
   --spaces content:dictionaries/dict5.md,math:dictionaries/dict_math5.md,grammar:dictionaries/dict_grammar5.md,task:dictionaries/dict_task5.md,self:dictionaries/dict_self5.md \
   --test dictionaries/unified_test.md \
   --genome results_v11/best_genome.json \

@@ -2,7 +2,7 @@
 
 ## GOAL
 
-Implement the self-improvement loop: YALM generates descriptions of its known concepts using `describe()`, feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
+Implement the self-improvement loop: DAPHNE generates descriptions of its known concepts using `describe()`, feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
 
 This is the path from ELI5 sentence structure to more complex grammar, driven entirely by geometric self-reflection.
 
@@ -85,7 +85,7 @@ Level N:
 
 ## IMPLEMENTATION DESIGN
 
-### New module: `crates/yalm-engine/src/bootstrap.rs`
+### New module: `crates/dafhne-engine/src/bootstrap.rs`
 
 Single new file, ~200-300 lines. Does NOT modify any existing module.
 
@@ -260,7 +260,7 @@ impl Engine {
 New flag: `--bootstrap <max_iterations>`
 
 ```bash
-cargo run -p yalm-eval -- \
+cargo run -p dafhne-eval -- \
   --spaces content:dictionaries/dict5.md,math:dictionaries/dict_math5.md,grammar:dictionaries/dict_grammar5.md,task:dictionaries/dict_task5.md,self:dictionaries/dict_self5.md \
   --test dictionaries/unified_test.md \
   --genome results_v11/best_genome.json \
@@ -350,9 +350,9 @@ Based on how connector discovery works (frequency threshold + uniformity filter)
 
 ### Phase C: Bootstrap module (~2-3 hours)
 
-1. Create `crates/yalm-engine/src/bootstrap.rs`
+1. Create `crates/dafhne-engine/src/bootstrap.rs`
 2. Implement `bootstrap()` on MultiSpace
-3. Add `--bootstrap` flag to yalm-eval CLI
+3. Add `--bootstrap` flag to dafhne-eval CLI
 4. Test: run with `--bootstrap 1` and verify output format
 
 ### Phase D: Level 1 validation (~1-2 hours)
@@ -389,12 +389,12 @@ The loop runs, finds at least one new connector, doesn't regress, and converges.
 
 | File | Change |
 |------|--------|
-| `crates/yalm-engine/src/bootstrap.rs` | **NEW**: Bootstrap loop module (~200-300 lines) |
-| `crates/yalm-engine/src/lib.rs` | Add `pub mod bootstrap;`, Engine::set_connectors_and_retrain() |
-| `crates/yalm-engine/src/connector_discovery.rs` | Extract `discover_connectors_from_sentences()` (refactor, not rewrite) |
-| `crates/yalm-eval/src/main.rs` | Add `--bootstrap` CLI flag |
+| `crates/dafhne-engine/src/bootstrap.rs` | **NEW**: Bootstrap loop module (~200-300 lines) |
+| `crates/dafhne-engine/src/lib.rs` | Add `pub mod bootstrap;`, Engine::set_connectors_and_retrain() |
+| `crates/dafhne-engine/src/connector_discovery.rs` | Extract `discover_connectors_from_sentences()` (refactor, not rewrite) |
+| `crates/dafhne-eval/src/main.rs` | Add `--bootstrap` CLI flag |
 
-**No changes to**: yalm-core, yalm-parser, yalm-evolve, resolver.rs, multispace.rs, any dictionary, any test file
+**No changes to**: dafhne-core, dafhne-parser, dafhne-evolve, resolver.rs, multispace.rs, any dictionary, any test file
 
 ## KILL CRITERIA
 
