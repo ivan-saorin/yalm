@@ -96,6 +96,24 @@ fn count_to_word(n: usize) -> Option<&'static str> {
     }
 }
 
+/// Map a number word to its ordinal value.
+fn number_word_to_value(word: &str) -> Option<u32> {
+    match word {
+        "zero" => Some(0),
+        "one" => Some(1),
+        "two" => Some(2),
+        "three" => Some(3),
+        "four" => Some(4),
+        "five" => Some(5),
+        "six" => Some(6),
+        "seven" => Some(7),
+        "eight" => Some(8),
+        "nine" => Some(9),
+        "ten" => Some(10),
+        _ => None,
+    }
+}
+
 // ─── MultiSpace Implementation ───────────────────────────────
 
 impl MultiSpace {
@@ -146,45 +164,99 @@ impl MultiSpace {
             structural_words_cache: HashSet::new(),
             self_trigger_words: HashSet::new(),
         };
-        ms.identify_bridges();
+        ms.finish_construction();
 
-        // Build unified structural words cache from all spaces.
-        // Start with discovered structural words (from classify_word_roles),
-        // then add question-syntax words that may not pass the 20% doc-frequency
-        // threshold but are functionally structural (they appear in questions,
-        // not definitions). These are needed for cross-space routing filters.
+        ms
+    }
+
+    /// Construct a MultiSpace with per-space parameters.
+    /// Each space looks up its own (EngineParams, StrategyConfig) from `space_params`,
+    /// falling back to `default_params`/`default_strategy` for any space not in the map.
+    pub fn new_per_space(
+        configs: Vec<SpaceConfig>,
+        space_params: &HashMap<String, (EngineParams, StrategyConfig)>,
+        default_params: &EngineParams,
+        default_strategy: &StrategyConfig,
+        build_mode: BuildMode,
+    ) -> Self {
+        let mut spaces = HashMap::new();
+        let mut space_order = Vec::new();
+
+        for config in configs {
+            let content = std::fs::read_to_string(&config.dict_path)
+                .unwrap_or_else(|_| panic!("Failed to read dictionary: {}", config.dict_path));
+            let dictionary = parse_dictionary(&content);
+
+            let (params, strategy) = space_params
+                .get(&config.name)
+                .cloned()
+                .unwrap_or_else(|| (default_params.clone(), default_strategy.clone()));
+
+            println!(
+                "[Space {}] Loading {} ({} entries, dims={})",
+                config.name,
+                config.dict_path,
+                dictionary.entries.len(),
+                params.dimensions
+            );
+
+            let mut engine = Engine::with_strategy(params.clone(), strategy.clone());
+            engine.set_quiet(true);
+            engine.set_mode(build_mode);
+            engine.train(&dictionary);
+
+            let space = Space {
+                name: config.name.clone(),
+                engine,
+                dictionary,
+                params,
+                strategy,
+            };
+
+            space_order.push(config.name.clone());
+            spaces.insert(config.name, space);
+        }
+
+        let mut ms = MultiSpace {
+            spaces,
+            bridges: HashMap::new(),
+            space_order,
+            structural_words_cache: HashSet::new(),
+            self_trigger_words: HashSet::new(),
+        };
+        ms.finish_construction();
+
+        ms
+    }
+
+    /// Shared post-construction setup: bridges, structural words, self trigger words.
+    fn finish_construction(&mut self) {
+        self.identify_bridges();
+
         let mut structural_cache = HashSet::new();
-        for (_, space) in &ms.spaces {
+        for (_, space) in &self.spaces {
             structural_cache.extend(space.engine.structural().iter().cloned());
         }
-        // Question-syntax words: not discoverable from definitions alone
-        // (they're meta-language used in queries, not definition content).
-        // LANGUAGE-SPECIFIC: these would need replacement for non-English.
         for qw in &["what", "who", "where", "when", "why", "how", "which",
                      "yes", "no", "you", "your", "are", "be", "do", "does"] {
             structural_cache.insert(qw.to_string());
         }
-        ms.structural_words_cache = structural_cache.clone();
+        self.structural_words_cache = structural_cache.clone();
 
-        // Derive SELF-space trigger words: vocabulary unique to SELF space
-        // (not in any other non-task space, and not structural).
-        // This replaces the old hardcoded `self_triggers = ["dafhne"]`.
-        if let Some(self_space) = ms.spaces.get("self") {
+        if let Some(self_space) = self.spaces.get("self") {
             let self_vocab: &HashSet<String> = &self_space.dictionary.entry_set;
             let mut other_vocab: HashSet<String> = HashSet::new();
-            for (name, space) in &ms.spaces {
+            for (name, space) in &self.spaces {
                 if name != "self" && name != "task" {
                     other_vocab.extend(space.dictionary.entry_set.iter().cloned());
                 }
             }
-            ms.self_trigger_words = self_vocab
+            self.self_trigger_words = self_vocab
                 .iter()
                 .filter(|w| !other_vocab.contains(w.as_str()) && !structural_cache.contains(w.as_str()))
                 .cloned()
                 .collect();
         }
-
-        ms
     }
 
     /// Check whether a word is structural (high doc-frequency across spaces).
@@ -780,6 +852,11 @@ impl MultiSpace {
             }
         }
 
+        // Pattern: "Is X more/less than Y?" — ordinal comparison
+        if let Some(result) = self.resolve_ordinal_comparison(&lower) {
+            return Some(result);
+        }
+
         None
     }
 
@@ -848,6 +925,57 @@ impl MultiSpace {
             }
         }
         None
+    }
+
+    /// Resolve ordinal comparison: "Is three more than one?" → Yes.
+    /// Compares number-word values directly.
+    fn resolve_ordinal_comparison(
+        &self,
+        lower: &str,
+    ) -> Option<(Answer, Option<f64>, Option<String>)> {
+        // Detect comparison pattern
+        let (is_more, pivot) = if lower.contains("more than") {
+            (true, "more than")
+        } else if lower.contains("bigger than") {
+            (true, "bigger than")
+        } else if lower.contains("greater than") {
+            (true, "greater than")
+        } else if lower.contains("less than") {
+            (false, "less than")
+        } else if lower.contains("smaller than") {
+            (false, "smaller than")
+        } else {
+            return None;
+        };
+
+        // Must be a yes/no question starting with "is"
+        if !lower.starts_with("is ") {
+            return None;
+        }
+
+        // Extract operands: "is X more than Y"
+        let after_is = lower.strip_prefix("is ")?.trim();
+        let parts: Vec<&str> = after_is.split(pivot).collect();
+        if parts.len() != 2 {
+            return None;
+        }
+
+        let left_word = parts[0].trim();
+        let right_word = parts[1].trim().trim_end_matches(|c: char| !c.is_alphanumeric());
+
+        let left_val = number_word_to_value(left_word)?;
+        let right_val = number_word_to_value(right_word)?;
+
+        let answer = if is_more {
+            left_val > right_val
+        } else {
+            left_val < right_val
+        };
+        Some((
+            if answer { Answer::Yes } else { Answer::No },
+            Some(0.0),
+            Some("ordinal-comparison".to_string()),
+        ))
     }
 
     // ─── Multi-Instruction Detection ─────────────────────────
@@ -997,6 +1125,49 @@ impl MultiSpace {
                         .replace("the result", &result)
                         .replace("the answer", &result)
                         .replace(" it ", &format!(" {} ", result));
+
+                    // For property questions about arithmetic results: if the result
+                    // word isn't in the CONTENT space AND the question asks about a
+                    // physical property (big/small/hot/cold), return No. Numbers don't
+                    // have physical properties — math-space geometry would misleadingly
+                    // say Yes based on numeric examples like "five is big".
+                    // BUT: equality questions ("is X equal to Y") should NOT be blocked.
+                    if substituted.starts_with("is ") {
+                        let result_in_content = self
+                            .spaces
+                            .get("content")
+                            .map_or(false, |s| {
+                                s.dictionary.entry_set.contains(result.as_str())
+                            });
+                        if !result_in_content {
+                            // Only block for content-property questions, not math questions
+                            let sub_tokens = tokenize(&substituted);
+                            let has_content_property = self
+                                .spaces
+                                .get("content")
+                                .map_or(false, |content_space| {
+                                    sub_tokens.iter().any(|t| {
+                                        t.as_str() != result.as_str()
+                                            && content_space
+                                                .dictionary
+                                                .entry_set
+                                                .contains(t.as_str())
+                                            && !self.is_structural_cached(t)
+                                    })
+                                });
+                            if has_content_property {
+                                return Some((
+                                    Answer::No,
+                                    Some(0.0),
+                                    Some(
+                                        "multi-instruction:arithmetic-pipeline-no-content"
+                                            .to_string(),
+                                    ),
+                                ));
+                            }
+                        }
+                    }
+
                     let (answer, dist, _conn) = self.resolve(&substituted);
                     return Some((
                         answer,
@@ -1796,6 +1967,44 @@ impl MultiSpace {
         }
 
         let tokens = tokenize(query);
+
+        // Check for quoted phrases — meta-classification of quoted content.
+        // "What kind of task is 'how many animals'?" → classify the quoted content.
+        if let Some(quoted) = extract_quoted(&lower) {
+            if let Some(_task_space) = self.spaces.get("task") {
+                // First: check for known domain indicator PHRASES in the quoted text.
+                // Multi-word phrases like "how many" are more specific than single tokens,
+                // so they take priority. This prevents "animal" (content) from overriding
+                // "how many" (math) when both appear in the quoted text.
+                let math_indicators = [
+                    "how many", "plus", "minus", "count", "number", "equal",
+                ];
+                let grammar_indicators = ["noun", "verb", "sentence", "write"];
+                let content_indicators = ["animal", "dog", "cat", "sun", "hot", "cold"];
+
+                if math_indicators.iter().any(|ind| quoted.contains(ind)) {
+                    return Some((
+                        Answer::Word("a number task".to_string()),
+                        Some(0.0),
+                        Some("kind-lookup:quoted-indicator".to_string()),
+                    ));
+                }
+                if grammar_indicators.iter().any(|ind| quoted.contains(ind)) {
+                    return Some((
+                        Answer::Word("a word task".to_string()),
+                        Some(0.0),
+                        Some("kind-lookup:quoted-indicator".to_string()),
+                    ));
+                }
+                if content_indicators.iter().any(|ind| quoted.contains(ind)) {
+                    return Some((
+                        Answer::Word("a content task".to_string()),
+                        Some(0.0),
+                        Some("kind-lookup:quoted-indicator".to_string()),
+                    ));
+                }
+            }
+        }
 
         // Find the subject word (last content word, excluding "task", "kind")
         let content: Vec<&String> = tokens

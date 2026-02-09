@@ -1490,12 +1490,35 @@ fn resolve_what_is(
     strategy: &StrategyConfig,
     extra_content_words: usize,
 ) -> (Answer, f64) {
-    // For pure "What is X?" questions, try definition-category extraction FIRST.
+    // For pure "What is X?" questions, try definition-based answers FIRST.
     // Definitions are ground truth — geometric nearest neighbor sometimes picks
     // a geometrically close but semantically wrong word (e.g., "bad" for "person"
     // because they co-occur in examples). Definition extraction directly reads
     // "person — an animal that can..." → "animal".
     if extra_content_words == 0 {
+        // Definitions come in two shapes:
+        //   Category: "dog — an animal that can..." → starts with article + noun → answer = "an animal"
+        //   Descriptive: "sentence — words in order that tell a thing" → starts with content word → answer = full text
+        //
+        // When the definition doesn't start with an article (a/an/the), the full first-sentence
+        // definition text IS the answer. When it starts with an article, the category noun is
+        // the answer (existing behavior via definition_category()).
+        if let Some(entry) = dictionary.entries.iter().find(|e| e.word == subject) {
+            let first_sentence = entry.definition.split('.').next().unwrap_or(&entry.definition);
+            let first_word = tokenize(first_sentence)
+                .into_iter()
+                .next()
+                .unwrap_or_default();
+            if !matches!(first_word.as_str(), "a" | "an") {
+                // Descriptive definition — return full first-sentence text.
+                // Definitions starting with "a/an" are category definitions ("an animal that...")
+                // where the category noun is the answer. All other definitions ("words in order...",
+                // "the thing in a sentence...", "not cold...", "what a thing does") are
+                // descriptive — the full first sentence IS the answer.
+                return (Answer::Word(first_sentence.trim().to_string()), 0.0);
+            }
+        }
+        // Category definition — extract category noun (e.g., "dog" → "an animal")
         if let Some(category) = definition_category(subject, dictionary, space, structural) {
             let article = if category.starts_with(|c: char| "aeiou".contains(c)) { "an" } else { "a" };
             return (Answer::Word(format!("{} {}", article, category)), 0.0);

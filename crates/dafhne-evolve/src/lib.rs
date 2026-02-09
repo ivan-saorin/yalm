@@ -7,5 +7,5 @@ pub mod population;
 pub mod reporting;
 pub mod runner;
 
-pub use genome::Genome;
-pub use runner::{evolve, resume, EvolutionConfig};
+pub use genome::{Genome, MultiSpaceGenome, SpaceGenome};
+pub use runner::{evolve, evolve_multi, resume, resume_multi, EvolutionConfig, MultiSpaceEvolutionConfig};

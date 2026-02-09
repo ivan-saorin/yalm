@@ -6,7 +6,7 @@ use dafhne_core::ExpectedAnswer;
 use crate::fitness::EvalResult;
 use crate::genome::*;
 use crate::lineage::LineageTracker;
-use crate::runner::{EvolutionConfig, GenerationStats};
+use crate::runner::{EvolutionConfig, GenerationStats, MultiSpaceEvolutionConfig, MultiGenerationStats};
 
 /// Save all per-generation files to disk.
 pub fn save_generation(
@@ -445,4 +445,129 @@ fn count_variants(iter: impl Iterator<Item = String>) -> Vec<(String, usize)> {
     let mut sorted: Vec<(String, usize)> = counts.into_iter().collect();
     sorted.sort_by(|a, b| b.1.cmp(&a.1));
     sorted
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Multi-Space Reporting
+// ═══════════════════════════════════════════════════════════════════
+
+/// Save multi-space generation files to disk.
+pub fn save_multi_generation(
+    gen: usize,
+    population: &[MultiSpaceGenome],
+    stats: &MultiGenerationStats,
+    config: &MultiSpaceEvolutionConfig,
+) {
+    let gen_dir = config.results_dir.join(format!("gen_{:03}", gen));
+    std::fs::create_dir_all(&gen_dir).unwrap();
+
+    write_json(&gen_dir.join("population.json"), population);
+    if let Some(best) = population.first() {
+        write_json(&gen_dir.join("best_genome.json"), best);
+    }
+    write_json(&gen_dir.join("fitness_stats.json"), stats);
+}
+
+/// Write STATUS.md for multi-space evolution.
+pub fn write_multi_status_md(
+    all_stats: &[MultiGenerationStats],
+    current_population: &[MultiSpaceGenome],
+    config: &MultiSpaceEvolutionConfig,
+) {
+    let mut md = String::new();
+    md.push_str("# DAPHNE Multi-Space Evolution Status\n\n");
+
+    let latest = match all_stats.last() {
+        Some(s) => s,
+        None => return,
+    };
+
+    md.push_str(&format!("## Current Generation: {}\n\n", latest.generation));
+    md.push_str(&format!("### Best Fitness: {:.4}\n", latest.best_fitness));
+    md.push_str(&format!("### Population Average: {:.4}\n", latest.average_fitness));
+    md.push_str(&format!("### Best Genome ID: {}\n\n", latest.best_genome_id));
+
+    // Best genome's per-question results
+    let best_eval = latest.eval_results
+        .iter()
+        .find(|er| er.genome_id == latest.best_genome_id);
+    if let Some(best_eval) = best_eval {
+        md.push_str(&format!(
+            "### Score: {}/{} (accuracy: {:.4}, honesty: {:.4})\n\n",
+            best_eval.report.total_correct,
+            best_eval.report.total_questions,
+            best_eval.report.accuracy,
+            best_eval.report.honesty,
+        ));
+
+        md.push_str("### Question Results (Best Genome):\n");
+        md.push_str("| Question | Expected | Result |\n");
+        md.push_str("|----------|----------|--------|\n");
+        for qr in &best_eval.report.results {
+            let status = if qr.correct { "PASS" } else { "FAIL" };
+            md.push_str(&format!(
+                "| {} | {} | {} |\n",
+                qr.question_id, qr.expected, status
+            ));
+        }
+    }
+
+    // Per-space parameter comparison (best genome)
+    if let Some(best) = current_population.first() {
+        md.push_str("\n### Per-Space Parameters (Best Genome):\n\n");
+
+        // Header row
+        let space_names = &best.space_order;
+        let mut header = "| Parameter |".to_string();
+        let mut sep = "|-----------|".to_string();
+        for name in space_names {
+            header.push_str(&format!(" {} |", name));
+            sep.push_str("--------|");
+        }
+        md.push_str(&header);
+        md.push('\n');
+        md.push_str(&sep);
+        md.push('\n');
+
+        // Key parameters
+        let param_rows: Vec<(&str, Box<dyn Fn(&SpaceGenome) -> String>)> = vec![
+            ("dimensions", Box::new(|sg: &SpaceGenome| format!("{}", sg.params.dimensions))),
+            ("learning_passes", Box::new(|sg: &SpaceGenome| format!("{}", sg.params.learning_passes))),
+            ("force_magnitude", Box::new(|sg: &SpaceGenome| format!("{:.4}", sg.params.force_magnitude))),
+            ("force_decay", Box::new(|sg: &SpaceGenome| format!("{:.4}", sg.params.force_decay))),
+            ("yes_threshold", Box::new(|sg: &SpaceGenome| format!("{:.4}", sg.params.yes_threshold))),
+            ("no_threshold", Box::new(|sg: &SpaceGenome| format!("{:.4}", sg.params.no_threshold))),
+            ("negation_inversion", Box::new(|sg: &SpaceGenome| format!("{:.4}", sg.params.negation_inversion))),
+            ("bidirectional_force", Box::new(|sg: &SpaceGenome| format!("{:.4}", sg.params.bidirectional_force))),
+            ("force_function", Box::new(|sg: &SpaceGenome| format!("{:?}", sg.force_function))),
+            ("negation_model", Box::new(|sg: &SpaceGenome| format!("{:?}", sg.negation_model))),
+        ];
+
+        for (name, fmt_fn) in &param_rows {
+            let mut row = format!("| {} |", name);
+            for space_name in space_names {
+                if let Some(sg) = best.spaces.get(space_name) {
+                    row.push_str(&format!(" {} |", fmt_fn(sg)));
+                } else {
+                    row.push_str(" - |");
+                }
+            }
+            md.push_str(&row);
+            md.push('\n');
+        }
+    }
+
+    // Fitness history
+    md.push_str("\n### Fitness History:\n");
+    md.push_str("```\n");
+    for stat in all_stats {
+        md.push_str(&format!(
+            "Gen {:3}: best {:.4}  avg {:.4}  (ID {})\n",
+            stat.generation, stat.best_fitness, stat.average_fitness, stat.best_genome_id
+        ));
+    }
+    md.push_str("```\n");
+
+    let path = config.results_dir.join("STATUS.md");
+    std::fs::write(path, md).unwrap();
 }

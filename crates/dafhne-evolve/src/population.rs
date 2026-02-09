@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use dafhne_core::{EngineParams, SimpleRng};
 
 use crate::genome::*;
@@ -118,4 +120,110 @@ pub fn random_usize_range(rng: &mut SimpleRng, min: usize, max: usize) -> usize 
 
 pub fn random_f64_range(rng: &mut SimpleRng, min: f64, max: f64) -> f64 {
     min + rng.next_f64() * (max - min)
+}
+
+// ─── Multi-Space Population ─────────────────────────────────────
+
+/// Generate the initial population for multi-space evolution.
+/// If `seed_genome` (single-space) is provided, the first individual clones its params to all spaces.
+/// If `seed_multi` (multi-space) is provided, the first individual uses it directly.
+/// `seed_multi` takes priority over `seed_genome` if both are somehow provided.
+pub fn initialize_multi_population(
+    size: usize,
+    space_names: &[String],
+    ranges: &ParamRanges,
+    rng: &mut SimpleRng,
+    generation: usize,
+    id_counter: &mut u64,
+    seed_genome: Option<&Genome>,
+    seed_multi: Option<&MultiSpaceGenome>,
+) -> Vec<MultiSpaceGenome> {
+    let mut population = Vec::with_capacity(size);
+    for i in 0..size {
+        *id_counter += 1;
+        if i == 0 {
+            // Prefer multi-space seed (already has per-space params)
+            if let Some(seed) = seed_multi {
+                let mut msg = seed.clone();
+                // Fill in any missing spaces with random genomes
+                for name in space_names {
+                    if !msg.spaces.contains_key(name) {
+                        msg.spaces.insert(name.clone(), random_space_genome(ranges, rng));
+                    }
+                }
+                msg.space_order = space_names.to_vec();
+                msg.id = *id_counter;
+                msg.generation = generation;
+                msg.parent_ids = vec![];
+                msg.fitness = None;
+                population.push(msg);
+                continue;
+            }
+            // Fall back to single-space seed (broadcast to all spaces)
+            if let Some(seed) = seed_genome {
+                let mut msg = MultiSpaceGenome::from_genome(seed, space_names);
+                msg.id = *id_counter;
+                msg.generation = generation;
+                msg.parent_ids = vec![];
+                msg.fitness = None;
+                population.push(msg);
+                continue;
+            }
+        }
+        population.push(random_multi_genome(space_names, ranges, rng, generation, *id_counter));
+    }
+    population
+}
+
+fn random_multi_genome(
+    space_names: &[String],
+    ranges: &ParamRanges,
+    rng: &mut SimpleRng,
+    generation: usize,
+    id: u64,
+) -> MultiSpaceGenome {
+    let mut spaces = HashMap::new();
+    for name in space_names {
+        spaces.insert(name.clone(), random_space_genome(ranges, rng));
+    }
+    MultiSpaceGenome {
+        spaces,
+        space_order: space_names.to_vec(),
+        id,
+        generation,
+        parent_ids: vec![],
+        fitness: None,
+    }
+}
+
+fn random_space_genome(ranges: &ParamRanges, rng: &mut SimpleRng) -> SpaceGenome {
+    let params = EngineParams {
+        dimensions: random_usize_range(rng, ranges.dimensions.0, ranges.dimensions.1),
+        learning_passes: random_usize_range(rng, ranges.learning_passes.0, ranges.learning_passes.1),
+        force_magnitude: random_f64_range(rng, ranges.force_magnitude.0, ranges.force_magnitude.1),
+        force_decay: random_f64_range(rng, ranges.force_decay.0, ranges.force_decay.1),
+        connector_min_frequency: random_usize_range(rng, ranges.connector_min_frequency.0, ranges.connector_min_frequency.1),
+        connector_max_length: random_usize_range(rng, ranges.connector_max_length.0, ranges.connector_max_length.1),
+        yes_threshold: random_f64_range(rng, ranges.yes_threshold.0, ranges.yes_threshold.1),
+        no_threshold: random_f64_range(rng, ranges.no_threshold.0, ranges.no_threshold.1),
+        negation_inversion: random_f64_range(rng, ranges.negation_inversion.0, ranges.negation_inversion.1),
+        bidirectional_force: random_f64_range(rng, ranges.bidirectional_force.0, ranges.bidirectional_force.1),
+        grammar_weight: random_f64_range(rng, ranges.grammar_weight.0, ranges.grammar_weight.1),
+        max_follow_per_hop: random_usize_range(rng, ranges.max_follow_per_hop.0, ranges.max_follow_per_hop.1),
+        max_chain_hops: random_usize_range(rng, ranges.max_chain_hops.0, ranges.max_chain_hops.1),
+        weighted_distance_alpha: random_f64_range(rng, ranges.weighted_distance_alpha.0, ranges.weighted_distance_alpha.1),
+        uniformity_num_buckets: random_usize_range(rng, ranges.uniformity_num_buckets.0, ranges.uniformity_num_buckets.1),
+        uniformity_threshold: random_f64_range(rng, ranges.uniformity_threshold.0, ranges.uniformity_threshold.1),
+        rng_seed: 0, // overridden by to_engine_params()
+    };
+
+    SpaceGenome {
+        params,
+        force_function: ForceFunction::random(rng),
+        connector_detection: ConnectorDetection::random(rng),
+        space_init: SpaceInitialization::random(rng),
+        multi_connector: MultiConnectorHandling::random(rng),
+        negation_model: NegationModel::random(rng),
+        use_connector_axis: rng.next_f64() < 0.5,
+    }
 }

@@ -1,8 +1,12 @@
+use std::collections::HashMap;
+use std::path::PathBuf;
+
 use serde::{Deserialize, Serialize};
 use dafhne_core::*;
-use dafhne_engine::Engine;
+use dafhne_engine::{BuildMode, Engine};
+use dafhne_engine::multispace::{MultiSpace, SpaceConfig};
 
-use crate::genome::Genome;
+use crate::genome::{Genome, MultiSpaceGenome};
 
 /// Result of evaluating a single genome.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -180,4 +184,59 @@ pub fn build_trained_space(
         engine.train(dictionary);
     }
     engine.space().clone()
+}
+
+// ─── Multi-Space Fitness ────────────────────────────────────────
+
+/// Result of evaluating a multi-space genome.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MultiSpaceEvalResult {
+    pub genome_id: u64,
+    pub report: FitnessReport,
+    pub final_fitness: f64,
+}
+
+/// Evaluate a MultiSpaceGenome by building a full MultiSpace and running the test suite.
+pub fn evaluate_multi_genome(
+    genome: &MultiSpaceGenome,
+    space_configs: &[(String, PathBuf)],
+    test_suite: &TestSuite,
+    base_seed: u64,
+) -> MultiSpaceEvalResult {
+    // Build per-space params map from genome
+    let mut space_params: HashMap<String, (EngineParams, dafhne_engine::strategy::StrategyConfig)> =
+        HashMap::new();
+    for (name, sg) in &genome.spaces {
+        let ep = sg.to_engine_params(base_seed, genome.id, name);
+        let sc = sg.to_strategy_config();
+        space_params.insert(name.clone(), (ep, sc));
+    }
+
+    // Build SpaceConfig list
+    let configs: Vec<SpaceConfig> = space_configs
+        .iter()
+        .map(|(name, path)| SpaceConfig {
+            name: name.clone(),
+            dict_path: path.to_string_lossy().to_string(),
+        })
+        .collect();
+
+    let default_params = EngineParams::default();
+    let default_strategy = dafhne_engine::strategy::StrategyConfig::default();
+
+    let multi = MultiSpace::new_per_space(
+        configs,
+        &space_params,
+        &default_params,
+        &default_strategy,
+        BuildMode::ForceField,
+    );
+
+    let report = dafhne_eval::evaluate_multispace(&multi, test_suite);
+
+    MultiSpaceEvalResult {
+        genome_id: genome.id,
+        final_fitness: report.fitness,
+        report,
+    }
 }

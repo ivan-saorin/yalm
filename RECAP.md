@@ -972,6 +972,27 @@ DAPHNE is a geometric comprehension engine that combines established techniques 
 | Bootstrap loop | Phase 19 | — | Self-improvement, 4 new connectors |
 | Audit + docs | Phase 19b | — | 24-finding audit, 20-citation prior art |
 | Audit fixes | Phase 19c | — | 16 findings fixed, 5 new EngineParams |
+| Per-space evolution | Phase 20 | 90% | 45/50, per-space genome tuning |
+| Hard questions | Phase 21 | 100% | 50/50, 5 surgical fixes |
+
+## Phase 21: Hard Questions — 50/50
+
+Fixed the 5 remaining unified_test failures from Phase 20. All fixes are additive (~120 lines across 2 files, zero regressions).
+
+| Fix | Questions | Root Cause | Solution |
+|-----|-----------|-----------|----------|
+| Definition truncation | Q18, Q20 | `definition_category()` returned first noun instead of full definition | First-word heuristic: definitions not starting with "a"/"an" return full text |
+| Ordinal comparison | Q13 | No "more than"/"less than" support | `resolve_ordinal_comparison()` with `number_word_to_value()` mapping |
+| Quoted phrase routing | Q25 | Quoted text treated as opaque | `extract_quoted()` + domain indicator matching in `resolve_kind_query()` |
+| Multi-step pipeline | Q36 | Arithmetic result routed to wrong space for property check | Content-space membership check: numbers lack physical properties |
+
+**Score**: unified_test 50/50 (was 45/50). dict5 20/20 (no regression).
+
+## Phase 20: Per-Space Parameter Evolution
+
+Each geometric space evolved its own independent parameters via `MultiSpaceGenome` (per-space `SpaceGenome` with own `EngineParams` + strategy). Key result: spaces diverged significantly — MATH needed high dimensions (29) while TASK needed very few (5). CONTENT favored Gravitational force, GRAMMAR favored Spring, MATH and TASK favored Linear.
+
+**Score**: unified_test 45/50 (90%). Per-space parameter divergence confirmed.
 
 ## Phase 19c: Code Audit Fixes
 
@@ -989,15 +1010,11 @@ Addressed 16 of the 24 findings from Phase 19b. Key changes:
 
 ## What Comes Next
 
-### Phase 20: Per-Space Parameter Evolution
-
-Each geometric space gets its own evolved parameters. Currently all spaces share global defaults, but MATH and GRAMMAR likely need different configurations than CONTENT.
-
-### Phase 21: Open-Mode Multi-Space
+### Phase 22: Open-Mode Multi-Space
 
 Apply multi-space architecture to Ollama-assembled dictionaries. Automatic domain partitioning from text.
 
-### Phase 22: Phase 15 Implementation
+### Phase 23: Phase 15 Implementation
 
 Rich property extraction for describe(), enabling stronger bootstrap loop signal.
 

@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use serde::{Deserialize, Serialize};
 use dafhne_core::EngineParams;
 
@@ -96,6 +98,99 @@ impl Genome {
             multi_connector: self.multi_connector,
             negation_model: self.negation_model,
             use_connector_axis: self.use_connector_axis,
+        }
+    }
+}
+
+// ─── Per-Space Genome (for multi-space evolution) ───────────────
+
+/// Parameters and strategy choices for a single space within a MultiSpaceGenome.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SpaceGenome {
+    pub params: EngineParams,
+    pub force_function: ForceFunction,
+    pub connector_detection: ConnectorDetection,
+    pub space_init: SpaceInitialization,
+    pub multi_connector: MultiConnectorHandling,
+    pub negation_model: NegationModel,
+    #[serde(default)]
+    pub use_connector_axis: bool,
+}
+
+impl SpaceGenome {
+    /// Build EngineParams with a unique RNG seed per genome AND per space.
+    pub fn to_engine_params(&self, base_seed: u64, genome_id: u64, space_name: &str) -> EngineParams {
+        let mut p = self.params.clone();
+        let space_hash = space_name
+            .bytes()
+            .fold(0u64, |acc, b| acc.wrapping_mul(31).wrapping_add(b as u64));
+        p.rng_seed = base_seed
+            .wrapping_mul(6364136223846793005)
+            .wrapping_add(genome_id)
+            .wrapping_add(space_hash);
+        p
+    }
+
+    /// Build a StrategyConfig from this space genome's choices.
+    pub fn to_strategy_config(&self) -> StrategyConfig {
+        StrategyConfig {
+            force_function: self.force_function,
+            connector_detection: self.connector_detection,
+            space_init: self.space_init,
+            multi_connector: self.multi_connector,
+            negation_model: self.negation_model,
+            use_connector_axis: self.use_connector_axis,
+        }
+    }
+
+    /// Create a SpaceGenome from an existing single-space Genome's parameters.
+    pub fn from_genome(genome: &Genome) -> Self {
+        SpaceGenome {
+            params: genome.params.clone(),
+            force_function: genome.force_function,
+            connector_detection: genome.connector_detection,
+            space_init: genome.space_init,
+            multi_connector: genome.multi_connector,
+            negation_model: genome.negation_model,
+            use_connector_axis: genome.use_connector_axis,
+        }
+    }
+}
+
+// ─── Multi-Space Genome ─────────────────────────────────────────
+
+/// A genome for multi-space evolution: independent parameters per space,
+/// evolved jointly via unified fitness evaluation.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MultiSpaceGenome {
+    /// Per-space parameter sets, keyed by space name.
+    pub spaces: HashMap<String, SpaceGenome>,
+    /// Ordered list of space names (for deterministic iteration).
+    pub space_order: Vec<String>,
+
+    // Metadata
+    pub id: u64,
+    pub generation: usize,
+    pub parent_ids: Vec<u64>,
+    pub fitness: Option<f64>,
+}
+
+impl MultiSpaceGenome {
+    /// Bootstrap a MultiSpaceGenome from a single-space Genome.
+    /// All spaces start with the same params (for warm-starting from v11 best).
+    pub fn from_genome(genome: &Genome, space_names: &[String]) -> Self {
+        let sg = SpaceGenome::from_genome(genome);
+        let mut spaces = HashMap::new();
+        for name in space_names {
+            spaces.insert(name.clone(), sg.clone());
+        }
+        MultiSpaceGenome {
+            spaces,
+            space_order: space_names.to_vec(),
+            id: genome.id,
+            generation: genome.generation,
+            parent_ids: genome.parent_ids.clone(),
+            fitness: genome.fitness,
         }
     }
 }
