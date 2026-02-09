@@ -241,7 +241,7 @@ No external data, no API keys, no GPU needed for closed-dictionary mode.
 If you use YALM in your research, please cite:
 
 ```bibtex
-@software{yalm2025,
+@software{yalm2026,
   title     = {YALM: Yet Another Language Model --- A Geometric Comprehension Engine},
   author    = {Ivan Saorin},
   year      = {2026},
