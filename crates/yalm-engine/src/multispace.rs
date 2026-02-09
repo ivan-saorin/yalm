@@ -280,11 +280,34 @@ impl MultiSpace {
             }
         }
 
+        // SELF-space activation: identity and capability queries
+        // Check raw tokens (before structural filtering) because "you", "are", "can"
+        // are all structural words that get filtered in the content word loop above.
+        let self_triggers = ["yalm"];
+        let self_patterns: [(&str, &str); 3] = [
+            ("are", "you"),  // "What are you?", "Are you a person?"
+            ("can", "you"),  // "Can you count?", "Can you see?"
+            ("do", "you"),   // "Do you know?", "Do you learn?"
+        ];
+
+        let has_self_trigger = tokens.iter().any(|t| self_triggers.contains(&t.as_str()));
+        let has_self_pattern = self_patterns.iter().any(|(a, b)| {
+            tokens.contains(&a.to_string()) && tokens.contains(&b.to_string())
+        });
+
+        if has_self_trigger || has_self_pattern {
+            if self.spaces.contains_key("self") {
+                exclusive.insert("self".to_string());
+            }
+        }
+
         // If no exclusive activations, use TASK space to disambiguate
         if exclusive.is_empty() {
             if let Some(task_space) = self.spaces.get("task") {
                 let mut math_score = 0.0f64;
                 let mut grammar_score = 0.0f64;
+                let mut content_score = 0.0f64;
+                let mut self_score = 0.0f64;
 
                 for token in &tokens {
                     if is_structural(token) {
@@ -311,17 +334,48 @@ impl MultiSpace {
                             );
                             grammar_score += 1.0 / (1.0 + d);
                         }
+                        if let Some(content_pos) =
+                            task_space.engine.space().words.get("content")
+                        {
+                            let d = euclidean_distance(
+                                &token_pos.position,
+                                &content_pos.position,
+                            );
+                            content_score += 1.0 / (1.0 + d);
+                        }
+                        if let Some(self_pos) =
+                            task_space.engine.space().words.get("self")
+                        {
+                            let d = euclidean_distance(
+                                &token_pos.position,
+                                &self_pos.position,
+                            );
+                            self_score += 1.0 / (1.0 + d);
+                        }
                     }
                 }
 
-                if math_score > grammar_score * 1.2 {
-                    exclusive.insert("math".to_string());
-                } else if grammar_score > math_score * 1.2 {
-                    exclusive.insert("grammar".to_string());
-                } else if math_score > 0.0 || grammar_score > 0.0 {
-                    // Both are close — activate both
-                    exclusive.insert("math".to_string());
-                    exclusive.insert("grammar".to_string());
+                // 4-way disambiguation: find best and second-best domain
+                let mut scores = [
+                    ("math", math_score),
+                    ("grammar", grammar_score),
+                    ("content", content_score),
+                    ("self", self_score),
+                ];
+                scores.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
+
+                let (best_name, best_score) = scores[0];
+                let (_second_name, second_score) = scores[1];
+
+                if best_score > 0.0 {
+                    if best_score > second_score * 1.2 {
+                        // Clear winner
+                        exclusive.insert(best_name.to_string());
+                    } else {
+                        // Top two are close — activate both
+                        exclusive.insert(scores[0].0.to_string());
+                        exclusive.insert(scores[1].0.to_string());
+                    }
                 }
             }
         }
@@ -634,6 +688,39 @@ impl MultiSpace {
             return self.resolve_task_classification(query);
         }
 
+        // ─── SELF Space Patterns ─────────────────────────────
+        // Only activate when SELF space is loaded.
+        if self.spaces.contains_key("self") {
+            let tokens = tokenize(query);
+
+            // Pattern A: "What are you?" — SELF identity
+            if lower.contains("what") && lower.contains("are") && lower.contains("you") {
+                return self.resolve_self_identity();
+            }
+
+            // Pattern B: "Can you X?" — SELF capability check
+            if lower.contains("can") && lower.contains("you") {
+                return self.resolve_self_capability(query, &tokens);
+            }
+
+            // Pattern C: "Do you have X?" — SELF possession check
+            if lower.contains("you") && lower.contains("have") {
+                return self.resolve_self_possession(&tokens);
+            }
+
+            // Pattern D: "Are you a X?" — SELF identity classification
+            if lower.contains("are") && lower.contains("you")
+                && !lower.contains("what")
+            {
+                return self.resolve_self_identity_check(&tokens);
+            }
+
+            // Pattern E: "Do you know X?" — SELF meta-knowledge check
+            if lower.contains("do") && lower.contains("you") && lower.contains("know") {
+                return self.resolve_self_meta_check(&tokens);
+            }
+        }
+
         None
     }
 
@@ -707,14 +794,17 @@ impl MultiSpace {
     // ─── Multi-Instruction Detection ─────────────────────────
 
     /// Detect multi-instruction queries separated by periods.
-    /// E.g., "Two plus three. Write the answer as a sentence."
+    /// Handles: arithmetic+format, question+format, compound questions,
+    /// arithmetic pipeline with result substitution.
     fn detect_multi_instruction(
         &self,
         query: &str,
     ) -> Option<(Answer, Option<f64>, Option<String>)> {
-        // Split on periods, filter out empty segments
+        // Split on periods or question marks (treating ? as segment separator
+        // when followed by more text). We split on both '.' and '?' to handle
+        // compound queries like "Is the sun big? Is five big?"
         let segments: Vec<&str> = query
-            .split('.')
+            .split(|c: char| c == '.' || c == '?')
             .map(|s| s.trim())
             .filter(|s| !s.is_empty())
             .collect();
@@ -723,55 +813,146 @@ impl MultiSpace {
             return None;
         }
 
-        // Check if this looks like multi-instruction (not just a regular sentence with periods)
-        // Heuristic: if any segment contains "write" or "sentence", it's multi-instruction
+        let question_starters = [
+            "is", "can", "what", "who", "where", "when", "why", "does", "has", "are",
+        ];
+
+        // Check if any segment has a formatting instruction
         let has_formatting_instruction = segments.iter().any(|s| {
             let lower = s.to_lowercase();
             lower.contains("write") || lower.contains("sentence")
         });
 
-        if !has_formatting_instruction {
+        // ─── Path A: Has formatting instruction ─────────────
+        if has_formatting_instruction {
+            let first = segments[0];
+
+            // A1: Try arithmetic on first segment + formatting
+            if let Some(arith) = self.detect_arithmetic(first) {
+                if let Some(Answer::Word(result)) = self.resolve_arithmetic(&arith) {
+                    let second_lower = segments[1].to_lowercase();
+                    if second_lower.contains("sentence") || second_lower.contains("write") {
+                        let expression = first.to_lowercase();
+                        let formatted = format!("{} is {}", expression, result);
+                        return Some((
+                            Answer::Word(formatted),
+                            Some(0.0),
+                            Some("multi-instruction:arithmetic+format".to_string()),
+                        ));
+                    }
+                    return Some((
+                        Answer::Word(result),
+                        Some(0.0),
+                        Some("multi-instruction:arithmetic".to_string()),
+                    ));
+                }
+            }
+
+            // A2: Try Yes/No question on first segment + sentence formatting
+            let first_lower = first.to_lowercase();
+            let first_word_of_first = first_lower.split_whitespace().next().unwrap_or("");
+            if question_starters.contains(&first_word_of_first) {
+                let (answer, dist, _conn) = self.resolve(first);
+                let wants_sentence = segments[1..].iter().any(|s| {
+                    let sl = s.to_lowercase();
+                    sl.contains("write") || sl.contains("sentence")
+                });
+                if wants_sentence {
+                    if answer == Answer::Yes {
+                        let sentence = yes_no_to_declarative(first);
+                        return Some((
+                            Answer::Word(sentence),
+                            dist,
+                            Some("multi-instruction:question+format".to_string()),
+                        ));
+                    }
+                }
+            }
+
+            // A3: Fallback — resolve last question segment
+            let last = segments.last()?;
+            let last_lower = last.to_lowercase();
+            let first_word = last_lower.split_whitespace().next()?;
+            if question_starters.contains(&first_word) {
+                let (answer, dist, conn) = self.resolve(last);
+                return Some((answer, dist, conn));
+            }
+
             return None;
         }
 
-        // Process first segment as a computation
-        let first = segments[0];
+        // ─── Path B: No formatting — check for compound questions ───
+        let all_questions = segments.iter().all(|s| {
+            let fw = s.to_lowercase();
+            let first_w = fw.split_whitespace().next().unwrap_or("");
+            question_starters.contains(&first_w)
+        });
 
-        // Try arithmetic on the first segment
+        if all_questions {
+            let mut answers: Vec<String> = Vec::new();
+            let mut all_yes_no = true;
+
+            for seg in &segments {
+                let (answer, _, _) = self.resolve(seg);
+                match &answer {
+                    Answer::Yes => answers.push("Yes".to_string()),
+                    Answer::No => answers.push("No".to_string()),
+                    Answer::Word(w) => {
+                        answers.push(w.clone());
+                        all_yes_no = false;
+                    }
+                    Answer::IDontKnow => {
+                        answers.push("I don't know".to_string());
+                        all_yes_no = false;
+                    }
+                }
+            }
+
+            let combined = if all_yes_no {
+                answers.join(" and ")
+            } else {
+                let joined = answers.join(". ");
+                format!("{}.", joined)
+            };
+            return Some((
+                Answer::Word(combined),
+                Some(0.0),
+                Some("multi-instruction:compound-question".to_string()),
+            ));
+        }
+
+        // ─── Path C: Arithmetic pipeline with result substitution ───
+        // "One plus one. Is the result equal to two?"
+        let first = segments[0];
         if let Some(arith) = self.detect_arithmetic(first) {
             if let Some(Answer::Word(result)) = self.resolve_arithmetic(&arith) {
-                // Check if second segment asks for sentence formatting
-                let second_lower = segments[1].to_lowercase();
-                if second_lower.contains("sentence") || second_lower.contains("write") {
-                    // Format as: "{expression} is {result}"
-                    let expression = first.to_lowercase();
-                    let formatted = format!("{} is {}", expression, result);
+                // Find the last segment that's a question
+                if let Some(q) = segments[1..].iter().rev().find(|s| {
+                    let fw = s.to_lowercase();
+                    let first_w = fw.split_whitespace().next().unwrap_or("");
+                    question_starters.contains(&first_w)
+                }) {
+                    // Substitute "the result" / "the answer" / " it " with computed value
+                    let substituted = q
+                        .to_lowercase()
+                        .replace("the result", &result)
+                        .replace("the answer", &result)
+                        .replace(" it ", &format!(" {} ", result));
+                    let (answer, dist, _conn) = self.resolve(&substituted);
                     return Some((
-                        Answer::Word(formatted),
-                        Some(0.0),
-                        Some("multi-instruction:arithmetic+format".to_string()),
+                        answer,
+                        dist,
+                        Some("multi-instruction:arithmetic-pipeline".to_string()),
                     ));
                 }
-                return Some((
-                    Answer::Word(result),
-                    Some(0.0),
-                    Some("multi-instruction:arithmetic".to_string()),
-                ));
             }
         }
 
-        // If first segment isn't arithmetic, try compound question detection:
-        // "Count to five. Is count a verb?" — the second part is the actual question
+        // ─── Path D: Last segment is a question (original fallback) ───
         let last = segments.last()?;
         let last_lower = last.to_lowercase();
-
-        // Check if the last segment is a question (starts with is/can/what/does/...)
-        let question_starters = [
-            "is", "can", "what", "who", "where", "when", "why", "does", "has",
-        ];
         let first_word = last_lower.split_whitespace().next()?;
         if question_starters.contains(&first_word) {
-            // Resolve just the question part
             let (answer, dist, conn) = self.resolve(last);
             return Some((answer, dist, conn));
         }
@@ -1210,7 +1391,7 @@ impl MultiSpace {
     // ─── Task Classification ─────────────────────────────────
 
     /// Handle 'Is "{quoted}" a {type} task?' queries.
-    /// Analyzes the quoted content to determine if it's a number or word task.
+    /// Analyzes the quoted content to determine if it's a number, word, or content task.
     fn resolve_task_classification(
         &self,
         query: &str,
@@ -1221,8 +1402,9 @@ impl MultiSpace {
         // Determine what task type is being asked about
         let asking_number = lower.contains("number task");
         let asking_word = lower.contains("word task");
+        let asking_content = lower.contains("content task");
 
-        if !asking_number && !asking_word {
+        if !asking_number && !asking_word && !asking_content {
             return None;
         }
 
@@ -1231,6 +1413,10 @@ impl MultiSpace {
 
         let math_indicators = ["plus", "minus", "count", "number", "equal", "more", "less"];
         let grammar_indicators = ["noun", "verb", "sentence", "word", "subject", "property"];
+        let content_indicators = [
+            "dog", "cat", "sun", "animal", "hot", "cold", "eat", "move",
+            "live", "food", "water", "place", "ball", "color", "sound", "feel",
+        ];
 
         let math_count = quoted_tokens
             .iter()
@@ -1240,23 +1426,37 @@ impl MultiSpace {
             .iter()
             .filter(|t| grammar_indicators.contains(&t.as_str()))
             .count();
+        let content_count = quoted_tokens
+            .iter()
+            .filter(|t| content_indicators.contains(&t.as_str()))
+            .count();
 
-        let is_math_content = math_count > grammar_count;
-        let is_grammar_content = grammar_count > math_count;
+        // 3-way classification: each domain wins only if it beats BOTH others
+        let is_math = math_count > grammar_count && math_count > content_count;
+        let is_grammar = grammar_count > math_count && grammar_count > content_count;
+        let is_content = content_count > math_count && content_count > grammar_count;
 
         if asking_number {
-            if is_math_content {
+            if is_math {
                 return Some((Answer::Yes, Some(0.0), Some("task-classify:number".to_string())));
-            } else if is_grammar_content {
+            } else if is_grammar || is_content {
                 return Some((Answer::No, Some(0.0), Some("task-classify:not-number".to_string())));
             }
         }
 
         if asking_word {
-            if is_grammar_content {
+            if is_grammar {
                 return Some((Answer::Yes, Some(0.0), Some("task-classify:word".to_string())));
-            } else if is_math_content {
+            } else if is_math || is_content {
                 return Some((Answer::No, Some(0.0), Some("task-classify:not-word".to_string())));
+            }
+        }
+
+        if asking_content {
+            if is_content {
+                return Some((Answer::Yes, Some(0.0), Some("task-classify:content".to_string())));
+            } else if is_math || is_grammar {
+                return Some((Answer::No, Some(0.0), Some("task-classify:not-content".to_string())));
             }
         }
 
@@ -1562,6 +1762,13 @@ impl MultiSpace {
                         Some("kind-lookup".to_string()),
                     ));
                 }
+                if text_lower.contains("content task") {
+                    return Some((
+                        Answer::Word("a content task".to_string()),
+                        Some(0.0),
+                        Some("kind-lookup".to_string()),
+                    ));
+                }
             }
         }
 
@@ -1591,14 +1798,324 @@ impl MultiSpace {
                         Some("kind-lookup:task-space".to_string()),
                     ));
                 }
+                if text_lower.contains("content task") {
+                    return Some((
+                        Answer::Word("a content task".to_string()),
+                        Some(0.0),
+                        Some("kind-lookup:task-space".to_string()),
+                    ));
+                }
             }
         }
 
         None
     }
+
+    // ─── SELF Space Pattern Handlers ──────────────────────────
+
+    /// Pattern A: "What are you?" — return yalm's identity from SELF space.
+    fn resolve_self_identity(&self) -> Option<(Answer, Option<f64>, Option<String>)> {
+        let self_space = self.spaces.get("self")?;
+        let yalm_entry = self_space
+            .dictionary
+            .entries
+            .iter()
+            .find(|e| e.word == "yalm")?;
+        let first_sentence = yalm_entry
+            .definition
+            .split('.')
+            .next()
+            .unwrap_or(&yalm_entry.definition)
+            .trim();
+        Some((
+            Answer::Word(first_sentence.to_lowercase()),
+            Some(0.0),
+            Some("self:identity".to_string()),
+        ))
+    }
+
+    /// Pattern B: "Can you X?" — check yalm's capabilities in SELF space.
+    /// Scans yalm's definition and all SELF entries for "yalm can [not] X" patterns.
+    fn resolve_self_capability(
+        &self,
+        query: &str,
+        tokens: &[String],
+    ) -> Option<(Answer, Option<f64>, Option<String>)> {
+        let self_space = self.spaces.get("self")?;
+
+        // Build the verb phrase after "can you": e.g., "count", "see", "make mistakes"
+        let lower = query.to_lowercase();
+        let can_you_pos = lower.find("can you")?;
+        let after = lower[can_you_pos + 7..].trim().trim_end_matches('?').trim();
+        if after.is_empty() {
+            return None;
+        }
+
+        // Strategy 1: Check yalm's definition directly
+        if let Some(yalm_entry) = self_space
+            .dictionary
+            .entries
+            .iter()
+            .find(|e| e.word == "yalm")
+        {
+            let def_lower = yalm_entry.definition.to_lowercase();
+
+            // Check for negation first: "can not X"
+            let cannot_pattern = format!("can not {}", after);
+            if def_lower.contains(&cannot_pattern) {
+                return Some((
+                    Answer::No,
+                    Some(0.0),
+                    Some("self:capability:no".to_string()),
+                ));
+            }
+
+            // Check for positive: "can X"
+            let can_pattern = format!("can {}", after);
+            if def_lower.contains(&can_pattern) {
+                return Some((
+                    Answer::Yes,
+                    Some(0.0),
+                    Some("self:capability:yes".to_string()),
+                ));
+            }
+
+            // Also check single-word action (last content word)
+            let action = tokens
+                .iter()
+                .filter(|t| !is_structural(t))
+                .last();
+            if let Some(action_word) = action {
+                let stemmed = stem_to_entry(action_word, &self_space.dictionary.entry_set)
+                    .unwrap_or_else(|| action_word.clone());
+                let cannot_single = format!("can not {}", stemmed);
+                let can_single = format!("can {}", stemmed);
+                if def_lower.contains(&cannot_single) {
+                    return Some((
+                        Answer::No,
+                        Some(0.0),
+                        Some("self:capability:no".to_string()),
+                    ));
+                }
+                if def_lower.contains(&can_single) {
+                    return Some((
+                        Answer::Yes,
+                        Some(0.0),
+                        Some("self:capability:yes".to_string()),
+                    ));
+                }
+            }
+        }
+
+        // Strategy 2: Scan all SELF entries for "yalm can [not] {action}" patterns
+        let action_word = tokens
+            .iter()
+            .filter(|t| !is_structural(t))
+            .last()?;
+        let stemmed = stem_to_entry(action_word, &self_space.dictionary.entry_set)
+            .unwrap_or_else(|| action_word.clone());
+
+        for entry in &self_space.dictionary.entries {
+            let all_text = format!(
+                "{}. {}",
+                entry.definition,
+                entry.examples.join(". ")
+            );
+            let text_lower = all_text.to_lowercase();
+
+            // Check for "yalm can not {action}"
+            let cannot_pat = format!("yalm can not {}", stemmed);
+            if text_lower.contains(&cannot_pat) {
+                return Some((
+                    Answer::No,
+                    Some(0.0),
+                    Some("self:capability:no".to_string()),
+                ));
+            }
+
+            // Check for "yalm can make {action}" (for "Can you make mistakes?")
+            let can_make_pat = format!("yalm can make {}", stemmed);
+            if text_lower.contains(&can_make_pat) {
+                return Some((
+                    Answer::Yes,
+                    Some(0.0),
+                    Some("self:capability:yes".to_string()),
+                ));
+            }
+
+            // Check for "yalm can {action}"
+            let can_pat = format!("yalm can {}", stemmed);
+            if text_lower.contains(&can_pat) {
+                return Some((
+                    Answer::Yes,
+                    Some(0.0),
+                    Some("self:capability:yes".to_string()),
+                ));
+            }
+        }
+
+        None
+    }
+
+    /// Pattern C: "Do you have X?" — check yalm's possessions in SELF space.
+    fn resolve_self_possession(
+        &self,
+        tokens: &[String],
+    ) -> Option<(Answer, Option<f64>, Option<String>)> {
+        let self_space = self.spaces.get("self")?;
+        let yalm_entry = self_space
+            .dictionary
+            .entries
+            .iter()
+            .find(|e| e.word == "yalm")?;
+        let def_lower = yalm_entry.definition.to_lowercase();
+
+        // Extract the object: last content word
+        let object = tokens
+            .iter()
+            .filter(|t| !is_structural(t) && t.as_str() != "have")
+            .last()?;
+        let stemmed = stem_to_entry(object, &self_space.dictionary.entry_set)
+            .unwrap_or_else(|| object.clone());
+
+        // Check for "has no X" (negation first)
+        let no_pattern = format!("has no {}", stemmed);
+        if def_lower.contains(&no_pattern) {
+            return Some((
+                Answer::No,
+                Some(0.0),
+                Some("self:possession:no".to_string()),
+            ));
+        }
+
+        // Check for "has X"
+        let has_pattern = format!("has {}", stemmed);
+        if def_lower.contains(&has_pattern) {
+            return Some((
+                Answer::Yes,
+                Some(0.0),
+                Some("self:possession:yes".to_string()),
+            ));
+        }
+
+        None
+    }
+
+    /// Pattern D: "Are you a X?" — check yalm's identity classification in SELF space.
+    fn resolve_self_identity_check(
+        &self,
+        tokens: &[String],
+    ) -> Option<(Answer, Option<f64>, Option<String>)> {
+        let self_space = self.spaces.get("self")?;
+        let yalm_entry = self_space
+            .dictionary
+            .entries
+            .iter()
+            .find(|e| e.word == "yalm")?;
+        let def_lower = yalm_entry.definition.to_lowercase();
+
+        // Extract the category: last content word
+        let category = tokens
+            .iter()
+            .filter(|t| !is_structural(t))
+            .last()?;
+        let stemmed = stem_to_entry(category, &self_space.dictionary.entry_set)
+            .unwrap_or_else(|| category.clone());
+
+        // Check for "is not a X" / "is not an X" (negation first)
+        let not_a = format!("not a {}", stemmed);
+        let not_an = format!("not an {}", stemmed);
+        if def_lower.contains(&not_a) || def_lower.contains(&not_an) {
+            return Some((
+                Answer::No,
+                Some(0.0),
+                Some("self:identity:no".to_string()),
+            ));
+        }
+
+        // Check for "is a X" / "is an X"
+        let is_a = format!("is a {}", stemmed);
+        let is_an = format!("is an {}", stemmed);
+        if def_lower.contains(&is_a) || def_lower.contains(&is_an) {
+            return Some((
+                Answer::Yes,
+                Some(0.0),
+                Some("self:identity:yes".to_string()),
+            ));
+        }
+
+        None
+    }
+
+    /// Pattern E: "Do you know X?" — meta-knowledge check across all domain spaces.
+    fn resolve_self_meta_check(
+        &self,
+        tokens: &[String],
+    ) -> Option<(Answer, Option<f64>, Option<String>)> {
+        // Extract the concept: last content word (excluding "know")
+        let concept = tokens
+            .iter()
+            .filter(|t| !is_structural(t) && t.as_str() != "know")
+            .last()?;
+
+        // Check if the concept exists in any domain space vocabulary
+        for (name, space) in &self.spaces {
+            if name == "task" || name == "self" {
+                continue; // Only check domain knowledge spaces
+            }
+            if space.dictionary.entry_set.contains(concept.as_str())
+                || stem_to_entry(concept, &space.dictionary.entry_set).is_some()
+            {
+                return Some((
+                    Answer::Yes,
+                    Some(0.0),
+                    Some(format!("self:meta-know:{}", name)),
+                ));
+            }
+        }
+
+        // Concept not found in any domain space
+        Some((
+            Answer::No,
+            Some(0.0),
+            Some("self:meta-unknown".to_string()),
+        ))
+    }
 }
 
 // ─── Helper Functions ────────────────────────────────────────
+
+/// Convert a Yes/No question to a declarative sentence.
+/// "Can an animal eat" → "an animal can eat"
+/// "Is the sun hot" → "the sun is hot"
+/// "Can a person make a sound" → "a person can make a sound"
+fn yes_no_to_declarative(question: &str) -> String {
+    let q = question.trim().trim_end_matches('?').to_lowercase();
+    let words: Vec<&str> = q.split_whitespace().collect();
+    if words.len() < 3 {
+        return q;
+    }
+
+    let verb = words[0]; // "can", "is", "does"
+    let rest = &words[1..]; // ["an", "animal", "eat"] or ["the", "sun", "hot"]
+
+    // Find the subject: articles + first content word
+    let articles = ["a", "an", "the"];
+    let mut subject_end = 0;
+    for (i, w) in rest.iter().enumerate() {
+        subject_end = i + 1;
+        if !articles.contains(w) {
+            break; // found the noun, include it
+        }
+    }
+
+    let subject = &rest[..subject_end];
+    let predicate = &rest[subject_end..];
+
+    format!("{} {} {}", subject.join(" "), verb, predicate.join(" "))
+        .trim()
+        .to_string()
+}
 
 /// Extract quoted substring from a query.
 fn extract_quoted(query: &str) -> Option<String> {

@@ -183,12 +183,27 @@ fn definition_category(
         }
 
         // STANDARD PATH: apply all filters for auto-generated definitions
-        // Skip structural/function words
-        if structural.contains(&stemmed) {
+        // Skip articles — never a category
+        if matches!(stemmed.as_str(), "a" | "an" | "the") {
             continue;
         }
-        // Skip words that appear in connector patterns (function words)
-        if is_connector_word(&stemmed, space) {
+        // Skip structural/function words, UNLESS they are also valid category nouns.
+        // "thing" is structural (appears in >20% of defs) but IS a category noun.
+        // True function words (is, can, do, not) are structural AND have non-noun definitions.
+        if structural.contains(&stemmed) {
+            // Allow structural words that have noun-like definitions (start with article/quantifier)
+            let is_noun = dictionary.entries.iter()
+                .find(|e| e.word == stemmed)
+                .map_or(false, |e| {
+                    let fw = tokenize(&e.definition).into_iter().next().unwrap_or_default();
+                    matches!(fw.as_str(), "a" | "an" | "the" | "one" | "any" | "something" | "all")
+                });
+            if !is_noun {
+                continue;
+            }
+        }
+        // Skip connector-pattern words that aren't dictionary entries.
+        if is_connector_word(&stemmed, space) && !dictionary.entry_set.contains(&stemmed) {
             continue;
         }
         // Skip non-noun words: adjectives, verbs, property words
@@ -196,13 +211,13 @@ fn definition_category(
             continue;
         }
         // Must be a dictionary entry AND have a noun-like definition
-        // (starting with an article: "a thing", "an animal", "the act of")
+        // (starting with an article/quantifier: "a thing", "an animal", "all that is")
         if dictionary.entry_set.contains(&stemmed) {
             let is_noun = dictionary.entries.iter()
                 .find(|e| e.word == stemmed)
                 .map_or(false, |e| {
                     let fw = tokenize(&e.definition).into_iter().next().unwrap_or_default();
-                    matches!(fw.as_str(), "a" | "an" | "the" | "one" | "any" | "something")
+                    matches!(fw.as_str(), "a" | "an" | "the" | "one" | "any" | "something" | "all")
                 });
             if is_noun {
                 return Some(stemmed);
@@ -254,6 +269,56 @@ fn is_connector_word(word: &str, space: &GeometricSpace) -> bool {
         }
     }
     false
+}
+
+/// Extract property words and relative clauses from a definition's first sentence.
+///
+/// The first sentence of ELI5 definitions follows the pattern:
+///   "a [property...] category [that/which relative-clause]"
+///
+/// Examples:
+///   "a big hot thing that is up" → properties=["big", "hot"], relative="is up"
+///   "a small animal"             → properties=["small"],      relative=None
+///   "a thing that lives"         → properties=[],             relative="lives"
+fn extract_first_sentence_properties(
+    definition: &str,
+    category: &str,
+    dictionary: &Dictionary,
+    structural: &HashSet<String>,
+) -> (Vec<String>, Option<String>) {
+    let first_sentence = definition.split('.').next().unwrap_or(definition);
+
+    // Split on " that " or " which " to separate main clause from relative clause
+    let (main_part, relative_clause) = if let Some(pos) = first_sentence.find(" that ") {
+        (&first_sentence[..pos], Some(first_sentence[pos + 6..].trim()))
+    } else if let Some(pos) = first_sentence.find(" which ") {
+        (&first_sentence[..pos], Some(first_sentence[pos + 7..].trim()))
+    } else {
+        (first_sentence, None)
+    };
+
+    // Extract property words from main part (words before the category noun)
+    let tokens = tokenize(main_part);
+    let mut properties = Vec::new();
+
+    for token in &tokens {
+        let stemmed = stem_to_entry(token, &dictionary.entry_set)
+            .unwrap_or_else(|| token.clone());
+        // Skip structural words, the category itself, and articles
+        if structural.contains(&stemmed) || stemmed == category {
+            continue;
+        }
+        if matches!(stemmed.as_str(), "a" | "an" | "the") {
+            continue;
+        }
+        // Only include words identified as properties/adjectives
+        if is_property_word(&stemmed, dictionary) {
+            properties.push(stemmed);
+        }
+    }
+
+    let rel = relative_clause.map(|s| s.to_string());
+    (properties, rel)
 }
 
 // ─── Weighted Distance (Fix 2) ───────────────────────────────
@@ -1837,11 +1902,36 @@ pub fn describe(
     // ── 1. Category sentence ──────────────────────────────────
     // Extract the category from the first sentence of the definition.
     // Reuse definition_category() logic but construct a full sentence.
+    let article_subject = make_article(subject, dictionary);
     let category = definition_category(subject, dictionary, space, structural);
     if let Some(ref cat) = category {
-        let article_subject = make_article(subject, dictionary);
         let article_cat = if cat.starts_with(|c: char| "aeiou".contains(c)) { "an" } else { "a" };
         sentences.push(format!("{} is {} {}.", article_subject, article_cat, cat));
+    }
+
+    // ── 1b. First-sentence property extraction ──────────────
+    // Extract adjectives and relative clauses from the first sentence.
+    // "a big hot thing that is up" → "the sun is big.", "the sun is hot.", "the sun is up."
+
+    if let Some(ref cat) = category {
+        let (properties, relative_clause) = extract_first_sentence_properties(
+            &entry.definition, cat, dictionary, structural,
+        );
+
+        // Generate property sentences: "{subject} is {property}."
+        for prop in &properties {
+            sentences.push(format!("{} is {}.", article_subject, prop));
+        }
+
+        // Generate relative clause sentence: "{subject} {clause}."
+        // "that is up" → "the sun is up."
+        // "that lives" → "an animal lives."
+        // "that can make things" → skip (capability, handled in step 2)
+        if let Some(clause) = relative_clause {
+            if !clause.starts_with("can ") {
+                sentences.push(format!("{} {}.", article_subject, clause));
+            }
+        }
     }
 
     // ── 2. Definition sentence rewriting ──────────────────────
@@ -1853,8 +1943,6 @@ pub fn describe(
         .map(|s| s.trim())
         .filter(|s| !s.is_empty())
         .collect();
-
-    let article_subject = make_article(subject, dictionary);
 
     for (i, sentence) in def_sentences.iter().enumerate() {
         if i == 0 {

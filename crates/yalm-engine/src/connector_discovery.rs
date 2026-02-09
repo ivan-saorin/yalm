@@ -261,25 +261,18 @@ fn build_alphabetical_buckets(dictionary: &Dictionary, num_buckets: usize) -> Ve
         .collect()
 }
 
-/// Discover connectors from the dictionary text and return both the connectors
-/// and all extracted sentence relations.
-///
-/// Two-pass pipeline:
-/// 1. Frequency filter: select candidate patterns above min_frequency
-/// 2. Uniformity filter: keep only candidates distributed uniformly across the dictionary
-///    (skipped for small dictionaries < 100 entries where frequency is sufficient)
-pub fn discover_connectors(
+/// Internal pipeline: from relations → connectors.
+/// Frequency filter (strategy-dependent) → uniformity filter → RNG force directions.
+/// Shared by `discover_connectors()` and `discover_connectors_from_sentences()`.
+fn connector_pipeline(
+    relations: &[SentenceRelation],
     dictionary: &Dictionary,
     params: &EngineParams,
     strategy: &StrategyConfig,
-) -> (Vec<Connector>, Vec<SentenceRelation>) {
-    let sentences = extract_all_sentences(dictionary);
-    let (structural, content) = classify_word_roles(dictionary);
-    let relations = extract_relations(&sentences, dictionary, &structural, &content, params);
-
+) -> Vec<Connector> {
     // Count connector pattern frequencies
     let mut freq: HashMap<Vec<String>, usize> = HashMap::new();
-    for rel in &relations {
+    for rel in relations {
         *freq.entry(rel.connector_pattern.clone()).or_insert(0) += 1;
     }
 
@@ -341,13 +334,13 @@ pub fn discover_connectors(
 
             let mut left_counts: HashMap<String, usize> = HashMap::new();
             let mut right_counts: HashMap<String, usize> = HashMap::new();
-            for rel in &relations {
+            for rel in relations {
                 *left_counts.entry(rel.left_word.clone()).or_insert(0) += 1;
                 *right_counts.entry(rel.right_word.clone()).or_insert(0) += 1;
             }
 
             let mut pattern_scores: HashMap<Vec<String>, f64> = HashMap::new();
-            for rel in &relations {
+            for rel in relations {
                 let left_c = *left_counts.get(&rel.left_word).unwrap_or(&1) as f64;
                 let right_c = *right_counts.get(&rel.right_word).unwrap_or(&1) as f64;
                 let pair_count = freq.get(&rel.connector_pattern).copied().unwrap_or(1) as f64;
@@ -458,6 +451,43 @@ pub fn discover_connectors(
     // Sort by frequency descending for deterministic ordering
     connectors.sort_by(|a, b| b.frequency.cmp(&a.frequency).then(a.pattern.cmp(&b.pattern)));
 
+    connectors
+}
+
+/// Discover connectors from the dictionary text and return both the connectors
+/// and all extracted sentence relations.
+///
+/// Two-pass pipeline:
+/// 1. Frequency filter: select candidate patterns above min_frequency
+/// 2. Uniformity filter: keep only candidates distributed uniformly across the dictionary
+///    (skipped for small dictionaries < 100 entries where frequency is sufficient)
+pub fn discover_connectors(
+    dictionary: &Dictionary,
+    params: &EngineParams,
+    strategy: &StrategyConfig,
+) -> (Vec<Connector>, Vec<SentenceRelation>) {
+    let sentences = extract_all_sentences(dictionary);
+    let (structural, content) = classify_word_roles(dictionary);
+    let relations = extract_relations(&sentences, dictionary, &structural, &content, params);
+    let connectors = connector_pipeline(&relations, dictionary, params, strategy);
+    (connectors, relations)
+}
+
+/// Discover connectors from an arbitrary set of sentences (not just dictionary text).
+/// Used by the bootstrap loop to combine dictionary + generated sentences.
+///
+/// Word-role classification still uses the dictionary (structural/content is a property
+/// of how words appear in definitions). The provided sentences are scanned for
+/// topic-word pairs, yielding relation instances and potential new connector patterns.
+pub fn discover_connectors_from_sentences(
+    sentences: &[String],
+    dictionary: &Dictionary,
+    params: &EngineParams,
+    strategy: &StrategyConfig,
+) -> (Vec<Connector>, Vec<SentenceRelation>) {
+    let (structural, content) = classify_word_roles(dictionary);
+    let relations = extract_relations(sentences, dictionary, &structural, &content, params);
+    let connectors = connector_pipeline(&relations, dictionary, params, strategy);
     (connectors, relations)
 }
 
@@ -576,6 +606,32 @@ mod tests {
             "Should find at least 2 negated relations, found {}",
             negated.len()
         );
+    }
+
+    #[test]
+    fn test_discover_from_sentences_matches_original() {
+        let dict = load_dict();
+        let params = EngineParams::default();
+        let strategy = StrategyConfig::default();
+
+        let (orig_connectors, _) = discover_connectors(&dict, &params, &strategy);
+
+        let sentences = extract_all_sentences(&dict);
+        let (from_sentences, _) =
+            discover_connectors_from_sentences(&sentences, &dict, &params, &strategy);
+
+        // Same sentences should produce identical connectors
+        assert_eq!(
+            orig_connectors.len(),
+            from_sentences.len(),
+            "Connector count mismatch: original={}, from_sentences={}",
+            orig_connectors.len(),
+            from_sentences.len()
+        );
+        for (a, b) in orig_connectors.iter().zip(from_sentences.iter()) {
+            assert_eq!(a.pattern, b.pattern, "Pattern mismatch");
+            assert_eq!(a.frequency, b.frequency, "Frequency mismatch for {:?}", a.pattern);
+        }
     }
 
     #[test]

@@ -107,6 +107,11 @@ struct Cli {
     #[arg(long)]
     spaces: Option<String>,
 
+    // ── Bootstrap loop ─────────────────────────────────────────
+    /// Number of bootstrap iterations (multi-space mode only, 0 = disabled)
+    #[arg(long, default_value = "0")]
+    bootstrap: usize,
+
     // ── Space dump ──────────────────────────────────────────────
     /// Dump the trained geometric space as JSON to the given path
     #[arg(long)]
@@ -348,7 +353,7 @@ fn main() {
         println!("Strategy: {:?}", strategy);
         println!();
 
-        let multi = MultiSpace::new(configs, &params, &strategy, build_mode);
+        let mut multi = MultiSpace::new(configs, &params, &strategy, build_mode);
         multi.print_bridges();
 
         // Print per-space statistics
@@ -356,6 +361,48 @@ fn main() {
             let space = &multi.spaces[name];
             println!("\n=== Space: {} ===", name);
             print_space_statistics(space.engine.space(), &space.dictionary);
+        }
+
+        // ── Bootstrap loop ───────────────────────────────────────
+        if cli.bootstrap > 0 {
+            use yalm_engine::bootstrap::BootstrapConfig;
+
+            println!("\n=== Bootstrap: Baseline Connectors ===");
+            for name in &multi.space_order {
+                let space = &multi.spaces[name];
+                let connectors = &space.engine.space().connectors;
+                let patterns: Vec<&Vec<String>> = connectors.iter().map(|c| &c.pattern).collect();
+                println!("  [{}] {} connectors: {:?}", name, connectors.len(), patterns);
+            }
+
+            let bootstrap_config = BootstrapConfig {
+                max_iterations: cli.bootstrap,
+                min_new_connectors: 1,
+                describe_spaces: vec!["content".to_string(), "grammar".to_string()],
+                verbose: true,
+            };
+
+            let result = multi.bootstrap(&bootstrap_config);
+
+            // Print summary
+            println!("\n=== Bootstrap Summary ===");
+            println!("  Converged at level: {}", result.converged_at);
+            for level in &result.levels {
+                println!(
+                    "  Level {}: +{} new, -{} lost, {} sentences generated",
+                    level.level,
+                    level.new_connectors.len(),
+                    level.lost_connectors.len(),
+                    level.generated_sentences
+                );
+            }
+
+            // Re-print per-space statistics after bootstrap
+            for name in &multi.space_order {
+                let space = &multi.spaces[name];
+                println!("\n=== Space (post-bootstrap): {} ===", name);
+                print_space_statistics(space.engine.space(), &space.dictionary);
+            }
         }
 
         // Evaluate

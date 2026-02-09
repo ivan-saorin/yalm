@@ -1,3 +1,4 @@
+pub mod bootstrap;
 pub mod connector_discovery;
 pub mod equilibrium;
 pub mod force_field;
@@ -8,7 +9,7 @@ pub mod strategy;
 use std::collections::HashSet;
 use yalm_core::*;
 
-use connector_discovery::{classify_word_roles, discover_connectors, extract_all_sentences, extract_relations};
+use connector_discovery::{classify_word_roles, discover_connectors, discover_connectors_from_sentences, extract_all_sentences, extract_relations};
 use equilibrium::{build_space_equilibrium, EquilibriumParams};
 use force_field::build_space;
 use resolver::resolve_question;
@@ -87,6 +88,52 @@ impl Engine {
 
     pub fn content(&self) -> &HashSet<String> {
         &self.content
+    }
+
+    /// Re-train the engine with additional sentences combined with dictionary text.
+    /// Used by the bootstrap loop to enrich connector discovery.
+    ///
+    /// Does NOT re-classify word roles (structural/content classification
+    /// depends only on the dictionary, which is unchanged).
+    /// Does NOT change the dictionary. Only the GeometricSpace (positions + connectors) changes.
+    pub fn retrain_with_extra_sentences(&mut self, extra_sentences: &[String]) {
+        let dictionary = self.dictionary.as_ref()
+            .expect("Must train before retrain_with_extra_sentences");
+
+        // Combine dictionary sentences + extra
+        let mut all_sentences = extract_all_sentences(dictionary);
+        all_sentences.extend_from_slice(extra_sentences);
+
+        // Re-discover connectors from augmented corpus
+        let (connectors, relations) = discover_connectors_from_sentences(
+            &all_sentences, dictionary, &self.params, &self.strategy,
+        );
+
+        if !self.quiet {
+            println!("  [retrain] {} connectors from {} sentences ({} extra)",
+                connectors.len(), all_sentences.len(), extra_sentences.len());
+        }
+
+        // Rebuild space
+        let space = match self.mode {
+            BuildMode::ForceField => {
+                build_space(dictionary, &connectors, &relations, &self.params, &self.strategy)
+            }
+            BuildMode::Equilibrium => {
+                let eq_params = EquilibriumParams::default();
+                build_space_equilibrium(
+                    dictionary, &connectors, &relations, &[],
+                    &self.params, &self.strategy, &eq_params, self.quiet,
+                )
+            }
+        };
+
+        if !self.quiet {
+            let stats = space.get_distance_stats();
+            println!("  [retrain] Distance stats: mean={:.4}, std_dev={:.4}",
+                stats.mean, stats.std_dev);
+        }
+        self.space = space;
     }
 }
 

@@ -223,12 +223,61 @@
 
 ---
 
+## CONTENT BRIDGE WORDS
+
+**content** — a kind of task. not a number task. not a word task. a content task asks what a thing is.
+- "what is a dog is a content task"
+- "is a thing hot is a content task"
+- "a content task is not a number task"
+
+**animal** — a thing with a name. it is not a number. it is not a word. animal is a content thing.
+- "is a dog an animal is a content task"
+- "animal is a content name"
+- "animal is not a number"
+
+**hot** — not cold. hot is not a number. hot is not a word. ask what is hot is a content task.
+- "is the thing hot is a content task"
+- "hot is a content thing"
+- "hot is not a number"
+
+**cold** — not hot. cold is not a number. cold is not a word. ask what is cold is a content task.
+- "is the thing cold is a content task"
+- "cold is a content thing"
+- "cold is not a number"
+
+---
+
+## SELF BRIDGE WORDS
+
+**self** — a kind of task. a self task asks what yalm is. a self task asks what yalm can do. a self task is not a number task. a self task is not a word task. a self task is not a content task.
+- "what are you is a self task"
+- "can you count is a self task"
+- "a self task is not a number task"
+
+**yalm** — a thing that can read and learn. it is not a person. yalm does self tasks.
+- "yalm can read"
+- "yalm can count"
+- "what is yalm is a self task"
+
+**learn** — to see a thing and know it.
+- "yalm can learn"
+- "learn is a self thing"
+- "to learn is not to count"
+
+**read** — to see words and know the words. yalm can read.
+- "yalm can read"
+- "read is a self thing"
+- "to read is not to count"
+
+---
+
 ## CLOSURE VERIFICATION
 
-**Total entries**: 40
-**Bridge terms with dict5**: thing, is, a, not, it, and, the, what, can, you, to, do, make, yes, no, has, with, in, this, see, give, good, bad, name, all
+**Total entries**: 48
+**Bridge terms with dict5**: thing, is, a, not, it, and, the, what, can, you, to, do, make, yes, no, has, with, in, this, see, give, good, bad, name, all, animal, hot, cold
 **Bridge terms with dict_math5**: number, count, result, plus, minus, how, many
 **Bridge terms with dict_grammar5**: word, sentence, write (new), how, many
-**New terms**: question, answer, ask, want, task, kind
+**Bridge terms with dict_self5**: thing, is, a, not, it, and, the, can, you, to, do, make, yes, no, has, with, good, bad, name, all, question, answer, word, sentence, number, count, yalm, learn, read, self
+**New terms**: question, answer, ask, want, task, kind, content, self, yalm, learn, read
 
 **Status**: CLOSED (all definition words are entries or inflections)
