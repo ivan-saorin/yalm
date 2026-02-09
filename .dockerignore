@@ -1,0 +1,9 @@
+target/
+.git/
+reports/
+prompts/
+archive/
+texts/
+research/
+*.md
+!dictionaries/**/*.md

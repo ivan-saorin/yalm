@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAFHNE Chat</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --border: #0f3460;
+    --text: #e0e0e0;
+    --text-dim: #888;
+    --accent: #e94560;
+    --accent-dim: #533483;
+    --user-bg: #0f3460;
+    --bot-bg: #1a1a2e;
+    --input-bg: #16213e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  header h1 span { color: var(--text-dim); font-weight: 400; font-size: 13px; margin-left: 8px; }
+  .model-select {
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .model-select:focus { outline: none; border-color: var(--accent); }
+  #chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .msg.user {
+    align-self: flex-end;
+    background: var(--user-bg);
+    border-bottom-right-radius: 4px;
+  }
+  .msg.assistant {
+    align-self: flex-start;
+    background: var(--bot-bg);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+  }
+  .msg .meta {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .input-area {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  #input {
+    flex: 1;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+  }
+  #input:focus { border-color: var(--accent); }
+  #input::placeholder { color: var(--text-dim); }
+  #send-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  #send-btn:hover { opacity: 0.9; }
+  #send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .status-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 4px 20px;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .welcome {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 40px 20px;
+  }
+  .welcome h2 { color: var(--accent); margin-bottom: 8px; font-size: 20px; }
+  .welcome p { font-size: 13px; line-height: 1.6; max-width: 500px; margin: 0 auto; }
+  .welcome .examples { margin-top: 16px; }
+  .welcome .example {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin: 6px auto;
+    max-width: 400px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: border-color 0.2s;
+  }
+  .welcome .example:hover { border-color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>DAFHNE <span>Geometric Comprehension Engine</span></h1>
+  <select id="model-select" class="model-select">
+    <option value="">Loading models...</option>
+  </select>
+</header>
+
+<div id="chat-area">
+  <div class="welcome" id="welcome">
+    <h2>Welcome to DAFHNE</h2>
+    <p>DAFHNE is a geometric comprehension engine that learns from ELI5 dictionaries.
+    It understands a small vocabulary and answers questions by measuring distances in geometric space.</p>
+    <div class="examples">
+      <div class="example" onclick="askExample(this)">Is a dog an animal?</div>
+      <div class="example" onclick="askExample(this)">What is a cat?</div>
+      <div class="example" onclick="askExample(this)">How many legs does a dog have?</div>
+      <div class="example" onclick="askExample(this)">Is the sun cold?</div>
+      <div class="example" onclick="askExample(this)">What is DAFHNE?</div>
+    </div>
+  </div>
+</div>
+
+<div class="input-area">
+  <input type="text" id="input" placeholder="Ask DAFHNE a question..." autocomplete="off" />
+  <button id="send-btn" onclick="sendMessage()">Send</button>
+</div>
+
+<div class="status-bar" id="status">Connecting...</div>
+
+<script>
+const BASE = window.location.origin;
+let currentModel = '';
+
+async function loadModels() {
+  try {
+    const resp = await fetch(BASE + '/api/tags');
+    const data = await resp.json();
+    const sel = document.getElementById('model-select');
+    sel.innerHTML = '';
+    if (data.models && data.models.length > 0) {
+      data.models.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.name;
+        opt.textContent = m.name + ' (' + m.details.parameter_size + ')';
+        sel.appendChild(opt);
+      });
+      // Default to dafhne-50 if available
+      const d50 = data.models.find(m => m.name === 'dafhne-50');
+      currentModel = d50 ? 'dafhne-50' : data.models[0].name;
+      sel.value = currentModel;
+      document.getElementById('status').textContent = 'Connected — ' + data.models.length + ' model(s) available';
+    } else {
+      sel.innerHTML = '<option>No models</option>';
+      document.getElementById('status').textContent = 'No models loaded';
+    }
+  } catch (e) {
+    document.getElementById('status').textContent = 'Connection failed: ' + e.message;
+  }
+}
+
+document.getElementById('model-select').addEventListener('change', function() {
+  currentModel = this.value;
+});
+
+function askExample(el) {
+  document.getElementById('input').value = el.textContent;
+  sendMessage();
+}
+
+function addMessage(role, text, meta) {
+  const welcome = document.getElementById('welcome');
+  if (welcome) welcome.remove();
+
+  const area = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  div.textContent = text;
+  if (meta) {
+    const m = document.createElement('div');
+    m.className = 'meta';
+    m.textContent = meta;
+    div.appendChild(m);
+  }
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('input');
+  const text = input.value.trim();
+  if (!text) return;
+  if (!currentModel) {
+    addMessage('assistant', 'No model selected. Please wait for models to load.');
+    return;
+  }
+
+  input.value = '';
+  addMessage('user', text);
+  document.getElementById('send-btn').disabled = true;
+  document.getElementById('status').textContent = 'Thinking...';
+
+  const start = performance.now();
+  try {
+    const resp = await fetch(BASE + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: currentModel,
+        messages: [{ role: 'user', content: text }],
+        stream: false
+      })
+    });
+    const data = await resp.json();
+    const elapsed = (performance.now() - start).toFixed(0);
+    const answer = data.message ? data.message.content : (data.error || 'No response');
+    const dur = data.total_duration ? (data.total_duration / 1e6).toFixed(1) + 'ms engine' : '';
+    addMessage('assistant', answer, dur ? dur + ' | ' + elapsed + 'ms total' : elapsed + 'ms');
+    document.getElementById('status').textContent = 'Ready';
+  } catch (e) {
+    addMessage('assistant', 'Error: ' + e.message);
+    document.getElementById('status').textContent = 'Error';
+  }
+  document.getElementById('send-btn').disabled = false;
+  input.focus();
+}
+
+document.getElementById('input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+loadModels();
+</script>
+</body>
+</html>

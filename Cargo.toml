@@ -8,5 +8,6 @@ members = [
     "crates/dafhne-evolve",
     "crates/dafhne-wikt-build",
     "crates/dafhne-demo",
+    "crates/dafhne-server",
 ]
 resolver = "2"

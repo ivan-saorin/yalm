@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  dafhne:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./dictionaries:/data/dictionaries:ro
+      - ./results_multi:/data/results_multi:ro
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped

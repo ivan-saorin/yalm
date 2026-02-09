@@ -163,6 +163,7 @@ Seven Rust crates, ~9300 lines total, zero ML dependencies:
 | `dafhne-evolve` | Genetic algorithm — parameter and strategy evolution |
 | `dafhne-demo` | Interactive demo with pretty-printing |
 | `dafhne-cache` | Dictionary assembly from free text via LLM (Ollama) |
+| `dafhne-server` | HTTP server — Ollama, OpenAI, MCP APIs + web chat UI |
 
 Strategy evolution explores 5 algorithmic dimensions: force function, connector detection, space initialization, multi-connector handling, and negation model — plus ~15 continuous parameters, all co-evolved by genetic algorithm.
 
@@ -177,6 +178,20 @@ For the full architecture deep-dive, see [docs/architecture.md](docs/architectur
 | `dictionaries/dict18.md` | 2008 | Abstract concepts, social structures, academic domains |
 
 All are **closed dictionaries** — every word in every definition is itself defined. This creates a self-consistent universe of meaning with no undefined symbols.
+
+## DAFHNE Server
+
+Run DAFHNE as an API server with web chat, Ollama/OpenAI compatibility, and MCP tools:
+
+```bash
+cargo run --release -p dafhne-server -- \
+  --data-dir ./dictionaries \
+  --multi-genome ./results_multi/gen_029/best_genome.json
+```
+
+Then open `http://localhost:3000/chat` for the web UI, or connect any Ollama/OpenAI client.
+
+For full instructions — CLI reference, curl examples, MCP setup for Claude Code, Docker, and how to connect chat clients — see **[docs/server.md](docs/server.md)**.
 
 ## Other Commands
 
@@ -201,7 +216,8 @@ dafhne/
 │   ├── dafhne-eval/              # Evaluation and fitness
 │   ├── dafhne-evolve/            # Genetic algorithm
 │   ├── dafhne-demo/              # Interactive demo
-│   └── dafhne-cache/             # LLM dictionary assembly
+│   ├── dafhne-cache/             # LLM dictionary assembly
+│   └── dafhne-server/            # HTTP server (Ollama, OpenAI, MCP, web chat)
 ├── dictionaries/               # Closed dictionaries + tests + grammar files
 ├── texts/                      # Open-mode texts (Three Men in a Boat)
 ├── docs/                       # Deep-dive documentation
@@ -214,6 +230,7 @@ dafhne/
 
 | Document | Description |
 |----------|-------------|
+| [docs/server.md](docs/server.md) | Server setup — running, testing, MCP, Docker |
 | [docs/architecture.md](docs/architecture.md) | Full pipeline walkthrough: dictionary to answers |
 | [docs/results.md](docs/results.md) | Comprehensive scores across all test suites and phases |
 | [docs/design_decisions.md](docs/design_decisions.md) | Key choices and alternatives considered |
