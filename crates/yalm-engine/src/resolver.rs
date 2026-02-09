@@ -32,6 +32,7 @@ pub(crate) fn definition_chain_check(
     max_hops: usize,
     visited: &mut HashSet<String>,
     space: &GeometricSpace,
+    max_follow: usize,
 ) -> Option<bool> {
     // Avoid infinite loops
     if visited.contains(subject) {
@@ -57,7 +58,10 @@ pub(crate) fn definition_chain_check(
             .map_or(false, |stemmed| stemmed == object)
     }) {
         // Check for negation: "not {object}" pattern
-        if preceded_by_not(&def_words, object, &dictionary.entry_set) {
+        // Only check negation if the space has a "not" connector — ensures the
+        // negation concept was discovered from text, not assumed (A20).
+        let has_not_connector = space.connectors.iter().any(|c| c.pattern.iter().any(|p| p == "not"));
+        if has_not_connector && preceded_by_not(&def_words, object, &dictionary.entry_set, structural) {
             return Some(false); // definitionally negated (e.g., "not cold")
         }
 
@@ -69,20 +73,19 @@ pub(crate) fn definition_chain_check(
     // Subsequent sentences are elaborations ("it can make sound. it can live with a person.")
     // which introduce diverse vocabulary that causes false positive chain matches.
     //
-    // IMPORTANT: Only follow the first 3 content words per hop to avoid search explosion.
-    // In large dictionaries (1000+ entries), following ALL content words from long
-    // definitions (20+ words) causes nearly everything to connect to everything.
-    // The first 3 content words capture the core semantic category:
+    // IMPORTANT: Only follow the first N content words per hop (controlled by max_follow
+    // param, default 3) to avoid search explosion. In large dictionaries (1000+ entries),
+    // following ALL content words from long definitions (20+ words) causes nearly everything
+    // to connect to everything. The first few content words capture the core semantic category:
     //   "a small domestic mammal with soft fur..." → follows: small, domestic, mammal
     //   "an animal. it can make sound." → follows: animal (only 1 content word)
-    const MAX_FOLLOW_PER_HOP: usize = 3;
 
     if max_hops > 0 {
         let first_sentence = def_text.split('.').next().unwrap_or(&def_text);
         let first_words = tokenize(first_sentence);
         let mut followed = 0;
         for word in &first_words {
-            if followed >= MAX_FOLLOW_PER_HOP {
+            if followed >= max_follow {
                 break;
             }
             let stemmed = match stem_to_entry(word, &dictionary.entry_set) {
@@ -99,7 +102,7 @@ pub(crate) fn definition_chain_check(
 
             if let Some(result) = definition_chain_check(
                 &stemmed, object, dictionary, structural,
-                max_hops - 1, visited, space,
+                max_hops - 1, visited, space, max_follow,
             ) {
                 return Some(result);
             }
@@ -112,8 +115,12 @@ pub(crate) fn definition_chain_check(
 /// Check if `target` is preceded by "not" in the word list.
 /// Handles stemming: looks for stemmed forms of each word matching target.
 /// Also handles "not a {target}" patterns where articles intervene.
-fn preceded_by_not(words: &[String], target: &str, entry_set: &HashSet<String>) -> bool {
-    let articles: HashSet<&str> = ["a", "an", "the"].iter().copied().collect();
+fn preceded_by_not(
+    words: &[String],
+    target: &str,
+    entry_set: &HashSet<String>,
+    structural: &HashSet<String>,
+) -> bool {
     for (i, word) in words.iter().enumerate() {
         let stemmed = stem_to_entry(word, entry_set).unwrap_or_else(|| word.clone());
         if stemmed == target && i > 0 {
@@ -123,8 +130,8 @@ fn preceded_by_not(words: &[String], target: &str, entry_set: &HashSet<String>) 
             if prev == "not" {
                 return true;
             }
-            // Check two positions back (skipping articles: "not a {target}")
-            if i > 1 && articles.contains(words[i - 1].as_str()) {
+            // Check two positions back (skipping structural words like articles: "not a {target}")
+            if i > 1 && structural.contains(&words[i - 1]) {
                 let prev2 = stem_to_entry(&words[i - 2], entry_set)
                     .unwrap_or_else(|| words[i - 2].clone());
                 if prev2 == "not" {
@@ -171,8 +178,8 @@ fn definition_category(
         // Skip all heuristic filters that were designed for messy
         // auto-generated definitions.
         if entry.is_entity {
-            let articles: std::collections::HashSet<&str> = ["a", "an", "the"].iter().copied().collect();
-            if articles.contains(stemmed.as_str()) {
+            // Skip structural (function) words to find the category noun
+            if structural.contains(&stemmed) {
                 continue;
             }
             // First non-article word is the category
@@ -228,11 +235,19 @@ fn definition_category(
 }
 
 /// Check if a word is a property/adjective/verb word rather than a category noun.
-/// Category nouns have definitions starting with articles ("a thing", "an animal").
-/// Non-nouns include:
-/// - Adjectives: "not X" antonym patterns, or def starts with "having", "relating"
-/// - Verbs: def starts with "to" ("to use the mind...")
-/// - Other modifiers: def starts with verb-forms
+///
+/// This is a DEFINITION-SHAPE heuristic, not a hardcoded word list (A09).
+/// It examines the structure of ELI5 definitions to classify word type:
+///
+/// - **Category nouns**: definitions start with articles → "a thing", "an animal"
+/// - **Verbs**: definitions start with "to" → "to go", "to use the mind"
+/// - **Adjectives**: definitions start with present participles → "having", "relating"
+/// - **Antonyms**: definitions contain "not X" (2-word sentences) → "not cold"
+/// - **Modifiers**: definitions start with "in", "very", "more"
+///
+/// The heuristic patterns ("to", "-ing" suffix, "not X") are ELI5 definition
+/// conventions, not English grammar rules. They would need adaptation for
+/// non-ELI5 definition styles but work across any language using ELI5 format.
 fn is_property_word(word: &str, dictionary: &Dictionary) -> bool {
     dictionary.entries.iter()
         .find(|e| e.word == word)
@@ -261,7 +276,13 @@ fn is_property_word(word: &str, dictionary: &Dictionary) -> bool {
         })
 }
 
-/// Check if a word appears in any connector pattern (marking it as a function word).
+/// Check if a word appears in any discovered connector pattern.
+///
+/// This is fully DATA-DRIVEN (A09): it checks the connectors that were
+/// discovered from text statistics by the connector pipeline. No hardcoded
+/// word lists — the function simply scans the discovered `Connector` patterns.
+/// A word is a "connector word" if it appears in at least one pattern like
+/// ["is", "a"], ["can"], ["not"], etc.
 fn is_connector_word(word: &str, space: &GeometricSpace) -> bool {
     for connector in &space.connectors {
         if connector.pattern.iter().any(|p| p == word) {
@@ -385,13 +406,13 @@ fn detect_compound(
     tokens: &[String],
     dictionary: &Dictionary,
     _content: &HashSet<String>,
+    structural: &HashSet<String>,
 ) -> Option<(BoolOp, String, String)> {
     // Only split Yes/No questions (question-verb-first).
     // What/Who/Where compound ("What is a dog and what is a cat?") is
     // two separate questions, not a boolean compound.
-    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"]
-        .iter().copied().collect();
-    if tokens.is_empty() || !question_verbs.contains(tokens[0].as_str()) {
+    // Question verbs (is, can, does, do, has) are all structural words.
+    if tokens.is_empty() || !structural.contains(&tokens[0]) {
         return None;
     }
 
@@ -418,11 +439,10 @@ fn detect_compound(
     // Extract question prefix: everything up to and including the subject.
     // Pattern: [question_verb] [articles...] [subject]
     // Subject = first content word after the question verb.
-    let articles: HashSet<&str> = ["a", "an", "the"].iter().copied().collect();
     let mut prefix_end = 0; // exclusive index past the subject
     for (i, token) in tokens.iter().enumerate().skip(1) {
-        // Skip articles
-        if articles.contains(token.as_str()) {
+        // Skip structural (function) words like articles
+        if structural.contains(token) {
             continue;
         }
         // First non-article token after question verb = subject
@@ -513,7 +533,7 @@ pub fn resolve_question(
     let tokens = tokenize(question);
 
     // ── Compound query detection (AND/OR) ──────────────────────
-    if let Some((op, left_q, right_q)) = detect_compound(&tokens, dictionary, content) {
+    if let Some((op, left_q, right_q)) = detect_compound(&tokens, dictionary, content, structural) {
         let (left_ans, left_dist, left_conn) =
             resolve_question(&left_q, space, dictionary, structural, content, params, strategy);
         let (right_ans, right_dist, right_conn) =
@@ -586,13 +606,13 @@ pub fn resolve_question(
         Some(QuestionType::WhyIs { subject, object, connector }) => {
             let connector_str = connector.join(" ");
             let (answer, distance) = resolve_why(
-                &subject, &object, dictionary, structural, space,
+                &subject, &object, dictionary, structural, space, params,
             );
             (answer, Some(distance), Some(connector_str))
         }
         Some(QuestionType::WhenIs { subject, action }) => {
             let (answer, distance) = resolve_when(
-                &subject, &action, dictionary, structural, space,
+                &subject, &action, dictionary, structural, space, params,
             );
             (answer, Some(distance), Some(format!("when {} {}", subject, action)))
         }
@@ -807,6 +827,22 @@ fn find_negation_connector(space: &GeometricSpace) -> Option<&Connector> {
 }
 
 // ─── Question Type Detection ───────────────────────────────────
+//
+// LANGUAGE-SPECIFIC LAYER (A01, A13)
+//
+// The 5W question words ("what", "who", "where", "when", "why") below are
+// HARDCODED ENGLISH. They cannot be discovered from text statistics because
+// they are meta-language (question syntax, not definition content).
+//
+// For a non-English YALM, these must be replaced with language-specific
+// equivalents (e.g., French: "quoi", "qui", "où", "quand", "pourquoi").
+//
+// In contrast, Yes/No question detection (tokens[0] ∈ structural) uses the
+// DISCOVERED structural word set — "is", "can", "does" are structural by
+// the 20% doc-frequency threshold and need no hardcoding.
+//
+// Refactoring path: move these 5 strings into a language-adapter config
+// loaded at startup, not embedded in the resolver.
 
 /// Detect whether the question is a Yes/No, What-Is, Who-Is, or Where-Is question.
 fn detect_question_type(
@@ -866,12 +902,11 @@ fn detect_why_question(
     tokens: &[String],
     dictionary: &Dictionary,
     content: &HashSet<String>,
-    _structural: &HashSet<String>,
+    structural: &HashSet<String>,
 ) -> Option<QuestionType> {
     // "why" is at position 0. Skip it and the question verb.
-    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"]
-        .iter().copied().collect();
-    let skip_start = if tokens.len() > 1 && question_verbs.contains(tokens[1].as_str()) {
+    // Question verbs (is, can, does, do, has) are all structural words.
+    let skip_start = if tokens.len() > 1 && structural.contains(&tokens[1]) {
         2  // skip "why" + verb
     } else {
         1  // skip "why" only
@@ -892,7 +927,11 @@ fn detect_why_question(
         })
         .collect();
 
-    // Fallback: include non-structural entry words if < 2 content words
+    // Fallback: include non-structural entry words if < 2 content words.
+    // Use a minimal set of truly function words (articles + pronouns + "not")
+    // rather than full structural set, because content-significant words like
+    // "thing" may be structural by doc-frequency but must still be matchable
+    // as question objects. These are definition-shape patterns, kept as-is.
     if content_entries.len() < 2 {
         let skip_words: HashSet<&str> = ["is", "a", "the", "it", "not"].iter().copied().collect();
         content_entries = tokens
@@ -925,7 +964,7 @@ fn detect_why_question(
         (left_pos + 1..right_pos)
             .filter_map(|i| {
                 stem_to_entry(&tokens[i], &dictionary.entry_set)
-                    .filter(|e| _structural.contains(e))
+                    .filter(|e| structural.contains(e))
             })
             .collect()
     } else {
@@ -955,11 +994,10 @@ fn detect_when_question(
     tokens: &[String],
     dictionary: &Dictionary,
     content: &HashSet<String>,
-    _structural: &HashSet<String>,
+    structural: &HashSet<String>,
 ) -> Option<QuestionType> {
-    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"]
-        .iter().copied().collect();
-    let skip_start = if tokens.len() > 1 && question_verbs.contains(tokens[1].as_str()) {
+    // Question verbs (is, can, does, do, has) are all structural words.
+    let skip_start = if tokens.len() > 1 && structural.contains(&tokens[1]) {
         2
     } else {
         1
@@ -1055,9 +1093,11 @@ fn detect_what_question(
     // Filter out common question-syntax words that may be classified as content
     // in some dictionaries: "is", "a", "an", "the" should not count as
     // extra content in "What is a cat?" vs "What color is a cat?"
-    let question_syntax: HashSet<&str> = ["is", "a", "an", "the", "of", "do", "does", "can", "has"].iter().copied().collect();
+    // Filter out structural words that are question syntax — these are discovered,
+    // not hardcoded (all of "is", "a", "an", "the", "of", "do", "does", "can", "has"
+    // are structural words by the 20% doc-frequency threshold).
     let extra_content_words = content_entries.iter()
-        .filter(|(_, w)| *w != subject && !question_syntax.contains(w.as_str()))
+        .filter(|(_, w)| *w != subject && !structural.contains(w))
         .count();
 
     Some(QuestionType::WhatIs {
@@ -1074,10 +1114,10 @@ fn detect_yes_no_question(
     content: &HashSet<String>,
     structural: &HashSet<String>,
 ) -> Option<QuestionType> {
-    // Skip leading question verbs: "is", "can", "does", "do", "has"
-    // These are question syntax, not content.
-    let question_verbs: HashSet<&str> = ["is", "can", "does", "do", "has"].iter().copied().collect();
-    let skip_start = if !tokens.is_empty() && question_verbs.contains(tokens[0].as_str()) {
+    // Skip leading question verbs — these are structural words (discovered
+    // via classify_word_roles, not hardcoded). All question verbs (is, can,
+    // does, do, has) pass the 20% doc-frequency threshold.
+    let skip_start = if !tokens.is_empty() && structural.contains(&tokens[0]) {
         1
     } else {
         0
@@ -1100,7 +1140,9 @@ fn detect_yes_no_question(
         .collect();
 
     // Fallback: if we don't have enough content words, also include ALL entry words
-    // (except common structural ones like "is", "a", "the", "it", "not")
+    // except minimal function words. Use a small set rather than full structural,
+    // because content-significant words like "thing" may be structural by
+    // doc-frequency but must still be matchable as question objects.
     if content_entries.len() < 2 {
         let skip_words: HashSet<&str> = ["is", "a", "the", "it", "not"].iter().copied().collect();
         content_entries = tokens
@@ -1216,12 +1258,13 @@ fn resolve_yes_no(
     // - None + not both in dict → trust geometry
     // For negated questions, the geometric pipeline handles via threshold inversion.
     if !negated {
-        let max_hops = 3; // traversal depth (was 2; increased for Level 1 ontological chains)
+        let max_hops = params.max_chain_hops;
 
         // Forward check: subject → object
         let mut visited = HashSet::new();
         let forward = definition_chain_check(
             subject, object, dictionary, structural, max_hops, &mut visited, space,
+            params.max_follow_per_hop,
         );
         match forward {
             Some(false) => return (Answer::No, distance), // chain says definitionally negated
@@ -1231,6 +1274,7 @@ fn resolve_yes_no(
                 let mut visited_rev = HashSet::new();
                 let reverse = definition_chain_check(
                     object, subject, dictionary, structural, max_hops, &mut visited_rev, space,
+                    params.max_follow_per_hop,
                 );
                 match reverse {
                     Some(false) => return (Answer::No, distance), // reverse chain says negated
@@ -1479,7 +1523,7 @@ fn resolve_what_is(
             c.pattern == vec!["is".to_string()] || c.pattern == vec!["is".to_string(), "a".to_string()]
         }));
 
-    let alpha = 0.2; // connector axis emphasis (hardcoded for now, will be evolvable)
+    let alpha = params.weighted_distance_alpha;
 
     // Connector-axis mode takes priority (existing)
     let connector_axis = if strategy.use_connector_axis {
@@ -1567,14 +1611,15 @@ fn resolve_why(
     dictionary: &Dictionary,
     structural: &HashSet<String>,
     space: &GeometricSpace,
+    params: &EngineParams,
 ) -> (Answer, f64) {
-    let max_hops = 3;
+    let max_hops = params.max_chain_hops;
     let mut path: Vec<String> = Vec::new();
     path.push(subject.to_string());
 
     let found = trace_chain_path(
         subject, object, dictionary, structural, max_hops,
-        &mut HashSet::new(), &mut path, space,
+        &mut HashSet::new(), &mut path, space, params.max_follow_per_hop,
     );
 
     if !found {
@@ -1599,6 +1644,7 @@ fn trace_chain_path(
     visited: &mut HashSet<String>,
     path: &mut Vec<String>,
     space: &GeometricSpace,
+    max_follow: usize,
 ) -> bool {
     if visited.contains(current) {
         return false;
@@ -1622,20 +1668,22 @@ fn trace_chain_path(
         stem_to_entry(w, &dictionary.entry_set)
             .map_or(false, |stemmed| stemmed == target)
     }) {
-        if !preceded_by_not(&def_words, target, &dictionary.entry_set) {
+        // Only apply negation check if "not" connector exists (A20)
+        let has_not_connector = space.connectors.iter().any(|c| c.pattern.iter().any(|p| p == "not"));
+        let is_negated = has_not_connector && preceded_by_not(&def_words, target, &dictionary.entry_set, structural);
+        if !is_negated {
             path.push(target.to_string());
             return true;
         }
     }
 
     // Hop: follow first-sentence content words
-    const MAX_FOLLOW_PER_HOP: usize = 3;
     if max_hops > 0 {
         let first_sentence = def_text.split('.').next().unwrap_or(&def_text);
         let first_words = tokenize(first_sentence);
         let mut followed = 0;
         for word in &first_words {
-            if followed >= MAX_FOLLOW_PER_HOP {
+            if followed >= max_follow {
                 break;
             }
             let stemmed = match stem_to_entry(word, &dictionary.entry_set) {
@@ -1653,7 +1701,7 @@ fn trace_chain_path(
             path.push(stemmed.clone());
             if trace_chain_path(
                 &stemmed, target, dictionary, structural,
-                max_hops - 1, visited, path, space,
+                max_hops - 1, visited, path, space, max_follow,
             ) {
                 return true;
             }
@@ -1722,6 +1770,7 @@ fn resolve_when(
     dictionary: &Dictionary,
     structural: &HashSet<String>,
     space: &GeometricSpace,
+    params: &EngineParams,
 ) -> (Answer, f64) {
     // Strategy 1: Look in action's definition for condition/purpose clauses.
     // "eat" def: "you eat food. the food moves in you. you eat to feel good."
@@ -1736,10 +1785,11 @@ fn resolve_when(
     }
 
     // Strategy 3: Follow chain from subject to action, check intermediate defs.
-    let max_hops = 3;
+    let max_hops = params.max_chain_hops;
     let mut visited = HashSet::new();
     if let Some(clause) = extract_condition_via_chain(
         subject, action, dictionary, structural, max_hops, &mut visited, space,
+        params.max_follow_per_hop,
     ) {
         return (Answer::Word(clause), 0.0);
     }
@@ -1835,6 +1885,7 @@ fn extract_condition_via_chain(
     max_hops: usize,
     visited: &mut HashSet<String>,
     _space: &GeometricSpace,
+    max_follow: usize,
 ) -> Option<String> {
     if visited.contains(current) || max_hops == 0 {
         return None;
@@ -1851,10 +1902,9 @@ fn extract_condition_via_chain(
     let first_sentence = entry.definition.split('.').next().unwrap_or(&entry.definition);
     let first_words = tokenize(first_sentence);
     let mut followed = 0;
-    const MAX_FOLLOW: usize = 3;
 
     for word in &first_words {
-        if followed >= MAX_FOLLOW {
+        if followed >= max_follow {
             break;
         }
         let stemmed = match stem_to_entry(word, &dictionary.entry_set) {
@@ -1868,7 +1918,7 @@ fn extract_condition_via_chain(
 
         if let Some(clause) = extract_condition_via_chain(
             &stemmed, action, dictionary, structural,
-            max_hops - 1, visited, _space,
+            max_hops - 1, visited, _space, max_follow,
         ) {
             return Some(clause);
         }
@@ -1889,7 +1939,7 @@ pub fn describe(
     dictionary: &Dictionary,
     structural: &HashSet<String>,
     _content: &HashSet<String>,
-    _params: &EngineParams,
+    params: &EngineParams,
     _strategy: &StrategyConfig,
 ) -> Vec<String> {
     let entry = match dictionary.entries.iter().find(|e| e.word == subject) {
@@ -1988,7 +2038,9 @@ pub fn describe(
         for sibling in &siblings {
             let mut visited = HashSet::new();
             let chain = definition_chain_check(
-                subject, sibling, dictionary, structural, 3, &mut visited, space,
+                subject, sibling, dictionary, structural,
+                params.max_chain_hops, &mut visited, space,
+                params.max_follow_per_hop,
             );
             match chain {
                 Some(true) => {} // linked — don't negate
@@ -2014,6 +2066,12 @@ pub fn describe(
 /// Find words that share the same definition category as the subject.
 /// Returns content words whose definition_category matches `category`,
 /// excluding the subject itself. Limited to 5 siblings to keep output concise.
+///
+/// TODO (A23): This uses string comparison on definition_category() output.
+/// A geometric alternative would find the N nearest neighbors to `subject`
+/// in the space and filter those sharing the same `category` — replacing
+/// O(n) dictionary scan with O(log n) spatial lookup. Blocked on spatial
+/// indexing (not yet implemented).
 fn find_siblings(
     subject: &str,
     category: &str,

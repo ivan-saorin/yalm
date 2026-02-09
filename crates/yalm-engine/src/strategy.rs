@@ -118,12 +118,35 @@ impl MultiConnectorHandling {
 }
 
 // ─── Negation Model ────────────────────────────────────────────
+//
+// Research result (Phase 08-11): The genetic algorithm consistently
+// converges to AxisShift as the optimal negation model. This was
+// discovered by running 50+ independent evolution seeds — AxisShift
+// wins at 96%+ convergence rate across dict5, dict12, and dict18.
+//
+// The other variants are retained for evolution diversity (allowing
+// the GA to explore alternatives) and for potential future spaces
+// where AxisShift may not be optimal.
 
+/// How negated connector forces are applied in the geometric space.
+///
+/// When a "not" connector is detected (e.g., "a cat is not a dog"),
+/// the force direction is modified according to the selected model.
+/// Evolution consistently selects AxisShift (96%+ convergence).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NegationModel {
+    /// Invert the force direction: `direction *= negation_inversion`.
+    /// Simple sign flip. Rarely selected by evolution.
     Inversion,
+    /// Apply force in opposite direction with increased magnitude.
+    /// Creates strong separation but can distort local geometry.
     Repulsion,
+    /// Shift the force along the connector's primary axis.
+    /// **Consistently selected by evolution** (96%+ convergence).
+    /// Preserves local geometry while creating directional separation.
     AxisShift,
+    /// Project negation onto a dedicated dimension.
+    /// Theoretically clean but wastes a dimension. Rarely selected.
     SeparateDimension,
 }
 

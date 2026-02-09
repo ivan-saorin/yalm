@@ -22,6 +22,11 @@ pub struct ParamRanges {
     pub negation_inversion: (f64, f64),
     pub bidirectional_force: (f64, f64),
     pub grammar_weight: (f64, f64),
+    pub max_follow_per_hop: (usize, usize),
+    pub max_chain_hops: (usize, usize),
+    pub weighted_distance_alpha: (f64, f64),
+    pub uniformity_num_buckets: (usize, usize),
+    pub uniformity_threshold: (f64, f64),
 }
 
 impl Default for ParamRanges {
@@ -38,6 +43,11 @@ impl Default for ParamRanges {
             negation_inversion: (-1.0, 1.0),
             bidirectional_force: (0.0, 1.0),
             grammar_weight: (0.0, 1.0),
+            max_follow_per_hop: (1, 6),
+            max_chain_hops: (1, 6),
+            weighted_distance_alpha: (0.05, 0.5),
+            uniformity_num_buckets: (5, 20),
+            uniformity_threshold: (0.5, 0.95),
         }
     }
 }

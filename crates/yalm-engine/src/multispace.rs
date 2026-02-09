@@ -50,11 +50,21 @@ pub struct MultiSpace {
     pub spaces: HashMap<String, Space>,
     pub bridges: HashMap<(String, String), HashSet<String>>,
     pub space_order: Vec<String>,
+    /// Union of all per-space structural word sets. Used instead of
+    /// the old hardcoded is_structural() function for routing and filtering.
+    pub structural_words_cache: HashSet<String>,
+    /// Words unique to SELF space vocabulary — used as trigger words for
+    /// SELF-space activation instead of the old hardcoded ["yalm"] list.
+    pub self_trigger_words: HashSet<String>,
 }
 
 // ─── Structural Words ────────────────────────────────────────
 
-/// Words too common to be informative for routing.
+/// Hardcoded structural word list — kept as fallback for standalone functions
+/// (like `yes_no_to_declarative`) that don't have access to MultiSpace.
+/// All MultiSpace methods use `self.is_structural_cached()` instead, which
+/// draws from the discovered structural word sets (classify_word_roles).
+#[allow(dead_code)]
 fn is_structural(word: &str) -> bool {
     matches!(
         word,
@@ -133,9 +143,54 @@ impl MultiSpace {
             spaces,
             bridges: HashMap::new(),
             space_order,
+            structural_words_cache: HashSet::new(),
+            self_trigger_words: HashSet::new(),
         };
         ms.identify_bridges();
+
+        // Build unified structural words cache from all spaces.
+        // Start with discovered structural words (from classify_word_roles),
+        // then add question-syntax words that may not pass the 20% doc-frequency
+        // threshold but are functionally structural (they appear in questions,
+        // not definitions). These are needed for cross-space routing filters.
+        let mut structural_cache = HashSet::new();
+        for (_, space) in &ms.spaces {
+            structural_cache.extend(space.engine.structural().iter().cloned());
+        }
+        // Question-syntax words: not discoverable from definitions alone
+        // (they're meta-language used in queries, not definition content).
+        // LANGUAGE-SPECIFIC: these would need replacement for non-English.
+        for qw in &["what", "who", "where", "when", "why", "how", "which",
+                     "yes", "no", "you", "your", "are", "be", "do", "does"] {
+            structural_cache.insert(qw.to_string());
+        }
+        ms.structural_words_cache = structural_cache.clone();
+
+        // Derive SELF-space trigger words: vocabulary unique to SELF space
+        // (not in any other non-task space, and not structural).
+        // This replaces the old hardcoded `self_triggers = ["yalm"]`.
+        if let Some(self_space) = ms.spaces.get("self") {
+            let self_vocab: &HashSet<String> = &self_space.dictionary.entry_set;
+            let mut other_vocab: HashSet<String> = HashSet::new();
+            for (name, space) in &ms.spaces {
+                if name != "self" && name != "task" {
+                    other_vocab.extend(space.dictionary.entry_set.iter().cloned());
+                }
+            }
+            ms.self_trigger_words = self_vocab
+                .iter()
+                .filter(|w| !other_vocab.contains(w.as_str()) && !structural_cache.contains(w.as_str()))
+                .cloned()
+                .collect();
+        }
+
         ms
+    }
+
+    /// Check whether a word is structural (high doc-frequency across spaces).
+    /// Uses the discovered structural word cache built from per-space classify_word_roles().
+    fn is_structural_cached(&self, word: &str) -> bool {
+        self.structural_words_cache.contains(word)
     }
 
     /// Compute vocabulary intersections between all space pairs.
@@ -253,7 +308,7 @@ impl MultiSpace {
         let mut exclusive: HashSet<String> = HashSet::new();
 
         for token in &tokens {
-            if is_structural(token) {
+            if self.is_structural_cached(token) {
                 continue;
             }
 
@@ -283,14 +338,18 @@ impl MultiSpace {
         // SELF-space activation: identity and capability queries
         // Check raw tokens (before structural filtering) because "you", "are", "can"
         // are all structural words that get filtered in the content word loop above.
-        let self_triggers = ["yalm"];
+        //
+        // Trigger words are derived from SELF vocabulary (words unique to SELF space,
+        // not found in other domain spaces or in the structural set).
+        // Pronoun patterns below are structural-word patterns not discoverable from
+        // vocabulary alone — they detect "are you", "can you", "do you" bigrams.
         let self_patterns: [(&str, &str); 3] = [
             ("are", "you"),  // "What are you?", "Are you a person?"
             ("can", "you"),  // "Can you count?", "Can you see?"
             ("do", "you"),   // "Do you know?", "Do you learn?"
         ];
 
-        let has_self_trigger = tokens.iter().any(|t| self_triggers.contains(&t.as_str()));
+        let has_self_trigger = tokens.iter().any(|t| self.self_trigger_words.contains(t.as_str()));
         let has_self_pattern = self_patterns.iter().any(|(a, b)| {
             tokens.contains(&a.to_string()) && tokens.contains(&b.to_string())
         });
@@ -310,7 +369,7 @@ impl MultiSpace {
                 let mut self_score = 0.0f64;
 
                 for token in &tokens {
-                    if is_structural(token) {
+                    if self.is_structural_cached(token) {
                         continue;
                     }
                     if let Some(token_pos) =
@@ -752,7 +811,7 @@ impl MultiSpace {
         // Subject = the first content word that isn't "the", "a", etc.
         // In ELI5 grammar: subject comes first, it's the thing that does the action.
         for word in &words {
-            if !is_structural(word) {
+            if !self.is_structural_cached(word) {
                 return Some((
                     Answer::Word(word.clone()),
                     Some(0.0),
@@ -973,7 +1032,7 @@ impl MultiSpace {
         // Parse as Yes/No: find subject and object
         let content_words: Vec<&String> = tokens
             .iter()
-            .filter(|t| !is_structural(t))
+            .filter(|t| !self.is_structural_cached(t))
             .collect();
 
         if content_words.len() < 2 {
@@ -1178,9 +1237,10 @@ impl MultiSpace {
                         object,
                         &tgt.dictionary,
                         tgt.engine.structural(),
-                        3,
+                        tgt.params.max_chain_hops,
                         &mut visited,
                         tgt.engine.space(),
+                        tgt.params.max_follow_per_hop,
                     ) == Some(true)
                     {
                         return Some(true);
@@ -1192,9 +1252,10 @@ impl MultiSpace {
                         subject,
                         &tgt.dictionary,
                         tgt.engine.structural(),
-                        3,
+                        tgt.params.max_chain_hops,
                         &mut visited2,
                         tgt.engine.space(),
+                        tgt.params.max_follow_per_hop,
                     ) == Some(true)
                     {
                         return Some(true);
@@ -1208,9 +1269,10 @@ impl MultiSpace {
                         object,
                         &src.dictionary,
                         src.engine.structural(),
-                        3,
+                        src.params.max_chain_hops,
                         &mut visited,
                         src.engine.space(),
+                        src.params.max_follow_per_hop,
                     ) == Some(true)
                     {
                         return Some(true);
@@ -1227,9 +1289,10 @@ impl MultiSpace {
                 bridge,
                 &src.dictionary,
                 src.engine.structural(),
-                3,
+                src.params.max_chain_hops,
                 &mut visited1,
                 src.engine.space(),
+                src.params.max_follow_per_hop,
             );
 
             if fwd != Some(true) {
@@ -1244,9 +1307,10 @@ impl MultiSpace {
                 object,
                 &tgt.dictionary,
                 tgt.engine.structural(),
-                3,
+                tgt.params.max_chain_hops,
                 &mut visited2,
                 tgt.engine.space(),
+                tgt.params.max_follow_per_hop,
             );
 
             if rev == Some(true) {
@@ -1261,9 +1325,10 @@ impl MultiSpace {
                 bridge,
                 &tgt.dictionary,
                 tgt.engine.structural(),
-                3,
+                tgt.params.max_chain_hops,
                 &mut visited3,
                 tgt.engine.space(),
+                tgt.params.max_follow_per_hop,
             );
 
             if rev2 == Some(true) {
@@ -1295,7 +1360,7 @@ impl MultiSpace {
         // Find content words
         let content_words: Vec<&String> = tokens
             .iter()
-            .filter(|t| !is_structural(t))
+            .filter(|t| !self.is_structural_cached(t))
             .collect();
 
         if content_words.len() < 2 {
@@ -1408,15 +1473,22 @@ impl MultiSpace {
             return None;
         }
 
-        // Analyze the quoted content for domain indicators
+        // Analyze the quoted content for domain indicators.
+        // Grammar and content indicators are derived from space vocabularies
+        // (not hardcoded lists). Math indicators remain hardcoded because
+        // math operator words ("plus", "minus") are the same across dict sizes.
         let quoted_tokens = tokenize(&quoted);
 
         let math_indicators = ["plus", "minus", "count", "number", "equal", "more", "less"];
-        let grammar_indicators = ["noun", "verb", "sentence", "word", "subject", "property"];
-        let content_indicators = [
-            "dog", "cat", "sun", "animal", "hot", "cold", "eat", "move",
-            "live", "food", "water", "place", "ball", "color", "sound", "feel",
-        ];
+
+        // Grammar/content indicator sets: use words that are in exactly one
+        // domain space (exclusive vocabulary) and are not structural.
+        let grammar_vocab: HashSet<&str> = self.spaces.get("grammar")
+            .map(|s| s.dictionary.entry_set.iter().map(|w| w.as_str()).collect())
+            .unwrap_or_default();
+        let content_vocab: HashSet<&str> = self.spaces.get("content")
+            .map(|s| s.dictionary.entry_set.iter().map(|w| w.as_str()).collect())
+            .unwrap_or_default();
 
         let math_count = quoted_tokens
             .iter()
@@ -1424,11 +1496,11 @@ impl MultiSpace {
             .count();
         let grammar_count = quoted_tokens
             .iter()
-            .filter(|t| grammar_indicators.contains(&t.as_str()))
+            .filter(|t| grammar_vocab.contains(t.as_str()) && !self.is_structural_cached(t))
             .count();
         let content_count = quoted_tokens
             .iter()
-            .filter(|t| content_indicators.contains(&t.as_str()))
+            .filter(|t| content_vocab.contains(t.as_str()) && !self.is_structural_cached(t))
             .count();
 
         // 3-way classification: each domain wins only if it beats BOTH others
@@ -1479,14 +1551,14 @@ impl MultiSpace {
         // Subject: last content word before "same"
         let subject = tokens[..same_idx]
             .iter()
-            .filter(|t| !is_structural(t))
+            .filter(|t| !self.is_structural_cached(t))
             .last()?
             .clone();
 
         // Object: first content word after "as"
         let object = tokens[as_idx + 1..]
             .iter()
-            .filter(|t| !is_structural(t))
+            .filter(|t| !self.is_structural_cached(t))
             .next()?
             .clone();
 
@@ -1631,7 +1703,7 @@ impl MultiSpace {
             if let Some(entry) = space.dictionary.entries.iter().find(|e| e.word == subject) {
                 let def_tokens = tokenize(&entry.definition);
                 for t in &def_tokens {
-                    if !is_structural(t) {
+                    if !self.is_structural_cached(t) {
                         let stemmed = stem_to_entry(t, &space.dictionary.entry_set)
                             .unwrap_or_else(|| t.clone());
                         subject_categories.push(stemmed.clone());
@@ -1640,7 +1712,7 @@ impl MultiSpace {
                         if let Some(cat_entry) = space.dictionary.entries.iter().find(|e| e.word == stemmed) {
                             let cat_tokens = tokenize(&cat_entry.definition);
                             for ct in &cat_tokens {
-                                if !is_structural(ct) {
+                                if !self.is_structural_cached(ct) {
                                     let cs = stem_to_entry(ct, &space.dictionary.entry_set)
                                         .unwrap_or_else(|| ct.clone());
                                     subject_categories.push(cs);
@@ -1691,7 +1763,7 @@ impl MultiSpace {
                     }
 
                     // Check if definition ends with category (direct object)
-                    if let Some(last_content) = def_tokens.iter().rev().find(|t| !is_structural(t)) {
+                    if let Some(last_content) = def_tokens.iter().rev().find(|t| !self.is_structural_cached(t)) {
                         let stemmed = stem_to_entry(last_content, &space.dictionary.entry_set)
                             .unwrap_or_else(|| last_content.clone());
                         if stemmed == *cat {
@@ -1729,7 +1801,7 @@ impl MultiSpace {
         let content: Vec<&String> = tokens
             .iter()
             .filter(|t| {
-                !is_structural(t) && t.as_str() != "kind" && t.as_str() != "task"
+                !self.is_structural_cached(t) && t.as_str() != "kind" && t.as_str() != "task"
             })
             .collect();
 
@@ -1883,7 +1955,7 @@ impl MultiSpace {
             // Also check single-word action (last content word)
             let action = tokens
                 .iter()
-                .filter(|t| !is_structural(t))
+                .filter(|t| !self.is_structural_cached(t))
                 .last();
             if let Some(action_word) = action {
                 let stemmed = stem_to_entry(action_word, &self_space.dictionary.entry_set)
@@ -1910,7 +1982,7 @@ impl MultiSpace {
         // Strategy 2: Scan all SELF entries for "yalm can [not] {action}" patterns
         let action_word = tokens
             .iter()
-            .filter(|t| !is_structural(t))
+            .filter(|t| !self.is_structural_cached(t))
             .last()?;
         let stemmed = stem_to_entry(action_word, &self_space.dictionary.entry_set)
             .unwrap_or_else(|| action_word.clone());
@@ -1973,7 +2045,7 @@ impl MultiSpace {
         // Extract the object: last content word
         let object = tokens
             .iter()
-            .filter(|t| !is_structural(t) && t.as_str() != "have")
+            .filter(|t| !self.is_structural_cached(t) && t.as_str() != "have")
             .last()?;
         let stemmed = stem_to_entry(object, &self_space.dictionary.entry_set)
             .unwrap_or_else(|| object.clone());
@@ -2017,7 +2089,7 @@ impl MultiSpace {
         // Extract the category: last content word
         let category = tokens
             .iter()
-            .filter(|t| !is_structural(t))
+            .filter(|t| !self.is_structural_cached(t))
             .last()?;
         let stemmed = stem_to_entry(category, &self_space.dictionary.entry_set)
             .unwrap_or_else(|| category.clone());
@@ -2055,7 +2127,7 @@ impl MultiSpace {
         // Extract the concept: last content word (excluding "know")
         let concept = tokens
             .iter()
-            .filter(|t| !is_structural(t) && t.as_str() != "know")
+            .filter(|t| !self.is_structural_cached(t) && t.as_str() != "know")
             .last()?;
 
         // Check if the concept exists in any domain space vocabulary

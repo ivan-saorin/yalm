@@ -19,10 +19,45 @@ pub struct EngineParams {
     /// Only used when grammar reinforcement is active.
     #[serde(default = "default_grammar_weight")]
     pub grammar_weight: f64,
+    /// Maximum content words to follow per hop in definition-chain traversal.
+    /// Limits search explosion in large dictionaries. Default 3.
+    #[serde(default = "default_max_follow_per_hop")]
+    pub max_follow_per_hop: usize,
+    /// Maximum definition-chain traversal depth for Yes/No and Why/When resolution.
+    /// Higher values find longer chains but risk false positives. Default 3.
+    #[serde(default = "default_max_chain_hops")]
+    pub max_chain_hops: usize,
+    /// Connector axis emphasis for weighted distance in What-Is resolution.
+    /// Controls minimum weight for non-connector dimensions (0.05..0.5). Default 0.2.
+    #[serde(default = "default_weighted_distance_alpha")]
+    pub weighted_distance_alpha: f64,
+    /// Number of alphabetical buckets for connector uniformity scoring.
+    /// More buckets = finer granularity but noisier per-bucket estimates. Default 10.
+    #[serde(default = "default_uniformity_num_buckets")]
+    pub uniformity_num_buckets: usize,
+    /// Minimum uniformity score for a connector candidate to pass the filter.
+    /// Higher = stricter (fewer connectors, less noise). Default 0.75.
+    #[serde(default = "default_uniformity_threshold")]
+    pub uniformity_threshold: f64,
 }
 
 fn default_grammar_weight() -> f64 {
     0.5
+}
+fn default_max_follow_per_hop() -> usize {
+    3
+}
+fn default_max_chain_hops() -> usize {
+    3
+}
+fn default_weighted_distance_alpha() -> f64 {
+    0.2
+}
+fn default_uniformity_num_buckets() -> usize {
+    10
+}
+fn default_uniformity_threshold() -> f64 {
+    0.75
 }
 
 impl Default for EngineParams {
@@ -40,6 +75,11 @@ impl Default for EngineParams {
             bidirectional_force: 0.3,
             rng_seed: 42,
             grammar_weight: 0.5,
+            max_follow_per_hop: 3,
+            max_chain_hops: 3,
+            weighted_distance_alpha: 0.2,
+            uniformity_num_buckets: 10,
+            uniformity_threshold: 0.75,
         }
     }
 }

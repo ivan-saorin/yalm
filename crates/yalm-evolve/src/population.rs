@@ -64,6 +64,31 @@ fn random_genome(
             ranges.grammar_weight.0,
             ranges.grammar_weight.1,
         ),
+        max_follow_per_hop: random_usize_range(
+            rng,
+            ranges.max_follow_per_hop.0,
+            ranges.max_follow_per_hop.1,
+        ),
+        max_chain_hops: random_usize_range(
+            rng,
+            ranges.max_chain_hops.0,
+            ranges.max_chain_hops.1,
+        ),
+        weighted_distance_alpha: random_f64_range(
+            rng,
+            ranges.weighted_distance_alpha.0,
+            ranges.weighted_distance_alpha.1,
+        ),
+        uniformity_num_buckets: random_usize_range(
+            rng,
+            ranges.uniformity_num_buckets.0,
+            ranges.uniformity_num_buckets.1,
+        ),
+        uniformity_threshold: random_f64_range(
+            rng,
+            ranges.uniformity_threshold.0,
+            ranges.uniformity_threshold.1,
+        ),
         rng_seed: 0, // overridden by to_engine_params()
     };
 

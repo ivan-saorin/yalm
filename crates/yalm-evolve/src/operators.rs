@@ -59,6 +59,17 @@ pub fn mutate(
             clamp_f64(child.params.grammar_weight + gaussian(rng) * sigma, ranges.grammar_weight.0, ranges.grammar_weight.1);
     }
 
+    if rng.next_f64() < mutation_rate {
+        let sigma = 0.1 * (ranges.weighted_distance_alpha.1 - ranges.weighted_distance_alpha.0);
+        child.params.weighted_distance_alpha =
+            clamp_f64(child.params.weighted_distance_alpha + gaussian(rng) * sigma, ranges.weighted_distance_alpha.0, ranges.weighted_distance_alpha.1);
+    }
+    if rng.next_f64() < mutation_rate {
+        let sigma = 0.1 * (ranges.uniformity_threshold.1 - ranges.uniformity_threshold.0);
+        child.params.uniformity_threshold =
+            clamp_f64(child.params.uniformity_threshold + gaussian(rng) * sigma, ranges.uniformity_threshold.0, ranges.uniformity_threshold.1);
+    }
+
     // Tier 1: Integer perturbation for usize parameters
     if rng.next_f64() < mutation_rate {
         child.params.dimensions =
@@ -75,6 +86,18 @@ pub fn mutate(
     if rng.next_f64() < mutation_rate {
         child.params.connector_max_length =
             mutate_usize(child.params.connector_max_length, ranges.connector_max_length, rng);
+    }
+    if rng.next_f64() < mutation_rate {
+        child.params.max_follow_per_hop =
+            mutate_usize(child.params.max_follow_per_hop, ranges.max_follow_per_hop, rng);
+    }
+    if rng.next_f64() < mutation_rate {
+        child.params.max_chain_hops =
+            mutate_usize(child.params.max_chain_hops, ranges.max_chain_hops, rng);
+    }
+    if rng.next_f64() < mutation_rate {
+        child.params.uniformity_num_buckets =
+            mutate_usize(child.params.uniformity_num_buckets, ranges.uniformity_num_buckets, rng);
     }
 
     // Tier 2: Strategy mutation
@@ -150,6 +173,21 @@ pub fn crossover(
     }
     if rng.next_f64() < 0.5 {
         child.params.grammar_weight = parent_b.params.grammar_weight;
+    }
+    if rng.next_f64() < 0.5 {
+        child.params.max_follow_per_hop = parent_b.params.max_follow_per_hop;
+    }
+    if rng.next_f64() < 0.5 {
+        child.params.max_chain_hops = parent_b.params.max_chain_hops;
+    }
+    if rng.next_f64() < 0.5 {
+        child.params.weighted_distance_alpha = parent_b.params.weighted_distance_alpha;
+    }
+    if rng.next_f64() < 0.5 {
+        child.params.uniformity_num_buckets = parent_b.params.uniformity_num_buckets;
+    }
+    if rng.next_f64() < 0.5 {
+        child.params.uniformity_threshold = parent_b.params.uniformity_threshold;
     }
 
     // Tier 2: uniform crossover per strategy

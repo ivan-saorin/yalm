@@ -369,8 +369,8 @@ fn connector_pipeline(
     }
 
     // === PASS 2: Uniformity filter ===
-    let num_buckets = 10;
-    let uniformity_threshold = 0.75;
+    let num_buckets = params.uniformity_num_buckets;
+    let uniformity_threshold = params.uniformity_threshold;
     let skip_uniformity = dictionary.entries.len() < 100;
 
     let buckets = if !skip_uniformity {

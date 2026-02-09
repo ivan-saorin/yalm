@@ -3,7 +3,7 @@
 **Yet Another Language Model**
 *A geometric comprehension engine that learns from text alone*
 
-Last updated: 2025-02-08
+Last updated: 2026-02-09
 
 ---
 
@@ -971,6 +971,21 @@ YALM is a geometric comprehension engine that combines established techniques (f
 | SELF space | Phase 18 | 90% | Identity as geometry, 45/50 |
 | Bootstrap loop | Phase 19 | — | Self-improvement, 4 new connectors |
 | Audit + docs | Phase 19b | — | 24-finding audit, 20-citation prior art |
+| Audit fixes | Phase 19c | — | 16 findings fixed, 5 new EngineParams |
+
+## Phase 19c: Code Audit Fixes
+
+Addressed 16 of the 24 findings from Phase 19b. Key changes:
+- **Hardcoded word lists removed**: `is_structural()` (28 words) replaced with per-space `classify_word_roles()` cache. Question verb detection uses discovered structural set.
+- **Magic constants externalized**: 5 new `EngineParams` fields (`max_follow_per_hop`, `max_chain_hops`, `weighted_distance_alpha`, `uniformity_num_buckets`, `uniformity_threshold`) with full evolution support.
+- **SELF triggers derived from vocabulary**: words unique to SELF space replace hardcoded `["yalm"]`.
+- **Task indicators from space vocab**: grammar/content indicator arrays replaced with dictionary membership checks.
+- **Negation guard**: `preceded_by_not()` only fires when "not" connector exists in the space.
+- **Documentation**: NegationModel research results, language-specific layer annotations, TODO comments.
+
+**Regression**: zero. dict5 20/20, unified_test 45/50.
+**Remaining violations**: 1 (A06: definition-chain gate — fundamental research question).
+**Principle 7 improvement**: all resolver constants now evolvable.
 
 ## What Comes Next
 
