@@ -1,6 +1,7 @@
 pub mod connector_discovery;
 pub mod equilibrium;
 pub mod force_field;
+pub mod multispace;
 pub mod resolver;
 pub mod strategy;
 

@@ -24,7 +24,7 @@ enum BoolOp {
 ///
 /// The chain traversal follows content words in definitions up to `max_hops` deep.
 /// At each hop, it checks for direct mention and "not {object}" antonym patterns.
-fn definition_chain_check(
+pub(crate) fn definition_chain_check(
     subject: &str,
     object: &str,
     dictionary: &Dictionary,

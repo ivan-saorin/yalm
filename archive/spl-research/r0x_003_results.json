@@ -1,0 +1,153 @@
+{
+  "phase_a": {
+    "train_time_s": 170.6746950149536,
+    "initial_prey": 1530,
+    "final_prey": 2790,
+    "final_predators": 3,
+    "final_mean_violation": 0.3643855101589838,
+    "connectors_discovered": 10,
+    "relations_extracted": 42
+  },
+  "phase_b": {
+    "mean_score": 10,
+    "best_score": 10,
+    "total_questions": 20,
+    "population_scores": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      9,
+      9,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      9,
+      9,
+      10,
+      9,
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "population_mean_score": 9.833333333333334,
+    "population_best_score": 10,
+    "distance_spearman": 0.08186786843987656
+  },
+  "phase_c": {
+    "bimodal_tests": {
+      "water": {
+        "pop_size": 30,
+        "normaltest_stat": 1.0474130276397418,
+        "normaltest_p": 0.592321028136404,
+        "is_nonnormal": false,
+        "spread": 1.4518340211827163
+      },
+      "food": {
+        "pop_size": 100,
+        "normaltest_stat": 2.8005796640556935,
+        "normaltest_p": 0.24652550259987943,
+        "is_nonnormal": false,
+        "spread": 1.2931575214666722
+      },
+      "ball": {
+        "pop_size": 30,
+        "normaltest_stat": 0.43813073153549653,
+        "normaltest_p": 0.8032692101289028,
+        "is_nonnormal": false,
+        "spread": 1.7356510835416858
+      },
+      "dog": {
+        "pop_size": 30,
+        "normaltest_stat": 72.41182960150876,
+        "normaltest_p": 1.8878652382879987e-16,
+        "is_nonnormal": true,
+        "spread": 2.150841213260065
+      },
+      "cat": {
+        "pop_size": 30,
+        "normaltest_stat": 84.67788817997766,
+        "normaltest_p": 4.0966627420135503e-19,
+        "is_nonnormal": true,
+        "spread": 2.625606622317418
+      },
+      "sun": {
+        "pop_size": 30,
+        "normaltest_stat": 7.899603278791645,
+        "normaltest_p": 0.019258521528496088,
+        "is_nonnormal": true,
+        "spread": 1.3844123374368107
+      }
+    },
+    "note": "dict5 lacks Montmorency; testing existing words for population diversity"
+  },
+  "phase_d": {
+    "science5_entries": 27,
+    "union_words": 61,
+    "dict5_only_words": 34,
+    "science_only_words": 10,
+    "bridge_words": [
+      "a",
+      "all",
+      "and",
+      "animal",
+      "big",
+      "can",
+      "has",
+      "in",
+      "is",
+      "it",
+      "live",
+      "move",
+      "not",
+      "of",
+      "small",
+      "the",
+      "thing"
+    ],
+    "intersection_words": [
+      "a",
+      "all",
+      "can",
+      "is",
+      "it",
+      "live",
+      "move",
+      "not",
+      "the",
+      "thing"
+    ],
+    "bridge_in_intersection": [
+      "a",
+      "all",
+      "can",
+      "is",
+      "it",
+      "live",
+      "move",
+      "not",
+      "the",
+      "thing"
+    ],
+    "union_accuracy": 71.42857142857143,
+    "union_correct": 5,
+    "union_total": 7
+  },
+  "verdict": "DEAD",
+  "criteria_passed": 1,
+  "total_criteria": 5
+}

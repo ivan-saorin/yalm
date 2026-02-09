@@ -1,4 +1,5 @@
 use yalm_core::*;
+use yalm_engine::multispace::MultiSpace;
 use yalm_engine::strategy::StrategyConfig;
 use yalm_engine::Engine;
 
@@ -21,6 +22,75 @@ pub fn evaluate(
             params,
             strategy,
         );
+
+        let correct = match (&question.expected, &answer) {
+            (ExpectedAnswer::Yes, Answer::Yes) => true,
+            (ExpectedAnswer::No, Answer::No) => true,
+            (ExpectedAnswer::IDontKnow, Answer::IDontKnow) => true,
+            (ExpectedAnswer::Word(expected), Answer::Word(actual)) => {
+                fuzzy_word_match(expected, actual)
+            }
+            _ => false,
+        };
+
+        results.push(QuestionResult {
+            question_id: question.id.clone(),
+            question_text: question.question.clone(),
+            expected: question.expected.clone(),
+            actual: answer,
+            correct,
+            projection_distance: distance,
+            connector_used,
+        });
+    }
+
+    // accuracy = correct answerable / total answerable
+    let answerable: Vec<&QuestionResult> = results
+        .iter()
+        .filter(|r| r.expected != ExpectedAnswer::IDontKnow)
+        .collect();
+    let correct_answerable = answerable.iter().filter(|r| r.correct).count();
+    let accuracy = if answerable.is_empty() {
+        0.0
+    } else {
+        correct_answerable as f64 / answerable.len() as f64
+    };
+
+    // honesty = correct IDK / total unknowable
+    let unknowable: Vec<&QuestionResult> = results
+        .iter()
+        .filter(|r| r.expected == ExpectedAnswer::IDontKnow)
+        .collect();
+    let correct_idk = unknowable.iter().filter(|r| r.correct).count();
+    let honesty = if unknowable.is_empty() {
+        0.0
+    } else {
+        correct_idk as f64 / unknowable.len() as f64
+    };
+
+    let fitness = 0.5 * accuracy + 0.5 * honesty;
+    let total_correct = results.iter().filter(|r| r.correct).count();
+    let total_questions = results.len();
+
+    FitnessReport {
+        results,
+        accuracy,
+        honesty,
+        fitness,
+        total_correct,
+        total_questions,
+    }
+}
+
+/// Multi-space evaluation: query the MultiSpace orchestrator.
+pub fn evaluate_multispace(
+    multi: &MultiSpace,
+    test_suite: &TestSuite,
+) -> FitnessReport {
+    let mut results = Vec::new();
+
+    for question in &test_suite.questions {
+        let (answer, distance, connector_used) = multi.resolve(&question.question);
 
         let correct = match (&question.expected, &answer) {
             (ExpectedAnswer::Yes, Answer::Yes) => true,

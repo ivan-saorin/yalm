@@ -5,7 +5,8 @@ use yalm_core::*;
 use yalm_cache::{AssemblerConfig, DictionaryAssembler, DictionaryCache, ManualFileCache, OllamaCache, WiktionaryCache};
 use yalm_engine::strategy::StrategyConfig;
 use yalm_engine::Engine;
-use yalm_eval::{evaluate, print_space_statistics};
+use yalm_engine::multispace::{MultiSpace, SpaceConfig};
+use yalm_eval::{evaluate, evaluate_multispace, print_space_statistics};
 use yalm_parser::{parse_dictionary, parse_grammar_text, parse_test_questions};
 
 /// Convert a descriptive sentence into a Yes/No question for verification.
@@ -99,6 +100,17 @@ struct Cli {
     /// Run self-consistency test on describe output
     #[arg(long)]
     describe_verify: bool,
+
+    // ── Multi-space mode ────────────────────────────────────────
+    /// Multi-space mode: comma-separated name:dict pairs
+    /// e.g., "math:dictionaries/dict_math5.md,grammar:dictionaries/dict_grammar5.md,task:dictionaries/dict_task5.md"
+    #[arg(long)]
+    spaces: Option<String>,
+
+    // ── Space dump ──────────────────────────────────────────────
+    /// Dump the trained geometric space as JSON to the given path
+    #[arg(long)]
+    dump_space: Option<PathBuf>,
 
     // ── Ollama options ─────────────────────────────────────────────
     /// Ollama API base URL (only used with --cache-type ollama)
@@ -309,6 +321,77 @@ fn main() {
         println!("[Grammar reinforcement: ON]");
     }
 
+    // ── Multi-space mode ─────────────────────────────────────────
+    if let Some(ref spaces_arg) = cli.spaces {
+        let build_mode = match cli.mode.as_str() {
+            "equilibrium" | "eq" => yalm_engine::BuildMode::Equilibrium,
+            _ => yalm_engine::BuildMode::ForceField,
+        };
+
+        let configs: Vec<SpaceConfig> = spaces_arg
+            .split(',')
+            .map(|pair| {
+                let parts: Vec<&str> = pair.trim().splitn(2, ':').collect();
+                assert!(
+                    parts.len() == 2,
+                    "Invalid --spaces format: '{}'. Expected name:path", pair
+                );
+                SpaceConfig {
+                    name: parts[0].to_string(),
+                    dict_path: parts[1].to_string(),
+                }
+            })
+            .collect();
+
+        println!("[Multi-space mode: {} spaces]", configs.len());
+        println!("Build mode: {:?}", build_mode);
+        println!("Strategy: {:?}", strategy);
+        println!();
+
+        let multi = MultiSpace::new(configs, &params, &strategy, build_mode);
+        multi.print_bridges();
+
+        // Print per-space statistics
+        for name in &multi.space_order {
+            let space = &multi.spaces[name];
+            println!("\n=== Space: {} ===", name);
+            print_space_statistics(space.engine.space(), &space.dictionary);
+        }
+
+        // Evaluate
+        println!("\n=== Multi-Space Test Results ===\n");
+        let report = evaluate_multispace(&multi, &test_suite);
+
+        for result in &report.results {
+            let status = if result.correct { "PASS" } else { "FAIL" };
+            println!(
+                "[{}] {} \u{2014} {} | expected: {} | actual: {} | dist: {:.4} | connector: {}",
+                status,
+                result.question_id,
+                result.question_text,
+                result.expected,
+                result.actual,
+                result.projection_distance.unwrap_or(f64::NAN),
+                result.connector_used.as_deref().unwrap_or("none"),
+            );
+        }
+
+        // Fitness report
+        println!("\n=== Fitness Report ===");
+        println!(
+            "  Accuracy:  {:.2} ({}/{} answerable correct)",
+            report.accuracy,
+            report.results.iter().filter(|r| r.expected != ExpectedAnswer::IDontKnow && r.correct).count(),
+            report.results.iter().filter(|r| r.expected != ExpectedAnswer::IDontKnow).count(),
+        );
+        println!("  FITNESS:   {:.4}", report.fitness);
+        println!(
+            "  Total:     {}/{} correct",
+            report.total_correct, report.total_questions
+        );
+        return;
+    }
+
     // ── Print engine config ───────────────────────────────────────
     println!();
     println!("Engine parameters:");
@@ -344,6 +427,14 @@ fn main() {
 
     // ── Space statistics ──────────────────────────────────────────
     print_space_statistics(engine.space(), &dictionary);
+
+    // ── Space dump ───────────────────────────────────────────────
+    if let Some(ref path) = cli.dump_space {
+        let json = serde_json::to_string_pretty(engine.space())
+            .expect("Failed to serialize geometric space");
+        std::fs::write(path, &json).expect("Failed to write space dump");
+        println!("[Space dumped to {:?} ({} bytes)]", path, json.len());
+    }
 
     // ── Describe mode ────────────────────────────────────────────
     if let Some(ref words) = cli.describe {
