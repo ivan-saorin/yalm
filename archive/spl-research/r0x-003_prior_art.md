@@ -27,7 +27,7 @@
 - Year: 2025
 - Link: https://arxiv.org/abs/2503.08998
 - Key finding: Comprehensive review of model merging: linear interpolation, Task Arithmetic, TIES-Merging, DARE, AdaMerging. Weight-space arithmetic works because fine-tuned models from the same pretrained base share a loss basin (linear mode connectivity). Merging success depends on task vector orthogonality and interference resolution.
-- Relevance: **directly_relevant** — r0x-003 Phase D proposes set operations on word populations. This is analogous to model merging but in geometric space rather than weight space. The linear mode connectivity assumption (shared pretrained base) maps to DAPHNE's shared connector discovery (same structural scaffold).
+- Relevance: **directly_relevant** — r0x-003 Phase D proposes set operations on word populations. This is analogous to model merging but in geometric space rather than weight space. The linear mode connectivity assumption (shared pretrained base) maps to DAFHNE's shared connector discovery (same structural scaffold).
 - Impact on experiment: SPL set operations on populations should be cleaner than NN weight merging because: (1) population elements are independently interpretable (each prey = a position), (2) no permutation symmetry problem, (3) set operations are exact, not approximate.
 
 ### Paper 3: Yadav et al. (2023) — "TIES-Merging: Resolving Interference When Merging Models"
@@ -43,7 +43,7 @@
 - Year: 2024
 - Link: https://arxiv.org/abs/2410.12927
 - Key finding: Model merging works because of linear mode connectivity — models fine-tuned from same base can be linearly interpolated without loss spike. Task Arithmetic, TIES, DARE all exploit this. Key limitation: merging degrades when tasks are dissimilar or when models are trained from scratch (no shared base).
-- Relevance: **extends** — DAPHNE dictionaries trained from same structural scaffold (shared connectors) are analogous to models fine-tuned from same base. Union of dict5_spl and science_spl should preserve information because bridge terms create "linear mode connectivity" between the populations.
+- Relevance: **extends** — DAFHNE dictionaries trained from same structural scaffold (shared connectors) are analogous to models fine-tuned from same base. Union of dict5_spl and science_spl should preserve information because bridge terms create "linear mode connectivity" between the populations.
 - Impact on experiment: Phase D should test whether bridge terms (energy, force, move, thing, animal, live) create sufficient connectivity for clean union.
 
 ### Paper 5: Kozyrev (2024) — "Lotka–Volterra model with mutations and generative adversarial networks"

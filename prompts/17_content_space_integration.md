@@ -2,9 +2,9 @@
 
 ## GOAL
 
-Integrate dict5 (the original 51-word content dictionary) as a fourth space in the multi-space architecture alongside MATH, GRAMMAR, and TASK. This unifies DAPHNE's existing comprehension capabilities with the new multi-space framework.
+Integrate dict5 (the original 51-word content dictionary) as a fourth space in the multi-space architecture alongside MATH, GRAMMAR, and TASK. This unifies DAFHNE's existing comprehension capabilities with the new multi-space framework.
 
-After Phase 17, DAPHNE can answer questions about dogs, cats, and the sun (CONTENT), do arithmetic (MATH), reason about parts of speech (GRAMMAR), and route automatically between them (TASK).
+After Phase 17, DAFHNE can answer questions about dogs, cats, and the sun (CONTENT), do arithmetic (MATH), reason about parts of speech (GRAMMAR), and route automatically between them (TASK).
 
 ## PREREQUISITE
 
@@ -264,9 +264,9 @@ Run unified_test.md. Target scores. Fix failures. Repeat.
 
 ## THE BIGGER PICTURE
 
-Phase 17 proves that the multi-space architecture scales from 3 to 4 spaces without regression. More importantly, it proves that existing DAPHNE capabilities (14 phases of dict5 work) integrate cleanly into the new framework.
+Phase 17 proves that the multi-space architecture scales from 3 to 4 spaces without regression. More importantly, it proves that existing DAFHNE capabilities (14 phases of dict5 work) integrate cleanly into the new framework.
 
-After Phase 17, DAPHNE is a system that:
+After Phase 17, DAFHNE is a system that:
 - Knows about the physical world (CONTENT)
 - Can count and compute (MATH)
 - Understands its own language structure (GRAMMAR)

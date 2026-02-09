@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-DAPHNE is a geometric comprehension engine at the end of its evolutionary optimization phase. Six phases of development have produced:
+DAFHNE is a geometric comprehension engine at the end of its evolutionary optimization phase. Six phases of development have produced:
 
 - **0.7063 combined fitness** with zero overfitting (v10, best ever)
 - **10/10 positive queries**, **5/5 transitive reasoning**, **3-4/4 honesty**

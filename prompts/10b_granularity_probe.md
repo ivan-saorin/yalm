@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-Phase 10 proved DAPHNE can comprehend Victorian literature at 0.87 fitness (16/21). But the 21-question test mostly asks Level 2-3 questions ("Is Montmorency a dog?", "Is Harris a person?"). We know the system gets entity-type classification right. We DON'T know where it breaks down.
+Phase 10 proved DAFHNE can comprehend Victorian literature at 0.87 fitness (16/21). But the 21-question test mostly asks Level 2-3 questions ("Is Montmorency a dog?", "Is Harris a person?"). We know the system gets entity-type classification right. We DON'T know where it breaks down.
 
 This prompt expands the test suite from 21 to ~50 questions organized along a **coarse-to-fine gradient**. The goal is NOT to improve the score — it's to map the comprehension boundary. At what level of detail does geometric comprehension degrade from "knows" to "guesses" to "can't"?
 
@@ -103,7 +103,7 @@ These probe whether narrative co-occurrence creates geometric proximity for attr
 
 Create `texts/three_men/granularity_test.md` with ~50 questions organized by level.
 
-Use the standard DAPHNE test format:
+Use the standard DAFHNE test format:
 
 ```markdown
 # granularity_test — Coarse-to-Fine Comprehension Probe

@@ -491,7 +491,7 @@ Existing tests contain no "and"/"or" tokens in questions, so the compound detect
 
 ## KNOWN LIMITATIONS
 
-1. **Compound-noun subjects**: "Is bread and butter good?" would be incorrectly split. Mitigated by `op_idx < 3` guard (requires operator at position 3+). DAPHNE's test vocabulary doesn't include compound nouns.
+1. **Compound-noun subjects**: "Is bread and butter good?" would be incorrectly split. Mitigated by `op_idx < 3` guard (requires operator at position 3+). DAFHNE's test vocabulary doesn't include compound nouns.
 
 2. **Mixed negation + boolean**: "Is a dog not a cat and not a person?" splits into "Is a dog not a cat?" + "Is a dog not a person?". Each sub-question's negation detection handles the "not" independently. Should work but is untested in Phase 12.
 

@@ -1,4 +1,4 @@
-# DAPHNE — Definition-Anchored Force-field Heuristic Network Engine
+# DAFHNE — Definition-Anchored Force-field Heuristic Network Engine
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -6,11 +6,11 @@
 
 **A geometric comprehension engine that understands language through physics, not statistics.**
 
-**TL;DR** — DAPHNE constructs word vector spaces from closed ELI5 dictionary definitions using typed force-field equilibrium, without neural networks. The pipeline: closed dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement. 51 words → 20/20 perfect. 2008 words → 14/20 with sublinear decay. 5 geometric spaces → 45/50 (90%). The honest finding: geometry encodes similarity, definitions encode identity, absence encodes uncertainty. You need all three.
+**TL;DR** — DAFHNE constructs word vector spaces from closed ELI5 dictionary definitions using typed force-field equilibrium, without neural networks. The pipeline: closed dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement. 51 words → 20/20 perfect. 2008 words → 14/20 with sublinear decay. 5 geometric spaces → 45/50 (90%). The honest finding: geometry encodes similarity, definitions encode identity, absence encodes uncertainty. You need all three.
 
 ---
 
-DAPHNE reads a closed dictionary, places every word as a point in N-dimensional space, and lets sentences act as physical forces that push related words together. After the force field reaches equilibrium, the geometry *is* the knowledge — questions become distance measurements, reasoning becomes chain traversal, and "I don't know" falls out naturally when nothing is close enough.
+DAFHNE reads a closed dictionary, places every word as a point in N-dimensional space, and lets sentences act as physical forces that push related words together. After the force field reaches equilibrium, the geometry *is* the knowledge — questions become distance measurements, reasoning becomes chain traversal, and "I don't know" falls out naturally when nothing is close enough.
 
 No neural networks. No embeddings. No training corpus. Just definitions, forces, and geometry.
 
@@ -25,7 +25,7 @@ Output:
 
 ```
   ╔════════════════════════════════════════════════════╗
-  ║           DAPHNE — Geometric Comprehension           ║
+  ║           DAFHNE — Geometric Comprehension           ║
   ╚════════════════════════════════════════════════════╝
 
   Knowledge : dict5.md (51 entries)
@@ -106,7 +106,7 @@ Five independent geometric spaces ("thought domains"):
 | MATH | dict_math5.md | Numbers, operations, counting |
 | GRAMMAR | dict_grammar5.md | Language structure — nouns, verbs, sentences |
 | TASK | dict_task5.md | Dispatcher — routes queries to correct domain(s) |
-| SELF | dict_self5.md | Identity — what DAPHNE is, can do, cannot do |
+| SELF | dict_self5.md | Identity — what DAFHNE is, can do, cannot do |
 
 Each space runs its own equilibrium independently. Connected at query time through bridge terms and geometric routing.
 
@@ -241,7 +241,7 @@ dafhne/
 
 ## What This Proves
 
-DAPHNE demonstrates that **geometric structure from definitions** can produce meaningful comprehension without neural networks. The system achieves perfect scores on small dictionaries, scales sublinearly, produces honest uncertainty, self-improves through evolution and bootstrap, and handles all 5W question types plus Boolean operators and text generation.
+DAFHNE demonstrates that **geometric structure from definitions** can produce meaningful comprehension without neural networks. The system achieves perfect scores on small dictionaries, scales sublinearly, produces honest uncertainty, self-improves through evolution and bootstrap, and handles all 5W question types plus Boolean operators and text generation.
 
 The honest finding: geometry encodes similarity (what's related), definitions encode identity (what IS what), and absence encodes uncertainty (what's unknown). You need all three. The hybrid geometry + symbolic chain traversal is not a compromise — it's the architecture.
 
@@ -255,11 +255,11 @@ No external data, no API keys, no GPU needed for closed-dictionary mode.
 
 ## Citation
 
-If you use DAPHNE in your research, please cite:
+If you use DAFHNE in your research, please cite:
 
 ```bibtex
 @software{dafhne2026,
-  title     = {DAPHNE: Definition-Anchored Force-field Heuristic Network Engine --- A Geometric Comprehension Engine},
+  title     = {DAFHNE: Definition-Anchored Force-field Heuristic Network Engine --- A Geometric Comprehension Engine},
   author    = {Ivan Saorin},
   year      = {2026},
   url       = {https://github.com/ivan-saorin/dafhne},
@@ -269,7 +269,7 @@ If you use DAPHNE in your research, please cite:
 
 ### Related Work
 
-DAPHNE builds on ideas from conceptual spaces, knowledge graph embeddings, and dictionary-based learning. For a full analysis with 20 citations, see [docs/prior_art.md](docs/prior_art.md). Key references:
+DAFHNE builds on ideas from conceptual spaces, knowledge graph embeddings, and dictionary-based learning. For a full analysis with 20 citations, see [docs/prior_art.md](docs/prior_art.md). Key references:
 
 - Gardenfors, P. (2000). *Conceptual Spaces: The Geometry of Thought*. MIT Press.
 - Bordes, A. et al. (2013). "Translating Embeddings for Modeling Multi-relational Data." *NeurIPS 2013*.

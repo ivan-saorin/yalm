@@ -11,7 +11,7 @@ use dafhne_parser::parse_dictionary;
 // ─── CLI ────────────────────────────────────────────────────────
 
 #[derive(Parser)]
-#[command(name = "dafhne-demo", about = "DAPHNE — Geometric Comprehension Demo")]
+#[command(name = "dafhne-demo", about = "DAFHNE — Geometric Comprehension Demo")]
 struct Cli {
     /// Knowledge files (dictionaries or free text)
     #[arg(short = 'k', long = "knowledge", required = true, num_args = 1..)]
@@ -90,7 +90,7 @@ const BOX_W: usize = 52;
 fn print_header() {
     println!();
     println!("  \u{2554}{}\u{2557}", "\u{2550}".repeat(BOX_W));
-    println!("  \u{2551}{:^width$}\u{2551}", "DAPHNE \u{2014} Geometric Comprehension", width = BOX_W);
+    println!("  \u{2551}{:^width$}\u{2551}", "DAFHNE \u{2014} Geometric Comprehension", width = BOX_W);
     println!("  \u{255A}{}\u{255D}", "\u{2550}".repeat(BOX_W));
     println!();
 }

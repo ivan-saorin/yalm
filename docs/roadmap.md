@@ -1,4 +1,4 @@
-# DAPHNE Roadmap
+# DAFHNE Roadmap
 
 > Where the project is going, from concrete next steps to open research questions.
 
@@ -60,7 +60,7 @@ Replace all hardcoded word lists with text-derived equivalents:
 - Task routing from pure TASK-space geometry (remove indicator fallbacks)
 - Number mapping from MATH dictionary parsing
 
-Goal: A version of DAPHNE where the engine crate contains zero English strings. All language knowledge comes from dictionaries.
+Goal: A version of DAFHNE where the engine crate contains zero English strings. All language knowledge comes from dictionaries.
 
 ### Phase 24: Multi-Language Test
 
@@ -90,24 +90,24 @@ This is the critical scale test. If fitness holds above 0.60 at 10K words with e
 
 The definition-chain gate (Finding A06 in the audit) is the core hybrid component. Two paths to pure geometry:
 
-1. **Definition-graph embedding**: Embed the definition graph (not just word co-occurrence) into the space. "dog → animal" becomes a geometric DIRECTION, not just proximity. This is essentially TransE inside DAPHNE.
+1. **Definition-graph embedding**: Embed the definition graph (not just word co-occurrence) into the space. "dog → animal" becomes a geometric DIRECTION, not just proximity. This is essentially TransE inside DAFHNE.
 
 2. **Connector-direction queries**: Instead of scalar distance, query along a specific connector's axis. "Is a dog an animal?" would check the projection of `dog - animal` onto the "is a" axis direction, not just the magnitude. Connector axes already exist but evolution consistently ignores them (alpha=0.2 emphasis was rejected at 96%).
 
 3. **Asymmetric distance**: Replace Euclidean distance with an asymmetric metric where `d(dog, animal) ≠ d(animal, dog)`. This would naturally encode directed "is-a" relationships. Research frontier — not clear if force-field equilibrium can produce asymmetric spaces.
 
-### Can DAPHNE learn from conversation?
+### Can DAFHNE learn from conversation?
 
-Currently DAPHNE learns from dictionaries (static) and describe() output (generated). Could it learn from:
+Currently DAFHNE learns from dictionaries (static) and describe() output (generated). Could it learn from:
 - Questions it was asked (what topics do users care about?)
 - Answers it got wrong (what went wrong in the geometry?)
 - New definitions provided at runtime ("Actually, a whale is a mammal")
 
-This would make DAPHNE a continuously learning system, not a batch-build system.
+This would make DAFHNE a continuously learning system, not a batch-build system.
 
 ### Can multiple dafhnes communicate?
 
-If two DAPHNE instances have different dictionaries (one has dict_biology, another has dict_physics), can they share knowledge through bridge terms? The multi-space architecture already supports this within one process. Extending to separate processes (or separate machines) would create a distributed comprehension network.
+If two DAFHNE instances have different dictionaries (one has dict_biology, another has dict_physics), can they share knowledge through bridge terms? The multi-space architecture already supports this within one process. Extending to separate processes (or separate machines) would create a distributed comprehension network.
 
 ### What happens with curved spaces?
 
@@ -117,11 +117,11 @@ The current space is Euclidean (flat). Hierarchical relationships (dog → anima
 
 ## The Honest Forecast
 
-DAPHNE works at the 1000-2000 word scale. The architecture is sound, the principles are (mostly) respected, and the results are real.
+DAFHNE works at the 1000-2000 word scale. The architecture is sound, the principles are (mostly) respected, and the results are real.
 
 The open questions are:
 1. **Scale**: Does it work at 10K? 100K? This is testable.
 2. **Language independence**: Does the engine core work for non-English? This is testable.
 3. **Hybrid resolution**: Can the symbolic operations become geometric? This is a research question.
 
-The most likely outcome: DAPHNE demonstrates that geometric comprehension from text IS possible at small-to-medium scale, that the hybrid geometry+symbols architecture is the natural endpoint, and that the individual techniques (force-directed layout, closed dictionaries, genetic evolution) compose well. It will NOT replace neural language models at scale, but it will contribute the insight that **definitions + physics + evolution = comprehension** at a scale where neural networks are overkill.
+The most likely outcome: DAFHNE demonstrates that geometric comprehension from text IS possible at small-to-medium scale, that the hybrid geometry+symbols architecture is the natural endpoint, and that the individual techniques (force-directed layout, closed dictionaries, genetic evolution) compose well. It will NOT replace neural language models at scale, but it will contribute the insight that **definitions + physics + evolution = comprehension** at a scale where neural networks are overkill.

@@ -6,7 +6,7 @@
 
 ## The Problem
 
-DAPHNE comprehends but doesn't generate. Phase 13 (describe mode) rewrites definitions. Real generation requires producing *new* text that is geometrically coherent.
+DAFHNE comprehends but doesn't generate. Phase 13 (describe mode) rewrites definitions. Real generation requires producing *new* text that is geometrically coherent.
 
 Direct generation from ELI5 geometry produces baby-talk. Direct retrieval from source text produces collage. Neither is acceptable.
 
@@ -65,7 +65,7 @@ Query: "Describe Montmorency"
   │     e.g., region "person-like": "He observes events with a critical eye."
   │
   ├─ Step 3: ELI5 Validation
-  │   Each generated sentence → ELI5 rewrite → DAPHNE comprehension
+  │   Each generated sentence → ELI5 rewrite → DAFHNE comprehension
   │   Does the ELI5 version land in the correct region?
   │   YES → keep sentence
   │   NO → sentence is hallucination, discard
@@ -136,7 +136,7 @@ def validate_sentence(sentence, expected_region, dafhne_engine):
     """
     Rewrite sentence to ELI5.
     Parse into micro-dictionary.
-    Check if key terms land near expected_region in DAPHNE space.
+    Check if key terms land near expected_region in DAFHNE space.
     """
     eli5 = ollama_eli5_rewrite(sentence)
     micro_dict = dafhne_assemble(eli5)
@@ -151,7 +151,7 @@ Sentences that fail validation are discarded or regenerated (max 2 retries).
 ### Phase D: Comparative Test
 
 Generate descriptions for 5 subjects using:
-1. **DAPHNE Phase 13 describe mode** (baseline — definition rewriting)
+1. **DAFHNE Phase 13 describe mode** (baseline — definition rewriting)
 2. **Trajectory-guided generation** (this experiment)
 3. **Raw Ollama** (no geometric guidance — control)
 
@@ -192,9 +192,9 @@ research/
 | Human rating vs raw Ollama | Worse | Better on no-hallucination |
 | Self-consistency (re-read = same trajectory) | < 60% | > 80% |
 
-If PASS: Geometric generation works. DAPHNE becomes a comprehension-AND-generation engine.
+If PASS: Geometric generation works. DAFHNE becomes a comprehension-AND-generation engine.
 If PARTIAL (trajectory good, generation mediocre): The planning layer works but needs better expert prompts.
-If FAIL: Generation requires capabilities beyond geometric structure. DAPHNE stays a comprehension engine.
+If FAIL: Generation requires capabilities beyond geometric structure. DAFHNE stays a comprehension engine.
 
 ## Critical Note
 

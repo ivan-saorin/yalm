@@ -87,7 +87,7 @@ Each experiment has explicit pass/fail thresholds. If FAIL:
 3. Do NOT merge to main
 4. Move to next experiment (some paths are independent)
 
-If ALL fail: the integration thesis is wrong. DAPHNE and SPL are better kept separate. Still valuable knowledge.
+If ALL fail: the integration thesis is wrong. DAFHNE and SPL are better kept separate. Still valuable knowledge.
 
 ## Merge Criteria
 
@@ -104,10 +104,10 @@ pip install torch transformers scipy scikit-learn matplotlib numpy
 ```
 
 ### Rust (for r0x-003)
-Extends existing DAPHNE crates or new `dafhne-spl` crate.
+Extends existing DAFHNE crates or new `dafhne-spl` crate.
 
 ### Ollama (for r0x-004, r0x-005)
-Already configured for DAPHNE open-mode. Uses qwen3 model.
+Already configured for DAFHNE open-mode. Uses qwen3 model.
 
 ## File Structure
 

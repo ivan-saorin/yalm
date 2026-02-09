@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-DAPHNE is a geometric comprehension engine. Through prompts 01-08 it has demonstrated:
+DAFHNE is a geometric comprehension engine. Through prompts 01-08 it has demonstrated:
 
 1. **Geometric comprehension works** on closed dictionaries at three scales (50, ~400, ~2000 words)
 2. **The scaling curve** tells us how fitness degrades with vocabulary size (from prompt 07)
@@ -10,7 +10,7 @@ DAPHNE is a geometric comprehension engine. Through prompts 01-08 it has demonst
 
 The remaining bottleneck is **closure**. Every dictionary so far was hand-crafted to ensure every word in every definition is itself defined. This constraint made the science clean but the system impractical. Nobody will hand-close 10,000 words.
 
-This prompt adds a **dictionary cache** — an external lookup that provides definitions on demand. DAPHNE stops reading a specific constructed dictionary and starts reading ANY text, pulling definitions as needed. The dictionary becomes infrastructure, not input.
+This prompt adds a **dictionary cache** — an external lookup that provides definitions on demand. DAFHNE stops reading a specific constructed dictionary and starts reading ANY text, pulling definitions as needed. The dictionary becomes infrastructure, not input.
 
 ## PROJECT STRUCTURE
 

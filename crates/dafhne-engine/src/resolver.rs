@@ -834,7 +834,7 @@ fn find_negation_connector(space: &GeometricSpace) -> Option<&Connector> {
 // HARDCODED ENGLISH. They cannot be discovered from text statistics because
 // they are meta-language (question syntax, not definition content).
 //
-// For a non-English DAPHNE, these must be replaced with language-specific
+// For a non-English DAFHNE, these must be replaced with language-specific
 // equivalents (e.g., French: "quoi", "qui", "où", "quand", "pourquoi").
 //
 // In contrast, Yes/No question detection (tokens[0] ∈ structural) uses the

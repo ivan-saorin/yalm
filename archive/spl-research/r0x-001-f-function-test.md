@@ -1,12 +1,12 @@
 # r0x-001: The f-Function Test
 
 **Branch:** pure-research
-**Goal:** Determine if neural network embeddings contain the same geometric structure as DAPHNE equilibrium.
+**Goal:** Determine if neural network embeddings contain the same geometric structure as DAFHNE equilibrium.
 **Verdict:** Binary. Correlation > 0.5 = f exists. Correlation < 0.3 = different knowledge. Between = inconclusive.
 
 ## Hypothesis
 
-If DAPHNE's geometric space and LLM embedding spaces capture the same semantic structure, then pairwise distances between dict5 words in GPT-2 embedding space should correlate with pairwise distances in DAPHNE equilibrium space.
+If DAFHNE's geometric space and LLM embedding spaces capture the same semantic structure, then pairwise distances between dict5 words in GPT-2 embedding space should correlate with pairwise distances in DAFHNE equilibrium space.
 
 ## Prior Art Search (Step 0 — Do This First)
 
@@ -50,9 +50,9 @@ If a paper already does exactly what r0x-001 proposes: USE THEIR NUMBERS. Don't 
 
 A standalone Python script: `research/r0x_001_f_test.py`
 
-### Step 1: Extract DAPHNE distances
+### Step 1: Extract DAFHNE distances
 
-Run DAPHNE on dict5 with the v11 parameters (from results_v11/) and dump ALL pairwise distances between the 51 words to a JSON file.
+Run DAFHNE on dict5 with the v11 parameters (from results_v11/) and dump ALL pairwise distances between the 51 words to a JSON file.
 
 ```bash
 # The project already has dafhne-eval. Add a --dump-distances flag
@@ -137,7 +137,7 @@ print(f"Pearson (euclidean):  {pearson_euc:.4f}")
 
 ### Step 5: Visualize
 
-Generate a scatter plot: X = DAPHNE distance, Y = GPT-2 distance. One plot per metric (cosine, euclidean). Save as PNG.
+Generate a scatter plot: X = DAFHNE distance, Y = GPT-2 distance. One plot per metric (cosine, euclidean). Save as PNG.
 
 Also generate a 2D projection (t-SNE or PCA) of both spaces side by side. Label the 51 words. Visual inspection: do the clusters match?
 
@@ -146,7 +146,7 @@ Also generate a 2D projection (t-SNE or PCA) of both spaces side by side. Label 
 ```
 research/
 ├── r0x_001_f_test.py          # Main script
-├── r0x_001_dump_distances.rs  # If needed: Rust helper for DAPHNE distances
+├── r0x_001_dump_distances.rs  # If needed: Rust helper for DAFHNE distances
 ├── r0x_001_results.json       # Raw numbers
 ├── r0x_001_scatter.png        # Correlation scatter
 ├── r0x_001_projection.png     # Side-by-side t-SNE/PCA

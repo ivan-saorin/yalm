@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are working on a research project called DAPHNE (Definition-Anchored Force-field Heuristic Network Engine). The project explores whether a system can build internal geometric representations of knowledge from text alone — no predefined rules, no ontology, no parsing grammar.
+You are working on a research project called DAFHNE (Definition-Anchored Force-field Heuristic Network Engine). The project explores whether a system can build internal geometric representations of knowledge from text alone — no predefined rules, no ontology, no parsing grammar.
 
 The foundation is two closed dictionaries:
 - **dict5**: 50 words at a 5-year-old comprehension level. Verified CLOSED.

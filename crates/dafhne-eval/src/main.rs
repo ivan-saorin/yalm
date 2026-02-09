@@ -52,7 +52,7 @@ fn sentence_to_question(sentence: &str) -> Option<String> {
 }
 
 #[derive(Parser)]
-#[command(name = "dafhne-eval", about = "Evaluate DAPHNE engine on test questions")]
+#[command(name = "dafhne-eval", about = "Evaluate DAFHNE engine on test questions")]
 struct Cli {
     /// Path to dictionary file (closed mode)
     #[arg(long, default_value = "dictionaries/dict5.md")]
@@ -182,7 +182,7 @@ fn parse_strategy(genome: &GenomeFile) -> StrategyConfig {
 fn main() {
     let cli = Cli::parse();
 
-    println!("=== DAPHNE v0.1 \u{2014} Geometric Comprehension Engine ===\n");
+    println!("=== DAFHNE v0.1 \u{2014} Geometric Comprehension Engine ===\n");
 
     // ── Load parameters from genome or use defaults ──────────────
     let (params, strategy): (EngineParams, StrategyConfig) = if let Some(genome_path) = &cli.genome {

@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-DAPHNE is a geometric comprehension engine that has progressed through nine phases:
+DAFHNE is a geometric comprehension engine that has progressed through nine phases:
 
 1. **Prompts 01-06**: Built and refined the core engine on closed dictionaries (dict5: 20/20, dict12: 15/20)
 2. **Prompt 07**: Scaled to dict18 (~2000 words), measured the three-point scaling curve
@@ -14,7 +14,7 @@ DAPHNE is a geometric comprehension engine that has progressed through nine phas
 
 Phase 09c added a **uniformity filter** to connector discovery (structural words pass, content words rejected), reducing connector noise at scale while maintaining dict5 at 20/20.
 
-This prompt is the **integration test**. We feed DAPHNE a real piece of literature — Jerome K. Jerome's *Three Men in a Boat* (1889) — and ask it questions about characters, events, and relationships. This is the first time the system encounters narrative text, named entities, humor, and Victorian prose.
+This prompt is the **integration test**. We feed DAFHNE a real piece of literature — Jerome K. Jerome's *Three Men in a Boat* (1889) — and ask it questions about characters, events, and relationships. This is the first time the system encounters narrative text, named entities, humor, and Victorian prose.
 
 *Three Men in a Boat* is ideal because:
 - It's public domain (published 1889)
@@ -77,7 +77,7 @@ D:\workspace\projects\dafhne\
 
 ### What's New About Narrative Text
 
-All previous DAPHNE inputs have been **definitional**: "a dog is an animal" explicitly states a relationship. Narrative text encodes relationships **implicitly**:
+All previous DAFHNE inputs have been **definitional**: "a dog is an animal" explicitly states a relationship. Narrative text encodes relationships **implicitly**:
 
 - "Montmorency sat up and looked around" → Montmorency can sit and look (capabilities)
 - "Harris said he would be the one to carry the bag" → Harris is a person who can speak and carry things
@@ -277,7 +277,7 @@ Pick whichever approach produces cleaner test questions.
 
 ## TASK 2: WRITE TEST QUESTIONS
 
-Use the standard DAPHNE test format (same as dict5_test.md / passage1_test.md):
+Use the standard DAFHNE test format (same as dict5_test.md / passage1_test.md):
 
 ```markdown
 ---

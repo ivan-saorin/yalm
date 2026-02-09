@@ -40,4 +40,4 @@ Input: chapter of Three Men in a Boat
 
 - Design: 3-5 days
 - Implementation: 1-2 weeks
-- This is a major milestone: DAPHNE becomes a general-purpose reading machine
+- This is a major milestone: DAFHNE becomes a general-purpose reading machine

@@ -2,9 +2,9 @@
 
 ## PREAMBLE
 
-Phase 12 achieved boolean compound queries (9/10 dict5_bool, 5/5 Three Men bool) with zero regressions. DAPHNE now comprehends: Yes/No, What/Who/Where, boolean AND/OR, negation, transitive chains up to 3 hops, and entity definitions.
+Phase 12 achieved boolean compound queries (9/10 dict5_bool, 5/5 Three Men bool) with zero regressions. DAFHNE now comprehends: Yes/No, What/Who/Where, boolean AND/OR, negation, transitive chains up to 3 hops, and entity definitions.
 
-Phase 13 flips the direction: from **comprehension** to **generation**. The system reads its own geometry and definitions to produce descriptive sentences about a word. This is DAPHNE expressing what it knows.
+Phase 13 flips the direction: from **comprehension** to **generation**. The system reads its own geometry and definitions to produce descriptive sentences about a word. This is DAFHNE expressing what it knows.
 
 ## GOAL
 

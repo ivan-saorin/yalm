@@ -2,7 +2,7 @@
 
 ## GOAL
 
-Implement the self-improvement loop: DAPHNE generates descriptions of its known concepts using `describe()`, feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
+Implement the self-improvement loop: DAFHNE generates descriptions of its known concepts using `describe()`, feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
 
 This is the path from ELI5 sentence structure to more complex grammar, driven entirely by geometric self-reflection.
 

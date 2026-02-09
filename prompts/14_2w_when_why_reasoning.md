@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-Phase 13 proved that DAPHNE can express what it knows: `describe()` generates sentences from definitions with 100% self-consistency. The system reads its own definitions and produces natural language.
+Phase 13 proved that DAFHNE can express what it knows: `describe()` generates sentences from definitions with 100% self-consistency. The system reads its own definitions and produces natural language.
 
 Phase 14 adds the two "reasoning" question words: **When** and **Why**. Both are answered by reading definitions — not by geometric distance.
 
@@ -836,7 +836,7 @@ All 5 are simple 1-2 hop "why" chains through entity definitions. These should b
 
 ## KNOWN LIMITATIONS
 
-1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. This is honest — DAPHNE knows what it was told, not deeper causal mechanisms.
+1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. This is honest — DAFHNE knows what it was told, not deeper causal mechanisms.
 
 2. **"When" rarely has answers in dict5**: Most dict5 definitions lack temporal/conditional clauses. The "to feel good" pattern in eat's definition is one of few extractable conditions. Most "when" questions correctly return IDK.
 

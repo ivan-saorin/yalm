@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-DAPHNE's resolver currently handles two question types:
+DAFHNE's resolver currently handles two question types:
 - **Yes/No**: "Is X a Y?" — geometric distance + definition-chain gate
 - **What-Is**: "What is X?" — definition-category extraction + geometric nearest neighbor
 

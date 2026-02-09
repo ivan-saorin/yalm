@@ -23,7 +23,7 @@ struct Cli {
 fn main() {
     let cli = Cli::parse();
 
-    println!("=== DAPHNE Wiktionary Cache Builder ===\n");
+    println!("=== DAFHNE Wiktionary Cache Builder ===\n");
     println!("Input:  {:?}", cli.input);
     println!("Output: {:?}", cli.output);
     println!();

@@ -1,4 +1,4 @@
-# DAPHNE Design Decisions
+# DAFHNE Design Decisions
 
 > Key architectural choices, the alternatives considered, and why we chose what we chose.
 
@@ -6,7 +6,7 @@
 
 ## 1. Why Closed Dictionaries? (vs. corpus-based learning)
 
-**Decision**: DAPHNE learns from a closed dictionary where every word in every definition is itself defined. No external corpus.
+**Decision**: DAFHNE learns from a closed dictionary where every word in every definition is itself defined. No external corpus.
 
 **Alternatives considered**:
 - **Corpus-based**: Learn from raw text (like Word2Vec, GloVe). Requires billions of tokens, statistical co-occurrence, and massive scale.
@@ -120,7 +120,7 @@
 
 **Evidence**: Phase 10b granularity probe — Level 4 (Properties/Capabilities) scored **100%**, far above the predicted 40-60%. The ELI5 definitions carry full capability signal.
 
-**Trade-off**: Loses nuance. "Democracy" defined at ELI5 level becomes "a way for people to choose leaders by voting" — correct but shallow. This is acceptable because DAPHNE tests comprehension (does it understand?), not depth of knowledge.
+**Trade-off**: Loses nuance. "Democracy" defined at ELI5 level becomes "a way for people to choose leaders by voting" — correct but shallow. This is acceptable because DAFHNE tests comprehension (does it understand?), not depth of knowledge.
 
 ---
 
@@ -135,8 +135,8 @@
 
 **Why this choice**:
 - **Architectural consistency**: Every domain is a geometric space. Self-knowledge is just another domain.
-- **Composability**: SELF participates in cross-space queries the same way MATH or GRAMMAR does. "Can DAPHNE do math?" routes to both SELF and MATH spaces.
-- **Identity as geometry**: "DAPHNE" is a point in SELF space, near "system", "geometric", "comprehension". Its capabilities are connectors: "can answer", "can describe". Its limitations are distances: far from "image", "translate". The geometry IS the self-model.
+- **Composability**: SELF participates in cross-space queries the same way MATH or GRAMMAR does. "Can DAFHNE do math?" routes to both SELF and MATH spaces.
+- **Identity as geometry**: "DAFHNE" is a point in SELF space, near "system", "geometric", "comprehension". Its capabilities are connectors: "can answer", "can describe". Its limitations are distances: far from "image", "translate". The geometry IS the self-model.
 
 **Trade-off**: SELF cannot introspect on its own accuracy or monitor its own failures. A meta-space could track which question types succeed/fail. A peer space only knows what its dictionary tells it about itself.
 

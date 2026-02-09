@@ -1,4 +1,4 @@
-# DAPHNE Architecture Deep-Dive
+# DAFHNE Architecture Deep-Dive
 
 > How a geometric comprehension engine works, from dictionary to answers.
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-DAPHNE transforms text into geometry. It reads definitions, discovers recurring patterns (connectors), uses those patterns as physical forces to position words in N-dimensional space, and then answers questions by measuring distances and traversing definitions.
+DAFHNE transforms text into geometry. It reads definitions, discovers recurring patterns (connectors), uses those patterns as physical forces to position words in N-dimensional space, and then answers questions by measuring distances and traversing definitions.
 
 ```
 Dictionary → Connector Discovery → Force Field → Equilibrium → Geometric Space
@@ -20,7 +20,7 @@ No neural networks. No embeddings layer. No training corpus. The dictionary IS t
 
 ## Stage 1: The Closed Dictionary
 
-DAPHNE starts from a **closed dictionary** — a markdown file where every word used in any definition is itself a defined entry.
+DAFHNE starts from a **closed dictionary** — a markdown file where every word used in any definition is itself a defined entry.
 
 ```markdown
 **dog** — an animal. it can make sound. it can live with a person.
@@ -46,7 +46,7 @@ The **closure property** means there are no undefined symbols. Every word in "an
 
 ### Open mode
 
-For arbitrary text, DAPHNE assembles a dictionary on-the-fly:
+For arbitrary text, DAFHNE assembles a dictionary on-the-fly:
 1. Extract seed words from input text
 2. Query Ollama (qwen3) for ELI5 definitions
 3. Recursively define every word in every definition (closure chase)
@@ -215,7 +215,7 @@ Phase 16+ introduced **multiple independent geometric spaces** ("thought domains
 | MATH | dict_math5.md | Numbers, operations, counting |
 | GRAMMAR | dict_grammar5.md | Language structure — nouns, verbs, sentences |
 | TASK | dict_task5.md | Dispatcher — routes queries to correct domain(s) |
-| SELF | dict_self5.md | Identity — what DAPHNE is, can do, cannot do |
+| SELF | dict_self5.md | Identity — what DAFHNE is, can do, cannot do |
 
 Each space runs its own connector discovery and equilibrium independently. They connect only at query time through:
 

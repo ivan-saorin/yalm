@@ -2,7 +2,7 @@
 //!
 //! These high-frequency function words are skipped during assembly
 //! to prevent the BFS frontier from exploding. They add no semantic
-//! value — DAPHNE discovers them as connectors during training anyway.
+//! value — DAFHNE discovers them as connectors during training anyway.
 //!
 //! We hardcode rather than derive from connector discovery because
 //! the stop words are needed BEFORE the dictionary exists.

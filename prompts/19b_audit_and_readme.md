@@ -4,10 +4,10 @@
 
 ## CONTEXT
 
-DAPHNE has reached a milestone: 19 phases of development, 45/50 on unified_test.md, 5 geometric spaces, a self-improvement bootstrap loop, and zero neural networks. Before moving to Phase 20 (per-space parameter evolution), we need to pause, breathe, and honestly assess what we've built.
+DAFHNE has reached a milestone: 19 phases of development, 45/50 on unified_test.md, 5 geometric spaces, a self-improvement bootstrap loop, and zero neural networks. Before moving to Phase 20 (per-space parameter evolution), we need to pause, breathe, and honestly assess what we've built.
 
 This prompt has three deliverables:
-1. **Code Audit Report** — find everything that violates DAPHNE's architectural spirit
+1. **Code Audit Report** — find everything that violates DAFHNE's architectural spirit
 2. **README Overhaul** — restructure with deep-dive pages
 3. **Prior Art Analysis** — honest assessment of novelty vs. reinvention
 
@@ -52,7 +52,7 @@ And the current documentation:
 
 Write a file: `reports/19b_code_audit.md`
 
-### The Spirit of DAPHNE (from Prompt 02)
+### The Spirit of DAFHNE (from Prompt 02)
 
 These are the founding principles. Every line of code should be measured against them:
 
@@ -123,7 +123,7 @@ For each: should it be evolvable? Or is there a principled reason for the consta
 - Code paths that are unreachable
 
 #### E. Architecture Coherence
-- Does `multispace.rs` maintain the "each space is an independent DAPHNE instance" principle?
+- Does `multispace.rs` maintain the "each space is an independent DAFHNE instance" principle?
 - Does `bootstrap.rs` respect immutable dictionaries?
 - Does the SELF space fit as a peer (not meta) space?
 - Are bridge terms working symmetrically?
@@ -149,7 +149,7 @@ For each finding:
 ```
 
 End the audit with summary counts per severity and an honest assessment:
-- How much of DAPHNE is truly geometric vs. symbolic?
+- How much of DAFHNE is truly geometric vs. symbolic?
 - What percentage of correct answers come from geometry vs. chain traversal?
 - Is the hybrid (geometry + symbols) a pragmatic success or a philosophical failure?
 
@@ -170,7 +170,7 @@ The current README.md is good but monolithic. Restructure into:
 
 Create these files:
 
-#### `docs/architecture.md` — How DAPHNE Works
+#### `docs/architecture.md` — How DAFHNE Works
 The full step-by-step explanation (expanded from current README). Include:
 - Dictionary format and closure property
 - Connector discovery pipeline (frequency + uniformity)
@@ -201,7 +201,7 @@ Key decisions with alternatives considered:
 **This is the most important deep-dive.** See Deliverable 3 below.
 
 #### `docs/limitations.md` — Known Limitations and Honest Assessment
-- What DAPHNE can't do (and why)
+- What DAFHNE can't do (and why)
 - The geometry-vs-symbols tension
 - Scale limitations
 - English-specific assumptions
@@ -233,21 +233,21 @@ This addresses the elephant in the room: **"Did we reinvent the wheel? Has no on
 1. **Conceptual Spaces (Gärdenfors, 2000, 2014)**
    - Peter Gärdenfors proposed geometric semantic spaces 25 years ago
    - His framework uses quality dimensions, convex regions, and betweenness
-   - How does DAPHNE relate? Is DAPHNE an implementation of Gärdenfors' theory?
-   - Key difference candidates: DAPHNE discovers dimensions from text, Gärdenfors assumes them
+   - How does DAFHNE relate? Is DAFHNE an implementation of Gärdenfors' theory?
+   - Key difference candidates: DAFHNE discovers dimensions from text, Gärdenfors assumes them
 
 2. **Word Embeddings (Word2Vec, GloVe, FastText)**
    - All create vector spaces where similar words are close
    - Word2Vec uses neural networks + massive corpus
    - GloVe uses co-occurrence matrix factorization
-   - How does DAPHNE differ? Same output (word vectors), different input (dictionary vs. corpus)?
-   - Key difference candidates: DAPHNE uses directional forces with connector semantics, not statistical co-occurrence; DAPHNE works from 51 words, not billions
+   - How does DAFHNE differ? Same output (word vectors), different input (dictionary vs. corpus)?
+   - Key difference candidates: DAFHNE uses directional forces with connector semantics, not statistical co-occurrence; DAFHNE works from 51 words, not billions
 
 3. **Knowledge Graph Embeddings (TransE, TransR, RotatE)**
    - TransE: `head + relation ≈ tail` in vector space
-   - This is remarkably similar to DAPHNE's connector forces
-   - TransE learns from (h, r, t) triples; DAPHNE discovers them from text
-   - Key difference candidates: DAPHNE discovers the relations, TransE is given them
+   - This is remarkably similar to DAFHNE's connector forces
+   - TransE learns from (h, r, t) triples; DAFHNE discovers them from text
+   - Key difference candidates: DAFHNE discovers the relations, TransE is given them
 
 4. **Dictionary-Based Learning**
    - Has anyone learned from dictionaries specifically?
@@ -264,20 +264,20 @@ This addresses the elephant in the room: **"Did we reinvent the wheel? Has no on
 6. **Force-Directed Graph Layouts**
    - Force-directed placement (Fruchterman-Reingold, 1991)
    - Spring-electrical models for graph visualization
-   - DAPHNE's equilibrium is literally a force-directed layout with semantic forces
-   - Difference: DAPHNE's forces encode typed relations, not just connectivity
+   - DAFHNE's equilibrium is literally a force-directed layout with semantic forces
+   - Difference: DAFHNE's forces encode typed relations, not just connectivity
 
 7. **Bootstrap/Self-Play**
    - AlphaGo Zero learns by self-play
-   - DAPHNE's bootstrap loop: reads own output → discovers new patterns
+   - DAFHNE's bootstrap loop: reads own output → discovers new patterns
    - Self-distillation in neural networks
-   - How does DAPHNE's approach compare?
+   - How does DAFHNE's approach compare?
 
 8. **Children's Language Acquisition**
    - The "teach like a kid" principle
    - Nativist (Chomsky) vs. empiricist (Tomasello) debate
    - Conceptual primitives and semantic bootstrapping
-   - Does DAPHNE's ELI5 principle map to developmental psychology?
+   - Does DAFHNE's ELI5 principle map to developmental psychology?
 
 ### What to Produce
 
@@ -285,7 +285,7 @@ A structured document covering:
 
 **Section 1: The Landscape**
 - Brief taxonomy of approaches to machine language understanding
-- Where DAPHNE fits (or doesn't fit) in this taxonomy
+- Where DAFHNE fits (or doesn't fit) in this taxonomy
 
 **Section 2: Closest Relatives**
 - For each related work: what's shared, what's different, what's novel
@@ -344,7 +344,7 @@ It was never implemented. Phases 16-19 proceeded without it. Assess:
 |------|---------|
 | `reports/19b_code_audit.md` | Complete code audit with findings |
 | `docs/prior_art.md` | Prior art analysis |
-| `docs/architecture.md` | Deep-dive: how DAPHNE works |
+| `docs/architecture.md` | Deep-dive: how DAFHNE works |
 | `docs/results.md` | Comprehensive results |
 | `docs/design_decisions.md` | Key decisions and alternatives |
 | `docs/limitations.md` | Known limitations |
@@ -388,6 +388,6 @@ The code audit is first because it forces you to understand every line of code b
 
 At the end of this exercise, we should be able to answer:
 
-**"DAPHNE is a _____ that differs from existing approaches because _____. The individual components (word vectors, force layouts, genetic algorithms) are established techniques. The novel contribution is _____. The main limitation is _____."**
+**"DAFHNE is a _____ that differs from existing approaches because _____. The individual components (word vectors, force layouts, genetic algorithms) are established techniques. The novel contribution is _____. The main limitation is _____."**
 
 Fill in those blanks. With evidence.

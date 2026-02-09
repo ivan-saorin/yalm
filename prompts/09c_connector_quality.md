@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-DAPHNE is a geometric comprehension engine. Prompt 09b added an LLM cache (Qwen3:8b via Ollama) that generates dict5-style definitions for any word on demand. The definitions are excellent — 10/10 quality, proper "is a" / "can" / "not" patterns.
+DAFHNE is a geometric comprehension engine. Prompt 09b added an LLM cache (Qwen3:8b via Ollama) that generates dict5-style definitions for any word on demand. The definitions are excellent — 10/10 quality, proper "is a" / "can" / "not" patterns.
 
 Prompt 09c-scaling fixed the connector discovery threshold to scale logarithmically with dictionary size. Result: connectors found went from 1 → 16 at 783 entries. But the discovered connectors are WRONG:
 

@@ -12,7 +12,7 @@ use dafhne_evolve::runner::{evolve, evolve_multi, resume, resume_multi, Evolutio
 use dafhne_parser::{parse_dictionary, parse_test_questions};
 
 #[derive(Parser)]
-#[command(name = "dafhne-evolve", about = "Evolutionary self-improvement for DAPHNE")]
+#[command(name = "dafhne-evolve", about = "Evolutionary self-improvement for DAFHNE")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,

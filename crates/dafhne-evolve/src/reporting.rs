@@ -44,7 +44,7 @@ pub fn write_status_md(
     config: &EvolutionConfig,
 ) {
     let mut md = String::new();
-    md.push_str("# DAPHNE Evolution Status\n\n");
+    md.push_str("# DAFHNE Evolution Status\n\n");
 
     let latest = match all_stats.last() {
         Some(s) => s,
@@ -276,7 +276,7 @@ pub fn write_suggestions_md(
     config: &EvolutionConfig,
 ) {
     let mut md = String::new();
-    md.push_str("# DAPHNE Evolution Suggestions\n\n");
+    md.push_str("# DAFHNE Evolution Suggestions\n\n");
 
     // 1. Bottleneck Analysis: questions ALL candidates get wrong
     md.push_str("## Bottleneck Questions\n");
@@ -475,7 +475,7 @@ pub fn write_multi_status_md(
     config: &MultiSpaceEvolutionConfig,
 ) {
     let mut md = String::new();
-    md.push_str("# DAPHNE Multi-Space Evolution Status\n\n");
+    md.push_str("# DAFHNE Multi-Space Evolution Status\n\n");
 
     let latest = match all_stats.last() {
         Some(s) => s,

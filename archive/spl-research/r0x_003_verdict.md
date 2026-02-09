@@ -2,7 +2,7 @@
 
 ## Summary
 
-SPL predator-prey dynamics do not produce meaningful word geometry when applied to DAPHNE's constraint-satisfaction problem. The fundamental mismatch: SPL is designed for **function approximation** (prey converge to f(x)=y surfaces), while word positioning requires **multi-constraint satisfaction** (each word must simultaneously satisfy dozens of pairwise distance constraints). The predator-prey metaphor does not map cleanly.
+SPL predator-prey dynamics do not produce meaningful word geometry when applied to DAFHNE's constraint-satisfaction problem. The fundamental mismatch: SPL is designed for **function approximation** (prey converge to f(x)=y surfaces), while word positioning requires **multi-constraint satisfaction** (each word must simultaneously satisfy dozens of pairwise distance constraints). The predator-prey metaphor does not map cleanly.
 
 ## Scores
 
@@ -12,7 +12,7 @@ SPL predator-prey dynamics do not produce meaningful word geometry when applied 
 | dict5 best-of-pop | 10/20 | =20 | **FAIL** |
 | dict5 mean positions | 10/20 | -- | -- |
 | dict5 best positions | 10/20 | -- | -- |
-| Distance Spearman vs DAPHNE | 0.082 | >0.6 | **FAIL** |
+| Distance Spearman vs DAFHNE | 0.082 | >0.6 | **FAIL** |
 | Union queryable | 71% | >85% | **FAIL** |
 | Criteria passed | 1/5 | >=4 | **FAIL** |
 
@@ -23,12 +23,12 @@ SPL predator-prey dynamics do not produce meaningful word geometry when applied 
 - Training: 170.7s for 300 steps, 51 words x 30 prey each
 - **Critical observation**: Predators die off rapidly (30 -> 3 by step 200). The violation energy landscape is too flat -- there's no clear "worse" prey to hunt. SPL predators work by chasing individual prey agents, but word positioning violations are *relational* (between pairs), not *individual* (per agent).
 - Mean violation stabilizes at ~0.36 but doesn't decrease -- SPL dynamics are not optimizing the violation energy effectively.
-- Discovered 10 connectors and 42 relations (matching DAPHNE's output for dict5).
+- Discovered 10 connectors and 42 relations (matching DAFHNE's output for dict5).
 
 ### Phase B: Dict5 Evaluation
 
 - The 10/20 score comes almost entirely from **definition-chain lookups** (Q01-Q05, Q08, Q10, Q11, Q12, Q14), not geometry.
-- Geometric distance is essentially random (Spearman 0.082 vs DAPHNE) -- it provides no useful signal for yes/no/unknown discrimination.
+- Geometric distance is essentially random (Spearman 0.082 vs DAFHNE) -- it provides no useful signal for yes/no/unknown discrimination.
 - "What is a dog?" returns "a thing" instead of "an animal" -- the definition parser finds "thing" (from "a thing that lives") rather than following the chain to "animal".
 - Q06/Q07 "Is a dog a thing?" fails because the BFS follows only content words and "thing" is structural (>20% doc frequency).
 - Q13 "Is a ball an animal?" gives Yes because geometric fallback fires (distances are meaningless).
@@ -57,11 +57,11 @@ The fundamental failure has three components:
 
 2. **Predator-prey mismatch**: In SPL, predators hunt individual prey. In word positioning, the "predator" (a violated constraint) targets a *pair* of words. There's no natural way to assign blame -- is word A wrong, or word B? SPL's capture mechanics can't express this.
 
-3. **No gradient signal**: SPL prey move by fleeing predators + drifting toward solutions. But the violation gradient in word space is weak and noisy (it depends on mean positions of partner populations, which are themselves moving). DAPHNE's force-field directly computes displacement vectors along connector axes -- this is a much stronger signal.
+3. **No gradient signal**: SPL prey move by fleeing predators + drifting toward solutions. But the violation gradient in word space is weak and noisy (it depends on mean positions of partner populations, which are themselves moving). DAFHNE's force-field directly computes displacement vectors along connector axes -- this is a much stronger signal.
 
-## Comparison with DAPHNE Force-Field
+## Comparison with DAFHNE Force-Field
 
-| Aspect | DAPHNE Force-Field | SPL Predator-Prey |
+| Aspect | DAFHNE Force-Field | SPL Predator-Prey |
 |--------|------------------|-------------------|
 | Optimization | Direct force vectors | Indirect flee/drift |
 | Coupling | Pairwise (explicit) | Individual (implicit) |
@@ -75,16 +75,16 @@ The fundamental failure has three components:
 
 The set operations (union, intersection, difference) are conceptually sound and work correctly at the population level. However, they only add value if the underlying positions are meaningful. With SPL producing essentially random geometry, the set operations produce correctly-structured but semantically empty results.
 
-If DAPHNE's force-field were wrapped to produce **multiple equilibria** (different random seeds, different parameter perturbations), population-level set operations could still be useful -- but that doesn't require SPL dynamics.
+If DAFHNE's force-field were wrapped to produce **multiple equilibria** (different random seeds, different parameter perturbations), population-level set operations could still be useful -- but that doesn't require SPL dynamics.
 
 ## Conclusion
 
-**DEAD.** SPL's predator-prey dynamics are not a viable replacement for DAPHNE's force-field equilibrium. The predator-prey metaphor maps poorly to multi-constraint word positioning.
+**DEAD.** SPL's predator-prey dynamics are not a viable replacement for DAFHNE's force-field equilibrium. The predator-prey metaphor maps poorly to multi-constraint word positioning.
 
-The experiment confirms that DAPHNE's geometric structure is **not** an artifact of the optimization method -- it requires explicit pairwise force vectors, not population-based individual fitness. The force-field's direct coupling (forces between word pairs projected onto connector axes) is essential, not replaceable by ecological dynamics.
+The experiment confirms that DAFHNE's geometric structure is **not** an artifact of the optimization method -- it requires explicit pairwise force vectors, not population-based individual fitness. The force-field's direct coupling (forces between word pairs projected onto connector axes) is essential, not replaceable by ecological dynamics.
 
 ### Implications for r0x-004/005
 
 - r0x-004 (SPL as cognitive layer) is **not affected** -- it uses SPL for embedding space organization, not word positioning.
-- r0x-005 (SPL steering) is **not affected** -- it operates on LLM hidden states, not DAPHNE geometry.
+- r0x-005 (SPL steering) is **not affected** -- it operates on LLM hidden states, not DAFHNE geometry.
 - The set operations concept remains valid for future work with multiple force-field runs.

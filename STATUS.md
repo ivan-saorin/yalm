@@ -3,7 +3,7 @@
 > Last updated: 2026-02-09 (Phase 21)
 >
 > **Name change decided**: dafhne → **DAFHNE** (Definition-Anchored Force-field Heuristic Network Engine)
-> *Daphne = laurel = victory in Greek. Rename phase pending.*
+> *Dafhne = laurel = victory in Greek. Rename phase pending.*
 
 ## Current Score
 
@@ -62,7 +62,7 @@ Evolution confirms that different knowledge domains need different geometric con
 
 ## Pending Decisions
 
-- **Rename DAPHNE → DAFHNE**: Requires dedicated phase (crate names, Cargo.toml, imports, README, all docs, git history note)
+- **Rename DAFHNE → DAFHNE**: Requires dedicated phase (crate names, Cargo.toml, imports, README, all docs, git history note)
 - **Phase 22**: Open mode multi-space (LLM-assembled dictionaries per domain)
 - **Phase 23**: Property extraction for richer bootstrap signal
 

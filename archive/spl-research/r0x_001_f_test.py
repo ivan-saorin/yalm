@@ -2,10 +2,10 @@
 """r0x-001: f-Function Test
 
 Determines if GPT-2 static embeddings contain the same geometric
-structure as DAPHNE equilibrium space by correlating pairwise distances.
+structure as DAFHNE equilibrium space by correlating pairwise distances.
 
 Usage:
-    # First, generate the DAPHNE space dump:
+    # First, generate the DAFHNE space dump:
     #   cargo run --bin dafhne-eval -- --dict dictionaries/dict5.md \
     #       --test dictionaries/dict5_test.md \
     #       --dump-space research/r0x_001_dafhne_space.json
@@ -48,10 +48,10 @@ STRUCTURAL_WORDS = {
 }
 
 
-# ── Step 1: Load DAPHNE space ─────────────────────────────────────
+# ── Step 1: Load DAFHNE space ─────────────────────────────────────
 
 def load_dafhne_space(path: Path):
-    """Load DAPHNE geometric space and compute pairwise Euclidean distances."""
+    """Load DAFHNE geometric space and compute pairwise Euclidean distances."""
     with open(path) as f:
         space = json.load(f)
 
@@ -66,7 +66,7 @@ def load_dafhne_space(path: Path):
             w2 = words[j]
             distances[(w1, w2)] = np.linalg.norm(positions[w1] - positions[w2])
 
-    print(f"[DAPHNE] {len(words)} words, {len(distances)} pairs, "
+    print(f"[DAFHNE] {len(words)} words, {len(distances)} pairs, "
           f"{len(positions[words[0]])} dimensions")
     return words, positions, distances
 
@@ -124,7 +124,7 @@ def compute_gpt2_distances(words, embeddings):
 # ── Step 4: Correlate ────────────────────────────────────────────
 
 def correlate(dafhne_dists, gpt2_dists, label="all"):
-    """Compute Spearman and Pearson correlations between DAPHNE and GPT-2 distances."""
+    """Compute Spearman and Pearson correlations between DAFHNE and GPT-2 distances."""
     pairs = sorted(set(dafhne_dists.keys()) & set(gpt2_dists.keys()))
     if len(pairs) < 10:
         print(f"  [{label}] Only {len(pairs)} pairs — skipping.")
@@ -167,7 +167,7 @@ def filter_pairs(distances, exclude_words):
 # ── Step 5: Visualize ───────────────────────────────────────────
 
 def plot_scatter(dafhne_dists, gpt2_dists, results, output_path):
-    """Scatter plot: DAPHNE dist vs GPT-2 dist (cosine and euclidean)."""
+    """Scatter plot: DAFHNE dist vs GPT-2 dist (cosine and euclidean)."""
     pairs = sorted(set(dafhne_dists.keys()) & set(gpt2_dists.keys()))
     y = [dafhne_dists[p] for p in pairs]
     g_cos = [gpt2_dists[p]["cosine"] for p in pairs]
@@ -176,18 +176,18 @@ def plot_scatter(dafhne_dists, gpt2_dists, results, output_path):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
     ax1.scatter(y, g_cos, alpha=0.25, s=6, c="steelblue")
-    ax1.set_xlabel("DAPHNE Euclidean Distance")
+    ax1.set_xlabel("DAFHNE Euclidean Distance")
     ax1.set_ylabel("GPT-2 Cosine Distance")
     rho = results["spearman_cosine"]
     ax1.set_title(f"Cosine — Spearman ρ = {rho:+.4f}")
 
     ax2.scatter(y, g_euc, alpha=0.25, s=6, c="indianred")
-    ax2.set_xlabel("DAPHNE Euclidean Distance")
+    ax2.set_xlabel("DAFHNE Euclidean Distance")
     ax2.set_ylabel("GPT-2 Euclidean Distance")
     rho = results["spearman_euclidean"]
     ax2.set_title(f"Euclidean — Spearman ρ = {rho:+.4f}")
 
-    fig.suptitle("r0x-001: DAPHNE vs GPT-2 Pairwise Distance Correlation", y=1.02)
+    fig.suptitle("r0x-001: DAFHNE vs GPT-2 Pairwise Distance Correlation", y=1.02)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
@@ -211,9 +211,9 @@ def plot_projections(dafhne_positions, gpt2_embeddings, words, output_path):
     gpt2_tsne = TSNE(n_components=2, perplexity=perp, random_state=42).fit_transform(gpt2_mat)
 
     datasets = [
-        (axes[0, 0], dafhne_pca,  "DAPHNE (PCA)"),
+        (axes[0, 0], dafhne_pca,  "DAFHNE (PCA)"),
         (axes[0, 1], gpt2_pca,  "GPT-2 wte (PCA)"),
-        (axes[1, 0], dafhne_tsne, "DAPHNE (t-SNE)"),
+        (axes[1, 0], dafhne_tsne, "DAFHNE (t-SNE)"),
         (axes[1, 1], gpt2_tsne, "GPT-2 wte (t-SNE)"),
     ]
 
@@ -244,7 +244,7 @@ def plot_projections(dafhne_positions, gpt2_embeddings, words, output_path):
         ax.set_xticks([])
         ax.set_yticks([])
 
-    fig.suptitle("r0x-001: Word Space Projections — DAPHNE vs GPT-2", fontsize=14)
+    fig.suptitle("r0x-001: Word Space Projections — DAFHNE vs GPT-2", fontsize=14)
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
@@ -331,10 +331,10 @@ def main():
     print("r0x-001: f-Function Test")
     print("=" * 60)
 
-    # Step 1: Load DAPHNE space
+    # Step 1: Load DAFHNE space
     if not SPACE_JSON.exists():
         print(f"\nERROR: {SPACE_JSON} not found.")
-        print("Run DAPHNE first:")
+        print("Run DAFHNE first:")
         print("  cargo run --bin dafhne-eval -- \\")
         print("    --dict dictionaries/dict5.md \\")
         print("    --test dictionaries/dict5_test.md \\")

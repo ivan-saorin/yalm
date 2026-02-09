@@ -1,4 +1,4 @@
-# DAPHNE — Project Recap
+# DAFHNE — Project Recap
 
 **Definition-Anchored Force-field Heuristic Network Engine**
 *A geometric comprehension engine that learns from text alone*
@@ -7,9 +7,9 @@ Last updated: 2026-02-09
 
 ---
 
-## What DAPHNE Is
+## What DAFHNE Is
 
-DAPHNE is a research project exploring whether a system can comprehend language through geometry — without neural networks, without pretrained models, without grammar rules, without any NLP library.
+DAFHNE is a research project exploring whether a system can comprehend language through geometry — without neural networks, without pretrained models, without grammar rules, without any NLP library.
 
 The system reads a closed dictionary (every word in every definition is itself defined), builds an N-dimensional space where words are points, discovers connectors ("is a", "can", "not") from text statistics, and answers questions by traversing definitions and measuring geometric distance.
 
@@ -355,7 +355,7 @@ A comparable transformer-based system would require:
 - Multi-head attention (GPU hours for training)
 - Fine-tuning for question answering
 
-DAPHNE achieves 85% combined fitness on two dictionaries with ~15 tunable parameters and a geometric space that fits in a few kilobytes.
+DAFHNE achieves 85% combined fitness on two dictionaries with ~15 tunable parameters and a geometric space that fits in a few kilobytes.
 
 ## Phase 11: 3W (What/Who/Where) + Chain Depth
 
@@ -554,7 +554,7 @@ All compound questions correctly decompose and combine. Entity definitions provi
 
 ### The Flip: Comprehension → Generation
 
-Phase 13 reverses the flow. Instead of answering questions about text, DAPHNE now *describes* what it knows about words — generating natural-language sentences from definitions and chain inference.
+Phase 13 reverses the flow. Instead of answering questions about text, DAFHNE now *describes* what it knows about words — generating natural-language sentences from definitions and chain inference.
 
 Key design decision: **generation comes from definitions, not geometry**. Geometric proximity gives similarity (dog ≈ cat), not identity. The definitions are ground truth.
 
@@ -754,7 +754,7 @@ Entity definitions produce clean 1-hop explanations. The 2-hop chain for Montmor
 
 ### Known Limitations
 
-1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. Honest — DAPHNE knows what it was told, not deeper causal mechanisms.
+1. **"Why" is tautological for 1-hop**: "Why is a dog an animal?" → "because a dog is an animal." The definition IS the explanation. Honest — DAFHNE knows what it was told, not deeper causal mechanisms.
 2. **"When" rarely has answers in dict5**: Most definitions lack temporal/conditional clauses. The "to feel good" in eat's definition is one of few extractable conditions.
 3. **Purpose ≈ temporal**: "to feel good" answers "when" because in ELI5 definitions, purpose IS the implicit condition ("you eat WHEN you want to feel good").
 4. **Chain can find spurious conditions** (Q09): Following chains too deep can find "to" clauses in definitional contexts that aren't really temporal answers.
@@ -811,7 +811,7 @@ Phase 16 introduced **multiple independent geometric spaces**, each with its own
 
 ### Architecture
 
-Each space is a complete DAPHNE instance — independent connector discovery, independent equilibrium, independent resolver. Spaces connect only at query time through:
+Each space is a complete DAFHNE instance — independent connector discovery, independent equilibrium, independent resolver. Spaces connect only at query time through:
 
 1. **Bridge terms**: Words appearing in multiple spaces serve as handoff points. "number" bridges MATH and GRAMMAR.
 2. **TASK routing**: The TASK space computes geometric distance from query content words to domain labels ("math", "grammar", "content"). Closest domain handles the query.
@@ -859,18 +859,18 @@ Cross-space routing achieved 10/10 — every query that spans domains is correct
 
 ## Phase 18: SELF Space — Identity as Geometry
 
-### DAPHNE Learns What It Is
+### DAFHNE Learns What It Is
 
-Phase 18 added a fifth space: SELF. The SELF dictionary (`dict_self5.md`) defines what DAPHNE is, what it can do, and what it cannot do — all in the same ELI5 format as other dictionaries.
+Phase 18 added a fifth space: SELF. The SELF dictionary (`dict_self5.md`) defines what DAFHNE is, what it can do, and what it cannot do — all in the same ELI5 format as other dictionaries.
 
 ### Design Decision: Peer, Not Meta
 
-SELF is a regular geometric space, not a privileged meta-space. "DAPHNE" is a point near "system" and "geometric" and "comprehension". Its capabilities are connectors. Its limitations are distances.
+SELF is a regular geometric space, not a privileged meta-space. "DAFHNE" is a point near "system" and "geometric" and "comprehension". Its capabilities are connectors. Its limitations are distances.
 
 ### Routing
 
 Self-referential queries detected by:
-- `self_triggers = ["dafhne"]` — queries mentioning DAPHNE by name
+- `self_triggers = ["dafhne"]` — queries mentioning DAFHNE by name
 - `self_patterns = [("are", "you"), ("can", "you"), ("do", "you")]` — second-person patterns
 
 ### Results
@@ -887,7 +887,7 @@ Self-referential queries detected by:
 | Full pipeline | 4/5 |
 | **Total** | **45/50 (90%)** |
 
-SELF space achieves 10/10 — DAPHNE correctly answers questions about its own identity, capabilities, and limitations.
+SELF space achieves 10/10 — DAFHNE correctly answers questions about its own identity, capabilities, and limitations.
 
 ### Known Failures (5/50)
 
@@ -903,7 +903,7 @@ SELF space achieves 10/10 — DAPHNE correctly answers questions about its own i
 
 ### The Idea
 
-DAPHNE generates descriptions of its known concepts (via describe()), feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
+DAFHNE generates descriptions of its known concepts (via describe()), feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
 
 ### Implementation
 
@@ -929,7 +929,7 @@ Converged at Level 2. The 4 new connectors at Level 1 include "is not" — emerg
 
 ### Significance
 
-This is DAPHNE's first self-improvement mechanism that doesn't require human intervention (unlike evolution, which needs test suites). The bootstrap loop surfaces implicit grammar from definitions and incorporates it into the geometric space.
+This is DAFHNE's first self-improvement mechanism that doesn't require human intervention (unlike evolution, which needs test suites). The bootstrap loop surfaces implicit grammar from definitions and incorporates it into the geometric space.
 
 ## Phase 19b: Code Audit, README Overhaul, Prior Art Analysis
 
@@ -946,7 +946,7 @@ Before proceeding to Phase 20 (per-space parameter evolution), Phase 19b paused 
 
 ### The Honest Summary
 
-DAPHNE is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.
+DAFHNE is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.
 
 ## Evolution Journey (Updated)
 

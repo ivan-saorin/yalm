@@ -6,7 +6,7 @@
 
 ## Core Idea
 
-Multiple expert populations (general, scientific, literary) produce responses. Each response is rewritten in ELI5 by Ollama and ingested into a DAPHNE geometric space. SPL set operations determine agreement, disagreement, and relevance ranking — replacing the neural gating network in traditional MoE.
+Multiple expert populations (general, scientific, literary) produce responses. Each response is rewritten in ELI5 by Ollama and ingested into a DAFHNE geometric space. SPL set operations determine agreement, disagreement, and relevance ranking — replacing the neural gating network in traditional MoE.
 
 ## Prior Art Search (Step 0 — Do This First)
 
@@ -33,7 +33,7 @@ search_arxiv("word sense disambiguation geometric multi-space", max_results=10)
 ### What We Need to Know
 
 1. Has anyone replaced neural gating in MoE with geometric/distance-based routing?
-2. Do hyperbolic embeddings handle taxonomic reasoning better than Euclidean (DAPHNE is Euclidean)?
+2. Do hyperbolic embeddings handle taxonomic reasoning better than Euclidean (DAFHNE is Euclidean)?
 3. Multi-sense embeddings: how do they handle polysemy? Compare with population-based approach
 4. What's the state of the art for automatic ambiguity detection from embeddings?
 5. ELI5 as inter-expert protocol: is there precedent for "simplified representation" as interoperability layer?
@@ -42,7 +42,7 @@ search_arxiv("word sense disambiguation geometric multi-space", max_results=10)
 
 Log findings in `research/r0x-004_prior_art.md`.
 
-Special attention: hyperbolic embeddings. If Poincaré space handles "is a" hierarchies natively, it might be a better metric space for DAPHNE than Euclidean. This could change the entire equilibrium engine.
+Special attention: hyperbolic embeddings. If Poincaré space handles "is a" hierarchies natively, it might be a better metric space for DAFHNE than Euclidean. This could change the entire equilibrium engine.
 
 ---
 
@@ -58,17 +58,17 @@ Query: "What is energy?"
   ├─ Expert 1 (General): Ollama prompt "explain simply"
   │   → "Energy is the ability to do things and make things happen."
   │   → ELI5 rewrite (may be identity if already simple)
-  │   → DAPHNE assembly → Population A
+  │   → DAFHNE assembly → Population A
   │
   ├─ Expert 2 (Scientific): Ollama prompt "explain technically"  
   │   → "Energy is a scalar quantity, conserved in isolated systems..."
   │   → ELI5 rewrite → "energy is a number that stays the same..."
-  │   → DAPHNE assembly → Population B
+  │   → DAFHNE assembly → Population B
   │
   ├─ Expert 3 (Literary/Contextual): Ollama prompt with context
   │   → Uses Three Men vocabulary/style
   │   → ELI5 rewrite
-  │   → DAPHNE assembly → Population C
+  │   → DAFHNE assembly → Population C
   │
   └─ Geometric Gating:
       ├─ Intersection(A, B, C) → high-confidence core answer
@@ -85,7 +85,7 @@ Start minimal:
 2. For each, generate 2 expert responses (general + scientific) via Ollama
 3. ELI5 rewrite each response
 4. Parse each ELI5 response into a micro-dictionary (5-15 words)
-5. Run DAPHNE assembly + equilibrium on each micro-dictionary
+5. Run DAFHNE assembly + equilibrium on each micro-dictionary
 6. Compute pairwise distances within each expert's space
 7. Compare the two distance matrices
 
@@ -128,7 +128,7 @@ def geometric_difference(pop_a, pop_b, threshold=0.3):
 The "cell" test:
 - Expert General: "cell" near "room", "small"
 - Expert Scientific: "cell" near "organism", "alive"
-- Intersection on "cell": empty or near-empty → DAPHNE *knows* the word is ambiguous
+- Intersection on "cell": empty or near-empty → DAFHNE *knows* the word is ambiguous
 
 Compare with "energy":
 - Expert General: "energy" near "do", "move"

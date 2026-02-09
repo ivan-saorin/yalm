@@ -1,7 +1,7 @@
 # dict_self5 — Closed Dictionary (Self-Knowledge, 5-year-old level)
 
 > **Rule**: Every word in every definition must itself be defined in this dictionary.
-> DAPHNE's identity, capabilities, and limitations as geometric knowledge.
+> DAFHNE's identity, capabilities, and limitations as geometric knowledge.
 > Bridge terms connect to dict5 (CONTENT), dict_math5 (MATH), dict_grammar5 (GRAMMAR).
 
 ---

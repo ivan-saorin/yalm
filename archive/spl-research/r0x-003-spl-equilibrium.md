@@ -2,11 +2,11 @@
 
 **Branch:** pure-research
 **Prerequisite:** None (independent path from r0x-001/002)
-**Goal:** Replace DAPHNE's force-field equilibrium with SPL predator-prey dynamics and verify it produces equivalent or better geometry.
+**Goal:** Replace DAFHNE's force-field equilibrium with SPL predator-prey dynamics and verify it produces equivalent or better geometry.
 
 ## Hypothesis
 
-DAPHNE's equilibrium engine uses iterative force application with decaying learning rate — essentially gradient descent. SPL uses predator-prey population dynamics with O(n) scaling. If the geometric structure is fundamental (not an artifact of the optimization method), both should converge to equivalent spaces.
+DAFHNE's equilibrium engine uses iterative force application with decaying learning rate — essentially gradient descent. SPL uses predator-prey population dynamics with O(n) scaling. If the geometric structure is fundamental (not an artifact of the optimization method), both should converge to equivalent spaces.
 
 Bonus: SPL maintains a *population* of configurations, not a single point. This could resolve ambiguities (Montmorency as dog vs person-like).
 
@@ -54,7 +54,7 @@ New crate: `crates/dafhne-spl/` (or standalone `research/r0x_003_spl_equilibrium
 
 ### Phase A: Minimal SPL Engine
 
-Implement the core SPL loop adapted to DAPHNE's domain:
+Implement the core SPL loop adapted to DAFHNE's domain:
 
 ```rust
 struct Word {
@@ -88,12 +88,12 @@ struct SPLEngine {
 ### Phase B: Run on dict5
 
 ```
-Input: dict5.md + grammar5.md (same as current DAPHNE)
+Input: dict5.md + grammar5.md (same as current DAFHNE)
 Parameters: Same connector discovery output
 Output: Population of 50 equilibrium configurations for 51 words
 ```
 
-Compare with current DAPHNE equilibrium:
+Compare with current DAFHNE equilibrium:
 1. For each configuration in the population, compute dict5_test scores (20 questions)
 2. Compute mean score across population
 3. Compute best-of-population score
@@ -104,7 +104,7 @@ Compare with current DAPHNE equilibrium:
 The key test for population advantage:
 
 ```
-In current DAPHNE:
+In current DAFHNE:
   Montmorency ↔ dog = 1.14
   Montmorency ↔ person = 0.98
   (inverted — geometry sees anthropomorphism)

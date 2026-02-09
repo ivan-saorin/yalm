@@ -1,6 +1,6 @@
 //! ManualFileCache: dictionary cache backed by hand-written .md files.
 //!
-//! Reuses the existing DAPHNE dictionary format:
+//! Reuses the existing DAFHNE dictionary format:
 //! ```text
 //! **word** — definition text.
 //! - "example one"

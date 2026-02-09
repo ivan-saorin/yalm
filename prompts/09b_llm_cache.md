@@ -2,13 +2,13 @@
 
 ## PREAMBLE
 
-DAPHNE is a geometric comprehension engine. Prompt 09 added a dictionary cache pipeline: free text → BFS closure chase → assembled Dictionary → Equilibrium → Resolver. Two backends were built: ManualFileCache and WiktionaryCache.
+DAFHNE is a geometric comprehension engine. Prompt 09 added a dictionary cache pipeline: free text → BFS closure chase → assembled Dictionary → Equilibrium → Resolver. Two backends were built: ManualFileCache and WiktionaryCache.
 
 Results showed the architecture works, but **Wiktionary definitions are too noisy for connector discovery** — the engine found only 1 connector ("a") vs 11 for hand-crafted dict5 definitions. Fitness dropped from 0.8438 (manual cache) to 0.6875 (Wiktionary).
 
 The root cause isn't the pipeline — it's the SHAPE of real dictionary definitions. "A domestic mammal of the family Canidae" doesn't contain the "is a", "can", "not" patterns the connector discovery algorithm was built for.
 
-This prompt adds a third backend: **OllamaCache**, which calls a local Qwen3:8b model to generate definitions in dict5 style. A style prompt constrains the LLM output to produce exactly the sentence patterns DAPHNE's connector discovery expects. The LLM becomes a definition TRANSLATOR — it knows what "dog" means and expresses it in DAPHNE-compatible language.
+This prompt adds a third backend: **OllamaCache**, which calls a local Qwen3:8b model to generate definitions in dict5 style. A style prompt constrains the LLM output to produce exactly the sentence patterns DAFHNE's connector discovery expects. The LLM becomes a definition TRANSLATOR — it knows what "dog" means and expresses it in DAFHNE-compatible language.
 
 Verified: Qwen3:8b with `/nothink` generates clean output in ~2-5 seconds per word.
 

@@ -2,9 +2,9 @@
 
 ## PREAMBLE
 
-DAPHNE is a geometric comprehension engine that reads closed dictionaries and builds N-dimensional spaces where words are points. Until now, the geometry has been shaped by a **genetic algorithm (GA)** that tunes ~15 parameters over 50 generations × 50 population. The GA finds good configurations, but the system is not **plastic** — it doesn't adapt its geometry as it reads. The parameters are optimized externally, not discovered from the text itself.
+DAFHNE is a geometric comprehension engine that reads closed dictionaries and builds N-dimensional spaces where words are points. Until now, the geometry has been shaped by a **genetic algorithm (GA)** that tunes ~15 parameters over 50 generations × 50 population. The GA finds good configurations, but the system is not **plastic** — it doesn't adapt its geometry as it reads. The parameters are optimized externally, not discovered from the text itself.
 
-This is the single biggest architectural limitation. DAPHNE currently demonstrates that a geometric configuration EXISTS that encodes comprehension. It does not demonstrate that text PRODUCES comprehension through geometry. That's a fundamentally different — and far stronger — claim.
+This is the single biggest architectural limitation. DAFHNE currently demonstrates that a geometric configuration EXISTS that encodes comprehension. It does not demonstrate that text PRODUCES comprehension through geometry. That's a fundamentally different — and far stronger — claim.
 
 ### What We Have (from prompts 01-07)
 

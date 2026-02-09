@@ -1,4 +1,4 @@
-# DAPHNE Code Audit Report (Phase 19b)
+# DAFHNE Code Audit Report (Phase 19b)
 
 > **Date**: 2026-02-09
 > **Scope**: All 8 engine source files across dafhne-core and dafhne-engine
@@ -30,7 +30,7 @@
 **Spirit Violation**: Principle 1 — "Everything emerges from text." Question verbs are hardcoded English knowledge, not discovered from the dictionary.
 **Justification**: The dictionary defines "is", "can", "does" etc., but there is no mechanism to discover that these words introduce questions. Question structure is meta-linguistic — it describes how humans use language, not what words mean.
 **19c Fix**: Yes/No question verb detection now uses `structural.contains(&tokens[0])` — these words are discovered as structural by the 20% doc-frequency threshold. The 5W question words (what, who, where, when, why) remain hardcoded English, documented with a `LANGUAGE-SPECIFIC LAYER` comment block.
-**Recommendation**: A future phase could introduce a `question_grammar.md` file (written in the dictionary's own vocabulary) that teaches DAPHNE what question patterns look like. The GRAMMAR space could learn to detect question structure geometrically.
+**Recommendation**: A future phase could introduce a `question_grammar.md` file (written in the dictionary's own vocabulary) that teaches DAFHNE what question patterns look like. The GRAMMAR space could learn to detect question structure geometrically.
 
 ---
 
@@ -76,7 +76,7 @@
 **File**: `crates/dafhne-engine/src/resolver.rs`, `definition_chain_check()`
 **Finding**: The core Yes/No resolver uses geometric distance as primary signal but gates the result through a symbolic definition-chain traversal: follow the definition of word X up to `max_hops` steps, checking if Y appears. This is a string-matching BFS through definition text — not a geometric operation.
 **Spirit Violation**: Principle 3 — "Geometry IS the knowledge." Here, geometry proposes but definitions dispose.
-**Justification**: This is the most important pragmatic compromise in DAPHNE. Without the chain gate, dict5 scored 13/20. With it: 20/20. The problem: geometric proximity cannot distinguish "same category" (dog ≈ cat, both near animal) from "is-a" (dog IS animal). The chain provides identity evidence that proximity lacks. As RECAP.md states: "Geometry encodes similarity. Definitions encode identity. You need both."
+**Justification**: This is the most important pragmatic compromise in DAFHNE. Without the chain gate, dict5 scored 13/20. With it: 20/20. The problem: geometric proximity cannot distinguish "same category" (dog ≈ cat, both near animal) from "is-a" (dog IS animal). The chain provides identity evidence that proximity lacks. As RECAP.md states: "Geometry encodes similarity. Definitions encode identity. You need both."
 **Recommendation**: This is the deepest architectural tension. Two paths forward: (a) Accept the hybrid — geometry for association, symbols for discrimination. (b) Research whether a second geometric operation (e.g., a definition-graph embedding or a connector-direction query) could replace the chain check. Phase 20+ research.
 
 ---
@@ -167,7 +167,7 @@
 **File**: `crates/dafhne-engine/src/connector_discovery.rs`
 **Finding**: The full connector pipeline — `classify_word_roles()`, `extract_all_sentences()`, `extract_relations()`, `connector_pipeline()` — discovers connectors purely from text statistics. No linguistic knowledge is used to identify "is a" or "can" — they emerge from frequency analysis and the uniformity filter.
 **Spirit Violation**: None — this is the system working as designed.
-**Recommendation**: None needed. This is DAPHNE's strongest alignment with its principles.
+**Recommendation**: None needed. This is DAFHNE's strongest alignment with its principles.
 
 ---
 
@@ -176,7 +176,7 @@
 **File**: `crates/dafhne-engine/src/equilibrium.rs`, `build_space_equilibrium()`
 **Finding**: Sequential equilibrium places words by computing centroid of already-placed neighbors, then applies local relaxation with force-based perturbation and damping. The resulting positions encode meaning — related words cluster together. The geometry IS the knowledge for positive relationships.
 **Spirit Violation**: None.
-**Recommendation**: None needed. The equilibrium process is the heart of DAPHNE's geometric principle.
+**Recommendation**: None needed. The equilibrium process is the heart of DAFHNE's geometric principle.
 
 ---
 
@@ -264,7 +264,7 @@
 
 ### The Honest Assessment
 
-#### How much of DAPHNE is truly geometric vs. symbolic?
+#### How much of DAFHNE is truly geometric vs. symbolic?
 
 The answer depends on which question type:
 
@@ -303,15 +303,15 @@ On the full multi-space unified test (45/50):
 
 The original vision ("geometry IS the knowledge") was partially right: geometry correctly encodes similarity, proximity, and association. Dog IS near animal IS near thing. Transitive reasoning IS free. Honesty IS free.
 
-But geometry cannot distinguish "similar" from "identical" — dog ≈ cat (both animals) is indistinguishable from dog → animal (is-a relationship) in pure distance. This is not a DAPHNE-specific failure. It's a fundamental property of metric spaces: distance is symmetric and doesn't encode direction.
+But geometry cannot distinguish "similar" from "identical" — dog ≈ cat (both animals) is indistinguishable from dog → animal (is-a relationship) in pure distance. This is not a DAFHNE-specific failure. It's a fundamental property of metric spaces: distance is symmetric and doesn't encode direction.
 
 The definition-chain check adds asymmetric, directional evidence: "dog's definition contains 'animal'" is a directed relationship that distance cannot express. This is the same distinction between:
 - **Embedding spaces** (Word2Vec, GloVe): symmetric similarity
 - **Knowledge graphs** (TransE): directed relations
 
-DAPHNE discovered empirically what the field knew theoretically: you need both.
+DAFHNE discovered empirically what the field knew theoretically: you need both.
 
-**The philosophical answer**: DAPHNE is a hybrid system that uses geometry for WHAT (similarity, association, proximity) and symbolic chain traversal for WHY and WHETHER (identity, causation, negation). The geometry is not the whole knowledge — but it IS half the knowledge, and the half that scales.
+**The philosophical answer**: DAFHNE is a hybrid system that uses geometry for WHAT (similarity, association, proximity) and symbolic chain traversal for WHY and WHETHER (identity, causation, negation). The geometry is not the whole knowledge — but it IS half the knowledge, and the half that scales.
 
 ---
 

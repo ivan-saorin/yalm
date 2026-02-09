@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-DAPHNE is a geometric comprehension engine that reads closed dictionaries and builds an N-dimensional space where words are points, connectors are force operators, and questions are answered by geometric distance queries.
+DAFHNE is a geometric comprehension engine that reads closed dictionaries and builds an N-dimensional space where words are points, connectors are force operators, and questions are answered by geometric distance queries.
 
 Current state (v7d):
 - dict5 (50 words): 0.7812 fitness, 13/20 correct

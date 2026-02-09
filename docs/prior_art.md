@@ -1,4 +1,4 @@
-# DAPHNE Prior Art Analysis
+# DAFHNE Prior Art Analysis
 
 > An honest assessment of novelty vs. reinvention.
 > "Did we reinvent the wheel? Has no one thought to teach a machine like a kid before?"
@@ -16,7 +16,7 @@ Machine language understanding has been approached from at least four directions
 | **Neural Embeddings** | 2013-present | Learned vector spaces from data | Billions of parameters |
 | **Geometric / Conceptual Spaces** | 2000-present | Quality dimensions, convex regions | Theoretical / small-scale |
 
-DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** — learning from definitions using physical forces, with no neural networks and no corpus. This position is sparsely populated.
+DAFHNE occupies a fifth position: **dictionary-driven geometric comprehension** — learning from definitions using physical forces, with no neural networks and no corpus. This position is sparsely populated.
 
 ---
 
@@ -29,11 +29,11 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Gardenfors, P. (2000). *Conceptual Spaces: The Geometry of Thought*. MIT Press.
 - Gardenfors, P. (2014). *The Geometry of Meaning: Semantics Based on Conceptual Spaces*. MIT Press.
 
-**Shared with DAPHNE**: Words as points in geometric space. Distance as similarity. Geometry as the representation of meaning.
+**Shared with DAFHNE**: Words as points in geometric space. Distance as similarity. Geometry as the representation of meaning.
 
-**Different from DAPHNE**: Gardenfors assumes quality dimensions are given (color has hue/saturation/brightness). DAPHNE discovers its dimensions from text — the 8 dimensions of the space have no predefined meaning. Gardenfors' spaces are hand-designed; DAPHNE's emerge from force-field equilibrium. Gardenfors does not specify a learning algorithm; DAPHNE has a complete pipeline from text to geometry.
+**Different from DAFHNE**: Gardenfors assumes quality dimensions are given (color has hue/saturation/brightness). DAFHNE discovers its dimensions from text — the 8 dimensions of the space have no predefined meaning. Gardenfors' spaces are hand-designed; DAFHNE's emerge from force-field equilibrium. Gardenfors does not specify a learning algorithm; DAFHNE has a complete pipeline from text to geometry.
 
-**Assessment**: DAPHNE could be viewed as an **implementation of Gardenfors' theory** with a crucial addition: the dimensions and positions are discovered from text, not assumed. Gardenfors provides the philosophical framework; DAPHNE provides a construction algorithm.
+**Assessment**: DAFHNE could be viewed as an **implementation of Gardenfors' theory** with a crucial addition: the dimensions and positions are discovered from text, not assumed. Gardenfors provides the philosophical framework; DAFHNE provides a construction algorithm.
 
 ### 2.2 Word2Vec, GloVe, FastText (Mikolov et al., 2013; Pennington et al., 2014)
 
@@ -42,16 +42,16 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Mikolov, T. et al. (2013). "Efficient Estimation of Word Representations in Vector Space." *arXiv:1301.3781*.
 - Pennington, J. et al. (2014). "GloVe: Global Vectors for Word Representation." *EMNLP 2014*.
 
-**Shared with DAPHNE**: Words as vectors. Similar words are close. The output is a geometric space where distance encodes meaning.
+**Shared with DAFHNE**: Words as vectors. Similar words are close. The output is a geometric space where distance encodes meaning.
 
-**Different from DAPHNE**:
-- **Input**: Word2Vec/GloVe learn from billions of tokens of raw text. DAPHNE learns from 51-2008 definitions.
-- **Method**: Word2Vec uses a shallow neural network. GloVe uses co-occurrence matrix factorization. DAPHNE uses physical forces with typed connectors.
-- **Relations**: Word2Vec/GloVe encode a single notion of similarity. DAPHNE's connectors encode TYPED relations — "is a" pushes differently than "can" or "not". This is closer to knowledge graph embeddings (see 2.3).
-- **Scale**: Word2Vec needs millions of contexts. DAPHNE works from 51 words.
-- **Interpretability**: DAPHNE's forces are traceable — you can see which connector pushed which words together. Word2Vec's dimensions are opaque.
+**Different from DAFHNE**:
+- **Input**: Word2Vec/GloVe learn from billions of tokens of raw text. DAFHNE learns from 51-2008 definitions.
+- **Method**: Word2Vec uses a shallow neural network. GloVe uses co-occurrence matrix factorization. DAFHNE uses physical forces with typed connectors.
+- **Relations**: Word2Vec/GloVe encode a single notion of similarity. DAFHNE's connectors encode TYPED relations — "is a" pushes differently than "can" or "not". This is closer to knowledge graph embeddings (see 2.3).
+- **Scale**: Word2Vec needs millions of contexts. DAFHNE works from 51 words.
+- **Interpretability**: DAFHNE's forces are traceable — you can see which connector pushed which words together. Word2Vec's dimensions are opaque.
 
-**Assessment**: DAPHNE produces a similar output (word vectors) but through a fundamentally different process. The key distinction is **typed forces from definitions** vs. **untyped co-occurrence from corpora**. This is NOT reinvention — it's a different path to a related destination.
+**Assessment**: DAFHNE produces a similar output (word vectors) but through a fundamentally different process. The key distinction is **typed forces from definitions** vs. **untyped co-occurrence from corpora**. This is NOT reinvention — it's a different path to a related destination.
 
 ### 2.3 Knowledge Graph Embeddings: TransE, TransR, RotatE (Bordes et al., 2013)
 
@@ -61,14 +61,14 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Lin, Y. et al. (2015). "Learning Entity and Relation Embeddings for Knowledge Graph Completion." *AAAI 2015*. (TransR)
 - Sun, Z. et al. (2019). "RotatE: Knowledge Graph Embedding by Relational Rotation in Complex Space." *ICLR 2019*.
 
-**Shared with DAPHNE**: Remarkably similar. DAPHNE's connectors ARE typed relation vectors. The force `dog -[is a]→ animal` pushes dog toward animal along the "is a" direction. This is the same geometric intuition as TransE's `dog + is_a ≈ animal`.
+**Shared with DAFHNE**: Remarkably similar. DAFHNE's connectors ARE typed relation vectors. The force `dog -[is a]→ animal` pushes dog toward animal along the "is a" direction. This is the same geometric intuition as TransE's `dog + is_a ≈ animal`.
 
-**Different from DAPHNE**:
-- **Input**: TransE is GIVEN the (h, r, t) triples. DAPHNE DISCOVERS them from text via connector discovery and relation extraction. This is the critical difference.
-- **Learning**: TransE uses stochastic gradient descent on a margin-based loss. DAPHNE uses physical force-field equilibrium.
-- **Scale**: TransE works on Freebase (millions of triples). DAPHNE works on 51-2008 words.
+**Different from DAFHNE**:
+- **Input**: TransE is GIVEN the (h, r, t) triples. DAFHNE DISCOVERS them from text via connector discovery and relation extraction. This is the critical difference.
+- **Learning**: TransE uses stochastic gradient descent on a margin-based loss. DAFHNE uses physical force-field equilibrium.
+- **Scale**: TransE works on Freebase (millions of triples). DAFHNE works on 51-2008 words.
 
-**Assessment**: DAPHNE's connector forces are an independent rediscovery of the TransE intuition (relations as translations in vector space), but with a fundamentally different input pipeline. TransE assumes the knowledge graph exists. DAPHNE constructs it from definitions. **This is the strongest "reinvention" signal** — the geometric operation is the same, but the construction path is novel.
+**Assessment**: DAFHNE's connector forces are an independent rediscovery of the TransE intuition (relations as translations in vector space), but with a fundamentally different input pipeline. TransE assumes the knowledge graph exists. DAFHNE constructs it from definitions. **This is the strongest "reinvention" signal** — the geometric operation is the same, but the construction path is novel.
 
 ### 2.4 Dictionary-Based Embeddings
 
@@ -78,14 +78,14 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Bahdanau, D. et al. (2017). "Learning to Compute Word Embeddings On the Fly." *arXiv:1706.00286*.
 - Hill, F. et al. (2016). "Learning to Understand Phrases by Embedding the Dictionary." *TACL 2016*.
 
-**Shared with DAPHNE**: Learning from dictionary definitions specifically (not raw corpus). The idea that definitions encode semantic structure.
+**Shared with DAFHNE**: Learning from dictionary definitions specifically (not raw corpus). The idea that definitions encode semantic structure.
 
-**Different from DAPHNE**:
+**Different from DAFHNE**:
 - **Method**: Dict2Vec uses definitions as additional training signal alongside standard Word2Vec. Hill et al. use an LSTM to encode definitions. Both use neural networks.
 - **Closure**: These systems don't require a closed dictionary. They use definitions as supplementary data, not as the sole input.
-- **Architecture**: DAPHNE uses force-directed layout, not neural networks. No backpropagation, no gradient descent.
+- **Architecture**: DAFHNE uses force-directed layout, not neural networks. No backpropagation, no gradient descent.
 
-**Assessment**: Dictionary-based learning exists as a research thread, but it typically augments neural methods rather than replacing them. DAPHNE's innovation is going **all-in on definitions** as the SOLE input, without neural networks, and with the closed-dictionary constraint that creates a self-contained universe.
+**Assessment**: Dictionary-based learning exists as a research thread, but it typically augments neural methods rather than replacing them. DAFHNE's innovation is going **all-in on definitions** as the SOLE input, without neural networks, and with the closed-dictionary constraint that creates a self-contained universe.
 
 ### 2.5 The CYC Project and Knowledge-Based AI (Lenat, 1984-present)
 
@@ -93,15 +93,15 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 
 - Lenat, D. (1995). "CYC: A Large-Scale Investment in Knowledge Infrastructure." *CACM 38(11)*.
 
-**Shared with DAPHNE**: The belief that structured knowledge produces understanding. Both start from hand-crafted representations (CYC's assertions, DAPHNE's definitions).
+**Shared with DAFHNE**: The belief that structured knowledge produces understanding. Both start from hand-crafted representations (CYC's assertions, DAFHNE's definitions).
 
-**Different from DAPHNE**:
-- **Representation**: CYC uses formal logic (predicates, rules, inference). DAPHNE uses geometry (positions, distances, forces).
-- **Scale**: CYC has millions of assertions. DAPHNE has 51-2008 definitions.
-- **Learning**: CYC's assertions are manually authored by knowledge engineers. DAPHNE's geometry EMERGES from definitions through force-field equilibrium.
-- **Failure mode**: CYC suffers from brittleness — new knowledge doesn't compose with old knowledge reliably. DAPHNE's geometric space composes naturally (adding a word adjusts the local geometry without breaking global structure).
+**Different from DAFHNE**:
+- **Representation**: CYC uses formal logic (predicates, rules, inference). DAFHNE uses geometry (positions, distances, forces).
+- **Scale**: CYC has millions of assertions. DAFHNE has 51-2008 definitions.
+- **Learning**: CYC's assertions are manually authored by knowledge engineers. DAFHNE's geometry EMERGES from definitions through force-field equilibrium.
+- **Failure mode**: CYC suffers from brittleness — new knowledge doesn't compose with old knowledge reliably. DAFHNE's geometric space composes naturally (adding a word adjusts the local geometry without breaking global structure).
 
-**Assessment**: DAPHNE and CYC share the "knowledge produces understanding" philosophy but differ completely in method. CYC is logic; DAPHNE is physics. CYC was abandoned (for practical purposes) when statistical methods won in the 2000s. DAPHNE sidesteps CYC's brittleness by using continuous geometry instead of discrete logic.
+**Assessment**: DAFHNE and CYC share the "knowledge produces understanding" philosophy but differ completely in method. CYC is logic; DAFHNE is physics. CYC was abandoned (for practical purposes) when statistical methods won in the 2000s. DAFHNE sidesteps CYC's brittleness by using continuous geometry instead of discrete logic.
 
 ### 2.6 Force-Directed Graph Layouts (Fruchterman & Reingold, 1991)
 
@@ -110,15 +110,15 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Fruchterman, T. & Reingold, E. (1991). "Graph Drawing by Force-Directed Placement." *Software: Practice and Experience 21(11)*.
 - Kamada, T. & Kawai, S. (1989). "An algorithm for drawing general undirected graphs." *Information Processing Letters 31(1)*.
 
-**Shared with DAPHNE**: DAPHNE's equilibrium IS a force-directed layout. Related words attract, the space reaches a minimum-energy configuration.
+**Shared with DAFHNE**: DAFHNE's equilibrium IS a force-directed layout. Related words attract, the space reaches a minimum-energy configuration.
 
-**Different from DAPHNE**:
-- **Semantics**: Fruchterman-Reingold forces are untyped — connected nodes attract equally. DAPHNE's forces are TYPED — different connectors produce different force directions.
-- **Purpose**: FR is for visualization (2D/3D layout). DAPHNE is for comprehension (8D+ space).
-- **Dimensions**: FR operates in 2-3 dimensions. DAPHNE in 8+.
-- **Input**: FR takes a graph as input. DAPHNE discovers the graph from text.
+**Different from DAFHNE**:
+- **Semantics**: Fruchterman-Reingold forces are untyped — connected nodes attract equally. DAFHNE's forces are TYPED — different connectors produce different force directions.
+- **Purpose**: FR is for visualization (2D/3D layout). DAFHNE is for comprehension (8D+ space).
+- **Dimensions**: FR operates in 2-3 dimensions. DAFHNE in 8+.
+- **Input**: FR takes a graph as input. DAFHNE discovers the graph from text.
 
-**Assessment**: DAPHNE's force-field engine is a typed, higher-dimensional extension of force-directed layout. The individual technique is well-established (1989-1991). What's new is applying typed forces from linguistic connectors in a high-dimensional semantic space.
+**Assessment**: DAFHNE's force-field engine is a typed, higher-dimensional extension of force-directed layout. The individual technique is well-established (1989-1991). What's new is applying typed forces from linguistic connectors in a high-dimensional semantic space.
 
 ### 2.7 Bootstrap Learning and Self-Play
 
@@ -127,14 +127,14 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Silver, D. et al. (2017). "Mastering the game of Go without human knowledge." *Nature 550*.
 - Hinton, G. et al. (2015). "Distilling the Knowledge in a Neural Network." *NeurIPS Workshop 2015*.
 
-**Shared with DAPHNE**: Phase 19's bootstrap loop reads its own describe() output, discovers new patterns, and rebuilds the space. This is self-improvement from generated data.
+**Shared with DAFHNE**: Phase 19's bootstrap loop reads its own describe() output, discovers new patterns, and rebuilds the space. This is self-improvement from generated data.
 
-**Different from DAPHNE**:
-- **Domain**: AlphaGo generates game positions. DAPHNE generates sentences about words.
-- **Scale**: AlphaGo runs millions of self-play games. DAPHNE's bootstrap converges in 2 iterations.
-- **What improves**: AlphaGo improves its policy (strategy). DAPHNE improves its connector set (grammar), not its parameters.
+**Different from DAFHNE**:
+- **Domain**: AlphaGo generates game positions. DAFHNE generates sentences about words.
+- **Scale**: AlphaGo runs millions of self-play games. DAFHNE's bootstrap converges in 2 iterations.
+- **What improves**: AlphaGo improves its policy (strategy). DAFHNE improves its connector set (grammar), not its parameters.
 
-**Assessment**: Bootstrap learning is a known technique. DAPHNE's specific application — using describe() to surface implicit grammar that enriches connector discovery — is a novel application of the general principle.
+**Assessment**: Bootstrap learning is a known technique. DAFHNE's specific application — using describe() to surface implicit grammar that enriches connector discovery — is a novel application of the general principle.
 
 ### 2.8 Semantic Bootstrapping in Child Language Acquisition
 
@@ -144,11 +144,11 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Tomasello, M. (2003). *Constructing a Language: A Usage-Based Theory of Language Acquisition*. Harvard UP.
 - Gleitman, L. (1990). "The Structural Sources of Verb Meanings." *Language Acquisition 1(1)*.
 
-**Shared with DAPHNE**: The "teach like a kid" principle. ELI5 definitions mimic the simple input a child receives. Connector discovery from text mirrors how children extract grammatical patterns from speech. The bootstrap loop mirrors how children use known words to learn new grammar.
+**Shared with DAFHNE**: The "teach like a kid" principle. ELI5 definitions mimic the simple input a child receives. Connector discovery from text mirrors how children extract grammatical patterns from speech. The bootstrap loop mirrors how children use known words to learn new grammar.
 
-**Different from DAPHNE**: Children have embodied experience (vision, touch, proprioception). DAPHNE has only text. Children learn incrementally over years. DAPHNE builds a space in milliseconds.
+**Different from DAFHNE**: Children have embodied experience (vision, touch, proprioception). DAFHNE has only text. Children learn incrementally over years. DAFHNE builds a space in milliseconds.
 
-**Assessment**: DAPHNE's approach has intuitive parallels to usage-based language acquisition (Tomasello's framework). The ELI5 constraint maps to the simplified input children receive. But DAPHNE has no embodied grounding — its "understanding" is purely textual geometry.
+**Assessment**: DAFHNE's approach has intuitive parallels to usage-based language acquisition (Tomasello's framework). The ELI5 constraint maps to the simplified input children receive. But DAFHNE has no embodied grounding — its "understanding" is purely textual geometry.
 
 ### 2.9 Symbol Grounding Problem (Harnad, 1990)
 
@@ -157,17 +157,17 @@ DAPHNE occupies a fifth position: **dictionary-driven geometric comprehension** 
 - Harnad, S. (1990). "The Symbol Grounding Problem." *Physica D 42*.
 - Searle, J. (1980). "Minds, Brains, and Programs." *Behavioral and Brain Sciences 3(3)*.
 
-**Relevance to DAPHNE**: DAPHNE's closed dictionary is exactly a system of ungrounded symbols — definitions defined in terms of other definitions, with no external reference. "Dog" is defined as "an animal" and "animal" is defined as "a thing that can move and eat" — but nowhere does the system see a dog or hear a bark.
+**Relevance to DAFHNE**: DAFHNE's closed dictionary is exactly a system of ungrounded symbols — definitions defined in terms of other definitions, with no external reference. "Dog" is defined as "an animal" and "animal" is defined as "a thing that can move and eat" — but nowhere does the system see a dog or hear a bark.
 
-**Assessment**: DAPHNE operates in Searle's Chinese Room. It manipulates symbols (definitions) according to rules (forces, chains) and produces correct answers, but there is no sensory grounding. Whether this constitutes "understanding" is a philosophical question DAPHNE cannot answer from within. The system is honest about this: it knows what its definitions tell it, nothing more.
+**Assessment**: DAFHNE operates in Searle's Chinese Room. It manipulates symbols (definitions) according to rules (forces, chains) and produces correct answers, but there is no sensory grounding. Whether this constitutes "understanding" is a philosophical question DAFHNE cannot answer from within. The system is honest about this: it knows what its definitions tell it, nothing more.
 
 ---
 
 ## Section 3: What's Actually Novel
 
-The individual components of DAPHNE are established techniques:
+The individual components of DAFHNE are established techniques:
 
-| Component | Established Since | DAPHNE's Version |
+| Component | Established Since | DAFHNE's Version |
 |-----------|------------------|----------------|
 | Word vectors | 2013 (Word2Vec) | Connector-typed force field |
 | Force-directed layout | 1991 (Fruchterman-Reingold) | N-dimensional with typed forces |
@@ -180,7 +180,7 @@ The individual components of DAPHNE are established techniques:
 
 1. **The full pipeline**: Closed dictionary → connector discovery → typed force field → equilibrium → geometric QA → bootstrap. No neural networks at any stage. We are not aware of prior work that implements this complete chain.
 
-2. **The ELI5 closure constraint**: Requiring every definition word to be itself defined, at a 5-year-old level, creating a self-contained universe. Dict2Vec uses definitions as supplementary signal; DAPHNE uses them as the SOLE signal, and requires closure.
+2. **The ELI5 closure constraint**: Requiring every definition word to be itself defined, at a 5-year-old level, creating a self-contained universe. Dict2Vec uses definitions as supplementary signal; DAFHNE uses them as the SOLE signal, and requires closure.
 
 3. **Connector discovery → typed forces**: The automatic extraction of relation types from text statistics, used as DIFFERENT force types with DIFFERENT directions. TransE has typed relations but doesn't discover them. Word2Vec discovers patterns but doesn't type them.
 
@@ -192,12 +192,12 @@ The individual components of DAPHNE are established techniques:
 
 ## Section 4: What's NOT Novel (and That's Fine)
 
-- **Word vectors**: Placing words in geometric space has been standard since 2013. DAPHNE's output (a space where similar words are close) is the same as Word2Vec/GloVe.
-- **Force-directed layouts**: Well-established since 1989. DAPHNE's equilibrium is a higher-dimensional, typed version of the same physics.
-- **Genetic algorithms**: Well-established since 1975. DAPHNE's evolution is standard tournament selection with Gaussian mutation.
-- **QA from knowledge bases**: Decades of work in KBQA. DAPHNE's question answering is simpler than most.
+- **Word vectors**: Placing words in geometric space has been standard since 2013. DAFHNE's output (a space where similar words are close) is the same as Word2Vec/GloVe.
+- **Force-directed layouts**: Well-established since 1989. DAFHNE's equilibrium is a higher-dimensional, typed version of the same physics.
+- **Genetic algorithms**: Well-established since 1975. DAFHNE's evolution is standard tournament selection with Gaussian mutation.
+- **QA from knowledge bases**: Decades of work in KBQA. DAFHNE's question answering is simpler than most.
 - **The definition-chain gate**: Symbolic chain traversal over a graph is a basic graph algorithm, not an innovation.
-- **Relations as translations**: TransE (2013) had this exact insight. DAPHNE rediscovered it independently.
+- **Relations as translations**: TransE (2013) had this exact insight. DAFHNE rediscovered it independently.
 
 The individual pieces are known. The combination may be new. This is common in engineering — the Wright brothers didn't invent wings, engines, or propellers. They combined them in a way that flew.
 
@@ -212,15 +212,15 @@ The honest answer has five parts:
 
 ### 1. People DID try, and it didn't scale
 
-Knowledge-based AI (CYC, 1984-present) tried to teach machines through hand-crafted knowledge. It worked for narrow domains but couldn't scale — every new concept required manual encoding. Statistical methods (Word2Vec, 2013; transformers, 2017) won because they scale with data. DAPHNE at 2008 words is impressive for its approach but is still in the territory where knowledge-based methods worked fine. The real test is 100K+ words.
+Knowledge-based AI (CYC, 1984-present) tried to teach machines through hand-crafted knowledge. It worked for narrow domains but couldn't scale — every new concept required manual encoding. Statistical methods (Word2Vec, 2013; transformers, 2017) won because they scale with data. DAFHNE at 2008 words is impressive for its approach but is still in the territory where knowledge-based methods worked fine. The real test is 100K+ words.
 
 ### 2. The ELI5 closure trick IS genuinely underexplored
 
-We could not find prior work that specifically requires a CLOSED dictionary of ELI5-level definitions as the sole input to a geometric comprehension engine. Dict2Vec and related work use definitions as supplementary training signal, not as the sole input. The closure constraint (every word defined in terms of other defined words) creates a self-consistent universe that standard dictionary-based methods don't require. This specific constraint appears to be DAPHNE's most distinctive contribution.
+We could not find prior work that specifically requires a CLOSED dictionary of ELI5-level definitions as the sole input to a geometric comprehension engine. Dict2Vec and related work use definitions as supplementary training signal, not as the sole input. The closure constraint (every word defined in terms of other defined words) creates a self-consistent universe that standard dictionary-based methods don't require. This specific constraint appears to be DAFHNE's most distinctive contribution.
 
 ### 3. It's a rediscovery with a different path
 
-DAPHNE independently arrived at TransE-like geometry (relations as translations) and Gardenfors-like conceptual spaces (meaning as geometry) through a novel construction path (definitions → forces → equilibrium). The destination is familiar; the journey is new.
+DAFHNE independently arrived at TransE-like geometry (relations as translations) and Gardenfors-like conceptual spaces (meaning as geometry) through a novel construction path (definitions → forces → equilibrium). The destination is familiar; the journey is new.
 
 ### 4. The hybrid nature IS the finding
 
@@ -228,13 +228,13 @@ The original vision was "geometry IS the knowledge." The actual system is geomet
 
 ### 5. Scale is the open question
 
-At 51-2008 words, DAPHNE demonstrates that the architecture works. At 100K words, the architecture might collapse (thresholds break, equilibrium doesn't converge, connector discovery drowns in noise) or it might scale sublinearly (as the 1005→2008 curve suggests). Until the 10K+ test is done, claims about "rewriting ML" are premature. What DAPHNE proves at current scale: **definitions + physics + evolution = comprehension**. Whether this generalizes beyond toy-to-medium scale is unknown.
+At 51-2008 words, DAFHNE demonstrates that the architecture works. At 100K words, the architecture might collapse (thresholds break, equilibrium doesn't converge, connector discovery drowns in noise) or it might scale sublinearly (as the 1005→2008 curve suggests). Until the 10K+ test is done, claims about "rewriting ML" are premature. What DAFHNE proves at current scale: **definitions + physics + evolution = comprehension**. Whether this generalizes beyond toy-to-medium scale is unknown.
 
 ---
 
 ## The One-Sentence Summary
 
-**DAPHNE is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement), differing from existing approaches primarily in its construction path (from definitions to geometry without neural networks) and its closure constraint (every symbol defined in terms of other symbols). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.**
+**DAFHNE is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement), differing from existing approaches primarily in its construction path (from definitions to geometry without neural networks) and its closure constraint (every symbol defined in terms of other symbols). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.**
 
 ---
 

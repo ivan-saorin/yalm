@@ -2,7 +2,7 @@
 
 ## GOAL
 
-Build the ability to run multiple independent geometric spaces ("thought domains") and compose their outputs via a TASK dispatcher space. This is DAPHNE's path toward SLM-level abstraction.
+Build the ability to run multiple independent geometric spaces ("thought domains") and compose their outputs via a TASK dispatcher space. This is DAFHNE's path toward SLM-level abstraction.
 
 Two domain spaces (MATH, GRAMMAR) + one dispatcher space (TASK). Each space runs its own equilibrium independently. The TASK space routes queries to the correct domain(s) and composes results.
 
@@ -15,7 +15,7 @@ Two domain spaces (MATH, GRAMMAR) + one dispatcher space (TASK). Each space runs
 
 ## KEY ARCHITECTURAL DECISIONS
 
-### 1. Each space = independent DAPHNE instance
+### 1. Each space = independent DAFHNE instance
 
 Each dictionary gets its own equilibrium. No shared state during equilibrium computation. The spaces are connected ONLY at query time via bridge terms.
 
@@ -247,7 +247,7 @@ Q21 ("Two plus three. Write the answer as a sentence.") is the litmus test. MATH
 
 Future spaces (not in scope for Phase 16):
 - LOGIC: causation, implication, contradiction
-- SELF: what DAPHNE is, what it can do, what it cannot do
+- SELF: what DAFHNE is, what it can do, what it cannot do
 - CONTENT: dict5/dict12/open-mode (existing capability)
 - CAUSAL: why, because, therefore
 

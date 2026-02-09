@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are continuing development of DAPHNE (Definition-Anchored Force-field Heuristic Network Engine), a geometric comprehension engine written in pure Rust. DAPHNE reads closed dictionaries, discovers connectors from text, builds N-dimensional geometric spaces, and answers questions via proximity queries. An evolutionary system tunes its parameters and strategy choices.
+You are continuing development of DAFHNE (Definition-Anchored Force-field Heuristic Network Engine), a geometric comprehension engine written in pure Rust. DAFHNE reads closed dictionaries, discovers connectors from text, builds N-dimensional geometric spaces, and answers questions via proximity queries. An evolutionary system tunes its parameters and strategy choices.
 
 **Phase 4 is complete.** All targets met:
 

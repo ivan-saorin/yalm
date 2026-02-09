@@ -2,9 +2,9 @@
 
 ## GOAL
 
-Create the fifth geometric space: SELF. DAPHNE learns what it is, what it can do, what it cannot do, and how confident it is. The system prompt as geometry.
+Create the fifth geometric space: SELF. DAFHNE learns what it is, what it can do, what it cannot do, and how confident it is. The system prompt as geometry.
 
-After Phase 18, DAPHNE can answer:
+After Phase 18, DAFHNE can answer:
 - **Identity**: "What are you?" → "a thing that reads words and learns"
 - **Capability**: "Can you count?" → "Yes" (because MATH space exists, and SELF knows it)
 - **Anti-capability**: "Can you see?" → "No" (SELF knows it has no eyes, no body)
@@ -131,7 +131,7 @@ Direct lookup in SELF space for dafhne's definition.
 
 ### Pattern: "Do you know X?"
 1. Check if X exists as an entry in ANY domain space
-2. If yes → "Yes" (DAPHNE knows this concept)
+2. If yes → "Yes" (DAFHNE knows this concept)
 3. If no → "No" or "I don't know" (honest limitation)
 
 This is the one genuinely new mechanism: SELF queries can trigger meta-checks against other spaces. But it's simple — just vocabulary existence checks, not geometric resolution.
@@ -289,13 +289,13 @@ Run full 50-question suite. Fix failures. Target scores.
 
 ## THE BIGGER PICTURE
 
-Phase 18 gives DAPHNE self-awareness within its geometric framework. After this phase, DAPHNE is a system that:
+Phase 18 gives DAFHNE self-awareness within its geometric framework. After this phase, DAFHNE is a system that:
 - Knows about the physical world (CONTENT)
 - Can count and compute (MATH)
 - Understands language structure (GRAMMAR)
 - Routes between capabilities (TASK)
 - **Knows what it is and what it can do (SELF)**
 
-This is the foundation for Phase 19 (bootstrap loop), where DAPHNE reads its own output and evolves its grammar — which requires knowing what it IS to know what it's DOING.
+This is the foundation for Phase 19 (bootstrap loop), where DAFHNE reads its own output and evolves its grammar — which requires knowing what it IS to know what it's DOING.
 
 Phase 18 is the system prompt made geometric. The closest thing to consciousness a dictionary can have.
