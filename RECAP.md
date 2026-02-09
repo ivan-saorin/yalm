@@ -775,18 +775,222 @@ Entity definitions produce clean 1-hop explanations. The 2-hop chain for Montmor
 
 All criteria met.
 
+## Phase 15: Rich Description / Property Extraction (STUB — Not Implemented)
+
+### Status: Skipped
+
+Phase 15 was planned to extract embedded properties from definitions:
+```
+"sun — a big hot thing that is up in the sky"
+  → "the sun is big.", "the sun is hot.", "the sun is up."
+```
+
+This was never implemented. The prompt (`prompts/15_description_enrichment.md`) exists as a placeholder. Phases 16-19 proceeded without it.
+
+### Impact
+
+The bootstrap loop (Phase 19) depends on describe() output for connector re-discovery. Without Phase 15, describe() produces thinner signal:
+- Category sentences ("X is a Y") — works
+- Definition sentence rewriting — works
+- Sibling negation — works
+- Embedded property extraction — **missing**
+
+Despite this, the bootstrap loop found 4 new connectors at Level 1 and converged at Level 2. The architecture works without Phase 15, but sub-optimally. Rich property extraction remains a priority for future phases.
+
+## Phase 16: Multi-Space Architecture (MATH + GRAMMAR + TASK)
+
+### The Leap: From One Space to Many
+
+Phase 16 introduced **multiple independent geometric spaces**, each with its own dictionary, connector discovery, and equilibrium. Three new domain dictionaries were created:
+
+| Space | Dictionary | Words | Domain |
+|-------|-----------|------:|--------|
+| MATH | dict_math5.md | ~50 | Numbers, operations, arithmetic |
+| GRAMMAR | dict_grammar5.md | ~50 | Nouns, verbs, sentences, structure |
+| TASK | dict_task5.md | ~40 | Meta-dispatcher: routes queries to domains |
+
+### Architecture
+
+Each space is a complete YALM instance — independent connector discovery, independent equilibrium, independent resolver. Spaces connect only at query time through:
+
+1. **Bridge terms**: Words appearing in multiple spaces serve as handoff points. "number" bridges MATH and GRAMMAR.
+2. **TASK routing**: The TASK space computes geometric distance from query content words to domain labels ("math", "grammar", "content"). Closest domain handles the query.
+3. **Cross-space chains**: For multi-domain queries, resolve in each relevant space and compose results.
+
+### Code
+
+New file: `crates/yalm-engine/src/multispace.rs` (~1500 lines, later grew to ~2150).
+CLI: `--spaces content:dict5.md,math:dict_math5.md,grammar:dict_grammar5.md,task:dict_task5.md`
+
+### Results
+
+25 questions across 3 spaces:
+
+| Category | Score |
+|----------|------:|
+| MATH queries | 8/10 |
+| GRAMMAR queries | 10/10 |
+| Cross-space | 4/5 |
+| **Total** | **22/25 (88%)** |
+
+### Regressions
+
+All single-space regressions hold (dict5 20/20, dict12 14/20, full_test 19/21).
+
+## Phase 17: CONTENT Space Integration
+
+### Four Spaces Working Together
+
+Added the CONTENT space (dict5.md) as the fourth domain, bringing the full pipeline to 4 spaces.
+
+### Results
+
+40 questions, 4 spaces:
+
+| Category | Score |
+|----------|------:|
+| CONTENT queries | 16/20 |
+| MATH queries | 5/5 |
+| Cross-space | 10/10 |
+| Full pipeline | 4/5 |
+| **Total** | **35/40 (87.5%)** |
+
+Cross-space routing achieved 10/10 — every query that spans domains is correctly routed and composed.
+
+## Phase 18: SELF Space — Identity as Geometry
+
+### YALM Learns What It Is
+
+Phase 18 added a fifth space: SELF. The SELF dictionary (`dict_self5.md`) defines what YALM is, what it can do, and what it cannot do — all in the same ELI5 format as other dictionaries.
+
+### Design Decision: Peer, Not Meta
+
+SELF is a regular geometric space, not a privileged meta-space. "YALM" is a point near "system" and "geometric" and "comprehension". Its capabilities are connectors. Its limitations are distances.
+
+### Routing
+
+Self-referential queries detected by:
+- `self_triggers = ["yalm"]` — queries mentioning YALM by name
+- `self_patterns = [("are", "you"), ("can", "you"), ("do", "you")]` — second-person patterns
+
+### Results
+
+50 questions (unified_test.md), 5 spaces:
+
+| Category | Score |
+|----------|------:|
+| CONTENT | 16/20 |
+| MATH | 5/5 |
+| GRAMMAR | 5/5 |
+| SELF | 10/10 |
+| Cross-space | 5/5 |
+| Full pipeline | 4/5 |
+| **Total** | **45/50 (90%)** |
+
+SELF space achieves 10/10 — YALM correctly answers questions about its own identity, capabilities, and limitations.
+
+### Known Failures (5/50)
+
+| # | Question | Root Cause |
+|---|----------|------------|
+| Q13 | Is three more than one? | Ordinal comparison not geometric |
+| Q18 | What is a sentence made of? | WhatIs extraction fails in small grammar space |
+| Q20 | What does a verb describe? | Same extraction issue |
+| Q25 | What kind of number is "seven"? | Quoted phrases in kind queries |
+| Q36 | How many legs does a dog have? | 3-part context pipeline (stretch) |
+
+## Phase 19: Bootstrap Loop — Self-Improvement Without Changing Dictionaries
+
+### The Idea
+
+YALM generates descriptions of its known concepts (via describe()), feeds the generated text back through connector discovery, and uses the enriched connector set to produce a richer equilibrium. Grammar evolves without changing any dictionary.
+
+### Implementation
+
+New file: `crates/yalm-engine/src/bootstrap.rs` (245 lines).
+
+```
+loop {
+  1. describe() each content word → generated sentences
+  2. Feed sentences through connector discovery → new patterns
+  3. Rebuild geometric space with enriched connectors
+  4. If no new connectors → converged, stop
+}
+```
+
+### Results
+
+| Level | New Connectors | Lost | Generated Sentences |
+|-------|---------------|------|--------------------:|
+| Level 1 | 4 | 0 | 87 |
+| Level 2 | 0 | 0 | 91 |
+
+Converged at Level 2. The 4 new connectors at Level 1 include "is not" — emerging from negation sentences in describe() output. Dictionaries remain immutable; only the connector set evolved.
+
+### Significance
+
+This is YALM's first self-improvement mechanism that doesn't require human intervention (unlike evolution, which needs test suites). The bootstrap loop surfaces implicit grammar from definitions and incorporates it into the geometric space.
+
+## Phase 19b: Code Audit, README Overhaul, Prior Art Analysis
+
+### Pause and Reflect
+
+Before proceeding to Phase 20 (per-space parameter evolution), Phase 19b paused to honestly assess 19 phases of development.
+
+### Deliverables
+
+- **Code Audit** (`reports/19b_code_audit.md`): 24 findings (4 violations, 8 pragmatic, 4 aligned, 6 technical debt). Key finding: ~35% of answers rely on geometry, ~40% on symbolic chain operations, ~25% on geometric absence.
+- **Prior Art Analysis** (`docs/prior_art.md`): 20 citations. Closest relatives: Gardenfors' Conceptual Spaces, TransE knowledge graph embeddings. Novel contribution: the ELI5 closure constraint + automatic connector discovery + force-field equilibrium pipeline.
+- **Documentation** (`docs/`): 6 deep-dive pages (architecture, results, design decisions, limitations, prior art, roadmap).
+- **Updated README.md**: Restructured with links to deep-dive pages.
+
+### The Honest Summary
+
+YALM is a geometric comprehension engine that combines established techniques (force-directed layout, typed relation embeddings, genetic evolution) in a novel configuration (closed ELI5 dictionary → automatic connector discovery → typed force-field equilibrium → multi-space architecture → bootstrap self-improvement). The main limitation is unproven scalability beyond 2000 words and the irreducible need for symbolic chain traversal alongside geometry.
+
+## Evolution Journey (Updated)
+
+| Phase | Version | Best Fitness | Key Advance |
+|-------|---------|-------------|-------------|
+| Baseline | v0.1 | 0.4375 | Pure geometry, no rules |
+| Evolved params | v7d | 0.7812 | Parameter ceiling found |
+| Cross-validation | v6b | 0.7188 | Zero overfitting gap |
+| Grammar reinforcement | v10 | 0.7063 | Regularization, prevents collapse |
+| Surgical fixes | v11 | 0.8500 | Chain negation + definition extraction |
+| dict18 scaling | Phase 07 | 0.7188 | Sublinear fitness decay |
+| Open-mode + Ollama | Phase 09 | 0.50 | Text→LLM→dictionary pipeline |
+| DictVict: Three Men | Phase 10 | 0.8684 | Victorian literature, 16/21 |
+| 3W + chain depth | Phase 11 | 0.8947 | Who/where routing, 17/21 |
+| Entity priority | Phase 11b | 0.9474 | Entity fast path, 19/21 |
+| Boolean operators | Phase 12 | — | AND/OR compound queries |
+| Basic writing | Phase 13 | — | describe() mode, 100% self-consistency |
+| When/Why reasoning | Phase 14 | — | Chain-as-explanation, condition extraction |
+| Property extraction | Phase 15 | — | **STUB — not implemented** |
+| Multi-space (3) | Phase 16 | 88% | MATH + GRAMMAR + TASK spaces |
+| Multi-space (4) | Phase 17 | 87.5% | + CONTENT space, cross-space 10/10 |
+| SELF space | Phase 18 | 90% | Identity as geometry, 45/50 |
+| Bootstrap loop | Phase 19 | — | Self-improvement, 4 new connectors |
+| Audit + docs | Phase 19b | — | 24-finding audit, 20-citation prior art |
+
 ## What Comes Next
 
-Phase 14 completed the **5W question word coverage**: What, Who, Where, When, Why. YALM now handles all five plus Yes/No, Boolean AND/OR, and Describe mode.
+### Phase 20: Per-Space Parameter Evolution
 
-Proposed directions:
+Each geometric space gets its own evolved parameters. Currently all spaces share global defaults, but MATH and GRAMMAR likely need different configurations than CONTENT.
 
-1. **Q10/Q11 person→animal chain** — the last 2 full_test failures. "person" doesn't chain to "animal" even at max_hops=3. Options: enrich Ollama's "person" definition, or add semantic equivalence for "human being"→"animal".
-2. **Level 1 ontological chains** — max_hops=3 didn't help because definitions don't chain to "thing"/"alive". Need richer Ollama definitions or a different approach to deep taxonomy.
-3. **"Where" Strategy B** — "Where is Kingston?" returns "a place" (correct but shallow). Full location-relation extraction ("on the Thames") is deferred.
-4. **Word-sense disambiguation** — "lock" (river lock vs door lock) is the next challenge for Victorian text at scale.
-5. **Full-book comprehension** — passage extraction proves the pipeline works; next is processing chapters automatically.
-6. **Narrative characterization detection** — the Montmorency result (person-dist < dog-dist) suggests the geometry detects anthropomorphism. Can we formalize this?
+### Phase 21: Open-Mode Multi-Space
+
+Apply multi-space architecture to Ollama-assembled dictionaries. Automatic domain partitioning from text.
+
+### Phase 22: Phase 15 Implementation
+
+Rich property extraction for describe(), enabling stronger bootstrap loop signal.
+
+### Long-Term Research
+
+- Can the symbolic operations (chain gate, clause extraction) become geometric?
+- Does the architecture scale to 10K+ words?
+- Does it work for non-English languages?
 
 ## Project Files
 
@@ -795,39 +999,27 @@ yalm/
 ├── crates/
 │   ├── yalm-core/         Data structures and traits
 │   ├── yalm-parser/        Dictionary, test, and grammar file parsing
-│   ├── yalm-engine/        Force field + resolver + connector discovery
+│   ├── yalm-engine/        Force field + resolver + connector discovery + multispace + bootstrap
 │   ├── yalm-eval/          Fitness scoring (+ --entities flag)
-│   └── yalm-evolve/        Genetic algorithm
+│   ├── yalm-evolve/        Genetic algorithm
+│   ├── yalm-demo/          Interactive demo program
+│   └── yalm-cache/         LLM dictionary assembly (Ollama, Wiktionary)
 ├── dictionaries/
-│   ├── dict5.md             51 words, 5-year-old level, CLOSED
-│   ├── dict5_test.md        20 test questions
-│   ├── dict12.md            1005 words, 12-year-old level, CLOSED
-│   ├── dict12_test.md       20 test questions
-│   ├── dict18.md            2008 words, 18-year-old level, CLOSED
-│   ├── dict18_test.md       20 test questions
-│   ├── dict5_bool_test.md   10 boolean operator questions (AND/OR)
-│   ├── dict5_2w_test.md    10 when/why questions
-│   ├── grammar5.md          Grammar text in dict5 vocabulary
-│   └── cache/ollama-qwen3/  2465 cached LLM definitions (a-z.json)
-├── texts/
-│   ├── passage1.md          Open-mode test passage
-│   ├── passage1_test.md     5 questions
-│   └── three_men/
-│       ├── passage_montmorency.md   Chapter 2 excerpt (~300w)
-│       ├── passage_packing.md       Chapter 4 excerpt (~500w)
-│       ├── passage_hampton_court.md Chapter 6 excerpt (~400w)
-│       ├── chapter_01.md            Full Chapter 1 (~2500w)
-│       ├── combined.md              All above concatenated
-│       ├── passage_*_test.md        Per-passage test questions
-│       ├── chapter_01_test.md       5 questions
-│       ├── full_test.md             21-question integration test
-│       ├── granularity_test.md      50-question granularity probe (6 levels)
-│       ├── 3w_test.md               10-question what/who/where test
-│       ├── bool_test.md             5-question boolean operator test (AND/OR)
-│       └── 2w_test.md              5-question when/why test
-├── texts/three_men_supplementary/
-│   └── entities.md          Character/place definitions (6 entries)
-├── prompts/                 Design documents for each phase
+│   ├── dict5.md             51 words, CLOSED
+│   ├── dict12.md            1005 words, CLOSED
+│   ├── dict18.md            2008 words, CLOSED
+│   ├── dict_math5.md        Math domain dictionary
+│   ├── dict_grammar5.md     Grammar domain dictionary
+│   ├── dict_task5.md        Task/routing dictionary
+│   ├── dict_self5.md        SELF identity dictionary
+│   ├── unified_test.md      50-question multi-space test
+│   ├── *_test.md            Per-dictionary test suites
+│   ├── grammar*.md          Grammar regularizer texts
+│   └── cache/ollama-qwen3/  2465 cached LLM definitions
+├── texts/                   Open-mode texts (Three Men in a Boat)
+├── docs/                    Deep-dive documentation (6 pages)
+├── reports/                 Code audit and analysis reports
+├── prompts/                 Phase design documents (19 phases)
 ├── results_v11/             Evolution results
 └── RECAP.md                 This file
 ```
