@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are building the evolution layer for DAPHNE (Yet Another Language Model). DAPHNE v0.1 (built in Prompt 02) is a geometric comprehension engine that:
+You are building the evolution layer for DAPHNE (Definition-Anchored Force-field Heuristic Network Engine). DAPHNE v0.1 (built in Prompt 02) is a geometric comprehension engine that:
 
 1. Reads a closed dictionary (dict5: 50 words)
 2. Discovers connectors from text statistically

@@ -1,6 +1,6 @@
 # DAPHNE — Project Recap
 
-**Yet Another Language Model**
+**Definition-Anchored Force-field Heuristic Network Engine**
 *A geometric comprehension engine that learns from text alone*
 
 Last updated: 2026-02-09

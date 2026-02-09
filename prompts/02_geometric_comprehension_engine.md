@@ -2,7 +2,7 @@
 
 ## CONTEXT
 
-You are building the first version of DAPHNE (Yet Another Language Model), a system that reads a closed dictionary and builds geometric knowledge representations WITHOUT any predefined rules, ontology, or parsing grammar. Everything emerges from the text.
+You are building the first version of DAPHNE (Definition-Anchored Force-field Heuristic Network Engine), a system that reads a closed dictionary and builds geometric knowledge representations WITHOUT any predefined rules, ontology, or parsing grammar. Everything emerges from the text.
 
 This is NOT a traditional NLP pipeline. There is no tokenizer, no POS tagger, no dependency parser, no predefined relation types. The system reads character streams, discovers structure, and builds a geometric space where proximity encodes meaning.
 

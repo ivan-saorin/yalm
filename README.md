@@ -1,4 +1,4 @@
-# DAPHNE — Yet Another Language Model
+# DAPHNE — Definition-Anchored Force-field Heuristic Network Engine
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -242,7 +242,7 @@ If you use DAPHNE in your research, please cite:
 
 ```bibtex
 @software{dafhne2026,
-  title     = {DAPHNE: Yet Another Language Model --- A Geometric Comprehension Engine},
+  title     = {DAPHNE: Definition-Anchored Force-field Heuristic Network Engine --- A Geometric Comprehension Engine},
   author    = {Ivan Saorin},
   year      = {2026},
   url       = {https://github.com/ivan-saorin/dafhne},

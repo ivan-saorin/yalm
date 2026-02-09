@@ -2,7 +2,7 @@
 
 ## PREAMBLE
 
-DAPHNE (Yet Another Language Model) is a geometric comprehension engine that learns from text alone — no neural networks, no pretrained models, no NLP libraries. It reads closed dictionaries where every word in every definition is itself defined, builds an N-dimensional space where words are points, discovers connectors from statistics, and answers questions by geometric distance + definition-chain traversal.
+DAPHNE (Definition-Anchored Force-field Heuristic Network Engine) is a geometric comprehension engine that learns from text alone — no neural networks, no pretrained models, no NLP libraries. It reads closed dictionaries where every word in every definition is itself defined, builds an N-dimensional space where words are points, discovers connectors from statistics, and answers questions by geometric distance + definition-chain traversal.
 
 Three results define the project so far:
 1. **Dict5** (50 words, 5-year-old level): **20/20** — perfect score after v11 surgical fixes
