@@ -263,6 +263,67 @@ fn finalize_grammar_section(
     });
 }
 
+/// Parse a TOML dictionary package file into a Dictionary struct.
+/// Expected format:
+/// ```toml
+/// [package]
+/// name = "dict-name"
+/// ...
+///
+/// [dictionary]
+/// word = "definition text"
+/// ```
+pub fn parse_toml_dictionary(content: &str) -> Dictionary {
+    let toml_value: toml::Value = toml::from_str(content)
+        .expect("Failed to parse TOML dictionary");
+
+    let dict_table = toml_value
+        .get("dictionary")
+        .and_then(|v| v.as_table())
+        .expect("TOML dictionary must have [dictionary] section");
+
+    let mut entries: Vec<DictionaryEntry> = dict_table
+        .iter()
+        .map(|(word, definition)| {
+            DictionaryEntry {
+                word: word.to_lowercase(),
+                definition: definition.as_str().unwrap_or("").to_string(),
+                examples: Vec::new(),
+                section: "default".to_string(),
+                is_entity: false,
+            }
+        })
+        .collect();
+
+    entries.sort_by(|a, b| a.word.cmp(&b.word));
+
+    let entry_words: Vec<String> = entries.iter().map(|e| e.word.clone()).collect();
+    let entry_set: HashSet<String> = entry_words.iter().cloned().collect();
+
+    Dictionary {
+        entries,
+        entry_words,
+        entry_set,
+    }
+}
+
+/// Load a dictionary from a file path, auto-detecting format by extension.
+/// - `.toml` files → parse_toml_dictionary()
+/// - everything else → parse_dictionary() (markdown)
+pub fn load_dictionary(path: impl AsRef<std::path::Path>) -> std::io::Result<Dictionary> {
+    let path = path.as_ref();
+    let content = std::fs::read_to_string(path)?;
+
+    let is_toml = path.extension().map_or(false, |ext| ext == "toml");
+    let dictionary = if is_toml {
+        parse_toml_dictionary(&content)
+    } else {
+        parse_dictionary(&content)
+    };
+
+    Ok(dictionary)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -337,5 +398,57 @@ mod tests {
             assert!(dict.entry_set.contains(*word), "Missing entry word: {}", word);
         }
         assert_eq!(expected_words.len(), 51);
+    }
+
+    #[test]
+    fn test_parse_toml_basic() {
+        let toml_content = r#"
+[package]
+name = "test-dict"
+version = "1.0.0"
+
+[dictionary]
+dog = "an animal"
+cat = "a small animal"
+thing = "all that is"
+"#;
+
+        let dict = parse_toml_dictionary(toml_content);
+
+        assert_eq!(dict.entries.len(), 3);
+        assert!(dict.entry_set.contains("dog"));
+        assert!(dict.entry_set.contains("cat"));
+        assert!(dict.entry_set.contains("thing"));
+
+        let dog = dict.entries.iter().find(|e| e.word == "dog").unwrap();
+        assert_eq!(dog.definition, "an animal");
+        assert!(dog.examples.is_empty());
+        assert_eq!(dog.section, "default");
+    }
+
+    #[test]
+    fn test_parse_full_dict5_toml() {
+        let content = std::fs::read_to_string("../../dictionaries/dict5.pkg.toml").unwrap();
+        let dict = parse_toml_dictionary(&content);
+
+        assert!(dict.entries.len() > 11000, "Expected >11000 entries, got {}", dict.entries.len());
+
+        // Core dict5 words must be present
+        assert!(dict.entry_set.contains("dog"));
+        assert!(dict.entry_set.contains("cat"));
+        assert!(dict.entry_set.contains("thing"));
+        assert!(dict.entry_set.contains("sun"));
+        assert!(dict.entry_set.contains("is"));
+
+        eprintln!("TOML dict has {} entries", dict.entries.len());
+    }
+
+    #[test]
+    fn test_load_dictionary_auto_detect() {
+        let md_dict = load_dictionary("../../dictionaries/dict5.md").unwrap();
+        assert_eq!(md_dict.entries.len(), 51);
+
+        let toml_dict = load_dictionary("../../dictionaries/dict5.pkg.toml").unwrap();
+        assert!(toml_dict.entries.len() > 11000);
     }
 }

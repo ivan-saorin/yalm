@@ -7,7 +7,7 @@ use dafhne_engine::strategy::StrategyConfig;
 use dafhne_engine::Engine;
 use dafhne_engine::multispace::{MultiSpace, SpaceConfig};
 use dafhne_eval::{evaluate, evaluate_multispace, print_space_statistics};
-use dafhne_parser::{parse_dictionary, parse_grammar_text, parse_test_questions};
+use dafhne_parser::{load_dictionary, parse_grammar_text, parse_test_questions};
 
 /// Convert a descriptive sentence into a Yes/No question for verification.
 ///
@@ -264,16 +264,14 @@ fn main() {
         // ENTITIES-ONLY MODE: no --text and no explicit --dict override
         // The entities file will be loaded as the dictionary below
         let entities_path = cli.entities.as_ref().unwrap();
-        let content = std::fs::read_to_string(entities_path)
+        let dict = load_dictionary(entities_path)
             .expect("Failed to read entities file");
-        let dict = parse_dictionary(&content);
         println!("[Entities-only mode: {} entries from {:?}]", dict.entries.len(), entities_path);
         dict
     } else {
-        // CLOSED MODE: parse dictionary from .md file
-        let dict_content =
-            std::fs::read_to_string(&cli.dict).expect("Failed to read dictionary file");
-        parse_dictionary(&dict_content)
+        // CLOSED MODE: parse dictionary from .md or .toml file
+        load_dictionary(&cli.dict)
+            .expect("Failed to read dictionary file")
     };
 
     // ── Merge entity definitions ──────────────────────────────────
@@ -281,9 +279,8 @@ fn main() {
         // Only merge if we didn't already use entities as the full dictionary
         let is_entities_only = cli.text.is_none() && cli.dict == PathBuf::from("dictionaries/dict5.md");
         if !is_entities_only {
-            let entities_content = std::fs::read_to_string(entities_path)
+            let entities_dict = load_dictionary(entities_path)
                 .expect("Failed to read entities file");
-            let entities_dict = parse_dictionary(&entities_content);
 
             println!("[Entities: {} entries from {:?}]", entities_dict.entries.len(), entities_path);
 

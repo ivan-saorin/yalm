@@ -12,7 +12,7 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use dafhne_parser::parse_dictionary;
+use dafhne_parser::load_dictionary;
 
 use crate::cache_trait::{CacheEntry, DictionaryCache};
 
@@ -21,7 +21,7 @@ pub struct ManualFileCache {
 }
 
 impl ManualFileCache {
-    /// Load from a single .md file or a directory of .md files.
+    /// Load from a single .md/.toml file or a directory of .md/.toml files.
     pub fn load(path: &Path) -> std::io::Result<Self> {
         let mut entries = HashMap::new();
 
@@ -29,7 +29,7 @@ impl ManualFileCache {
             let mut paths: Vec<_> = std::fs::read_dir(path)?
                 .filter_map(|e| e.ok())
                 .map(|e| e.path())
-                .filter(|p| p.extension().map_or(false, |ext| ext == "md"))
+                .filter(|p| p.extension().map_or(false, |ext| ext == "md" || ext == "toml"))
                 .collect();
             paths.sort();
             paths
@@ -38,8 +38,7 @@ impl ManualFileCache {
         };
 
         for file_path in files {
-            let content = std::fs::read_to_string(&file_path)?;
-            let dict = parse_dictionary(&content);
+            let dict = load_dictionary(&file_path)?;
             for entry in dict.entries {
                 entries.insert(
                     entry.word.clone(),

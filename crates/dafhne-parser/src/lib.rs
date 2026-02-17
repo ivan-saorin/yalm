@@ -2,6 +2,8 @@ pub mod dictionary;
 pub mod questions;
 
 pub use dictionary::parse_dictionary;
+pub use dictionary::parse_toml_dictionary;
+pub use dictionary::load_dictionary;
 pub use dictionary::parse_grammar_text;
 pub use questions::parse_test_questions;
 

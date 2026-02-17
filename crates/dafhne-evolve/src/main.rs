@@ -9,7 +9,7 @@ use dafhne_evolve::analysis::run_full_analysis;
 use dafhne_evolve::fitness::build_trained_space;
 use dafhne_evolve::genome::{Genome, MultiSpaceGenome};
 use dafhne_evolve::runner::{evolve, evolve_multi, resume, resume_multi, EvolutionConfig, MultiSpaceEvolutionConfig};
-use dafhne_parser::{parse_dictionary, parse_test_questions};
+use dafhne_parser::{load_dictionary, parse_test_questions};
 
 #[derive(Parser)]
 #[command(name = "dafhne-evolve", about = "Evolutionary self-improvement for DAFHNE")]
@@ -278,8 +278,7 @@ fn cmd_analyze(gen_path: &PathBuf, dict5_path: &PathBuf) {
     println!();
 
     // Rebuild space
-    let dict_content = std::fs::read_to_string(dict5_path).expect("Failed to read dictionary");
-    let dictionary = parse_dictionary(&dict_content);
+    let dictionary = load_dictionary(dict5_path).expect("Failed to read dictionary");
     let space = build_trained_space(&best, &dictionary, None, 42);
 
     run_full_analysis(&space);
@@ -297,8 +296,7 @@ fn cmd_run_best(results_dir: &PathBuf, dict_path: &PathBuf, test_path: &PathBuf)
     println!();
 
     // Load dictionary and test
-    let dict_content = std::fs::read_to_string(dict_path).expect("Failed to read dictionary");
-    let dictionary = parse_dictionary(&dict_content);
+    let dictionary = load_dictionary(dict_path).expect("Failed to read dictionary");
     let test_content = std::fs::read_to_string(test_path).expect("Failed to read test file");
     let test_suite = parse_test_questions(&test_content);
 

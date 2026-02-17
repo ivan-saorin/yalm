@@ -6,7 +6,7 @@
 use std::collections::{HashMap, HashSet};
 
 use dafhne_core::*;
-use dafhne_parser::{parse_dictionary, stem_to_entry, tokenize};
+use dafhne_parser::{load_dictionary, stem_to_entry, tokenize};
 
 use crate::resolver::{definition_chain_check, resolve_question};
 use crate::strategy::StrategyConfig;
@@ -129,9 +129,8 @@ impl MultiSpace {
         let mut space_order = Vec::new();
 
         for config in configs {
-            let content = std::fs::read_to_string(&config.dict_path)
+            let dictionary = load_dictionary(&config.dict_path)
                 .unwrap_or_else(|_| panic!("Failed to read dictionary: {}", config.dict_path));
-            let dictionary = parse_dictionary(&content);
 
             println!(
                 "[Space {}] Loading {} ({} entries)",
@@ -183,9 +182,8 @@ impl MultiSpace {
         let mut space_order = Vec::new();
 
         for config in configs {
-            let content = std::fs::read_to_string(&config.dict_path)
+            let dictionary = load_dictionary(&config.dict_path)
                 .unwrap_or_else(|_| panic!("Failed to read dictionary: {}", config.dict_path));
-            let dictionary = parse_dictionary(&content);
 
             let (params, strategy) = space_params
                 .get(&config.name)

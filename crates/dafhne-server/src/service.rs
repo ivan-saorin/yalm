@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 use std::time::Instant;
 
@@ -7,8 +7,25 @@ use dafhne_core::*;
 use dafhne_engine::multispace::{MultiSpace, SpaceConfig};
 use dafhne_engine::strategy::StrategyConfig;
 use dafhne_engine::{BuildMode, Engine};
-use dafhne_parser::parse_dictionary;
+use dafhne_parser::load_dictionary;
 use serde::Deserialize;
+
+/// Resolve a dictionary filename in a data directory.
+/// Tries the given name first (e.g. "dict5.md"), then falls back to ".pkg.toml".
+fn resolve_dict_path(data_dir: &Path, filename: &str) -> Option<PathBuf> {
+    let primary = data_dir.join(filename);
+    if primary.exists() {
+        return Some(primary);
+    }
+    // Fallback: replace .md extension with .pkg.toml
+    if let Some(stem) = filename.strip_suffix(".md") {
+        let fallback = data_dir.join(format!("{}.pkg.toml", stem));
+        if fallback.exists() {
+            return Some(fallback);
+        }
+    }
+    None
+}
 
 // ─── Genome file structures (matching dafhne-evolve output) ────
 
@@ -267,11 +284,9 @@ impl DafhneService {
         };
 
         // ── dafhne-5: single-space dict5 ──
-        let dict5_path = data_dir.join("dict5.md");
-        if dict5_path.exists() {
+        if let Some(dict5_path) = resolve_dict_path(&data_dir, "dict5.md") {
             let start = Instant::now();
-            let content = std::fs::read_to_string(&dict5_path).unwrap();
-            let dictionary = parse_dictionary(&content);
+            let dictionary = load_dictionary(&dict5_path).unwrap();
             let word_count = dictionary.entries.len();
 
             let mut engine = Engine::with_strategy(single_params.clone(), single_strategy.clone());
@@ -299,11 +314,9 @@ impl DafhneService {
         }
 
         // ── dafhne-12: single-space dict12 ──
-        let dict12_path = data_dir.join("dict12.md");
-        if dict12_path.exists() {
+        if let Some(dict12_path) = resolve_dict_path(&data_dir, "dict12.md") {
             let start = Instant::now();
-            let content = std::fs::read_to_string(&dict12_path).unwrap();
-            let dictionary = parse_dictionary(&content);
+            let dictionary = load_dictionary(&dict12_path).unwrap();
             let word_count = dictionary.entries.len();
 
             let mut engine = Engine::with_strategy(single_params.clone(), single_strategy.clone());
@@ -338,7 +351,13 @@ impl DafhneService {
             ("task", "dict_task5.md"),
             ("self", "dict_self5.md"),
         ];
-        let all_exist = space_dicts.iter().all(|(_, f)| data_dir.join(f).exists());
+        // Resolve each dictionary with .pkg.toml fallback
+        let resolved_space_dicts: Vec<(&str, PathBuf)> = space_dicts.iter()
+            .filter_map(|(name, file)| {
+                resolve_dict_path(&data_dir, file).map(|p| (*name, p))
+            })
+            .collect();
+        let all_exist = resolved_space_dicts.len() == space_dicts.len();
         if all_exist {
             let start = Instant::now();
 
@@ -374,13 +393,13 @@ impl DafhneService {
 
                 let configs: Vec<SpaceConfig> = mg.space_order.iter()
                     .map(|name| {
-                        let filename = space_dicts.iter()
+                        let path = resolved_space_dicts.iter()
                             .find(|(n, _)| *n == name.as_str())
-                            .map(|(_, f)| *f)
-                            .unwrap_or("dict5.md");
+                            .map(|(_, p)| p.to_string_lossy().to_string())
+                            .unwrap_or_else(|| data_dir.join("dict5.md").to_string_lossy().to_string());
                         SpaceConfig {
                             name: name.clone(),
-                            dict_path: data_dir.join(filename).to_string_lossy().to_string(),
+                            dict_path: path,
                         }
                     })
                     .collect();
@@ -394,10 +413,10 @@ impl DafhneService {
                 )
             } else {
                 // Fall back to uniform params
-                let configs: Vec<SpaceConfig> = space_dicts.iter()
-                    .map(|(name, file)| SpaceConfig {
+                let configs: Vec<SpaceConfig> = resolved_space_dicts.iter()
+                    .map(|(name, path)| SpaceConfig {
                         name: name.to_string(),
-                        dict_path: data_dir.join(file).to_string_lossy().to_string(),
+                        dict_path: path.to_string_lossy().to_string(),
                     })
                     .collect();
 

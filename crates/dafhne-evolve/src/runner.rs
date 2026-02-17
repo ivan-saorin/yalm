@@ -5,7 +5,7 @@ use std::sync::Arc;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use dafhne_core::SimpleRng;
-use dafhne_parser::{parse_dictionary, parse_grammar_text, parse_test_questions};
+use dafhne_parser::{load_dictionary, parse_grammar_text, parse_test_questions};
 
 use crate::fitness::{build_trained_space, evaluate_genome, evaluate_multi_genome, EvalResult, MultiSpaceEvalResult};
 use crate::genome::{Genome, MultiSpaceGenome, ParamRanges};
@@ -138,17 +138,14 @@ fn evolve_inner(
     });
 
     // Load data files once
-    let dict5_content =
-        std::fs::read_to_string(&config.dict5_path).expect("Failed to read dict5");
-    let dict5 = parse_dictionary(&dict5_content);
+    let dict5 = load_dictionary(&config.dict5_path).expect("Failed to read dict5");
 
     let test5_content =
         std::fs::read_to_string(&config.dict5_test_path).expect("Failed to read dict5_test");
     let test5 = parse_test_questions(&test5_content);
 
     let dict12 = config.dict12_path.as_ref().map(|p| {
-        let content = std::fs::read_to_string(p).expect("Failed to read dict12");
-        parse_dictionary(&content)
+        load_dictionary(p).expect("Failed to read dict12")
     });
     let test12 = config.dict12_test_path.as_ref().map(|p| {
         let content = std::fs::read_to_string(p).expect("Failed to read dict12_test");
@@ -163,8 +160,7 @@ fn evolve_inner(
     });
 
     let dict18 = config.dict18_path.as_ref().map(|p| {
-        let content = std::fs::read_to_string(p).expect("Failed to read dict18");
-        parse_dictionary(&content)
+        load_dictionary(p).expect("Failed to read dict18")
     });
     let test18 = config.dict18_test_path.as_ref().map(|p| {
         let content = std::fs::read_to_string(p).expect("Failed to read dict18_test");
